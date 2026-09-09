@@ -12,8 +12,17 @@ import {
   SpinnerGap,
 } from "@phosphor-icons/react";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { isCommunityConfigured, loadCommunityStats } from "./community-api.js";
-import { resetCommunitySessionPromise, supabase } from "./lib/supabase.js";
+import {
+  createAdminQuote,
+  isCommunityConfigured,
+  loadAdminDashboard,
+  loadAdminSession,
+  loginAdmin,
+  logoutAdmin,
+  updateAdminComment,
+  updateAdminQuote,
+} from "./community-api.js";
+import { attemptAdminLogout } from "./features/community/admin-session-state.js";
 import "./admin-page.css";
 
 const statusOptions = [
@@ -60,22 +69,21 @@ function AdminLogin({ onAuthenticated }) {
     event.preventDefault();
     setState("submitting");
     setErrorMessage("");
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) {
+    try {
+      const session = await loginAdmin(email, password);
+      setState("success");
+      onAuthenticated(session);
+    } catch {
       setState("error");
       setErrorMessage("邮箱或密码不对，或者账号还没有启用。 ");
-      return;
     }
-    resetCommunitySessionPromise();
-    setState("success");
-    onAuthenticated(data.session);
   };
 
   return (
     <section className="community-admin-login" aria-labelledby="community-admin-login-title">
       <span>{t("PRIVATE ENTRY")}</span>
       <h1 id="community-admin-login-title">{t("坑底编辑台")}</h1>
-      <p>{t("这里不靠隐藏地址保护。只有写入管理员名单的 Supabase 账号能够管理内容。")}</p>
+      <p>{t("这里不靠隐藏地址保护。只有服务器数据库中已启用的本地管理员账号能够管理内容。")}</p>
       <form onSubmit={handleSubmit}>
         <label>
           <span>{t("管理员邮箱")}</span>
@@ -100,11 +108,11 @@ function AdminSetupNotice() {
     <section className="community-admin-setup" aria-labelledby="community-admin-setup-title">
       <span>{t("BACKEND NOT CONNECTED")}</span>
       <h1 id="community-admin-setup-title">{t("后台代码已经到位，数据服务还没接线。")}</h1>
-      <p>{t("创建 Supabase 项目后，把公开连接信息写入部署环境，后台登录和审核功能才会开放。")}</p>
+      <p>{t("当前静态回滚版本没有连接社区 API；主站服务器启动后，后台登录和审核功能才会开放。")}</p>
       <ol>
-        <li>{t("执行仓库中的 Supabase migration。")}</li>
-        <li>{t("启用匿名登录，并创建管理员账号。")}</li>
-        <li>{t("配置 ")}<code>{t("VITE_SUPABASE_URL")}</code>{t(" 和 ")}<code>{t("VITE_SUPABASE_PUBLISHABLE_KEY")}</code>。</li>
+        <li>{t("执行仓库中的 MySQL migration 与 seed。")}</li>
+        <li>{t("创建本地管理员账号并启动 Node API。")}</li>
+        <li>{t("确认 Nginx 已把 ")}<code>{t("/api/")}</code>{t(" 转发到本机服务。")}</li>
       </ol>
       <a href="#/tide-words">{t("先返回坑底文学")}</a>
     </section>
@@ -160,7 +168,7 @@ function QuoteEditor({ busy, onSave, quote }) {
   );
 }
 
-function AdminDashboard({ session, onSignOut }) {
+function AdminDashboard({ logoutMessage, session, onSignOut }) {
   const [comments, setComments] = useState([]);
   const [quotes, setQuotes] = useState([]);
   const [stats, setStats] = useState({});
@@ -172,24 +180,10 @@ function AdminDashboard({ session, onSignOut }) {
 
   const loadDashboard = useCallback(async () => {
     setState("loading");
-    const [commentsResult, quotesResult, nextStats] = await Promise.all([
-      supabase
-        .from("community_comments")
-        .select("id,target_type,target_id,user_id,nickname,body,status,created_at,moderated_at")
-        .order("created_at", { ascending: false })
-        .limit(250),
-      supabase
-        .from("community_quotes")
-        .select("id,text,speaker,cover_path,sort_order,status,is_pinned,created_at,updated_at")
-        .order("sort_order", { ascending: true })
-        .order("created_at", { ascending: true }),
-      loadCommunityStats(),
-    ]);
-    if (commentsResult.error) throw commentsResult.error;
-    if (quotesResult.error) throw quotesResult.error;
-    setComments(commentsResult.data ?? []);
-    setQuotes(quotesResult.data ?? []);
-    setStats(nextStats);
+    const dashboard = await loadAdminDashboard();
+    setComments(dashboard.comments ?? []);
+    setQuotes(dashboard.quotes ?? []);
+    setStats(dashboard.stats ?? {});
     setState("ready");
   }, []);
 
@@ -208,21 +202,14 @@ function AdminDashboard({ session, onSignOut }) {
   const moderate = async (commentId, nextStatus) => {
     setBusyId(commentId);
     setMessage("");
-    const { error } = await supabase
-      .from("community_comments")
-      .update({
-        status: nextStatus,
-        moderated_at: new Date().toISOString(),
-        moderated_by: session.user.id,
-      })
-      .eq("id", commentId);
-    if (error) {
-      setMessage("这条回声没有更新成功，请检查管理员权限。 ");
-    } else {
+    try {
+      await updateAdminComment(commentId, { status: nextStatus });
       setComments((current) => current.map((comment) => (
         comment.id === commentId ? { ...comment, status: nextStatus } : comment
       )));
       setMessage(nextStatus === "published" ? "已经公开。" : "已经隐藏。 ");
+    } catch {
+      setMessage("这条回声没有更新成功，请检查管理员权限。 ");
     }
     setBusyId(null);
   };
@@ -230,16 +217,12 @@ function AdminDashboard({ session, onSignOut }) {
   const saveQuote = async (quoteId, patch) => {
     setBusyId(quoteId);
     setMessage("");
-    const { data, error } = await supabase
-      .from("community_quotes")
-      .update({ ...patch, updated_at: new Date().toISOString() })
-      .eq("id", quoteId)
-      .select("id,text,speaker,cover_path,sort_order,status,is_pinned,created_at,updated_at")
-      .single();
-    if (error) setMessage("卡片没有保存成功，请检查内容长度和管理员权限。 ");
-    else {
+    try {
+      const data = await updateAdminQuote(quoteId, patch);
       setQuotes((current) => current.map((quote) => quote.id === quoteId ? data : quote).sort((a, b) => a.sort_order - b.sort_order));
       setMessage("卡片已经保存。 ");
+    } catch {
+      setMessage("卡片没有保存成功，请检查内容长度和管理员权限。 ");
     }
     setBusyId(null);
   };
@@ -251,16 +234,13 @@ function AdminDashboard({ session, onSignOut }) {
     setBusyId("new-quote");
     setMessage("");
     const nextSortOrder = Math.max(0, ...quotes.map((quote) => quote.sort_order || 0)) + 10;
-    const { data, error } = await supabase
-      .from("community_quotes")
-      .insert({ text, speaker: "匿名坑底人", sort_order: nextSortOrder, status: "draft", is_pinned: false })
-      .select("id,text,speaker,cover_path,sort_order,status,is_pinned,created_at,updated_at")
-      .single();
-    if (error) setMessage("新卡片没有建好，请检查管理员权限。 ");
-    else {
+    try {
+      const data = await createAdminQuote({ text, speaker: "匿名坑底人", sort_order: nextSortOrder, status: "draft", is_pinned: false });
       setQuotes((current) => [...current, data]);
       setNewQuoteText("");
       setMessage("新卡片已保存为草稿。 ");
+    } catch {
+      setMessage("新卡片没有建好，请检查管理员权限。 ");
     }
     setBusyId(null);
   };
@@ -281,6 +261,7 @@ function AdminDashboard({ session, onSignOut }) {
             <div><dt><Check aria-hidden="true" />{t("公开回声")}</dt><dd>{t(totals.comments)}</dd></div>
           </dl>
         </section>
+        {logoutMessage ? <p className="community-admin-message" role="alert">{t(logoutMessage)}</p> : null}
 
         <section className="community-admin-content" aria-labelledby="community-admin-content-title">
           <header>
@@ -361,52 +342,44 @@ function AdminDashboard({ session, onSignOut }) {
 export function AdminPage() {
   const [session, setSession] = useState(null);
   const [authState, setAuthState] = useState(isCommunityConfigured ? "loading" : "unconfigured");
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [authMessage, setAuthMessage] = useState("");
 
   const verifyAdmin = useCallback(async (nextSession) => {
-    if (!nextSession || nextSession.user?.is_anonymous) {
-      setSession(nextSession);
-      setIsAdmin(false);
+    if (!nextSession?.user || nextSession.user.kind !== "admin" || nextSession.user.role !== "admin") {
+      setSession(null);
       setAuthState("signed-out");
       return;
     }
-
+    setAuthMessage("");
     setSession(nextSession);
-    setAuthState("checking");
-    const { data, error } = await supabase
-      .from("community_admins")
-      .select("user_id")
-      .eq("user_id", nextSession.user.id)
-      .maybeSingle();
-    if (error || !data) {
-      setIsAdmin(false);
-      setAuthState("forbidden");
-      return;
-    }
-    setIsAdmin(true);
     setAuthState("ready");
   }, []);
 
   useEffect(() => {
     if (!isCommunityConfigured) return undefined;
     let alive = true;
-    supabase.auth.getSession().then(({ data }) => {
-      if (alive) verifyAdmin(data.session);
-    });
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, nextSession) => {
-      if (alive) verifyAdmin(nextSession);
-    });
+    loadAdminSession()
+      .then((nextSession) => {
+        if (alive) verifyAdmin(nextSession);
+      })
+      .catch((error) => {
+        if (!alive) return;
+        setSession(null);
+        setAuthState(error?.code === "admin_forbidden" ? "forbidden" : "signed-out");
+      });
     return () => {
       alive = false;
-      listener.subscription.unsubscribe();
     };
   }, [verifyAdmin]);
 
   const signOut = async () => {
-    await supabase.auth.signOut();
-    resetCommunitySessionPromise();
+    setAuthMessage("");
+    const result = await attemptAdminLogout(logoutAdmin);
+    if (!result.signedOut) {
+      setAuthMessage(result.message);
+      return;
+    }
     setSession(null);
-    setIsAdmin(false);
     setAuthState("signed-out");
   };
 
@@ -430,15 +403,16 @@ export function AdminPage() {
         <section className="community-admin-forbidden">
           <span>{t("ACCESS NOT LISTED")}</span>
           <h1>{t("账号是真的，管理员身份还没有。")}</h1>
-          <p>{t("请把账号 UUID 写入 ")}<code>{t("community_admins")}</code>{t(" 后重新进入。")}</p>
+          <p>{t("请确认本地管理员账号仍处于启用状态，并重新登录。")}</p>
+          {authMessage ? <p role="alert">{t(authMessage)}</p> : null}
         </section>
       </main>
     );
   }
 
-  if (!session || !isAdmin) {
+  if (!session) {
     return <main className="community-admin-page"><AdminHeader /><AdminLogin onAuthenticated={verifyAdmin} /></main>;
   }
 
-  return <AdminDashboard session={session} onSignOut={signOut} />;
+  return <AdminDashboard logoutMessage={authMessage} session={session} onSignOut={signOut} />;
 }

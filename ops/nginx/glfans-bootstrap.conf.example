@@ -1,0 +1,27 @@
+# Bootstrap-only HTTP virtual host. Install this before requesting the first
+# certificate, then replace it with glfans.conf.example after Certbot succeeds.
+server {
+    listen 80;
+    listen [::]:80;
+    server_name glfans.com www.glfans.com;
+
+    root /var/www/glfans/current;
+    index index.html;
+
+    access_log /var/log/nginx/glfans.access.log;
+    error_log /var/log/nginx/glfans.error.log warn;
+
+    location ^~ /.well-known/acme-challenge/ {
+        root /var/www/letsencrypt-glfans;
+        default_type text/plain;
+        try_files $uri =404;
+    }
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    location ~ /\. {
+        deny all;
+    }
+}

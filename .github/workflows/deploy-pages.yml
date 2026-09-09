@@ -1,9 +1,6 @@
-name: Deploy GitHub Pages
+name: Manual GitHub Pages fallback
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 permissions:
@@ -37,8 +34,8 @@ jobs:
       - name: Build static site
         run: npm run build
         env:
-          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
-          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.VITE_SUPABASE_PUBLISHABLE_KEY }}
+          VITE_BASE_PATH: /glfans/
+          VITE_COMMUNITY_API_ENABLED: "false"
 
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v4

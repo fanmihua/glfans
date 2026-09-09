@@ -53,10 +53,10 @@
   }
 
 
-  /* On phones credits and legal copy live in About, not in repeated page footers. */
-  .app-shell .global-footer,
-  .app-shell .site-rights-notice,
-  .app-shell .meme-download-notice { display: none; }
+  /* On phones repeated credits and rights copy live in About; the statutory filing line remains per route. */
+  .app-shell.has-mobile-navigation .global-footer,
+  .app-shell.has-mobile-navigation .site-rights-notice:not(.about-mobile-rights),
+  .app-shell.has-mobile-navigation .meme-download-notice { display: none; }
   body.meme-game-active .has-mobile-navigation { --meme-footer-height: 0px; }
 
   .mobile-header-actions a,

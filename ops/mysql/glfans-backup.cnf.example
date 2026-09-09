@@ -1,0 +1,6 @@
+[client]
+user=glfans_backup
+password=replace-with-a-random-backup-password
+host=127.0.0.1
+port=3306
+protocol=TCP

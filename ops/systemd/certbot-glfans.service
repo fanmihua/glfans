@@ -1,0 +1,13 @@
+[Unit]
+Description=Renew the isolated glfans Let's Encrypt certificate
+Documentation=https://eff-certbot.readthedocs.io/
+Wants=network-online.target
+After=network-online.target nginx.service
+ConditionPathExists=/etc/letsencrypt-glfans/renewal/glfans.com.conf
+
+[Service]
+Type=oneshot
+UMask=0077
+ExecStartPre=/usr/bin/test -x /snap/bin/certbot
+ExecStartPre=/usr/bin/test -x /usr/local/libexec/certbot-glfans/reload-nginx.sh
+ExecStart=/snap/bin/certbot renew --quiet --no-random-sleep-on-renew --config-dir /etc/letsencrypt-glfans --work-dir /var/lib/letsencrypt-glfans --logs-dir /var/log/letsencrypt-glfans --deploy-hook /usr/local/libexec/certbot-glfans/reload-nginx.sh

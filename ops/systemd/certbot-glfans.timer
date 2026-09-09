@@ -1,0 +1,13 @@
+[Unit]
+Description=Check the isolated glfans certificate twice daily
+
+[Timer]
+OnCalendar=*-*-* 03:17:00
+OnCalendar=*-*-* 15:17:00
+RandomizedDelaySec=30m
+Persistent=true
+AccuracySec=1m
+Unit=certbot-glfans.service
+
+[Install]
+WantedBy=timers.target

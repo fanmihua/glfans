@@ -1,0 +1,35 @@
+[Unit]
+Description=Back up the glfans MySQL database
+Documentation=https://github.com/fanmihua/glfans/blob/main/docs/VPS_DEPLOYMENT.md
+After=mysql.service
+ConditionPathExists=/etc/glfans/mysql-backup.cnf
+ConditionPathIsDirectory=/var/backups/glfans-mysql
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+EnvironmentFile=-/etc/glfans/glfans-backup.env
+ExecStart=/usr/local/sbin/backup-glfans-mysql
+UMask=0077
+Nice=10
+IOSchedulingClass=best-effort
+IOSchedulingPriority=7
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectClock=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectControlGroups=true
+ProtectHostname=true
+RestrictSUIDSGID=true
+RestrictRealtime=true
+LockPersonality=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+ReadWritePaths=/var/backups/glfans-mysql /run/lock
+CapabilityBoundingSet=
+AmbientCapabilities=

@@ -13,7 +13,7 @@ body:
     attributes:
       label: 涉及页面
       description: 请提供 glfans 的具体页面地址。
-      placeholder: https://fanmihua.github.io/glfans/#/...
+      placeholder: https://glfans.com/#/...
     validations:
       required: true
   - type: textarea

@@ -71,7 +71,7 @@ export function TideCommunitySummary({ community, compact = false }) {
           likes={pageStats.likes}
           onClick={() => community.toggleReaction(tideWordsPageTarget.targetType, tideWordsPageTarget.targetId)}
         />
-        <small>{t(community.configured ? "给整个坑底文学送一次心动" : "互动服务等待 Supabase 配置")}</small>
+        <small>{t(community.configured ? "给整个坑底文学送一次心动" : "互动服务等待社区 API")}</small>
       </div>
     </section>
   );

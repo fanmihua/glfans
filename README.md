@@ -2,7 +2,7 @@
 
 [中文](#zh) · [English](#en) · [ไทย](#th)
 
-[![Deploy GitHub Pages](https://github.com/fanmihua/glfans/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/fanmihua/glfans/actions/workflows/deploy-pages.yml)
+[主站：glfans.com](https://glfans.com/) · [GitHub Pages 回滚构建](https://github.com/fanmihua/glfans/actions/workflows/deploy-pages.yml)
 
 <a id="zh"></a>
 
@@ -10,7 +10,7 @@
 
 > 欢迎入坑。请保管好你的理智，虽然大概率用不上。
 
-[欢迎入坑](https://fanmihua.github.io/glfans/?lang=zh#/) · [考古档案](https://fanmihua.github.io/glfans/?lang=zh#/archive) · [坑底文学](https://fanmihua.github.io/glfans/?lang=zh#/tide-words) · [Repo 文专栏](https://fanmihua.github.io/glfans/?lang=zh#/column) · [来捡表情包](https://fanmihua.github.io/glfans/?lang=zh#/memes) · [坑底电台](https://fanmihua.github.io/glfans/?lang=zh#/radio) · [关于](https://fanmihua.github.io/glfans/?lang=zh#/about)
+[欢迎入坑](https://glfans.com/?lang=zh#/) · [考古档案](https://glfans.com/?lang=zh#/archive) · [坑底文学](https://glfans.com/?lang=zh#/tide-words) · [Repo 文专栏](https://glfans.com/?lang=zh#/column) · [来捡表情包](https://glfans.com/?lang=zh#/memes) · [坑底电台](https://glfans.com/?lang=zh#/radio) · [关于](https://glfans.com/?lang=zh#/about)
 
 [参与讨论](https://github.com/fanmihua/glfans/discussions) · [提交问题](https://github.com/fanmihua/glfans/issues)
 
@@ -73,7 +73,7 @@ npm run test:sites
 node --test tests/*.test.mjs
 ```
 
-点赞与评论使用 Supabase。需要连接自己的项目时，按 `.env.example` 配置公开连接参数，数据库迁移位于 `supabase/migrations/`。不要将私密密钥放进浏览器配置。线上页面由 GitHub Pages 自动构建发布。
+互动功能通过本站同源 `/api` 连接服务器端 Node 服务与独立 MySQL 数据库，浏览器不再包含数据库密钥。数据库迁移位于 `db/migrations/`，服务配置与运行说明见 `server/README.md`。主站从 VPS 根路径发布到 `https://glfans.com/`，完整的 Nginx、SSL 与原子发布流程见 [VPS 部署说明](docs/VPS_DEPLOYMENT.md)。GitHub Pages workflow 继续保留，仅作为回滚构建；它通过 `VITE_BASE_PATH=/glfans/` 显式使用子路径，普通 `npm run build` 默认生成根路径版本。
 
 日历的近期数据保存在 `src/data/archive-schedule.json`，历史日期独立保存在 `src/data/archive-history.json`，周更新不会覆盖历史。点击月份标题可选择年份与月份，无排期月份置灰，有排期月份显示去重剧集数，按当前关注筛选联动，并定位当月第一条排期；选剧支持按剧名、演员和年份搜索，点击完成后切换到关注。历史只收录来源明确的逐集日期，缺少逐集资料的剧仅展示首播。运行 `npm run sync:history` 可按已核对的剧集、季和单元映射重新获取历史；映射和首播来源在 `scripts/lib/archive-history-*`，新匹配需人工核对。维护时运行 `npm run sync:schedule` 拉取公开排期，`npm run test:schedule` 校验规则，`npm run stats:schedule` 生成本地日期与状态统计。同步失败会保留原数据，日期冲突的记录隐藏待核实；不按总集数推算未知播出日期。数据来自 [GL Spotlight](https://glspotlight.com/airing) 和 [TVmaze](https://www.tvmaze.com/api)，来源及许可见 [NOTICE](NOTICE)。数据修改需重新构建发布，定期检查本身不会自动更新线上站点。
 
@@ -97,7 +97,7 @@ glfans 是非官方、非商业的粉丝共创站。第三方素材相关权利�
 
 > Welcome to the pit. Keep your common sense safe. You probably won’t be using it.
 
-[Enter the Pit](https://fanmihua.github.io/glfans/?lang=en#/) · [GL Archive](https://fanmihua.github.io/glfans/?lang=en#/archive) · [Voices from the Pit](https://fanmihua.github.io/glfans/?lang=en#/tide-words) · [REPO](https://fanmihua.github.io/glfans/?lang=en#/column) · [Meme Camera](https://fanmihua.github.io/glfans/?lang=en#/memes) · [Pit Radio](https://fanmihua.github.io/glfans/?lang=en#/radio) · [About](https://fanmihua.github.io/glfans/?lang=en#/about)
+[Enter the Pit](https://glfans.com/?lang=en#/) · [GL Archive](https://glfans.com/?lang=en#/archive) · [Voices from the Pit](https://glfans.com/?lang=en#/tide-words) · [REPO](https://glfans.com/?lang=en#/column) · [Meme Camera](https://glfans.com/?lang=en#/memes) · [Pit Radio](https://glfans.com/?lang=en#/radio) · [About](https://glfans.com/?lang=en#/about)
 
 [Join the conversation](https://github.com/fanmihua/glfans/discussions) · [Report an issue](https://github.com/fanmihua/glfans/issues)
 
@@ -158,7 +158,7 @@ npm run test:sites
 node --test tests/*.test.mjs
 ```
 
-Likes and comments use Supabase. To connect your own project, configure the public connection settings in `.env.example`; database migrations are in `supabase/migrations/`. Never put private keys in browser configuration. GitHub Pages builds and publishes the live site automatically.
+Interactive features call the same-origin `/api`, which connects to a server-side Node service and a dedicated MySQL database; the browser no longer contains database credentials. Database migrations live in `db/migrations/`, with service setup and runtime details in `server/README.md`. The primary site is published at the VPS root, `https://glfans.com/`; see the [VPS deployment guide](docs/VPS_DEPLOYMENT.md) for Nginx, SSL and atomic releases. The GitHub Pages workflow remains only as a rollback build and explicitly sets `VITE_BASE_PATH=/glfans/`. A normal `npm run build` targets the domain root.
 
 Recent calendar data lives in `src/data/archive-schedule.json`; history is separate in `src/data/archive-history.json` and survives weekly updates. Click the month heading to choose a year/month. Empty months are disabled; available months show distinct show counts for the active filter and open at the first listing. Search the show chooser by title, cast or year; Done switches to Following. History uses sourced episode dates, or only a verified premiere where episode dates are unavailable. Run `npm run sync:history` to refresh reviewed show/season/anthology mappings in `scripts/lib/archive-history-*`; new mappings require review. Run `npm run sync:schedule` to fetch public schedules, `npm run test:schedule` to validate the rules, and `npm run stats:schedule` for local date and status statistics. Failed fetches retain existing data; conflicting dates stay hidden for review. Unknown dates are never generated from episode totals. Sources are [GL Spotlight](https://glspotlight.com/airing) and [TVmaze](https://www.tvmaze.com/api); see [NOTICE](NOTICE) for attribution and licensing. Data changes require a new build and deployment; periodic checks alone do not publish them.
 
@@ -182,7 +182,7 @@ glfans is an unofficial, non-commercial fan collaboration. Rights to third-party
 
 > ยินดีต้อนรับเข้าด้อม เก็บสติไว้ให้ดีนะ ถึงส่วนใหญ่จะไม่ได้ใช้ก็ตาม
 
-[เข้าด้อมกัน](https://fanmihua.github.io/glfans/?lang=th#/) · [คลังซีรีส์ GL](https://fanmihua.github.io/glfans/?lang=th#/archive) · [เสียงจากด้อม](https://fanmihua.github.io/glfans/?lang=th#/tide-words) · [บทความ REPO](https://fanmihua.github.io/glfans/?lang=th#/column) · [กล้องสุ่มมีม](https://fanmihua.github.io/glfans/?lang=th#/memes) · [วิทยุประจำด้อม](https://fanmihua.github.io/glfans/?lang=th#/radio) · [เกี่ยวกับ](https://fanmihua.github.io/glfans/?lang=th#/about)
+[เข้าด้อมกัน](https://glfans.com/?lang=th#/) · [คลังซีรีส์ GL](https://glfans.com/?lang=th#/archive) · [เสียงจากด้อม](https://glfans.com/?lang=th#/tide-words) · [บทความ REPO](https://glfans.com/?lang=th#/column) · [กล้องสุ่มมีม](https://glfans.com/?lang=th#/memes) · [วิทยุประจำด้อม](https://glfans.com/?lang=th#/radio) · [เกี่ยวกับ](https://glfans.com/?lang=th#/about)
 
 [มาคุยกัน](https://github.com/fanmihua/glfans/discussions) · [แจ้งปัญหา](https://github.com/fanmihua/glfans/issues)
 
@@ -243,7 +243,7 @@ npm run test:sites
 node --test tests/*.test.mjs
 ```
 
-การกดถูกใจและความคิดเห็นใช้ Supabase หากต้องการเชื่อมต่อโปรเจกต์ของตัวเอง ให้ตั้งค่าการเชื่อมต่อสาธารณะตาม `.env.example` ไฟล์ย้ายโครงสร้างฐานข้อมูลอยู่ใน `supabase/migrations/` ห้ามใส่คีย์ส่วนตัวในค่าที่ส่งไปยังเบราว์เซอร์ เว็บไซต์จริงสร้างและเผยแพร่อัตโนมัติผ่าน GitHub Pages
+ฟีเจอร์โต้ตอบเชื่อมต่อกับ `/api` บนโดเมนเดียวกัน ซึ่งส่งต่อไปยังบริการ Node ฝั่งเซิร์ฟเวอร์และฐานข้อมูล MySQL แยกเฉพาะ โดยเบราว์เซอร์ไม่เก็บคีย์ฐานข้อมูลอีกต่อไป ไฟล์ย้ายโครงสร้างฐานข้อมูลอยู่ใน `db/migrations/` และรายละเอียดการตั้งค่ากับการรันบริการอยู่ใน `server/README.md` เว็บไซต์หลักเผยแพร่จาก VPS ที่รากโดเมน `https://glfans.com/` ดูขั้นตอน Nginx, SSL และการสลับรุ่นแบบอะตอมมิกได้ใน [คู่มือเผยแพร่ VPS](docs/VPS_DEPLOYMENT.md) ส่วน workflow ของ GitHub Pages เก็บไว้เป็นทางย้อนกลับเท่านั้น และกำหนด `VITE_BASE_PATH=/glfans/` อย่างชัดเจน ขณะที่ `npm run build` ปกติจะสร้างเวอร์ชันสำหรับรากโดเมน
 
 ข้อมูลล่าสุดอยู่ใน `src/data/archive-schedule.json` ส่วนข้อมูลย้อนหลังแยกไว้ใน `src/data/archive-history.json` และไม่ถูกเขียนทับเมื่ออัปเดตรายสัปดาห์ แตะชื่อเดือนเพื่อเลือกปีและเดือน เดือนที่ไม่มีรายการจะเลือกไม่ได้ เดือนที่มีรายการแสดงจำนวนซีรีส์ที่ไม่ซ้ำตามตัวกรอง และเปิดไปยังรายการแรกของเดือน ค้นหาซีรีส์ด้วยชื่อ นักแสดง หรือปี แล้วกดเสร็จเพื่อดูเฉพาะเรื่องที่ติดตาม ข้อมูลย้อนหลังใช้วันที่รายตอนจากแหล่งข้อมูล หากไม่มีจะลงเฉพาะวันฉายตอนแรกที่ยืนยันแล้ว ใช้ `npm run sync:history` เพื่ออัปเดตข้อมูลจากรายการซีรีส์ ซีซัน และตอนย่อยที่ตรวจสอบแล้วใน `scripts/lib/archive-history-*` รายการใหม่ต้องตรวจสอบก่อน ใช้ `npm run sync:schedule` เพื่อดึงกำหนดการสาธารณะ, `npm run test:schedule` เพื่อตรวจสอบกฎ และ `npm run stats:schedule` เพื่อสร้างสถิติวันที่และสถานะบนเครื่อง หากดึงข้อมูลไม่สำเร็จจะเก็บข้อมูลเดิมไว้ วันที่ที่ขัดแย้งกันจะซ่อนระหว่างรอตรวจสอบ และไม่คำนวณวันที่ที่ยังไม่ทราบจากจำนวนตอน แหล่งข้อมูลคือ [GL Spotlight](https://glspotlight.com/airing) และ [TVmaze](https://www.tvmaze.com/api) ดูที่มาและใบอนุญาตใน [NOTICE](NOTICE) การแก้ข้อมูลต้องสร้างและเผยแพร่เว็บใหม่ การตรวจสอบเป็นระยะไม่ได้เผยแพร่ข้อมูลขึ้นเว็บโดยอัตโนมัติ
 

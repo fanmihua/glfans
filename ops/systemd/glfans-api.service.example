@@ -1,0 +1,45 @@
+[Unit]
+Description=glfans community API
+Documentation=file:/opt/glfans-api/current/server/README.md
+Wants=network-online.target
+After=network-online.target mysql.service
+ConditionPathExists=/etc/glfans/glfans-api.env
+ConditionPathExists=/opt/glfans-api/current/server/index.js
+
+[Service]
+Type=simple
+User=glfans
+Group=glfans
+WorkingDirectory=/opt/glfans-api/current
+Environment=NODE_ENV=production
+EnvironmentFile=/etc/glfans/glfans-api.env
+ExecStart=/usr/bin/node server/index.js
+Restart=on-failure
+RestartSec=5s
+TimeoutStartSec=30s
+TimeoutStopSec=15s
+KillSignal=SIGTERM
+UMask=0027
+
+# The API has no writable application directory. Logs go to journald and MySQL
+# is reached only through loopback; Nginx is the sole public entry point.
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectClock=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectControlGroups=true
+ProtectHostname=true
+RestrictSUIDSGID=true
+RestrictRealtime=true
+LockPersonality=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+CapabilityBoundingSet=
+AmbientCapabilities=
+
+[Install]
+WantedBy=multi-user.target

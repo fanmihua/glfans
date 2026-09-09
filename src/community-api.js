@@ -1,113 +1,101 @@
-import { ensureCommunitySession, isCommunityConfigured, supabase } from "./lib/supabase.js";
-import { getTideTargetKey } from "./data/tide-words.js";
+import {
+  getAuthenticatedCommunity,
+  getCommunity,
+  getCommunityAdminSession,
+  isCommunityApiEnabled,
+  loginCommunityAdmin,
+  logoutCommunityAdmin,
+  writeCommunity,
+} from "./lib/api-client.js";
 
-export { isCommunityConfigured };
-
-function normalizeRpcRow(data) {
-  if (Array.isArray(data)) return data[0] ?? null;
-  return data ?? null;
-}
-
-function throwIfError(error) {
-  if (error) throw error;
-}
+// Keep the established name so the existing community UI can retain its
+// configured/unconfigured fallback behavior on the static Pages backup.
+export const isCommunityConfigured = isCommunityApiEnabled;
 
 export async function loadCommunityStats() {
-  if (!supabase) return {};
-  const { data, error } = await supabase.rpc("get_community_stats");
-  throwIfError(error);
-
-  return Object.fromEntries((data ?? []).map((row) => [
-    getTideTargetKey(row.target_type, row.target_id),
-    {
-      comments: Number(row.comment_count ?? 0),
-      likes: Number(row.reaction_count ?? 0),
-      uniqueVisitors: Number(row.unique_visitor_count ?? 0),
-      views: Number(row.view_count ?? 0),
-    },
-  ]));
+  if (!isCommunityConfigured) return {};
+  const stats = await getCommunity("/community/stats");
+  return Object.fromEntries(Object.entries(stats ?? {}).map(([key, value]) => [key, {
+    comments: Number(value.comments ?? 0),
+    likes: Number(value.likes ?? 0),
+    uniqueVisitors: Number(value.uniqueVisitors ?? 0),
+    views: Number(value.views ?? 0),
+  }]));
 }
 
 export async function loadPublishedCommunityQuotes() {
-  if (!supabase) return [];
-  const { data, error } = await supabase
-    .from("community_quotes")
-    .select("id,text,speaker,cover_path,sort_order,is_pinned,created_at")
-    .eq("status", "published")
-    .order("sort_order", { ascending: true })
-    .order("created_at", { ascending: true });
-  throwIfError(error);
-  return data ?? [];
+  if (!isCommunityConfigured) return [];
+  return await getCommunity("/community/quotes") ?? [];
 }
 
 export async function recordCommunityView(targetType, targetId) {
-  await ensureCommunitySession();
-  const { data, error } = await supabase.rpc("record_community_view", {
-    p_target_id: targetId,
-    p_target_type: targetType,
-  });
-  throwIfError(error);
-  return normalizeRpcRow(data);
+  return writeCommunity("/community/views", { body: { targetType, targetId } });
 }
 
 export async function toggleCommunityReaction(targetType, targetId) {
-  await ensureCommunitySession();
-  const { data, error } = await supabase.rpc("toggle_community_reaction", {
-    p_target_id: targetId,
-    p_target_type: targetType,
-  });
-  throwIfError(error);
-  const row = normalizeRpcRow(data);
-  return {
-    liked: Boolean(row?.liked),
-    likes: Number(row?.reaction_count ?? 0),
-  };
+  const result = await writeCommunity("/community/reactions/toggle", { body: { targetType, targetId } });
+  return { liked: Boolean(result?.liked), likes: Number(result?.likes ?? 0) };
 }
 
 export async function loadCommunityReactionState() {
-  if (!supabase) return [];
-  await ensureCommunitySession();
-  const { data, error } = await supabase.rpc("get_my_community_reactions");
-  throwIfError(error);
-  return (data ?? []).map((row) => getTideTargetKey(row.target_type, row.target_id));
+  if (!isCommunityConfigured) return [];
+  return await getAuthenticatedCommunity("/community/reactions") ?? [];
 }
 
 export async function loadPublishedComments(targetType, targetId, limit = 20) {
-  if (!supabase) return [];
-  const { data, error } = await supabase
-    .from("community_comments")
-    .select("id,target_type,target_id,nickname,body,created_at")
-    .eq("target_type", targetType)
-    .eq("target_id", targetId)
-    .eq("status", "published")
-    .order("created_at", { ascending: false })
-    .limit(limit);
-  throwIfError(error);
-  return data ?? [];
+  if (!isCommunityConfigured) return [];
+  const query = new URLSearchParams({ targetType, targetId, limit: String(limit) });
+  return await getCommunity(`/community/comments?${query}`) ?? [];
 }
 
-export async function submitCommunityComment({ targetType, targetId, nickname, body }) {
-  await ensureCommunitySession();
-  const { data, error } = await supabase.rpc("submit_community_comment", {
-    p_body: body,
-    p_nickname: nickname,
-    p_target_id: targetId,
-    p_target_type: targetType,
+export function submitCommunityComment({ targetType, targetId, nickname, body }) {
+  return writeCommunity("/community/comments", {
+    body: { targetType, targetId, nickname, body },
   });
-  throwIfError(error);
-  return normalizeRpcRow(data);
 }
 
-export async function submitCommunityQuote({ speaker, text }) {
-  await ensureCommunitySession();
-  const { data, error } = await supabase.rpc("submit_community_quote", {
-    p_speaker: speaker,
-    p_text: text,
+export function submitCommunityQuote({ speaker, text }) {
+  return writeCommunity("/community/quotes", { body: { speaker, text } });
+}
+
+export function loadAdminSession() {
+  return getCommunityAdminSession();
+}
+
+export function loginAdmin(email, password) {
+  return loginCommunityAdmin(email, password);
+}
+
+export function logoutAdmin() {
+  return logoutCommunityAdmin();
+}
+
+export function loadAdminDashboard() {
+  return getAuthenticatedCommunity("/admin/dashboard");
+}
+
+export function updateAdminComment(commentId, patch) {
+  return writeCommunity(`/admin/comments/${encodeURIComponent(commentId)}`, {
+    method: "PATCH",
+    body: patch,
   });
-  throwIfError(error);
-  return {
-    ...normalizeRpcRow(data),
-    created_at: new Date().toISOString(),
-    is_pinned: false,
-  };
+}
+
+export function deleteAdminComment(commentId) {
+  return writeCommunity(`/admin/comments/${encodeURIComponent(commentId)}`, { method: "DELETE" });
+}
+
+export function createAdminQuote(input) {
+  return writeCommunity("/admin/quotes", { body: input });
+}
+
+export function updateAdminQuote(quoteId, patch) {
+  return writeCommunity(`/admin/quotes/${encodeURIComponent(quoteId)}`, {
+    method: "PATCH",
+    body: patch,
+  });
+}
+
+export function deleteAdminQuote(quoteId) {
+  return writeCommunity(`/admin/quotes/${encodeURIComponent(quoteId)}`, { method: "DELETE" });
 }

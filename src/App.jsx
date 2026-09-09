@@ -4,6 +4,7 @@ import { useLocale } from './i18n/LanguageSwitcher.jsx';
 import { lazy, Suspense, useEffect, useLayoutEffect, useState } from "react";
 import { GlobalFooter } from "./GlobalFooter.jsx";
 import { GlobalRadioDock } from "./GlobalRadioDock.jsx";
+import { FilingNotice } from "./FilingNotice.jsx";
 import { MobileSectionNav } from "./MobileSectionNav.jsx";
 import { hasMobileNavigation } from "./app/mobile-navigation.js";
 import { PageLoader } from "./PageLoader.jsx";
@@ -105,6 +106,11 @@ export function App() {
         >
           {t(page)}
           {t(rootRoute !== "home" && rootRoute !== "about" && rootRoute !== "admin" && <GlobalFooter />)}
+          {t(rootRoute !== "home" && (
+            <footer className={`route-filing-footer route-filing-footer--${rootRoute}${rootRoute !== "about" && rootRoute !== "admin" ? " route-filing-footer--mobile-only" : ""}`}>
+              <FilingNotice />
+            </footer>
+          ))}
         </RouteReadyBoundary>
       </Suspense>
       <GlobalRadioDock hidden={rootRoute === "radio" || rootRoute === "admin"} />
