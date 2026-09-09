@@ -332,15 +332,15 @@
   }
 
   .app-shell--archive > .route-ready-boundary > .route-ready-content {
-    display: grid;
-    grid-template-rows: minmax(0, 1fr) auto;
+    display: block;
   }
 
   .app-shell--archive .archive-page,
   .app-shell--archive .archive-year-page {
     width: 100%;
-    height: 100%;
-    min-height: 0;
+    height: auto;
+    min-height: max(760px, 100vh);
+    min-height: max(760px, 100svh);
     overflow: hidden;
   }
 
@@ -354,8 +354,9 @@
 
   .archive-page .archive-stage {
     width: 100%;
-    height: 100%;
-    min-height: 0;
+    height: auto;
+    min-height: max(760px, 100vh);
+    min-height: max(760px, 100svh);
     padding-bottom: 0;
     grid-template-rows: minmax(0, 1fr) auto auto;
   }
