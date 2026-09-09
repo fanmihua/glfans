@@ -9,7 +9,7 @@ export function buildFrequencyCurve(points) {
   const slopes = widths.map((width, index) => (points[index + 1].y - points[index].y) / width);
   const tangents = points.map((_, index) => {
     if (index === 0) return slopes[0];
-    if (index === points.length - 1) return slopes.at(-1);
+    if (index === points.length - 1) return slopes[slopes.length - 1];
     const before = slopes[index - 1];
     const after = slopes[index];
     if (before * after <= 0) return 0;

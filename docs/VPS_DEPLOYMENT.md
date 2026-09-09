@@ -110,7 +110,9 @@ sudo journalctl -u glfans-api.service -n 80 --no-pager
 sudo bash scripts/deploy-static-vps.sh dist/client
 ```
 
-脚本把完整构建复制到 `/var/www/glfans/releases/<release-id>`，确认 `index.html` 后通过 Node 的同文件系统 `rename` 原子切换 `/var/www/glfans/current` 软链接。它不会删除旧版本，也不会接触其他站点目录。回滚时将一个经过核对的旧发布目录链接为临时链接，再原子替换 `current`；不要直接覆盖 `current` 中的文件。
+脚本把完整构建复制到 `/var/www/glfans/releases/<release-id>`，并将已有 release、当前 release 和新 release 的 `/assets` 合并到持久目录 `/var/www/glfans/shared/assets`。相同路径的新文件通过同目录临时文件原子替换，旧哈希资源不删除，因此仍运行上一版 SPA 的浏览器可以继续完成懒加载。复制与合并过程会排除并清理 `._*`、`.DS_Store` 和未完成的临时资产。
+
+确认 `index.html` 和 assets 后，脚本通过 Node 的同文件系统 `rename` 原子切换 `/var/www/glfans/current` 软链接。Nginx 从 shared 目录提供 `/assets/`，HTML 明确返回 `Cache-Control: no-store, no-cache, must-revalidate, max-age=0`；哈希资源继续长期缓存，静态 4xx/5xx 会连同 UA 写入 glfans access log，成功的静态请求不额外增加日志。脚本不会删除旧版本，也不会接触其他站点目录。回滚时将一个经过核对的旧发布目录链接为临时链接，再原子替换 `current`；不要直接覆盖 `current` 中的文件。
 
 ## 6. 配置 glfans 独立 MySQL 备份
 

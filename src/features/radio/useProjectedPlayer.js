@@ -1,5 +1,6 @@
 import { useLayoutEffect, useState } from "react";
 import { PIT_RADIO_GEOMETRY } from "../../data/pit-radio-geometry.js";
+import { observeElementResize } from "../../lib/browser-compat.js";
 
 function solveLinearSystem(matrix, vector) {
   const size = vector.length;
@@ -85,9 +86,12 @@ export function useProjectedPlayer(turntableRef) {
     };
 
     update();
-    const observer = new ResizeObserver(update);
-    observer.observe(turntable);
-    return () => observer.disconnect();
+    const observer = observeElementResize(turntable, update);
+    if (!observer) window.addEventListener("resize", update);
+    return () => {
+      observer?.disconnect();
+      if (!observer) window.removeEventListener("resize", update);
+    };
   }, [turntableRef]);
 
   return style;

@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { createMobileOrbitPaths, spreadMobileFallingOrbits } from "../src/features/home/useMobileHomeOrbits.js";
+import { createMobileOrbitPaths, spreadMobileFallingOrbits, stageShiftFromTranslate } from "../src/features/home/useMobileHomeOrbits.js";
 
 const cards = [
   { left: 220, top: 264, width: 150, height: 150 },
@@ -65,4 +65,17 @@ test("mobile transition expands vertical sticker spacing without moving the port
   assert.ok(result.cards[3].top - result.cards[1].top > cards[3].top - cards[1].top);
   assert.ok(result.cards[2].top - result.cards[0].top > cards[2].top - cards[0].top);
   assert.equal(spreadMobileFallingOrbits(null), null);
+});
+
+test("mobile stage shift does not require individual transforms or Array.prototype.at", () => {
+  const originalAt = Array.prototype.at;
+  try {
+    Object.defineProperty(Array.prototype, "at", { value: undefined, configurable: true, writable: true });
+    assert.equal(stageShiftFromTranslate("0px 16.88px"), 16.88);
+    assert.equal(stageShiftFromTranslate("none"), 0);
+    assert.equal(stageShiftFromTranslate(""), 0);
+    assert.equal(stageShiftFromTranslate(undefined), 0);
+  } finally {
+    Object.defineProperty(Array.prototype, "at", { value: originalAt, configurable: true, writable: true });
+  }
 });

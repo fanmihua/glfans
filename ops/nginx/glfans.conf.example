@@ -2,6 +2,18 @@
 # site: unique server_name, document root, logs and upstream port.
 limit_req_zone $binary_remote_addr zone=glfans_api_req:10m rate=10r/s;
 limit_conn_zone $binary_remote_addr zone=glfans_api_conn:10m;
+map $status $glfans_static_error {
+    default 0;
+    ~^[45] 1;
+}
+map $sent_http_content_type $glfans_html_cache_control {
+    default "";
+    ~*text/html "no-store, no-cache, must-revalidate, max-age=0";
+}
+types {
+    model/gltf-binary glb;
+    application/wasm wasm;
+}
 
 server {
     listen 80;
@@ -64,6 +76,7 @@ server {
     add_header X-Frame-Options "SAMEORIGIN" always;
     add_header Referrer-Policy "strict-origin-when-cross-origin" always;
     add_header Permissions-Policy "camera=(), geolocation=(), microphone=()" always;
+    add_header Cache-Control $glfans_html_cache_control always;
 
     gzip on;
     gzip_vary on;
@@ -95,33 +108,41 @@ server {
     }
 
     location = /index.html {
-        expires -1;
+        try_files $uri =404;
+    }
+
+    # Hashed build assets are persistent across releases so a browser running
+    # the previous SPA can still finish a lazy import after an atomic switch.
+    location ^~ /assets/ {
+        root /var/www/glfans/shared;
+        expires 1y;
+        access_log /var/log/nginx/glfans.access.log combined if=$glfans_static_error;
         try_files $uri =404;
     }
 
     location ~* \.glb$ {
         types { model/gltf-binary glb; }
         expires 30d;
-        access_log off;
+        access_log /var/log/nginx/glfans.access.log combined if=$glfans_static_error;
         try_files $uri =404;
     }
 
     location ~* \.wasm$ {
         types { application/wasm wasm; }
         expires 30d;
-        access_log off;
+        access_log /var/log/nginx/glfans.access.log combined if=$glfans_static_error;
         try_files $uri =404;
     }
 
     location ~* \.(?:js|mjs|css)$ {
         expires 1y;
-        access_log off;
+        access_log /var/log/nginx/glfans.access.log combined if=$glfans_static_error;
         try_files $uri =404;
     }
 
     location ~* \.(?:avif|gif|ico|jpe?g|png|svg|webp|woff2?|mp3|mp4|ogg|webm)$ {
         expires 30d;
-        access_log off;
+        access_log /var/log/nginx/glfans.access.log combined if=$glfans_static_error;
         try_files $uri =404;
     }
 

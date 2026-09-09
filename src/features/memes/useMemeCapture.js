@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { withBase } from "../../lib/assets.js";
+import { observeElementResize } from "../../lib/browser-compat.js";
 import { memeGameCriticalAssets, memeCaptureDeck } from "./meme-data.js";
 
 let memeGameAssetsPrimed = false;
@@ -68,13 +69,18 @@ export function useMemeCapture() {
     const strip = filmstripRef.current;
     if (!assetsReady || !strip) return;
     let lastWidth = -1;
-    const observer = new ResizeObserver(([entry]) => {
-      if (entry.contentRect.width === lastWidth) return;
-      lastWidth = entry.contentRect.width;
+    const handleResize = () => {
+      if (strip.clientWidth === lastWidth) return;
+      lastWidth = strip.clientWidth;
       centerMobileSlot(centeredSlotRef.current, "instant");
-    });
-    observer.observe(strip);
-    return () => observer.disconnect();
+    };
+    const observer = observeElementResize(strip, handleResize);
+    if (!observer) window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => {
+      observer?.disconnect();
+      if (!observer) window.removeEventListener("resize", handleResize);
+    };
   }, [assetsReady]);
 
   const clearTimers = () => {

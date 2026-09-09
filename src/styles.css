@@ -26,6 +26,65 @@ button {
   font: inherit;
 }
 
+.app-recovery {
+  display: grid;
+  min-height: 100svh;
+  padding: 32px 20px;
+  place-items: center;
+  color: var(--plum);
+  background:
+    linear-gradient(rgba(248, 240, 233, 0.86), rgba(248, 240, 233, 0.94)),
+    url("/assets/editorial-paper-bg.webp") center / cover;
+}
+
+.app-recovery__card {
+  width: min(520px, 100%);
+  padding: clamp(30px, 7vw, 54px);
+  border: 1px solid var(--plum);
+  background: var(--paper);
+  box-shadow: 10px 10px 0 var(--pink);
+  text-align: left;
+}
+
+.app-recovery__card span {
+  color: var(--pink);
+  font-family: var(--display);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.app-recovery__card h1 {
+  margin: 18px 0 12px;
+  font-family: var(--display);
+  font-size: clamp(32px, 8vw, 50px);
+  line-height: 1.04;
+}
+
+.app-recovery__card p {
+  margin: 0;
+  color: var(--plum-soft);
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+.app-recovery__card button {
+  min-width: 132px;
+  min-height: 46px;
+  margin-top: 28px;
+  padding: 10px 20px;
+  border: 1px solid var(--plum);
+  color: var(--ink-inverse);
+  background: var(--plum);
+  cursor: pointer;
+  font-weight: 760;
+}
+
+.app-recovery__card button:hover {
+  color: var(--plum);
+  background: var(--pink);
+}
+
 button:focus-visible,
 a:focus-visible {
   outline: 3px solid var(--pink);

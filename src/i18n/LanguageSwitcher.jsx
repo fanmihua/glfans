@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState, useSyncExternalStore } from 'react';
 import { CaretDown, Check } from '@phosphor-icons/react';
+import { listenToMediaQuery } from '../lib/browser-compat.js';
 import { changeLocale, getLocale, LANGUAGE_NAMES, LOCALES, subscribeLocale, t } from './runtime.js';
 
 export const useLocale = () => useSyncExternalStore(subscribeLocale, getLocale, () => 'zh');
@@ -28,12 +29,12 @@ export function LanguageSwitcher({ home = false }) {
     document.addEventListener('pointerdown', outside);
     window.addEventListener('blur', loseWindowFocus);
     document.addEventListener('visibilitychange', visibilityChanged);
-    media.addEventListener('change', resized);
+    const stopListening = listenToMediaQuery(media, resized);
     return () => {
       document.removeEventListener('pointerdown', outside);
       window.removeEventListener('blur', loseWindowFocus);
       document.removeEventListener('visibilitychange', visibilityChanged);
-      media.removeEventListener('change', resized);
+      stopListening();
     };
   }, [open, locale]);
   const choose = async code => {

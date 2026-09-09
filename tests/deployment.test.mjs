@@ -1,6 +1,19 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import {
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  readdirSync,
+  readlinkSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs";
+import { tmpdir } from "node:os";
+import path from "node:path";
 import test from "node:test";
+import { fileURLToPath } from "node:url";
 
 const read = (path) => readFileSync(new URL(path, import.meta.url), "utf8");
 
@@ -14,6 +27,19 @@ test("production metadata and documentation use glfans.com as the primary origin
   assert.match(readme, /主站：glfans\.com/);
   assert.doesNotMatch(readme, /fanmihua\.github\.io\/glfans/);
   assert.match(issueTemplate, /https:\/\/glfans\.com\/#\/\.\.\./);
+});
+
+test("production boot recovers stale lazy chunks without leaving a blank page", () => {
+  const main = read("../src/main.jsx");
+  const boundary = read("../src/AppRecoveryBoundary.jsx");
+
+  assert.match(main, /installChunkRecovery\(\)/);
+  assert.match(main, /<AppRecoveryBoundary>/);
+  assert.match(main, /applicationRoot\.render\(<PageLoader/);
+  assert.match(main, /glfans bootstrap failed/);
+  assert.match(main, /<AppRecoveryScreen/);
+  assert.match(boundary, /getDerivedStateFromError/);
+  assert.match(boundary, /重新加载/);
 });
 
 test("filing notice is shared by page footers and standalone special routes", () => {
@@ -60,6 +86,74 @@ test("Nginx template isolates static, API and certificate concerns", () => {
   assert.match(nginx, /ssl_certificate \/etc\/letsencrypt-glfans\/live\/glfans\.com\/fullchain\.pem;/);
   assert.match(nginx, /ssl_certificate_key \/etc\/letsencrypt-glfans\/live\/glfans\.com\/privkey\.pem;/);
   assert.doesNotMatch(nginx, /\/etc\/letsencrypt\//);
+});
+
+test("static releases retain old hashed assets without shipping macOS metadata", () => {
+  const fixtureRoot = mkdtempSync(path.join(tmpdir(), "glfans-static-release-"));
+  const sourceDir = path.join(fixtureRoot, "source");
+  const sourceAssets = path.join(sourceDir, "assets");
+  const siteRoot = path.join(fixtureRoot, "site");
+  const deployScript = fileURLToPath(new URL("../scripts/deploy-static-vps.sh", import.meta.url));
+  const deploy = (releaseId) => execFileSync("bash", [deployScript, sourceDir], {
+    env: {
+      ...process.env,
+      GLFANS_SITE_ROOT: siteRoot,
+      GLFANS_RELEASE_ID: releaseId,
+    },
+    encoding: "utf8",
+  });
+  const metadataNames = (directory) => {
+    const matches = [];
+    const visit = (current) => {
+      for (const entry of readdirSync(current, { withFileTypes: true })) {
+        if (entry.name === ".DS_Store" || entry.name.startsWith("._")) matches.push(entry.name);
+        if (entry.isDirectory()) visit(path.join(current, entry.name));
+      }
+    };
+    visit(directory);
+    return matches;
+  };
+
+  try {
+    mkdirSync(path.join(sourceAssets, "nested"), { recursive: true });
+    writeFileSync(path.join(sourceDir, "index.html"), '<script src="/assets/old-hash.js"></script>');
+    writeFileSync(path.join(sourceAssets, "old-hash.js"), "old chunk");
+    writeFileSync(path.join(sourceAssets, "stable.css"), "first stable value");
+    writeFileSync(path.join(sourceAssets, "._old-hash.js"), "AppleDouble");
+    writeFileSync(path.join(sourceAssets, "nested", ".DS_Store"), "Finder metadata");
+    deploy("release-one");
+
+    rmSync(path.join(sourceAssets, "old-hash.js"));
+    writeFileSync(path.join(sourceDir, "index.html"), '<script src="/assets/new-hash.js"></script>');
+    writeFileSync(path.join(sourceAssets, "new-hash.js"), "new chunk");
+    writeFileSync(path.join(sourceAssets, "stable.css"), "second stable value");
+    writeFileSync(path.join(sourceAssets, "._new-hash.js"), "AppleDouble");
+    deploy("release-two");
+
+    const sharedAssets = path.join(siteRoot, "shared", "assets");
+    assert.equal(readFileSync(path.join(sharedAssets, "old-hash.js"), "utf8"), "old chunk");
+    assert.equal(readFileSync(path.join(sharedAssets, "new-hash.js"), "utf8"), "new chunk");
+    assert.equal(readFileSync(path.join(sharedAssets, "stable.css"), "utf8"), "second stable value");
+    assert.deepEqual(metadataNames(sharedAssets), []);
+    assert.deepEqual(metadataNames(path.join(siteRoot, "releases", "release-one")), []);
+    assert.deepEqual(metadataNames(path.join(siteRoot, "releases", "release-two")), []);
+    assert.equal(readlinkSync(path.join(siteRoot, "current")), path.join(siteRoot, "releases", "release-two"));
+    assert.equal(existsSync(path.join(siteRoot, "releases", "release-one", "assets", "old-hash.js")), true);
+  } finally {
+    rmSync(fixtureRoot, { recursive: true, force: true });
+  }
+});
+
+test("Nginx serves persistent assets, does not store HTML, and logs static failures", () => {
+  const nginx = read("../ops/nginx/glfans.conf.example");
+
+  assert.match(nginx, /map \$status \$glfans_static_error \{[\s\S]*~\^\[45\] 1;/);
+  assert.match(nginx, /map \$sent_http_content_type \$glfans_html_cache_control \{[\s\S]*no-store, no-cache, must-revalidate, max-age=0/);
+  assert.match(nginx, /add_header Cache-Control \$glfans_html_cache_control always;/);
+  assert.match(nginx, /location \^~ \/assets\/ \{[\s\S]*root \/var\/www\/glfans\/shared;[\s\S]*expires 1y;/);
+  assert.match(nginx, /location \^~ \/assets\/ \{[\s\S]*access_log \/var\/log\/nginx\/glfans\.access\.log combined if=\$glfans_static_error;/);
+  assert.doesNotMatch(nginx, /access_log off;/);
+  assert.doesNotMatch(nginx, /location = \/index\.html \{\s*expires -1;/);
 });
 
 test("Certbot renewal is isolated from the server's legacy configuration", () => {

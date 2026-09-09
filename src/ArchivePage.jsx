@@ -2,6 +2,7 @@ import { t } from "./i18n/runtime.js";
 import { getLocale, requireCatalog } from './i18n/runtime.js';
 import { seriesName } from './i18n/proper-names.js';
 import { withBase } from "./lib/assets.js";
+import { observeElementResize } from "./lib/browser-compat.js";
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { ArrowRight, CalendarBlank } from '@phosphor-icons/react';
 import { useMobileLayout } from "./hooks/useMobileLayout.js";
@@ -89,16 +90,18 @@ function ArchiveOverview({ onOpenCalendar }) {
       });
     };
     // Keep the same year centered when rotating a phone or resizing the preview.
-    const observer = new ResizeObserver(([entry]) => {
-      if (entry.contentRect.width !== lastWidth) {
-        lastWidth = entry.contentRect.width;
+    const handleResize = () => {
+      if (track.clientWidth !== lastWidth) {
+        lastWidth = track.clientWidth;
         centerCurrentRoll();
       }
-    });
-    observer.observe(track);
-    centerCurrentRoll();
+    };
+    const observer = observeElementResize(track, handleResize);
+    if (!observer) window.addEventListener("resize", handleResize);
+    handleResize();
     return () => {
-      observer.disconnect();
+      observer?.disconnect();
+      if (!observer) window.removeEventListener("resize", handleResize);
       window.cancelAnimationFrame(layoutFrame);
       window.cancelAnimationFrame(scrollFrameRef.current);
       scrollFrameRef.current = 0;

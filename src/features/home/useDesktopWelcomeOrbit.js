@@ -1,4 +1,5 @@
 import { useLayoutEffect, useState } from "react";
+import { listenToMediaQuery, observeElementResize } from "../../lib/browser-compat.js";
 
 export function pointOnWelcomeCurve(points, t) {
   const u = 1 - t;
@@ -81,14 +82,14 @@ export function useDesktopWelcomeOrbit(collageRef) {
       observer?.disconnect();
       if (mobile.matches) { setOrbit(null); return; }
       update();
-      observer = new ResizeObserver(update);
-      [scene, button, portal, card, heading, navigation, ...labels].forEach((element) => observer.observe(element));
+      observer = observeElementResize(scene, update);
+      if (observer) [button, portal, card, heading, navigation, ...labels].forEach((element) => observer.observe(element));
     };
     syncBreakpoint();
-    mobile.addEventListener("change", syncBreakpoint);
+    const stopListening = listenToMediaQuery(mobile, syncBreakpoint);
     return () => {
       observer?.disconnect();
-      mobile.removeEventListener("change", syncBreakpoint);
+      stopListening();
     };
   }, [collageRef]);
   return orbit;

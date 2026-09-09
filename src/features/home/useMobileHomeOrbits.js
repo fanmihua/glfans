@@ -1,4 +1,5 @@
 import { useLayoutEffect, useState } from "react";
+import { listenToMediaQuery, observeElementResize } from "../../lib/browser-compat.js";
 
 // All measurements are local to the hero, not the desktop SVG's coordinate system.
 export function createMobileOrbitPaths(cards, portal, anchorY = 0.78) {
@@ -35,6 +36,12 @@ export function spreadMobileFallingOrbits(orbits) {
   };
 }
 
+export function stageShiftFromTranslate(value) {
+  if (typeof value !== "string") return 0;
+  const parts = value.trim().split(/\s+/);
+  return Number.parseFloat(parts[parts.length - 1]) || 0;
+}
+
 export function useMobileHomeOrbits(heroRef) {
   const [orbits, setOrbits] = useState(null);
 
@@ -65,7 +72,7 @@ export function useMobileHomeOrbits(heroRef) {
         top: orbit.offsetTop + card.offsetTop,
         rotation: getComputedStyle(card).getPropertyValue("--card-rotation").trim(),
       }));
-      const stageShift = Number.parseFloat(getComputedStyle(orbit).translate.split(" ").at(-1)) || 0;
+      const stageShift = stageShiftFromTranslate(getComputedStyle(orbit).translate);
       setOrbits({
         viewBox: `0 0 ${hero.clientWidth} ${hero.clientHeight}`,
         width: hero.clientWidth,
@@ -86,15 +93,15 @@ export function useMobileHomeOrbits(heroRef) {
         return;
       }
       update();
-      observer = new ResizeObserver(update);
-      [hero, orbit, portal, ...cards].forEach((element) => observer.observe(element));
+      observer = observeElementResize(hero, update);
+      if (observer) [orbit, portal, ...cards].forEach((element) => observer.observe(element));
     };
 
     syncBreakpoint();
-    media.addEventListener("change", syncBreakpoint);
+    const stopListening = listenToMediaQuery(media, syncBreakpoint);
     return () => {
       observer?.disconnect();
-      media.removeEventListener("change", syncBreakpoint);
+      stopListening();
     };
   }, [heroRef]);
 

@@ -1,4 +1,5 @@
 import { useLayoutEffect, useState } from "react";
+import { listenToMediaQuery, observeElementResize } from "../../lib/browser-compat.js";
 
 // Both trajectories share the stickers' local coordinate system.
 export function createMobileEyesOrbits(cards, { width, height }) {
@@ -34,14 +35,14 @@ export function useMobileEyesOrbits(sceneRef) {
         return;
       }
       update();
-      observer = new ResizeObserver(update);
-      [group, ...cards].forEach((element) => observer.observe(element));
+      observer = observeElementResize(group, update);
+      if (observer) cards.forEach((element) => observer.observe(element));
     };
     syncBreakpoint();
-    media.addEventListener("change", syncBreakpoint);
+    const stopListening = listenToMediaQuery(media, syncBreakpoint);
     return () => {
       observer?.disconnect();
-      media.removeEventListener("change", syncBreakpoint);
+      stopListening();
     };
   }, [sceneRef]);
   return orbits;

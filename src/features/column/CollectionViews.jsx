@@ -112,7 +112,8 @@ const collectionFactIcons = [CalendarDots, NotePencil, TelevisionSimple, UsersTh
 function CollectionFacts({ xml }) {
   const facts = useMemo(() => {
     const parsed = new DOMParser().parseFromString(`<doc>${xml}</doc>`, "application/xml");
-    const infoColumn = Array.from(parsed.querySelectorAll("grid > column")).at(-1);
+    const columns = Array.from(parsed.querySelectorAll("grid > column"));
+    const infoColumn = columns[columns.length - 1];
     if (!infoColumn) return [];
 
     const paragraphs = Array.from(infoColumn.children).filter((node) => node.tagName.toLowerCase() === "p");

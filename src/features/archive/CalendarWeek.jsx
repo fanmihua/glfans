@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { CaretDown } from '@phosphor-icons/react';
+import { observeElementResize } from '../../lib/browser-compat.js';
 import { moveDate, weekStart } from './calendar-model.js';
 
 export function CalendarWeek({ selected, onSelect, today, eventsByDate, copy, titleFor, episodeFor, timeFor, renderDetails }) {
@@ -20,15 +21,17 @@ export function CalendarWeek({ selected, onSelect, today, eventsByDate, copy, ti
     const scroll = () => { clearTimeout(timer); timer = setTimeout(settle, 180); };
     center();
     let width = track.clientWidth;
-    const resize = new ResizeObserver(() => {
+    const handleResize = () => {
       if (track.clientWidth !== width) { width = track.clientWidth; center(); }
-    });
-    resize.observe(track);
+    };
+    const observer = observeElementResize(track, handleResize);
+    if (!observer) window.addEventListener('resize', handleResize);
     track.addEventListener('scroll', scroll, { passive: true });
     track.addEventListener('scrollend', settle);
     return () => {
       clearTimeout(timer);
-      resize.disconnect();
+      observer?.disconnect();
+      if (!observer) window.removeEventListener('resize', handleResize);
       track.removeEventListener('scroll', scroll);
       track.removeEventListener('scrollend', settle);
     };

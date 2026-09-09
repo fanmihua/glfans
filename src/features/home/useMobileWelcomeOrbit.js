@@ -1,4 +1,5 @@
 import { useLayoutEffect, useState } from "react";
+import { listenToMediaQuery, observeElementResize } from "../../lib/browser-compat.js";
 
 export function createMobileWelcomeOrbit({ width, height }, button, portal) {
   const start = { x: button.left + button.width / 2, y: button.top + button.height };
@@ -34,14 +35,14 @@ export function useMobileWelcomeOrbit(collageRef) {
       observer?.disconnect();
       if (!media.matches) { setOrbit(null); return; }
       update();
-      observer = new ResizeObserver(update);
-      [group, button, portal].forEach((element) => observer.observe(element));
+      observer = observeElementResize(group, update);
+      if (observer) [button, portal].forEach((element) => observer.observe(element));
     };
     syncBreakpoint();
-    media.addEventListener("change", syncBreakpoint);
+    const stopListening = listenToMediaQuery(media, syncBreakpoint);
     return () => {
       observer?.disconnect();
-      media.removeEventListener("change", syncBreakpoint);
+      stopListening();
     };
   }, [collageRef]);
   return orbit;
