@@ -48,7 +48,10 @@ function checkSeries(series) {
 }
 
 export function assembleSchedule(weeks, upcoming, previous = null, checkedAt = new Date().toISOString()) {
-  const catalogue = new Map(), events = new Map(), coverage = [];
+  // Start with the last verified catalogue so a rolling source window cannot
+  // erase stable metadata (or reorder every series) when it omits old fields.
+  const catalogue = new Map((previous?.series || []).map((item) => [item.id, { ...item }]));
+  const events = new Map(), coverage = [];
   const saveSeries = (raw) => {
     checkSeries(raw);
     const before = catalogue.get(raw.slug);

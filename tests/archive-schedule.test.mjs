@@ -41,6 +41,14 @@ test('repeat sync does not duplicate; a missing episode is retained for review a
   const moved = fixture(); moved[0].days[4].entries[0].airsAt = '2026-09-04T14:30:00Z';
   assert.equal(assembleSchedule(moved, upcoming, first.data, checkedAt).changes.changed.length, 1);
 });
+test('rolling source windows preserve verified series metadata and catalogue order', () => {
+  const first = assembleSchedule(fixture(), upcoming, null, checkedAt);
+  const partial = fixture();
+  partial[0].days[4].entries[0].series = { slug: series.slug, name: series.name };
+  const result = assembleSchedule(partial, [], first.data, checkedAt);
+  assert.deepEqual(result.data.series.map((item) => item.id), first.data.series.map((item) => item.id));
+  assert.deepEqual(result.data.series[0], first.data.series[0]);
+});
 test('invalid source dates, stale windows and conflicting premiere dates fail closed', () => {
   const invalid = fixture(); invalid[0].days[4].entries[0].airsAt = 'not-a-date';
   assert.throws(() => assembleSchedule(invalid, upcoming, null, checkedAt));
