@@ -1,5 +1,8 @@
 # Final glfans virtual host. It is intentionally isolated from every existing
 # site: unique server_name, document root, logs and upstream port.
+limit_req_zone $binary_remote_addr zone=glfans_api_req:10m rate=10r/s;
+limit_conn_zone $binary_remote_addr zone=glfans_api_conn:10m;
+
 server {
     listen 80;
     listen [::]:80;
@@ -73,6 +76,11 @@ server {
     }
 
     location ^~ /api/ {
+        limit_req zone=glfans_api_req burst=30 nodelay;
+        limit_req_status 429;
+        limit_conn glfans_api_conn 20;
+        limit_conn_status 429;
+
         proxy_pass http://127.0.0.1:3100;
         proxy_http_version 1.1;
         proxy_set_header Host $host;

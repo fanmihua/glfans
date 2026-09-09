@@ -20,6 +20,11 @@ TimeoutStartSec=30s
 TimeoutStopSec=15s
 KillSignal=SIGTERM
 UMask=0027
+MemoryAccounting=true
+MemoryHigh=192M
+MemoryMax=256M
+TasksAccounting=true
+TasksMax=64
 
 # The API has no writable application directory. Logs go to journald and MySQL
 # is reached only through loopback; Nginx is the sole public entry point.

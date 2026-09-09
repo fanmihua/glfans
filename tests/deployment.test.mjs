@@ -48,6 +48,11 @@ test("Nginx template isolates static, API and certificate concerns", () => {
   assert.match(nginx, /root \/var\/www\/glfans\/current;/);
   assert.match(nginx, /return 301 https:\/\/glfans\.com\$request_uri;/);
   assert.match(nginx, /location \^~ \/api\/ \{[\s\S]*proxy_pass http:\/\/127\.0\.0\.1:3100;/);
+  assert.match(nginx, /^limit_req_zone \$binary_remote_addr zone=glfans_api_req:10m rate=10r\/s;$/m);
+  assert.match(nginx, /^limit_conn_zone \$binary_remote_addr zone=glfans_api_conn:10m;$/m);
+  assert.match(nginx, /location \^~ \/api\/ \{[\s\S]*limit_req zone=glfans_api_req burst=30 nodelay;/);
+  assert.match(nginx, /location \^~ \/api\/ \{[\s\S]*limit_conn glfans_api_conn 20;/);
+  assert.match(nginx, /location \^~ \/api\/ \{[\s\S]*limit_req_status 429;[\s\S]*limit_conn_status 429;/);
   assert.match(nginx, /try_files \$uri \$uri\/ \/index\.html;/);
   assert.match(nginx, /model\/gltf-binary glb/);
   assert.match(nginx, /application\/wasm wasm/);
@@ -106,6 +111,9 @@ test("API systemd unit and atomic deploy stay inside the glfans boundary", () =>
   assert.match(service, /^ExecStart=\/usr\/bin\/node server\/index\.js$/m);
   assert.match(service, /^ProtectSystem=strict$/m);
   assert.match(service, /^NoNewPrivileges=true$/m);
+  assert.match(service, /^MemoryHigh=192M$/m);
+  assert.match(service, /^MemoryMax=256M$/m);
+  assert.match(service, /^TasksMax=64$/m);
   assert.doesNotMatch(service, /PM2|fanstudio|uxquiz/i);
 
   assert.match(config, /host: "127\.0\.0\.1"/);
@@ -130,6 +138,15 @@ test("API systemd unit and atomic deploy stay inside the glfans boundary", () =>
   assert.match(deploy, /systemctl restart "\$service_name"/);
   assert.match(deploy, /http:\/\/127\.0\.0\.1:3100\/api\/health/);
   assert.match(deploy, /rolling back glfans API/i);
+  const rollbackStart = deploy.indexOf("rollback() {");
+  const rollbackEnd = deploy.indexOf("\n}\n\nif ! /usr/bin/systemctl restart", rollbackStart);
+  const rollbackBody = deploy.slice(rollbackStart, rollbackEnd);
+  assert.match(rollbackBody, /systemctl restart "\$service_name"[\s\S]*if ! wait_for_health/);
+  assert.match(rollbackBody, /Rollback failed: the previous API release is selected but did not pass its health check/);
+  assert.ok(
+    rollbackBody.indexOf("if ! wait_for_health") < rollbackBody.indexOf("Restored healthy previous API release"),
+    "rollback must verify the previous release before reporting success",
+  );
   assert.doesNotMatch(deploy, /pm2|systemctl restart (?:nginx|mysql|fanstudio|uxquiz)/i);
 });
 
@@ -175,6 +192,10 @@ test("deployment guide separates local Node 22 builds from the verified Node 20 
   assert.match(guide, /root:glfans 640/);
   assert.match(guide, /root:root 600/);
   assert.match(guide, /异地加密副本仍是独立待办/);
+  assert.match(guide, /MemoryHigh=192M/);
+  assert.match(guide, /MemoryMax=256M/);
+  assert.match(guide, /TasksMax=64/);
+  assert.match(guide, /平均 10 请求\/秒、允许 30 请求突发，最多 20 个并发连接/);
   assert.match(apiEnv, /^GLFANS_PORT=3100$/m);
   assert.doesNotMatch(apiEnv, /MIGRATION_DB/);
   assert.match(migrationEnv, /^GLFANS_MIGRATION_DB_USER=glfans_migrator$/m);

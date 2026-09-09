@@ -46,6 +46,8 @@
   "退出": "Exit",
   "退出失败，请重试。": "Sign-out failed. Please try again.",
   "邮箱或密码不对，或者账号还没有启用。": "The email address or password is incorrect, or the account has not been activated.",
+  "登录尝试过多，请十五分钟后再试。": "Too many sign-in attempts. Please try again in 15 minutes.",
+  "登录服务暂时没有回应，请稍后再试。": "The sign-in service is temporarily unavailable. Please try again later.",
   "坑底编辑台": "Pit bottom editing desk",
   "这里不靠隐藏地址保护。只有服务器数据库中已启用的本地管理员账号能够管理内容。": "This page is not protected by an obscure URL. Only enabled local administrator accounts in the server database can manage content.",
   "管理员邮箱": "Administrator email",

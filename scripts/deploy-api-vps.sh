@@ -184,14 +184,34 @@ fi
 /usr/bin/node -e 'require("node:fs").renameSync(process.argv[1], process.argv[2])' "$next_link" "$current_link"
 trap - EXIT
 
+wait_for_health() {
+  local attempt
+  for attempt in {1..20}; do
+    if /usr/bin/curl --fail --silent --max-time 2 "$health_url" >/dev/null; then
+      return 0
+    fi
+    /usr/bin/sleep 0.5
+  done
+  return 1
+}
+
 rollback() {
   printf 'Health check failed; rolling back glfans API.\n' >&2
   if [[ -n "$previous_target" && -d "$previous_target" ]]; then
     rollback_link="$app_root/.rollback-$release_id"
     /usr/bin/ln -s "$previous_target" "$rollback_link"
     /usr/bin/node -e 'require("node:fs").renameSync(process.argv[1], process.argv[2])' "$rollback_link" "$current_link"
-    /usr/bin/systemctl restart "$service_name"
-    printf 'Restored previous API release: %s\n' "$previous_target" >&2
+    if ! /usr/bin/systemctl restart "$service_name"; then
+      printf 'Rollback failed: the previous API release could not restart. Manual recovery is required.\n' >&2
+      /usr/bin/systemctl stop "$service_name" || true
+      return 1
+    fi
+    if ! wait_for_health; then
+      printf 'Rollback failed: the previous API release is selected but did not pass its health check. The service was stopped; manual recovery is required.\n' >&2
+      /usr/bin/systemctl stop "$service_name" || true
+      return 1
+    fi
+    printf 'Restored healthy previous API release: %s\n' "$previous_target" >&2
   else
     /usr/bin/systemctl stop "$service_name" || true
     if [[ -L "$current_link" ]] && [[ "$(/usr/bin/readlink "$current_link")" == "$release_dir" ]]; then
@@ -202,21 +222,12 @@ rollback() {
 }
 
 if ! /usr/bin/systemctl restart "$service_name"; then
-  rollback
+  rollback || true
   exit 1
 fi
 
-healthy=false
-for _attempt in {1..20}; do
-  if /usr/bin/curl --fail --silent --show-error --max-time 2 "$health_url" >/dev/null; then
-    healthy=true
-    break
-  fi
-  /usr/bin/sleep 0.5
-done
-
-if [[ "$healthy" != "true" ]]; then
-  rollback
+if ! wait_for_health; then
+  rollback || true
   exit 1
 fi
 

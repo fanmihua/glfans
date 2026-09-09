@@ -96,7 +96,9 @@ sudo systemctl status glfans-api.service --no-pager
 sudo journalctl -u glfans-api.service -n 80 --no-pager
 ```
 
-`deploy-api-vps.sh` 仅按生产白名单复制 API 模块、数据库维护脚本、migration/seed、API 测试与锁文件到 `/opt/glfans-api/releases/<release-id>`；不会整目录打包 checkout。发现真实 `.env`、导出/快照 JSON 或私钥材料时会在复制前直接拒绝发布，合法的 `community-import.example.json` 仅作为格式示例保留。脚本用 glfans 用户执行 `npm ci` 和 API 测试，随后把 release 收紧为 `root:glfans`、目录 `0750`、文件 `0640`，再通过同文件系统 rename 原子切换 `current`。它只重启 `glfans-api.service` 并检查 `127.0.0.1:3100/api/health`；检查失败会自动恢复上一版并重启，不删除旧 release，也不触碰其他 PM2/systemd 服务。
+`glfans-api.service` 的 cgroup 软内存阈值为 `MemoryHigh=192M`、硬上限为 `MemoryMax=256M`，任务数上限为 `TasksMax=64`；这些限制只作用于 glfans API，避免单个 Node 进程挤占这台 3.6 GiB 共享服务器上的 MySQL、FanStudio 与其他项目。
+
+`deploy-api-vps.sh` 仅按生产白名单复制 API 模块、数据库维护脚本、migration/seed、API 测试与锁文件到 `/opt/glfans-api/releases/<release-id>`；不会整目录打包 checkout。发现真实 `.env`、导出/快照 JSON 或私钥材料时会在复制前直接拒绝发布，合法的 `community-import.example.json` 仅作为格式示例保留。脚本用 glfans 用户执行 `npm ci` 和 API 测试，随后把 release 收紧为 `root:glfans`、目录 `0750`、文件 `0640`，再通过同文件系统 rename 原子切换 `current`。它只重启 `glfans-api.service` 并检查 `127.0.0.1:3100/api/health`；检查失败会切回上一版、重启并再次检查旧版健康状态。只有旧版健康检查通过才报告回滚成功；旧版也不健康时会停止服务并明确要求人工恢复。脚本不删除旧 release，也不触碰其他 PM2/systemd 服务。
 
 迁移要在切换 API 前单独完成；部署脚本故意不持有 migrator 凭据。需要人工回滚时，先核对目标 release，再创建临时软链接并用 Node `renameSync` 替换 `current`，最后只重启 `glfans-api.service`。
 
@@ -192,6 +194,8 @@ sudo /snap/bin/certbot certonly \
 ```
 
 确认 `/etc/letsencrypt-glfans/live/glfans.com/fullchain.pem` 与 `privkey.pem` 存在后，备份 bootstrap 文件，再用 `ops/nginx/glfans.conf.example` 替换这个**同名 glfans 配置**。最终配置不引用默认 `/etc/letsencrypt` 的证书、TLS snippet 或 DH 参数；它会把 HTTP 和 `www` 统一 301 到 `https://glfans.com`，并提供 SPA fallback、静态缓存、安全响应头、GLB/WASM MIME 及 `/api/` 反向代理。
+
+最终配置在 Nginx `http` include 顶层声明 glfans 专属 `glfans_api_req` / `glfans_api_conn` zone，只对 `/api/` 生效：同一公网 IP 平均 10 请求/秒、允许 30 请求突发，最多 20 个并发连接，超限返回 429。该边界不会复用或改变其他站点的限流 zone；应用内部的登录、评论和投稿限流继续保留。
 
 ```bash
 sudo nginx -t

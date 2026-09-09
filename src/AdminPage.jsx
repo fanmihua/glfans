@@ -22,7 +22,10 @@ import {
   updateAdminComment,
   updateAdminQuote,
 } from "./community-api.js";
-import { attemptAdminLogout } from "./features/community/admin-session-state.js";
+import {
+  adminLoginErrorMessage,
+  attemptAdminLogout,
+} from "./features/community/admin-session-state.js";
 import "./admin-page.css";
 
 const statusOptions = [
@@ -73,9 +76,9 @@ function AdminLogin({ onAuthenticated }) {
       const session = await loginAdmin(email, password);
       setState("success");
       onAuthenticated(session);
-    } catch {
+    } catch (error) {
       setState("error");
-      setErrorMessage("邮箱或密码不对，或者账号还没有启用。 ");
+      setErrorMessage(adminLoginErrorMessage(error));
     }
   };
 

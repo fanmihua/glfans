@@ -30,6 +30,15 @@ test('UI copy and template values translate without altering quoted user text', 
   assert.equal(translate('未知的网友留言 ABC', 'en'), '未知的网友留言 ABC');
   assert.equal(translate('范米花儿', 'th'), '范米花儿');
   assert.equal(translate('  正在捞回声  ', 'en'), '  Loading replies…  ');
+  for (const message of [
+    '邮箱或密码不对，或者账号还没有启用。',
+    '登录尝试过多，请十五分钟后再试。',
+    '登录服务暂时没有回应，请稍后再试。',
+    '退出失败，请重试。',
+  ]) {
+    assert.doesNotMatch(translate(message, 'en'), /\p{Script=Han}/u);
+    assert.doesNotMatch(translate(message, 'th'), /\p{Script=Han}/u);
+  }
 });
 
 test('Both languages have matching complete, nonempty catalog entries and placeholders', () => {
