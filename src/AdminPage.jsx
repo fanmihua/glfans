@@ -11,7 +11,7 @@ import {
   SignOut,
   SpinnerGap,
 } from "@phosphor-icons/react";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from "react";
 import {
   createAdminQuote,
   isCommunityConfigured,
@@ -346,6 +346,12 @@ export function AdminPage() {
   const [session, setSession] = useState(null);
   const [authState, setAuthState] = useState(isCommunityConfigured ? "loading" : "unconfigured");
   const [authMessage, setAuthMessage] = useState("");
+
+  useLayoutEffect(() => {
+    if (authState === "ready" || authState === "signed-out") {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    }
+  }, [authState]);
 
   const verifyAdmin = useCallback(async (nextSession) => {
     if (!nextSession?.user || nextSession.user.kind !== "admin" || nextSession.user.role !== "admin") {
