@@ -1,0 +1,14 @@
+Generated/
+.build/
+GlfansCore/.build/
+DerivedData/
+Config/Local.xcconfig
+*.xcodeproj/
+output/
+.swiftpm/
+**/xcuserdata/
+
+# Local conversion plan and visual QA tooling
+SOURCE_CONVERSION.md
+Scripts/capture-home.py
+Scripts/compare-home.py

@@ -1,0 +1,8 @@
+// 复制为 Local.xcconfig 后填入运营方真实配置，不填 service_role 或 secret key。
+// URL 用 host/path 形式，以免 xcconfig 将双斜杠当作注释。
+GLFANS_SUPABASE_HOST = YOUR_PROJECT.supabase.co
+GLFANS_SUPABASE_KEY = sb_publishable_YOUR_KEY
+GLFANS_SUPPORT_EMAIL =
+GLFANS_PRIVACY_HOST_PATH =
+// DEVELOPMENT_TEAM = 苹果开发者团队编号
+// GLFANS_BUNDLE_ID = 已确认的唯一应用标识

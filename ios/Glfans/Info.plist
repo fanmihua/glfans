@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+  <key>CFBundleDisplayName</key><string>glfans</string>
+  <key>CFBundleIdentifier</key><string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+  <key>CFBundleExecutable</key><string>$(EXECUTABLE_NAME)</string>
+  <key>CFBundleName</key><string>$(PRODUCT_NAME)</string>
+  <key>CFBundlePackageType</key><string>APPL</string>
+  <key>CFBundleShortVersionString</key><string>$(MARKETING_VERSION)</string>
+  <key>CFBundleVersion</key><string>$(CURRENT_PROJECT_VERSION)</string>
+  <key>LSRequiresIPhoneOS</key><true/>
+  <key>UILaunchScreen</key><dict/>
+  <key>UIAppFonts</key><array>
+    <string>RepoHeroHeavy.ttf</string>
+    <string>ManropeVariable.ttf</string>
+    <string>RobotoCondensedVariable.ttf</string>
+    <string>NotoSansThaiVariable.ttf</string>
+  </array>
+  <key>UIBackgroundModes</key><array><string>audio</string></array>
+  <key>UISupportedInterfaceOrientations</key><array><string>UIInterfaceOrientationPortrait</string></array>
+  <key>NSPhotoLibraryAddUsageDescription</key><string>将你主动选择的表情包保存到相册。</string>
+  <key>GLFansSupabaseHost</key><string>$(GLFANS_SUPABASE_HOST)</string>
+  <key>GLFansSupabaseKey</key><string>$(GLFANS_SUPABASE_KEY)</string>
+  <key>GLFansSupportEmail</key><string>$(GLFANS_SUPPORT_EMAIL)</string>
+  <key>GLFansPrivacyHostPath</key><string>$(GLFANS_PRIVACY_HOST_PATH)</string>
+  <key>CFBundleURLTypes</key><array><dict>
+    <key>CFBundleURLName</key><string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    <key>CFBundleURLSchemes</key><array><string>glfans</string></array>
+  </dict></array>
+</dict></plist>

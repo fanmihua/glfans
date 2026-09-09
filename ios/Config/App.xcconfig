@@ -1,0 +1,7 @@
+// 私有部署配置通过被忽略的 Local.xcconfig 覆盖。只允许公开客户端密钥。
+GLFANS_BUNDLE_ID = com.glfans.ios
+GLFANS_SUPABASE_HOST =
+GLFANS_SUPABASE_KEY =
+GLFANS_SUPPORT_EMAIL =
+GLFANS_PRIVACY_HOST_PATH =
+#include? "Local.xcconfig"

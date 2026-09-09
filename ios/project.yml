@@ -1,0 +1,69 @@
+name: Glfans
+options:
+  minimumXcodeGenVersion: 2.40.0
+  deploymentTarget:
+    iOS: '17.0'
+settings:
+  base:
+    SWIFT_VERSION: '5.0'
+    MARKETING_VERSION: 1.0.0
+    CURRENT_PROJECT_VERSION: 1
+    DEVELOPMENT_TEAM: ''
+    CODE_SIGN_STYLE: Automatic
+    ENABLE_USER_SCRIPT_SANDBOXING: NO
+packages:
+  GlfansCore:
+    path: GlfansCore
+targets:
+  Glfans:
+    type: application
+    platform: iOS
+    sources:
+      - path: Glfans
+      - path: Generated
+        type: folder
+        buildPhase: resources
+    dependencies:
+      - package: GlfansCore
+    configFiles:
+      Debug: Config/App.xcconfig
+      Release: Config/App.xcconfig
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: $(GLFANS_BUNDLE_ID)
+        TARGETED_DEVICE_FAMILY: '1'
+        GENERATE_INFOPLIST_FILE: NO
+        INFOPLIST_FILE: Glfans/Info.plist
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        SUPPORTS_MACCATALYST: NO
+    preBuildScripts:
+      - name: 同步完整内容与图片
+        script: |
+          export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+          node "$SRCROOT/Scripts/prepare-content.mjs"
+        basedOnDependencyAnalysis: false
+  GlfansUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: GlfansUITests
+    dependencies:
+      - target: Glfans
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.glfans.ios.uitests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_TARGET_NAME: Glfans
+schemes:
+  Glfans:
+    build:
+      targets:
+        Glfans: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - GlfansUITests
+    archive:
+      config: Release
