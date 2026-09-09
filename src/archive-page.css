@@ -14,6 +14,7 @@
 .archive-stage {
   position: relative;
   display: grid;
+  min-height: calc(100vh - 72px);
   min-height: calc(100svh - 72px);
   padding: 76px 3.25vw 28px;
   grid-template-columns: minmax(0, 1fr);
@@ -321,6 +322,7 @@
     display: block;
     width: 100%;
     height: auto;
+    min-height: 100vh;
     min-height: 100svh;
     overflow: visible;
   }
@@ -328,6 +330,7 @@
   .app-shell--archive > .route-ready-boundary,
   .app-shell--archive > .route-ready-boundary > .route-ready-content {
     width: 100%;
+    min-height: 100vh;
     min-height: 100svh;
   }
 

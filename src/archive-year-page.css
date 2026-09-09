@@ -492,6 +492,7 @@
     height: auto;
     min-height: max(760px, 100vh);
     min-height: max(760px, 100svh);
+    padding-top: clamp(60px, 7.7vh, 68px);
     padding-top: clamp(60px, 7.7svh, 68px);
     grid-template-rows: auto minmax(0, 1fr) auto auto;
   }
@@ -501,6 +502,7 @@
   .archive-year-hero {
     width: min(1540px, 100%);
     height: 340px;
+    height: clamp(342px, calc(100vh - 420px), 420px);
     height: clamp(342px, calc(100svh - 420px), 420px);
     min-height: 0;
     max-height: none;
@@ -520,20 +522,24 @@
 
   .archive-year-masthead .archive-year-cn-title {
     margin-top: 16px;
+    font-size: clamp(76px, min(7.15vw, 12vh), 112px);
     font-size: clamp(76px, min(7.15vw, 12svh), 112px);
   }
 
   .archive-year-masthead h1 strong {
     margin-top: 20px;
+    font-size: clamp(31px, min(3vw, 5.2vh), 48px);
     font-size: clamp(31px, min(3vw, 5.2svh), 48px);
   }
 
   html:not(:lang(zh)) .archive-year-masthead .archive-year-cn-title {
+    font-size: clamp(54px, min(6.5vw, 9vh), 104px);
     font-size: clamp(54px, min(6.5vw, 9svh), 104px);
     line-height: 1.2;
   }
 
   html:not(:lang(zh)) .archive-year-masthead h1 strong {
+    font-size: clamp(28px, min(2.7vw, 4.5vh), 44px);
     font-size: clamp(28px, min(2.7vw, 4.5svh), 44px);
     line-height: 1.2;
   }
@@ -545,7 +551,9 @@
   }
 
   .archive-year-tag {
+    margin-top: clamp(25px, 3.6vh, 32px);
     margin-top: clamp(25px, 3.6svh, 32px);
+    padding-block: clamp(7px, 1vh, 9px) clamp(7px, 0.9vh, 8px);
     padding-block: clamp(7px, 1svh, 9px) clamp(7px, 0.9svh, 8px);
   }
 
@@ -556,59 +564,101 @@
 
   .archive-year-summary {
     height: auto;
+    padding: clamp(24px, 4.5vh, 40px) clamp(26px, 2.2vw, 34px) clamp(20px, 3.8vh, 34px);
     padding: clamp(24px, 4.5svh, 40px) clamp(26px, 2.2vw, 34px) clamp(20px, 3.8svh, 34px);
   }
 
-  .archive-year-summary time { font-size: clamp(11px, 1.45svh, 13px); }
+  .archive-year-summary time {
+    font-size: clamp(11px, 1.45vh, 13px);
+    font-size: clamp(11px, 1.45svh, 13px);
+  }
 
   .archive-year-summary h2 {
+    margin-top: clamp(8px, 1.15vh, 10px);
     margin-top: clamp(8px, 1.15svh, 10px);
+    font-size: clamp(28px, min(2.25vw, 4vh), 38px);
     font-size: clamp(28px, min(2.25vw, 4svh), 38px);
   }
 
+  html:not(:lang(zh)) .archive-year-summary h2 {
+    font-size: clamp(22px, min(2.25vw, 4vh), 38px);
+    font-size: clamp(22px, min(2.25vw, 4svh), 38px);
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
   .archive-year-original-title {
+    margin-top: clamp(5px, 0.7vh, 6px);
     margin-top: clamp(5px, 0.7svh, 6px);
+    font-size: clamp(10px, 1.25vh, 11px);
     font-size: clamp(10px, 1.25svh, 11px);
   }
 
   .archive-year-facts {
+    margin-top: clamp(10px, 1.45vh, 13px);
     margin-top: clamp(10px, 1.45svh, 13px);
+    gap: clamp(8px, 1.1vh, 10px) clamp(14px, 1.9vh, 17px);
     gap: clamp(8px, 1.1svh, 10px) clamp(14px, 1.9svh, 17px);
   }
 
-  .archive-year-facts div { gap: clamp(5px, 0.7svh, 6px); }
+  .archive-year-facts div {
+    gap: clamp(5px, 0.7vh, 6px);
+    gap: clamp(5px, 0.7svh, 6px);
+  }
   .archive-year-facts dt,
-  .archive-year-cast > span { font-size: clamp(8px, 1svh, 9px); }
-  .archive-year-facts dd { font-size: clamp(9px, 1.25svh, 11px); }
+  .archive-year-cast > span {
+    font-size: clamp(8px, 1vh, 9px);
+    font-size: clamp(8px, 1svh, 9px);
+  }
+  .archive-year-facts dd {
+    font-size: clamp(9px, 1.25vh, 11px);
+    font-size: clamp(9px, 1.25svh, 11px);
+  }
 
   .archive-year-cast {
+    margin-top: clamp(9px, 1.25vh, 11px);
     margin-top: clamp(9px, 1.25svh, 11px);
+    gap: clamp(7px, 0.9vh, 8px);
     gap: clamp(7px, 0.9svh, 8px);
   }
 
   .archive-year-summary .archive-year-cast > p {
+    font-size: clamp(9px, 1.25vh, 11px);
     font-size: clamp(9px, 1.25svh, 11px);
     line-height: 1.42;
   }
 
-  .archive-year-summary-brush { margin: clamp(9px, 1.35svh, 12px) 0 clamp(10px, 1.45svh, 13px); }
+  .archive-year-summary-brush {
+    margin: clamp(9px, 1.35vh, 12px) 0 clamp(10px, 1.45vh, 13px);
+    margin: clamp(9px, 1.35svh, 12px) 0 clamp(10px, 1.45svh, 13px);
+  }
 
   .archive-year-summary > p {
     max-width: 46ch;
+    font-size: clamp(12px, 1.6vh, 14px);
     font-size: clamp(12px, 1.6svh, 14px);
     line-height: 1.64;
   }
 
-  .archive-year-summary > img { width: clamp(29px, 3.8svh, 34px); }
+  .archive-year-summary > img {
+    width: clamp(29px, 3.8vh, 34px);
+    width: clamp(29px, 3.8svh, 34px);
+  }
 
   .archive-event-browser {
     margin-top: 5px;
+    padding-block: clamp(18px, 2.5vh, 22px) clamp(18px, 2.4vh, 21px);
     padding-block: clamp(18px, 2.5svh, 22px) clamp(18px, 2.4svh, 21px);
   }
 
-  .archive-event-card { height: clamp(148px, 19.2svh, 170px); }
+  .archive-event-card {
+    height: clamp(148px, 19.2vh, 170px);
+    height: clamp(148px, 19.2svh, 170px);
+  }
   .archive-event-card > span {
+    min-height: clamp(37px, 4.8vh, 42px);
     min-height: clamp(37px, 4.8svh, 42px);
+    padding-block: clamp(5px, 0.7vh, 6px);
     padding-block: clamp(5px, 0.7svh, 6px);
   }
 
