@@ -26,3 +26,20 @@ export function observeElementResize(target, listener) {
   observer.observe(target);
   return observer;
 }
+
+export function supportsNativePopover(globalObject = globalThis) {
+  const prototype = globalObject?.HTMLElement?.prototype;
+  return typeof prototype?.showPopover === "function" && typeof prototype?.hidePopover === "function";
+}
+
+export function hideNativePopoverIfOpen(element) {
+  if (!element || typeof element.matches !== "function" || typeof element.hidePopover !== "function") return false;
+  try {
+    if (!element.matches(":popover-open")) return false;
+    element.hidePopover();
+    return true;
+  } catch {
+    // Chrome 107 and older WebViews throw when parsing :popover-open.
+    return false;
+  }
+}

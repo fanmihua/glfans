@@ -68,6 +68,23 @@ button {
   line-height: 1.75;
 }
 
+.app-recovery__diagnostic {
+  margin-top: 20px;
+  color: rgba(17, 16, 17, 0.72);
+  font: 600 12px/1.5 "Roboto Condensed Variable", "Arial Narrow", sans-serif;
+}
+
+.app-recovery__diagnostic summary {
+  cursor: pointer;
+}
+
+.app-recovery__diagnostic code {
+  display: block;
+  margin-top: 8px;
+  overflow-wrap: anywhere;
+  font: 500 12px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
 .app-recovery__card button {
   min-width: 132px;
   min-height: 46px;

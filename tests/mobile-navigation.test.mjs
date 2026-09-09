@@ -40,3 +40,12 @@ test("mobile tabs use one real paper surface without stacked backing layers", ()
   assert.doesNotMatch(styles, /box-shadow\s*:/);
   assert.match(styles, /\[aria-current="page"\] \.mobile-tab-paper::before\s*\{[^}]*filter: invert\(1\)/s);
 });
+
+test("mobile radio controls fall back before the native Popover API", () => {
+  const source = readFileSync(new URL("../src/MobileSectionNav.jsx", import.meta.url), "utf8");
+  const styles = readFileSync(new URL("../src/mobile-section-nav.css", import.meta.url), "utf8");
+  assert.match(source, /supportsNativePopover\(\)/);
+  assert.match(source, /hideNativePopoverIfOpen\(/);
+  assert.doesNotMatch(source, /\.matches\(["']:popover-open/);
+  assert.match(styles, /\.mobile-radio-controls\.is-fallback-open\s*\{/);
+});

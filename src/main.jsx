@@ -42,6 +42,7 @@ initializeLocale()
       <AppRecoveryScreen
         title="页面暂时没有打开"
         message="网站可能刚好完成更新，请重新加载一次。"
+        error={error}
       />,
     );
   });

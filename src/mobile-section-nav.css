@@ -211,6 +211,19 @@
     color: #090909;
     font-family: var(--headline);
   }
+  /* Safari 16 and Chromium WebViews before the Popover API use the React state fallback. */
+  .mobile-radio-controls.is-fallback-open {
+    position: fixed;
+    inset: auto 16px calc(var(--mobile-nav-space) + 8px) auto;
+    display: block;
+    width: min(340px, calc(100vw - 32px));
+    margin: 0;
+    padding: 10px 16px 16px;
+    border: 1px solid #090909;
+    background: var(--paper);
+    color: #090909;
+    font-family: var(--headline);
+  }
   .mobile-radio-controls header { display: flex; align-items: center; justify-content: space-between; font-size: 13px; font-weight: 750; }
   .mobile-radio-controls header button { display: grid; place-items: center; width: 44px; height: 44px; margin-right: -8px; border: 0; background: transparent; color: inherit; }
   .mobile-radio-track { margin: 0 0 6px; font-size: 18px; font-weight: 750; overflow-wrap: anywhere; }
