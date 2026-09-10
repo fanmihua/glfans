@@ -15,7 +15,7 @@ export function normalizeShareUrl(href, base = '/', bootstrap = false) {
   return url;
 }
 
-export function installShareMetadata(host = window) {
+export function installShareMetadata(host = window, onMetadata = () => {}) {
   let revision = 0;
   const cache = new Map();
   const update = async () => {
@@ -39,6 +39,7 @@ export function installShareMetadata(host = window) {
       }
       doc.head.querySelector('meta[name="description"]')?.setAttribute('content',data.description);
       doc.head.querySelector('link[rel="canonical"]')?.setAttribute('href',data.url);
+      onMetadata(data);
     } catch {
       if (revision !== current) return;
       // Unknown pages must never retain the previous CP's preview or canonical.

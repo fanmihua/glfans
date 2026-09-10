@@ -112,6 +112,7 @@ production_files=(
   server/mysql-store.js
   server/security.js
   server/validation.js
+  server/wechat-share.js
   scripts/create-glfans-admin.mjs
   scripts/import-glfans-community.mjs
   scripts/lib/glfans-db.mjs

@@ -16,9 +16,11 @@ import "./pit-radio.css";
 import './i18n/localized-layout.css';
 import { initializeLocale } from './i18n/runtime.js';
 import { installShareRoutes, installShareMetadata } from './app/share-route.js';
+import { createWechatSharing } from './app/wechat-share.js';
 
+const configureWechat = createWechatSharing(window, window.location.href);
 installShareRoutes(window, import.meta.env.BASE_URL);
-if (import.meta.env.PROD) installShareMetadata();
+if (import.meta.env.PROD) installShareMetadata(window, configureWechat);
 installChunkRecovery();
 
 const rootElement = document.getElementById("root");

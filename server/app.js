@@ -1,6 +1,7 @@
 import express from "express";
 import { randomUUID } from "node:crypto";
 import { AppError } from "./errors.js";
+import { createWechatSigner } from './wechat-share.js';
 import {
   assertCsrf,
   assertTrustedOrigin,
@@ -96,6 +97,10 @@ export function createApp({ store, config }) {
     next();
   });
   app.use(express.json({ limit: config.jsonLimit || "16kb", type: "application/json" }));
+  const signWechat = createWechatSigner();
+  app.get('/api/wechat/jssdk-signature', async (req,res) => {
+    res.json(await signWechat(req.query.url));
+  });
 
   async function loadSession(req) {
     if (req.communitySession !== undefined) return req.communitySession;
