@@ -111,9 +111,9 @@ server {
         try_files $uri =404;
     }
 
-    # Retired temporary diagnostic: do not fall through to the SPA.
+    # Retired temporary diagnostic: return visitors to the public site.
     location = /wechat-share-check.html {
-        return 410;
+        return 301 https://glfans.com/;
     }
 
     # Hashed build assets are persistent across releases so a browser running
