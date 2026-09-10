@@ -88,6 +88,12 @@ test("Nginx template isolates static, API and certificate concerns", () => {
   assert.doesNotMatch(nginx, /\/etc\/letsencrypt\//);
 });
 
+test("retired WeChat diagnostics are not published or replaced by the SPA", () => {
+  assert.equal(existsSync(new URL("../public/wechat-share-check.html", import.meta.url)), false);
+  const nginx = read("../ops/nginx/glfans.conf.example");
+  assert.match(nginx, /location = \/wechat-share-check\.html \{\s*return 410;/);
+});
+
 test("static releases retain old hashed assets without shipping macOS metadata", () => {
   const fixtureRoot = mkdtempSync(path.join(tmpdir(), "glfans-static-release-"));
   const sourceDir = path.join(fixtureRoot, "source");

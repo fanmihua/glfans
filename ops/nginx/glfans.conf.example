@@ -111,6 +111,11 @@ server {
         try_files $uri =404;
     }
 
+    # Retired temporary diagnostic: do not fall through to the SPA.
+    location = /wechat-share-check.html {
+        return 410;
+    }
+
     # Hashed build assets are persistent across releases so a browser running
     # the previous SPA can still finish a lazy import after an atomic switch.
     location ^~ /assets/ {
