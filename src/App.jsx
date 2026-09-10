@@ -20,6 +20,7 @@ const ColumnExperience = lazy(() => import("./Column.jsx").then((module) => ({ d
 const MemesPage = lazy(() => import("./MemesPage.jsx").then((module) => ({ default: module.MemesPage })));
 const PitRadioPage = lazy(() => import("./PitRadioPage.jsx").then((module) => ({ default: module.PitRadioPage })));
 const WordsTideLab = lazy(() => import("./WordsTideLab.jsx").then((module) => ({ default: module.WordsTideLab })));
+const CpPage = lazy(() => import("./features/cp/CpPage.jsx").then(module => ({ default: module.CpPage })));
 
 function readRootRoute() {
   const rootRoute = parseHashRoute(window.location.hash)[0];
@@ -98,6 +99,8 @@ export function App() {
     page = <WordsTideLab />;
   } else if (rootRoute === "archive") {
     page = <ArchivePage />;
+  } else if (rootRoute === "cp") {
+    page = <CpPage />;
   } else if (rootRoute === "radio") {
     page = <PitRadioPage />;
   } else if (rootRoute === "memes") {
@@ -107,7 +110,7 @@ export function App() {
   }
 
   return (
-    <div className={`app-shell${rootRoute === "archive" ? " app-shell--archive" : ""}${showMobileNavigation ? " has-mobile-navigation" : ""}`}>
+    <div className={`app-shell${rootRoute === "cp" ? " app-shell--cp" : ""}${rootRoute === "archive" ? " app-shell--archive" : ""}${showMobileNavigation ? " has-mobile-navigation" : ""}`}>
       <Suspense fallback={<PageLoader kicker={loadingCopy.kicker} label={loadingCopy.label} />}>
         <RouteReadyBoundary
           routeKey={routeKey}

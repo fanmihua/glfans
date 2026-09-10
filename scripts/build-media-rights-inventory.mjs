@@ -1,6 +1,10 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { cpProfiles } from '../src/features/cp/cp-data.js';
+import { cpMedia as cpJournalMedia } from '../src/features/cp/cp-media.js';
+import { cpNotices } from '../src/features/cp/cp-timeline.js';
+import { cpChildren } from '../src/features/cp/cp-children.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const columnData = JSON.parse(await readFile(path.join(root, "src/data/column-data.json"), "utf8"));
@@ -71,7 +75,30 @@ const radioMedia = neteasePlaylist.tracks.filter((track) => track.playable).map(
   publicDownload: false,
 }));
 
-const assets = [...homeMedia, ...dedupedArticleMedia, ...memeMedia, ...radioMedia];
+const cpMedia = cpProfiles.flatMap(cp => [...cp.events, ...(cp.upcoming || [])].filter(event => event.image).map(event => ({
+  id: `cp-media:${cp.id}:${event.image}`, path: event.image, category: 'official-editorial-image',
+  context: { kind: 'cp', slug: cp.id, title: event.title }, sourceUrl: event.source,
+  sourceImageUrl: event.imageSource, rightsHolder: event.publisher,
+  rightsStatus: 'source-audit-required', useBasis: 'editorial-reference-with-official-source', publicDownload: false,
+})));
+const cpJournalImages = [...cpJournalMedia.map(item => ({
+  id: `cp-journal:${item.id}`, path: item.image, category: 'official-editorial-image',
+  context: { kind: 'cp', slug: item.cpId, title: item.title }, sourceUrl: item.source,
+  sourceImageUrl: item.imageSource, rightsHolder: item.publisher,
+  rightsStatus: 'source-audit-required', useBasis: 'editorial-reference-with-official-source', publicDownload: false,
+})), ...Object.entries(cpNotices).flatMap(([cpId, notice]) => notice.images.map(item => ({
+  id: `cp-notice:${notice.id}:${item.language}`, path: item.image, category: 'official-announcement',
+  context: { kind: 'cp', slug: cpId, title: notice.id }, sourceUrl: notice.source,
+  sourceImageUrl: item.source, rightsHolder: notice.publisher,
+  rightsStatus: 'source-audit-required', useBasis: 'editorial-reference-with-official-source', publicDownload: false,
+})))];
+const childImages = Object.entries(cpChildren).flatMap(([cpId, child]) => [child, child.video].map((item, index) => ({
+  id: `cp-child:${cpId}:${index}`, path: item.image, category: 'official-editorial-image',
+  context: { kind: 'cp', slug: cpId, title: child.name }, sourceUrl: item.source || item.url,
+  sourceImageUrl: item.imageSource, rightsHolder: item.publisher,
+  rightsStatus: 'source-audit-required', useBasis: 'editorial-reference-with-official-source', publicDownload: false,
+})));
+const assets = [...homeMedia, ...dedupedArticleMedia, ...memeMedia, ...radioMedia, ...cpMedia, ...cpJournalImages, ...childImages];
 const inventory = {
   policyVersion: "2026-09-02",
   generatedAt: new Date().toISOString(),
@@ -86,6 +113,7 @@ const inventory = {
     articleImages: dedupedArticleMedia.length,
     memes: memeMedia.length,
     radioTracks: radioMedia.length,
+    cpImages: cpMedia.length + cpJournalImages.length + childImages.length,
   },
   assets,
 };

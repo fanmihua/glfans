@@ -1,10 +1,11 @@
-export const ROOT_ROUTES = ["about", "admin", "archive", "column", "memes", "radio", "tide-words"];
+export const ROOT_ROUTES = ["about", "admin", "archive", "cp", "column", "memes", "radio", "tide-words"];
 
 export const ROUTE_LOADING_COPY = {
   home: { kicker: "ENTER THE PIT", label: "正在展开入坑现场" },
   about: { kicker: "ABOUT GLFANS", label: "正在展开坑底说明" },
   admin: { kicker: "COMMUNITY DESK", label: "正在核对管理员身份" },
   archive: { kicker: "PIT ARCHIVE", label: "正在放映年度胶卷" },
+  cp: { kicker: "CP ARCHIVE", label: "正在展开百家饭" },
   column: { kicker: "REPO", label: "正在整理心动证据" },
   memes: { kicker: "MEME PIT", label: "正在装填表情包" },
   radio: { kicker: "PIT FM", label: "正在接通坑底频率" },
@@ -21,6 +22,11 @@ export const SITE_NAVIGATION = [
     "id": "archive",
     "href": "#/archive",
     "label": "考古档案"
+  },
+  {
+    "id": "cp",
+    "href": "#/cp",
+    "label": "百家饭"
   },
   {
     "id": "tide-words",

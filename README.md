@@ -10,7 +10,7 @@
 
 > 欢迎入坑。请保管好你的理智，虽然大概率用不上。
 
-[欢迎入坑](https://glfans.com/?lang=zh#/) · [考古档案](https://glfans.com/?lang=zh#/archive) · [坑底文学](https://glfans.com/?lang=zh#/tide-words) · [Repo 文专栏](https://glfans.com/?lang=zh#/column) · [来捡表情包](https://glfans.com/?lang=zh#/memes) · [坑底电台](https://glfans.com/?lang=zh#/radio) · [关于](https://glfans.com/?lang=zh#/about)
+[欢迎入坑](https://glfans.com/?lang=zh#/) · [考古档案](https://glfans.com/?lang=zh#/archive) · [百家饭](https://glfans.com/?lang=zh#/cp) · [坑底文学](https://glfans.com/?lang=zh#/tide-words) · [Repo 文专栏](https://glfans.com/?lang=zh#/column) · [来捡表情包](https://glfans.com/?lang=zh#/memes) · [坑底电台](https://glfans.com/?lang=zh#/radio) · [关于](https://glfans.com/?lang=zh#/about)
 
 [参与讨论](https://github.com/fanmihua/glfans/discussions) · [提交问题](https://github.com/fanmihua/glfans/issues)
 
@@ -30,7 +30,13 @@ glfans 是一个正在慢慢挖的泰百小网页。
 
 ### 现在挖到哪了
 
-`PIT STATUS: 首页片头、考古档案、坑底文学、REPO、MEME PIT、坑底电台都已接通`
+新增百家饭：51 对 CP 的演员资料、INS/X/微博与超话、作品、音乐影像、双轨时间线和「她们的娃」，与考古档案及播出日历关联。只载入当前 CP 的详情，图片按屏幕尺寸加载；缺项和合作状态保留待核实，不推断私人关系。[资料维护规则](docs/cp-data-maintenance.md)采用到期增量检索：稳定资料不重搜，账号低频、动态项目按周、缺项逐步降频。
+
+CP Archive: 51 pairings with actor profiles, social links, works, music, timelines and fan characters. Details load per pairing with responsive images; unknown facts stay unverified. Maintenance searches only due fields, not the whole catalogue.
+
+รวมทุกคู่: ข้อมูลนักแสดง ช่องทางโซเชียล ผลงาน เพลง ไทม์ไลน์ และตัวละครแฟนด้อมของ 51 คู่ โหลดข้อมูลเฉพาะคู่และรูปตามขนาดหน้าจอ ตรวจเฉพาะข้อมูลที่ถึงรอบและไม่คาดเดาข้อมูลที่ยังไม่ยืนยัน
+
+`PIT STATUS: 首页片头、考古档案、百家饭、坑底文学、REPO、MEME PIT、坑底电台都已接通`
 
 现在打开网页，能看到几条已经挖通的路：
 
@@ -42,7 +48,7 @@ glfans 是一个正在慢慢挖的泰百小网页。
 - **坑底电台**：点一张 CP 贴纸，放下唱针，听听她们的歌；可以切歌、单曲循环，也可以打开当前 CP 的歌单；
 - **关于这个坑**：看看是谁在挖，以及这份热爱为什么还在继续。
 
-页面使用黑白主体、粉色高亮的独立杂志排版。手机底部有五张栏目签，原话和歌单用弹层展开，相纸可以横向滑动；电台贴纸直接标出歌曲数量，播放按钮留出好点按的位置。桌面仍保留原话卡片拖动、贴纸拖入唱片等小玩法。
+页面使用黑白主体、粉色高亮的独立杂志排版。手机底部有六张栏目签，原话和歌单用弹层展开，相纸可以横向滑动；电台贴纸直接标出歌曲数量，播放按钮留出好点按的位置。桌面仍保留原话卡片拖动、贴纸拖入唱片等小玩法。
 
 换个栏目，歌还可以接着听。坑可以换，心动暂时不用停。
 
@@ -97,7 +103,7 @@ glfans 是非官方、非商业的粉丝共创站。第三方素材相关权利�
 
 > Welcome to the pit. Keep your common sense safe. You probably won’t be using it.
 
-[Enter the Pit](https://glfans.com/?lang=en#/) · [GL Archive](https://glfans.com/?lang=en#/archive) · [Voices from the Pit](https://glfans.com/?lang=en#/tide-words) · [REPO](https://glfans.com/?lang=en#/column) · [Meme Camera](https://glfans.com/?lang=en#/memes) · [Pit Radio](https://glfans.com/?lang=en#/radio) · [About](https://glfans.com/?lang=en#/about)
+[Enter the Pit](https://glfans.com/?lang=en#/) · [GL Archive](https://glfans.com/?lang=en#/archive) · [CP Archive](https://glfans.com/?lang=en#/cp) · [Voices from the Pit](https://glfans.com/?lang=en#/tide-words) · [REPO](https://glfans.com/?lang=en#/column) · [Meme Camera](https://glfans.com/?lang=en#/memes) · [Pit Radio](https://glfans.com/?lang=en#/radio) · [About](https://glfans.com/?lang=en#/about)
 
 [Join the conversation](https://github.com/fanmihua/glfans/discussions) · [Report an issue](https://github.com/fanmihua/glfans/issues)
 
@@ -115,7 +121,7 @@ What will this place eventually become? We haven’t figured that out. We’ll k
 
 ### What’s here so far
 
-`PIT STATUS: Home intro, GL Archive, Quotes, REPO, MEME PIT and Pit Radio are live`
+`PIT STATUS: Home intro, GL Archive, CP Archive, Quotes, REPO, MEME PIT and Pit Radio are live`
 
 - **GL Archive**: Browse Thai GL series by premiere year, starting in 2022. Explore film strips with airing dates, stories, casts and platforms.
 - **Airing calendar**: Open it from the black button below the archive heading. Browse a month on desktop or swipe between weeks on mobile, with titles, episode numbers and times listed by date. Expand an entry for its poster and introduction. Only published dates appear; statuses follow the schedule. Chinese uses Beijing time; English and Thai use Thailand time.
@@ -125,7 +131,7 @@ What will this place eventually become? We haven’t figured that out. We’ll k
 - **Pit Radio**: Choose a CP sticker, drop the needle and listen to their songs. Skip tracks, repeat a song or open the selected pair’s playlist.
 - **About this pit**: Meet the people digging it, and the affection that keeps them going.
 
-The pages use black-and-white editorial layouts with pink highlights. On phones, five paper tabs lead to the main sections; quotes and playlists open in sheets, and photos scroll sideways. Radio stickers show track counts, with room to tap the playback controls. Desktop keeps playful touches such as dragging quote cards or dropping a sticker onto the record.
+The pages use black-and-white editorial layouts with pink highlights. On phones, six paper tabs lead to the main sections; quotes and playlists open in sheets, and photos scroll sideways. Radio stickers show track counts, with room to tap the playback controls. Desktop keeps playful touches such as dragging quote cards or dropping a sticker onto the record.
 
 The music can keep playing as you move between sections. Different pit, same flutter.
 
@@ -182,7 +188,7 @@ glfans is an unofficial, non-commercial fan collaboration. Rights to third-party
 
 > ยินดีต้อนรับเข้าด้อม เก็บสติไว้ให้ดีนะ ถึงส่วนใหญ่จะไม่ได้ใช้ก็ตาม
 
-[เข้าด้อมกัน](https://glfans.com/?lang=th#/) · [คลังซีรีส์ GL](https://glfans.com/?lang=th#/archive) · [เสียงจากด้อม](https://glfans.com/?lang=th#/tide-words) · [บทความ REPO](https://glfans.com/?lang=th#/column) · [กล้องสุ่มมีม](https://glfans.com/?lang=th#/memes) · [วิทยุประจำด้อม](https://glfans.com/?lang=th#/radio) · [เกี่ยวกับ](https://glfans.com/?lang=th#/about)
+[เข้าด้อมกัน](https://glfans.com/?lang=th#/) · [คลังซีรีส์ GL](https://glfans.com/?lang=th#/archive) · [รวมทุกคู่](https://glfans.com/?lang=th#/cp) · [เสียงจากด้อม](https://glfans.com/?lang=th#/tide-words) · [บทความ REPO](https://glfans.com/?lang=th#/column) · [กล้องสุ่มมีม](https://glfans.com/?lang=th#/memes) · [วิทยุประจำด้อม](https://glfans.com/?lang=th#/radio) · [เกี่ยวกับ](https://glfans.com/?lang=th#/about)
 
 [มาคุยกัน](https://github.com/fanmihua/glfans/discussions) · [แจ้งปัญหา](https://github.com/fanmihua/glfans/issues)
 
@@ -210,7 +216,7 @@ glfans คือเว็บเล็ก ๆ ของแฟนซีรีส�
 - **วิทยุประจำด้อม**: เลือกสติกเกอร์คู่จิ้น วางเข็ม แล้วฟังเพลงของพวกเธอ เปลี่ยนเพลง เล่นซ้ำเพลงเดียว หรือเปิดเพลย์ลิสต์ของคู่ที่เลือกได้
 - **เกี่ยวกับด้อมนี้**: มารู้จักคนขุดหลุม และความรักที่ทำให้ยังขุดต่อ
 
-หน้าเว็บใช้เลย์เอาต์แบบนิตยสาร โทนขาวดำและสีชมพูเป็นจุดเน้น บนมือถือมีป้ายกระดาษห้าป้ายด้านล่างสำหรับเปลี่ยนหมวด ข้อความและเพลย์ลิสต์เปิดเป็นแผง ส่วนรูปถ่ายเลื่อนดูแนวนอนได้ สติกเกอร์วิทยุแสดงจำนวนเพลง และปุ่มควบคุมมีพื้นที่ให้แตะสะดวก บนเดสก์ท็อปยังมีลูกเล่นอย่างลากการ์ดข้อความ หรือลากสติกเกอร์ไปวางบนแผ่นเสียง
+หน้าเว็บใช้เลย์เอาต์แบบนิตยสาร โทนขาวดำและสีชมพูเป็นจุดเน้น บนมือถือมีป้ายกระดาษหกป้ายด้านล่างสำหรับเปลี่ยนหมวด ข้อความและเพลย์ลิสต์เปิดเป็นแผง ส่วนรูปถ่ายเลื่อนดูแนวนอนได้ สติกเกอร์วิทยุแสดงจำนวนเพลง และปุ่มควบคุมมีพื้นที่ให้แตะสะดวก บนเดสก์ท็อปยังมีลูกเล่นอย่างลากการ์ดข้อความ หรือลากสติกเกอร์ไปวางบนแผ่นเสียง
 
 เปลี่ยนหมวดแล้วเพลงก็ยังเล่นต่อได้ เปลี่ยนด้อมได้ แต่ใจยังเต้นต่อไป
 

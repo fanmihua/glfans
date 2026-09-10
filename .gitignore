@@ -31,3 +31,7 @@ scripts/package-brand-favicon.mjs
 
 # Local calendar maintenance notes
 docs/archive-schedule.md
+
+# Reproducible CP browser payloads and responsive derivatives
+src/features/cp/generated/
+public/assets/cp/responsive/

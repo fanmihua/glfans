@@ -31,6 +31,7 @@ export function ArchivePage() {
   requireCatalog('archive');
   const [, year, eventId] = window.location.hash.replace(/^#\/?/, "").split("/");
   const [calendarOpen, setCalendarOpen] = useState(year === 'calendar');
+  const [calendarScope, setCalendarScope] = useState(null);
   const calendarTriggerRef = useRef(null);
   useEffect(() => {
     if (year === 'calendar') {
@@ -38,11 +39,11 @@ export function ArchivePage() {
       setCalendarOpen(true);
     }
   }, [year]);
-  const openCalendar = (event) => { calendarTriggerRef.current = event.currentTarget; setCalendarOpen(true); };
+  const openCalendar = (event, scope = null) => { calendarTriggerRef.current = event.currentTarget; setCalendarScope(scope); setCalendarOpen(true); };
   // Each year starts a fresh reel, including its scroll position and drag state.
   return <>
     {year && year !== 'calendar' ? <ArchiveYearPage key={year} year={year} eventId={eventId} onOpenCalendar={openCalendar} /> : <ArchiveOverview onOpenCalendar={openCalendar} />}
-    <Suspense fallback={null}>{calendarOpen && <ArchiveCalendar onClose={() => setCalendarOpen(false)} returnFocus={calendarTriggerRef.current} />}</Suspense>
+    <Suspense fallback={null}>{calendarOpen && <ArchiveCalendar onClose={() => setCalendarOpen(false)} returnFocus={calendarTriggerRef.current} initialSeriesIds={calendarScope?.ids} scopeLabel={calendarScope?.label} />}</Suspense>
   </>;
 }
 

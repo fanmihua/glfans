@@ -1,17 +1,18 @@
 {
   "policyVersion": "2026-09-02",
-  "generatedAt": "2026-09-02T07:10:47.155Z",
+  "generatedAt": "2026-09-10T02:49:31.048Z",
   "feedbackUrl": "https://github.com/fanmihua/glfans/issues/new?template=rights-feedback.yml",
   "statusDefinitions": {
     "source-audit-required": "公开前仍需核对原始来源、权利主体与使用边界；默认关闭下载。",
     "external-stream-only": "仅调用平台提供的外部音频地址并保留歌曲页面入口；不得下载、转存或自行托管。"
   },
   "summary": {
-    "total": 86,
+    "total": 198,
     "home": 7,
     "articleImages": 62,
     "memes": 5,
-    "radioTracks": 12
+    "radioTracks": 12,
+    "cpImages": 112
   },
   "assets": [
     {
@@ -1242,6 +1243,1798 @@
       "sourcePlatform": "网易云音乐",
       "sourceUrl": "https://music.163.com/song?id=2757267299",
       "rightsStatus": "external-stream-only",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-media:namtanfilm:assets/cp/her-official-preview-hd.jpg",
+      "path": "assets/cp/her-official-preview-hd.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "namtanfilm",
+        "title": "Her"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=OXfExloO350",
+      "sourceImageUrl": "https://i.ytimg.com/vi/OXfExloO350/maxresdefault.jpg",
+      "rightsHolder": "GMMTV",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-media:emibonnie:assets/cp/emibonnie-love-session.jpg",
+      "path": "assets/cp/emibonnie-love-session.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "emibonnie",
+        "title": "EMI BONNIE : LOVE SESSION"
+      },
+      "sourceUrl": "https://www.gmm-tv.com/news/4170/",
+      "sourceImageUrl": "https://www.gmm-tv.com/cms/upload_file/news/pic/480x360/1b85445ed450075359742262d5100041.jpg",
+      "rightsHolder": "GMMTV",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-media:freenbecky:assets/cp/cranium-official-preview-hd.jpg",
+      "path": "assets/cp/cranium-official-preview-hd.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "freenbecky",
+        "title": "Cranium"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=lgbQKzoliY4",
+      "sourceImageUrl": "https://i.ytimg.com/vi/lgbQKzoliY4/maxresdefault.jpg",
+      "rightsHolder": "IDOLFACTORY",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-media:ginjay:assets/cp/lunar-secret-official-preview-hd.jpg",
+      "path": "assets/cp/lunar-secret-official-preview-hd.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "ginjay",
+        "title": "Lunar Secret"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=TDY-ZwAtCPI",
+      "sourceImageUrl": "https://i.ytimg.com/vi/TDY-ZwAtCPI/maxresdefault.jpg",
+      "rightsHolder": "NORTH STAR ENTERTAINMENT",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:0teLUM61UMY",
+      "path": "assets/cp/media/0teLUM61UMY.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "milklove",
+        "title": "ช็อตฟีล (Shot-Feel)"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=0teLUM61UMY",
+      "sourceImageUrl": "https://i.ytimg.com/vi/0teLUM61UMY/maxresdefault.jpg",
+      "rightsHolder": "GMMTV RECORDS",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:27klSLsVCR4",
+      "path": "assets/cp/media/27klSLsVCR4.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "janjingjing",
+        "title": "ระยะใกล้รัก (Afraid)"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=27klSLsVCR4",
+      "sourceImageUrl": "https://i.ytimg.com/vi/27klSLsVCR4/maxresdefault.jpg",
+      "rightsHolder": "GMMTV RECORDS",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:sqc_BI1rbd0",
+      "path": "assets/cp/media/sqc_BI1rbd0.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "lookmheesonya",
+        "title": "SECRET DEAL"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=sqc_BI1rbd0",
+      "sourceImageUrl": "https://i.ytimg.com/vi/sqc_BI1rbd0/maxresdefault.jpg",
+      "rightsHolder": "CHANGE2561",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:6c_5xPYxmy4",
+      "path": "assets/cp/media/6c_5xPYxmy4.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "lookmheesonya",
+        "title": "ONLY WE KNOW"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=6c_5xPYxmy4",
+      "sourceImageUrl": "https://i.ytimg.com/vi/6c_5xPYxmy4/maxresdefault.jpg",
+      "rightsHolder": "CHANGE2561",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:6-JaE1RZv9I",
+      "path": "assets/cp/media/6-JaE1RZv9I.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "lookmheesonya",
+        "title": "แค่รักก็มากพอ"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=6-JaE1RZv9I",
+      "sourceImageUrl": "https://i.ytimg.com/vi/6-JaE1RZv9I/maxresdefault.jpg",
+      "rightsHolder": "CHANGE2561",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:jad-V_nyvaY",
+      "path": "assets/cp/media/jad-V_nyvaY.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "emibonnie",
+        "title": "Red Kiss"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=jad-V_nyvaY",
+      "sourceImageUrl": "https://i.ytimg.com/vi/jad-V_nyvaY/maxresdefault.jpg",
+      "rightsHolder": "RISER MUSIC",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:AMzlTbjBLDo",
+      "path": "assets/cp/media/AMzlTbjBLDo.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "namtanfilm",
+        "title": "เรื่องเล่าของเจ้าหญิง (A Princess’ Tale)"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=AMzlTbjBLDo",
+      "sourceImageUrl": "https://i.ytimg.com/vi/AMzlTbjBLDo/maxresdefault.jpg",
+      "rightsHolder": "GMMTV RECORDS",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:I_wl4yurk1U",
+      "path": "assets/cp/media/I_wl4yurk1U.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "namtanfilm",
+        "title": "พลูโต (Pluto)"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=I_wl4yurk1U",
+      "sourceImageUrl": "https://i.ytimg.com/vi/I_wl4yurk1U/maxresdefault.jpg",
+      "rightsHolder": "GMMTV RECORDS",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:hsvQg5JSDHU",
+      "path": "assets/cp/media/hsvQg5JSDHU.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "namtanfilm",
+        "title": "นิยายเรื่องเธอ (Your Story)"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=hsvQg5JSDHU",
+      "sourceImageUrl": "https://i.ytimg.com/vi/hsvQg5JSDHU/maxresdefault.jpg",
+      "rightsHolder": "GMMTV RECORDS",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:saSPFSwHbrk",
+      "path": "assets/cp/media/saSPFSwHbrk.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "namtanfilm",
+        "title": "รอนะ (Linger)"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=saSPFSwHbrk",
+      "sourceImageUrl": "https://i.ytimg.com/vi/saSPFSwHbrk/maxresdefault.jpg",
+      "rightsHolder": "GMMTV RECORDS",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:x5hkD526A5M",
+      "path": "assets/cp/media/x5hkD526A5M.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "emibonnie",
+        "title": "ยิ่งชิดยิ่งคิด (Fall For You)"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=x5hkD526A5M",
+      "sourceImageUrl": "https://i.ytimg.com/vi/x5hkD526A5M/maxresdefault.jpg",
+      "rightsHolder": "RISER MUSIC",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:YF30_ksQ8qg",
+      "path": "assets/cp/media/YF30_ksQ8qg.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "emibonnie",
+        "title": "ไม่อยากจูบเธอในฝัน (Kissin’ Out of Dream)"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=YF30_ksQ8qg",
+      "sourceImageUrl": "https://i.ytimg.com/vi/YF30_ksQ8qg/maxresdefault.jpg",
+      "rightsHolder": "GMMTV RECORDS",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:BG_yN4HCr44",
+      "path": "assets/cp/media/BG_yN4HCr44.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "emibonnie",
+        "title": "Between Us"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=BG_yN4HCr44",
+      "sourceImageUrl": "https://i.ytimg.com/vi/BG_yN4HCr44/maxresdefault.jpg",
+      "rightsHolder": "GMMTV RECORDS",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:ID_pd9Ni3nk",
+      "path": "assets/cp/media/ID_pd9Ni3nk.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "emibonnie",
+        "title": "มากกว่าที่รัก (More Than Words)"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=ID_pd9Ni3nk",
+      "sourceImageUrl": "https://i.ytimg.com/vi/ID_pd9Ni3nk/maxresdefault.jpg",
+      "rightsHolder": "GMMTV RECORDS",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:xWvhq6bsde8",
+      "path": "assets/cp/media/xWvhq6bsde8.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "janjingjing",
+        "title": "งั้นรักละ (Don’t wanna, But I Do)"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=xWvhq6bsde8",
+      "sourceImageUrl": "https://i.ytimg.com/vi/xWvhq6bsde8/maxresdefault.jpg",
+      "rightsHolder": "GMMTV RECORDS",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:MeEqOOH-2eE",
+      "path": "assets/cp/media/MeEqOOH-2eE.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "janjingjing",
+        "title": "Wine I hate you?"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=MeEqOOH-2eE",
+      "sourceImageUrl": "https://i.ytimg.com/vi/MeEqOOH-2eE/maxresdefault.jpg",
+      "rightsHolder": "GMMTV RECORDS",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:1835834682",
+      "path": "assets/cp/media/1835834682.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "ginjay",
+        "title": "So This Is Love"
+      },
+      "sourceUrl": "https://music.apple.com/us/album/so-this-is-love-from-%E0%B8%9E-%E0%B8%A9%E0%B8%A3-%E0%B8%81-poisonous-love-single/1835834682",
+      "sourceImageUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/25/03/c7/2503c7d6-6468-6290-ea9a-c7a9bbfeb657/cover.jpg/1200x1200bb.jpg",
+      "rightsHolder": "North Star Music",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:1840114672",
+      "path": "assets/cp/media/1840114672.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "ginjay",
+        "title": "เธอคือคำตอบ (The World Of Us)"
+      },
+      "sourceUrl": "https://music.apple.com/us/album/%E0%B9%80%E0%B8%98%E0%B8%AD%E0%B8%84-%E0%B8%AD%E0%B8%84%E0%B8%B3%E0%B8%95%E0%B8%AD%E0%B8%9A-the-world-of-us-from-%E0%B8%9E-%E0%B8%A9%E0%B8%A3-%E0%B8%81-poisonous-love-single/1840114672",
+      "sourceImageUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/b3/ed/61/b3ed616d-bf46-fc43-dab0-b94beab45edd/cover.jpg/1200x1200bb.jpg",
+      "rightsHolder": "North Star Music",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:1841898283",
+      "path": "assets/cp/media/1841898283.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "janekao",
+        "title": "ออกแบบรัก (Love Design)"
+      },
+      "sourceUrl": "https://music.apple.com/us/album/%E0%B8%AD%E0%B8%AD%E0%B8%81%E0%B9%81%E0%B8%9A%E0%B8%9A%E0%B8%A3-%E0%B8%81-love-design-from-%E0%B8%A3-%E0%B8%9A-%E0%B8%A3-%E0%B8%81-%E0%B8%AD%E0%B8%AD%E0%B8%81%E0%B9%81%E0%B8%9A%E0%B8%9A-single/1841898283",
+      "sourceImageUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/50/95/63/50956336-fa06-0e46-769a-3552b81204f4/cover.jpg/1200x1200bb.jpg",
+      "rightsHolder": "VelCurve Studio",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:sU1Fiqt4Qe4",
+      "path": "assets/cp/media/sU1Fiqt4Qe4.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "namtanfilm",
+        "title": "Pluto นิทาน ดวงดาว ความรัก Special"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=sU1Fiqt4Qe4",
+      "sourceImageUrl": "https://i.ytimg.com/vi/sU1Fiqt4Qe4/maxresdefault.jpg",
+      "rightsHolder": "GMMTV OFFICIAL",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:GcZ6rI98sUs",
+      "path": "assets/cp/media/GcZ6rI98sUs.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "emibonnie",
+        "title": "The Story of Us รักของเรา [1/4]"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=GcZ6rI98sUs",
+      "sourceImageUrl": "https://i.ytimg.com/vi/GcZ6rI98sUs/maxresdefault.jpg",
+      "rightsHolder": "GMMTV OFFICIAL",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:feXI6IYWor0",
+      "path": "assets/cp/media/feXI6IYWor0.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "emibonnie",
+        "title": "Moonshadow Special [1/4]"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=feXI6IYWor0",
+      "sourceImageUrl": "https://i.ytimg.com/vi/feXI6IYWor0/maxresdefault.jpg",
+      "rightsHolder": "GMMTV OFFICIAL",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:nJU9vEfR7Go",
+      "path": "assets/cp/media/nJU9vEfR7Go.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "faymay",
+        "title": "FAYMAY’s Vlog | Huahin"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=nJU9vEfR7Go",
+      "sourceImageUrl": "https://i.ytimg.com/vi/nJU9vEfR7Go/maxresdefault.jpg",
+      "rightsHolder": "FAYMAY entertainment",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:sua4POkli0M-engfacharlotte",
+      "path": "assets/cp/media/sua4POkli0M.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "engfacharlotte",
+        "title": "Show Me Love The Series - แค่อยากบอกรัก - Official Teaser"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=sua4POkli0M",
+      "sourceImageUrl": "https://i.ytimg.com/vi/sua4POkli0M/maxresdefault.jpg",
+      "rightsHolder": "GrandTV",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:f7Kso0QOaiE-freenbecky",
+      "path": "assets/cp/media/f7Kso0QOaiE.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "freenbecky",
+        "title": "OFFICIAL TRAILER | ทฤษฎีสีชมพู GAP The series"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=f7Kso0QOaiE",
+      "sourceImageUrl": "https://i.ytimg.com/vi/f7Kso0QOaiE/maxresdefault.jpg",
+      "rightsHolder": "IDOLFACTORY OFFICIAL",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:74rL9YivFqs-bminenear",
+      "path": "assets/cp/media/74rL9YivFqs.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "bminenear",
+        "title": "[Official Teaser] Lucky my love series รักนี้มากับดวง (GL Mini Series)"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=74rL9YivFqs",
+      "sourceImageUrl": "https://i.ytimg.com/vi/74rL9YivFqs/maxresdefault.jpg",
+      "rightsHolder": "Lucky my love series",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:epmCXpvsliU-andalookkaew",
+      "path": "assets/cp/media/epmCXpvsliU.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "andalookkaew",
+        "title": "OFFICIAL PILOT TRAILER | พี่ว้ากคะ รักหนูได้มั้ย | Love Senior the series | STAR HUNTER 2023"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=epmCXpvsliU",
+      "sourceImageUrl": "https://i.ytimg.com/vi/epmCXpvsliU/maxresdefault.jpg",
+      "rightsHolder": "Star Hunter Entertainment",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:mdOlxH11WnQ-milklove",
+      "path": "assets/cp/media/mdOlxH11WnQ.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "milklove",
+        "title": "[Official Trailer] 23.5 องศาที่โลกเอียง"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=mdOlxH11WnQ",
+      "sourceImageUrl": "https://i.ytimg.com/vi/mdOlxH11WnQ/maxresdefault.jpg",
+      "rightsHolder": "GMMTV OFFICIAL",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:bQSU74hRedU-fayeyoko",
+      "path": "assets/cp/media/bQSU74hRedU.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "fayeyoko",
+        "title": "[TEASER] Blank The Series เติมคำว่ารักลงในช่องว่าง"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=bQSU74hRedU",
+      "sourceImageUrl": "https://i.ytimg.com/vi/bQSU74hRedU/maxresdefault.jpg",
+      "rightsHolder": "NineStarStudios",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:v8iVDopd7B0-faymay",
+      "path": "assets/cp/media/v8iVDopd7B0.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "faymay",
+        "title": "[ Official Trailer ] ฝันรักห้วงนิทรา My Marvellous Dream is You"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=v8iVDopd7B0",
+      "sourceImageUrl": "https://i.ytimg.com/vi/v8iVDopd7B0/maxresdefault.jpg",
+      "rightsHolder": "IDOLFACTORY OFFICIAL",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:t0f04NNhBlw-lingorm",
+      "path": "assets/cp/media/t0f04NNhBlw.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "lingorm",
+        "title": "[Official Teaser] ใจซ่อนรัก The Secret of Us | 3Plus"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=t0f04NNhBlw",
+      "sourceImageUrl": "https://i.ytimg.com/vi/t0f04NNhBlw/maxresdefault.jpg",
+      "rightsHolder": "3Plus",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:IrlTr9GljhY-engfacharlotte",
+      "path": "assets/cp/media/IrlTr9GljhY.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "engfacharlotte",
+        "title": "ความรักของเธอและเธอ จะโดนบูลลี่ขั้นสุดถึงจุดไหน [Club Friday The Series LoveBullyรักให้ร้าย Trailer]"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=IrlTr9GljhY",
+      "sourceImageUrl": "https://i.ytimg.com/vi/IrlTr9GljhY/maxresdefault.jpg",
+      "rightsHolder": "CHANGE2561",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:lzv--GYRrxQ-freenbecky",
+      "path": "assets/cp/media/lzv--GYRrxQ.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "freenbecky",
+        "title": "[ Official Trailer ] The Loyal Pin ปิ่นภักดิ์"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=lzv--GYRrxQ",
+      "sourceImageUrl": "https://i.ytimg.com/vi/lzv--GYRrxQ/maxresdefault.jpg",
+      "rightsHolder": "WorkpointOfficial",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:jYg7FL4yqmo-lookmheesonya",
+      "path": "assets/cp/media/jYg7FL4yqmo.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "lookmheesonya",
+        "title": "[Official Trailer] ‘เพื่อนรัก’ ยากจะเป็น ‘คนรัก’ จนในที่สุดต้อง ‘รักคนมีเจ้าของ’ | Affair รักเล่นกล"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=jYg7FL4yqmo",
+      "sourceImageUrl": "https://i.ytimg.com/vi/jYg7FL4yqmo/maxresdefault.jpg",
+      "rightsHolder": "CHANGE2561",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:Xg2DxxEfZ80-ormsinfolk",
+      "path": "assets/cp/media/Xg2DxxEfZ80.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "ormsinfolk",
+        "title": "OFFICIAL TRAILER | APPLE ถึงเธอ...ที่รัก"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=Xg2DxxEfZ80",
+      "sourceImageUrl": "https://i.ytimg.com/vi/Xg2DxxEfZ80/maxresdefault.jpg",
+      "rightsHolder": "Kongthup's Channel",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:ySnaml8MKCo-bminenear",
+      "path": "assets/cp/media/ySnaml8MKCo.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "bminenear",
+        "title": "[OFFICIAL TRAILER] Unlock Your Love รักได้ไหม? ยัยตัวร้าย | เริ่ม 11 ก.ย.นี้ | GMM25"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=ySnaml8MKCo",
+      "sourceImageUrl": "https://i.ytimg.com/vi/ySnaml8MKCo/maxresdefault.jpg",
+      "rightsHolder": "GMM25Thailand",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:ThWo_Kf41DQ-christinemae",
+      "path": "assets/cp/media/ThWo_Kf41DQ.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "christinemae",
+        "title": "[Official Trailer] Reverse 4 You ดาวบริวาร The Series | Now Streaming Worldwide on Netflix!"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=ThWo_Kf41DQ",
+      "sourceImageUrl": "https://i.ytimg.com/vi/ThWo_Kf41DQ/maxresdefault.jpg",
+      "rightsHolder": "Kantana Motion Pictures",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:cBq6p5lMxvg-namtanfilm",
+      "path": "assets/cp/media/cBq6p5lMxvg.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "namtanfilm",
+        "title": "[Official Trailer] Pluto นิทาน ดวงดาว ความรัก"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=cBq6p5lMxvg",
+      "sourceImageUrl": "https://i.ytimg.com/vi/cBq6p5lMxvg/maxresdefault.jpg",
+      "rightsHolder": "GMMTV OFFICIAL",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:8_2YiYGvkR8-engfacharlotte",
+      "path": "assets/cp/media/8_2YiYGvkR8.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "engfacharlotte",
+        "title": "Official Trailer หยดฝนกลิ่นสนิม Petrichor"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=8_2YiYGvkR8",
+      "sourceImageUrl": "https://i.ytimg.com/vi/8_2YiYGvkR8/maxresdefault.jpg",
+      "rightsHolder": "iQIYI Thailand - Get the iQIYI APP",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:qDIxquK1r8M-mookpinky",
+      "path": "assets/cp/media/qDIxquK1r8M.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "mookpinky",
+        "title": "Teaser1 - I Am Devil เตือนแล้วนะ... ว่าฉันร้าย"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=qDIxquK1r8M",
+      "sourceImageUrl": "https://i.ytimg.com/vi/qDIxquK1r8M/maxresdefault.jpg",
+      "rightsHolder": "Maxlive Online TV",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:E2KFC2etiWc-emibonnie",
+      "path": "assets/cp/media/E2KFC2etiWc.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "emibonnie",
+        "title": "[Official Trailer] Us รักของเรา #USTheSeries"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=E2KFC2etiWc",
+      "sourceImageUrl": "https://i.ytimg.com/vi/E2KFC2etiWc/maxresdefault.jpg",
+      "rightsHolder": "GMMTV OFFICIAL",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:geaToaLds0c-graceoaey",
+      "path": "assets/cp/media/geaToaLds0c.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "graceoaey",
+        "title": "[Eng Sub] Mate The Series | Official Teaser"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=geaToaLds0c",
+      "sourceImageUrl": "https://i.ytimg.com/vi/geaToaLds0c/maxresdefault.jpg",
+      "rightsHolder": "ZENSE MORE",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:bbx54tKBPn8-nattpitcha",
+      "path": "assets/cp/media/bbx54tKBPn8.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "nattpitcha",
+        "title": "[Official Trailer] ล้านวงโคจร Reverse with Me The Series | SiamSi Studio"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=bbx54tKBPn8",
+      "sourceImageUrl": "https://i.ytimg.com/vi/bbx54tKBPn8/maxresdefault.jpg",
+      "rightsHolder": "SiamSi Studio",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:P2YZ7d1aI6k-milklove",
+      "path": "assets/cp/media/P2YZ7d1aI6k.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "milklove",
+        "title": "[Official Trailer] คุณวาฬร้านชำ Whale Store xoxo"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=P2YZ7d1aI6k",
+      "sourceImageUrl": "https://i.ytimg.com/vi/P2YZ7d1aI6k/maxresdefault.jpg",
+      "rightsHolder": "GMMTV OFFICIAL",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:vj2j5CwGB6o-enjoyjune",
+      "path": "assets/cp/media/vj2j5CwGB6o.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "enjoyjune",
+        "title": "รินไม่มีวันรัก ตอนพิเศษ  Denied Love Special Endless I OFFICIAL TRAILER"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=vj2j5CwGB6o",
+      "sourceImageUrl": "https://i.ytimg.com/vi/vj2j5CwGB6o/maxresdefault.jpg",
+      "rightsHolder": "COPY A BANGKOK",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:Xg_JsbYyZSU-spritepiano",
+      "path": "assets/cp/media/Xg_JsbYyZSU.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "spritepiano",
+        "title": "Trailer official กัษธิษฐาน I'm Your Moon | U Entertainment - SUB TH/ENG"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=Xg_JsbYyZSU",
+      "sourceImageUrl": "https://i.ytimg.com/vi/Xg_JsbYyZSU/maxresdefault.jpg",
+      "rightsHolder": "Blue and Co.",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:RNRfseA4SKQ-lookmheesonya",
+      "path": "assets/cp/media/RNRfseA4SKQ.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "lookmheesonya",
+        "title": "Official Trailer : Harmony Secret ดีลลับฉบับเล่นเล่ห์ | CHANGE2561 [EN/CN SUB]"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=RNRfseA4SKQ",
+      "sourceImageUrl": "https://i.ytimg.com/vi/RNRfseA4SKQ/maxresdefault.jpg",
+      "rightsHolder": "CHANGE2561",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:_s14syADEbA-arhoungpamp",
+      "path": "assets/cp/media/_s14syADEbA.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "arhoungpamp",
+        "title": "[Official Trailer] Queendom ซ่อนใจไว้ที่เธอ | WeTV Original"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=_s14syADEbA",
+      "sourceImageUrl": "https://i.ytimg.com/vi/_s14syADEbA/maxresdefault.jpg",
+      "rightsHolder": "WeTV Original",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:ZUotNR6SSsM-faymay",
+      "path": "assets/cp/media/ZUotNR6SSsM.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "faymay",
+        "title": "[ Official Trailer ] รักปากแข็ง Somewhere Somehow"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=ZUotNR6SSsM",
+      "sourceImageUrl": "https://i.ytimg.com/vi/ZUotNR6SSsM/maxresdefault.jpg",
+      "rightsHolder": "IDOLFACTORY OFFICIAL",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:PjiUr6Bn5_k-lingorm",
+      "path": "assets/cp/media/PjiUr6Bn5_k.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "lingorm",
+        "title": "Teaser เพียงเธอ Only You | เรามีสิทธิ์ยืนข้าง ๆ กันไหม | Ch3Thailand"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=PjiUr6Bn5_k",
+      "sourceImageUrl": "https://i.ytimg.com/vi/PjiUr6Bn5_k/maxresdefault.jpg",
+      "rightsHolder": "Ch3Thailand",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:Zq5DEoM6g00-mookpinky",
+      "path": "assets/cp/media/Zq5DEoM6g00.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "mookpinky",
+        "title": "[Official Trailer] I Am Devil เตือนแล้วนะ.. ว่าฉันร้าย"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=Zq5DEoM6g00",
+      "sourceImageUrl": "https://i.ytimg.com/vi/Zq5DEoM6g00/maxresdefault.jpg",
+      "rightsHolder": "Maxlive Online TV",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:8saj8JtIc6Q-tinanana",
+      "path": "assets/cp/media/8saj8JtIc6Q.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "tinanana",
+        "title": "[TRAILER] “รัก OVERDOSE” เรื่องจริงจากคู่รัก ป๋าต๊อบ-ปีใหม่ | เริ่ม 20 กันยายนนี้ | one31"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=8saj8JtIc6Q",
+      "sourceImageUrl": "https://i.ytimg.com/vi/8saj8JtIc6Q/maxresdefault.jpg",
+      "rightsHolder": "ช่อง one31",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:L2AqKgRe4v4-janekao",
+      "path": "assets/cp/media/L2AqKgRe4v4.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "janekao",
+        "title": "[Official Trailer] รับ(รัก)ออกแบบ Love Design"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=L2AqKgRe4v4",
+      "sourceImageUrl": "https://i.ytimg.com/vi/L2AqKgRe4v4/maxresdefault.jpg",
+      "rightsHolder": "WeTV Original",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:rKCGc7Lf81E-ginjay",
+      "path": "assets/cp/media/rKCGc7Lf81E.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "ginjay",
+        "title": "[CC SUB] OFFICIAL TEASER2 | พิษรัก | Poisonous Love"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=rKCGc7Lf81E",
+      "sourceImageUrl": "https://i.ytimg.com/vi/rKCGc7Lf81E/maxresdefault.jpg",
+      "rightsHolder": "NORTH STAR ENTERTAINMENT",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:YPHpN8RRKs0-memiice",
+      "path": "assets/cp/media/YPHpN8RRKs0.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "memiice",
+        "title": "PLAYER ไม่อาจห้ามรัก (PLAYER the Series) | Official GL Trailer "
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=YPHpN8RRKs0",
+      "sourceImageUrl": "https://i.ytimg.com/vi/YPHpN8RRKs0/maxresdefault.jpg",
+      "rightsHolder": "Heart Pop Studio",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:AcnOc-PX0XA-lenamiu",
+      "path": "assets/cp/media/AcnOc-PX0XA.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "lenamiu",
+        "title": "Official Teaser | รักสุดท้าย My Safe Zone ver. อลิน | Ch3Thailand"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=AcnOc-PX0XA",
+      "sourceImageUrl": "https://i.ytimg.com/vi/AcnOc-PX0XA/maxresdefault.jpg",
+      "rightsHolder": "Ch3Thailand",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:W4FJZx5n6DY-engfacharlotte",
+      "path": "assets/cp/media/W4FJZx5n6DY.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "engfacharlotte",
+        "title": "Official Trailer | Unlimited Love The Series บริษัทนี้ไม่มีจำกัด [ENG SUB]"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=W4FJZx5n6DY",
+      "sourceImageUrl": "https://i.ytimg.com/vi/W4FJZx5n6DY/maxresdefault.jpg",
+      "rightsHolder": "MGI BEYOND",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:x6IqPR45ugo-tknur",
+      "path": "assets/cp/media/x6IqPR45ugo.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "tknur",
+        "title": "Official Trailer | \"Dangerous Queen The Series (คนโปรดของควีน)\" | S.nur Entertainment"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=x6IqPR45ugo",
+      "sourceImageUrl": "https://i.ytimg.com/vi/x6IqPR45ugo/maxresdefault.jpg",
+      "rightsHolder": "Snur Entertainment",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:_c1nRLiUaJU-prigkhingthongfah",
+      "path": "assets/cp/media/_c1nRLiUaJU.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "prigkhingthongfah",
+        "title": "[CC SUB] Official Trailer เจน (จะ) เป็นดาวสินกำ Like A Palette Series"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=_c1nRLiUaJU",
+      "sourceImageUrl": "https://i.ytimg.com/vi/_c1nRLiUaJU/maxresdefault.jpg",
+      "rightsHolder": "WonderLife Entertainment",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:z90_qshJFU0-mablepangjie",
+      "path": "assets/cp/media/z90_qshJFU0.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "mablepangjie",
+        "title": "OFFICIAL TRAILER | “CLAIREBELL คลั่ง/รัก/นักโทษ”"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=z90_qshJFU0",
+      "sourceImageUrl": "https://i.ytimg.com/vi/z90_qshJFU0/maxresdefault.jpg",
+      "rightsHolder": "Mine Media Production",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:jNmEsiEekHA-bambambaipor",
+      "path": "assets/cp/media/jNmEsiEekHA.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "bambambaipor",
+        "title": "[ENGSUB] Official Trailer : ฉันหลงรักเทวดาของฉัน Be My Angel The Series"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=jNmEsiEekHA",
+      "sourceImageUrl": "https://i.ytimg.com/vi/jNmEsiEekHA/maxresdefault.jpg",
+      "rightsHolder": "PENNYY STUDIO",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:I1mqYlGQSnk-applemim",
+      "path": "assets/cp/media/I1mqYlGQSnk.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "applemim",
+        "title": "[CC SUB] Official Teaser - The Earth วิวาห์ปฐพี | บ้านวาทินวณิช 4 Elements"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=I1mqYlGQSnk",
+      "sourceImageUrl": "https://i.ytimg.com/vi/I1mqYlGQSnk/maxresdefault.jpg",
+      "rightsHolder": "NORTH STAR ENTERTAINMENT",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:46z_PSE0-S8-nattyyeepun",
+      "path": "assets/cp/media/46z_PSE0-S8.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "nattyyeepun",
+        "title": "Frozen Valentine ปิ๊งรักคุณพี่เย็นชา I OFFICIAL TRAILER"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=46z_PSE0-S8",
+      "sourceImageUrl": "https://i.ytimg.com/vi/46z_PSE0-S8/maxresdefault.jpg",
+      "rightsHolder": "COPY A BANGKOK",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:GQpdv06UTQI-yadatan",
+      "path": "assets/cp/media/GQpdv06UTQI.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "yadatan",
+        "title": "[ Teaser ] Play Park รักไม่คาดฝัน | Ch3Thailand"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=GQpdv06UTQI",
+      "sourceImageUrl": "https://i.ytimg.com/vi/GQpdv06UTQI/maxresdefault.jpg",
+      "rightsHolder": "Ch3Thailand",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:nVOlVrf2aa0-lillybelle",
+      "path": "assets/cp/media/nVOlVrf2aa0.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "lillybelle",
+        "title": "Official Trailer : วันหนึ่งจะเป็นซุปตาร์ I WANNA BE SUP'TAR | CHANGE2561 [EN/CN SUB]"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=nVOlVrf2aa0",
+      "sourceImageUrl": "https://i.ytimg.com/vi/nVOlVrf2aa0/maxresdefault.jpg",
+      "rightsHolder": "CHANGE2561",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:V_dq1jSqs3c-jessietungpang",
+      "path": "assets/cp/media/V_dq1jSqs3c.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "jessietungpang",
+        "title": "[Final Trailer] ซีรีส์ Heart Code สืบลับจับใจ | 13 กุมภาพันธ์นี้ที่ Monomax เท่านั้น (ENG SUB)"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=V_dq1jSqs3c",
+      "sourceImageUrl": "https://i.ytimg.com/vi/V_dq1jSqs3c/maxresdefault.jpg",
+      "rightsHolder": "MONO Original",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:lDUD3omAlHA-namtanfilm",
+      "path": "assets/cp/media/lDUD3omAlHA.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "namtanfilm",
+        "title": "[Official Trailer] Girl Rules กฎหลัก...ห้ามรักเธอ"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=lDUD3omAlHA",
+      "sourceImageUrl": "https://i.ytimg.com/vi/lDUD3omAlHA/maxresdefault.jpg",
+      "rightsHolder": "GMMTV OFFICIAL",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:lDUD3omAlHA-milklove",
+      "path": "assets/cp/media/lDUD3omAlHA.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "milklove",
+        "title": "[Official Trailer] Girl Rules กฎหลัก...ห้ามรักเธอ"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=lDUD3omAlHA",
+      "sourceImageUrl": "https://i.ytimg.com/vi/lDUD3omAlHA/maxresdefault.jpg",
+      "rightsHolder": "GMMTV OFFICIAL",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:lDUD3omAlHA-viewmim",
+      "path": "assets/cp/media/lDUD3omAlHA.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "viewmim",
+        "title": "[Official Trailer] Girl Rules กฎหลัก...ห้ามรักเธอ"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=lDUD3omAlHA",
+      "sourceImageUrl": "https://i.ytimg.com/vi/lDUD3omAlHA/maxresdefault.jpg",
+      "rightsHolder": "GMMTV OFFICIAL",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:Bu1KwZJ2Ux0-praifahbebell",
+      "path": "assets/cp/media/Bu1KwZJ2Ux0.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "praifahbebell",
+        "title": "OFFICIAL TEASER I ใต้เงารัก SHADOW OF LOVE"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=Bu1KwZJ2Ux0",
+      "sourceImageUrl": "https://i.ytimg.com/vi/Bu1KwZJ2Ux0/maxresdefault.jpg",
+      "rightsHolder": "Kongthup's Channel",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:j-sUaX2b6lw-atommer",
+      "path": "assets/cp/media/j-sUaX2b6lw.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "atommer",
+        "title": "OFFICIAL TRAILER | ตะวันระฟ้า | My Only Sunshine The Series"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=j-sUaX2b6lw",
+      "sourceImageUrl": "https://i.ytimg.com/vi/j-sUaX2b6lw/maxresdefault.jpg",
+      "rightsHolder": "Star Hunter Entertainment",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:rDNsXiN9S74-engfacharlotte",
+      "path": "assets/cp/media/rDNsXiN9S74.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "engfacharlotte",
+        "title": "[CC SUB] Official Trailer - The Water นทีร้อยเล่ห์ | บ้านวาทินวณิช 4 Elements"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=rDNsXiN9S74",
+      "sourceImageUrl": "https://i.ytimg.com/vi/rDNsXiN9S74/maxresdefault.jpg",
+      "rightsHolder": "NORTH STAR ENTERTAINMENT",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:4K__c9385LE-janjingjing",
+      "path": "assets/cp/media/4K__c9385LE.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "janjingjing",
+        "title": "[Official Trailer] ลัลล์ไม่ชอบไวน์ Enemies With Benefits"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=4K__c9385LE",
+      "sourceImageUrl": "https://i.ytimg.com/vi/4K__c9385LE/maxresdefault.jpg",
+      "rightsHolder": "GMMTV OFFICIAL",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:ILVAJdF1gVU-fayeatom",
+      "path": "assets/cp/media/ILVAJdF1gVU.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "fayeatom",
+        "title": "Official Trailer : Broken Of Love หัวใจช้ำรัก"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=ILVAJdF1gVU",
+      "sourceImageUrl": "https://i.ytimg.com/vi/ILVAJdF1gVU/maxresdefault.jpg",
+      "rightsHolder": "Fabel Entertainment",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:bbJf5bebvpM-oombam",
+      "path": "assets/cp/media/bbJf5bebvpM.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "oombam",
+        "title": "[ Eng Sub ] Official Pilot : รักเติมเต็ม Fulfill"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=bbJf5bebvpM",
+      "sourceImageUrl": "https://i.ytimg.com/vi/bbJf5bebvpM/maxresdefault.jpg",
+      "rightsHolder": "3Plus",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:bS_vRrzvxy0-lookmheesonya",
+      "path": "assets/cp/media/bS_vRrzvxy0.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "lookmheesonya",
+        "title": "HOMETOWN ROMANCE คุณแฟนบ้านนอก | Official Trailer [EN/CN SUB]"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=bS_vRrzvxy0",
+      "sourceImageUrl": "https://i.ytimg.com/vi/bS_vRrzvxy0/maxresdefault.jpg",
+      "rightsHolder": "CHANGE2561",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:YXBdhxza8Es-mieaya",
+      "path": "assets/cp/media/YXBdhxza8Es.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "mieaya",
+        "title": "OFFICIAL TRAILER | Love Beyond Dreams Series เพื่อเธออีกครั้ง 🌹💜"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=YXBdhxza8Es",
+      "sourceImageUrl": "https://i.ytimg.com/vi/YXBdhxza8Es/maxresdefault.jpg",
+      "rightsHolder": "MeMindY Official",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:2w3RL-3WxVM-freenbecky",
+      "path": "assets/cp/media/2w3RL-3WxVM.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "freenbecky",
+        "title": "[CC SUB] Official Trailer - The Air เสน่หาวาโย | บ้านวาทินวณิช 4 Elements"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=2w3RL-3WxVM",
+      "sourceImageUrl": "https://i.ytimg.com/vi/2w3RL-3WxVM/maxresdefault.jpg",
+      "rightsHolder": "NORTH STAR ENTERTAINMENT",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:YVECcuW7swA-nilenamwan",
+      "path": "assets/cp/media/YVECcuW7swA.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "nilenamwan",
+        "title": "[OFFICIAL TRAILER] Chasing Love พี่เองก็ลำบาก | เริ่ม 29 พ.ค. 69 | one31"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=YVECcuW7swA",
+      "sourceImageUrl": "https://i.ytimg.com/vi/YVECcuW7swA/maxresdefault.jpg",
+      "rightsHolder": "ช่อง one31",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:HBi2dQGsuJw-myyuchanya",
+      "path": "assets/cp/media/HBi2dQGsuJw.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "myyuchanya",
+        "title": "OFFICIAL TRAILER | AI Girl จะ Gen จนกว่าจะเจอ 🤖🖊️"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=HBi2dQGsuJw",
+      "sourceImageUrl": "https://i.ytimg.com/vi/HBi2dQGsuJw/maxresdefault.jpg",
+      "rightsHolder": "MeMindY Official",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:tq-GGjCLdHU-ormsinfolk",
+      "path": "assets/cp/media/tq-GGjCLdHU.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "ormsinfolk",
+        "title": "[ OFFICIAL TEASER ] : \"My Lady's Bodyguard\" องครักษ์พิทักษ์แม่หญิงจอมซน"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=tq-GGjCLdHU",
+      "sourceImageUrl": "https://i.ytimg.com/vi/tq-GGjCLdHU/maxresdefault.jpg",
+      "rightsHolder": "Kongthup's Channel",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:ARNRALBV2Xw-lingorm",
+      "path": "assets/cp/media/ARNRALBV2Xw.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "lingorm",
+        "title": "Official Teaser V3 | วาดฝันวันวิวาห์ In Love Forever | Ch3Thailand"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=ARNRALBV2Xw",
+      "sourceImageUrl": "https://i.ytimg.com/vi/ARNRALBV2Xw/maxresdefault.jpg",
+      "rightsHolder": "Ch3Thailand",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:U2ozG4r_HZw-namnoey",
+      "path": "assets/cp/media/U2ozG4r_HZw.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "namnoey",
+        "title": "[CC SUB] Official Trailer - The Fire โซ่รักอัคนี | บ้านวาทินวณิช 4 Elements"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=U2ozG4r_HZw",
+      "sourceImageUrl": "https://i.ytimg.com/vi/U2ozG4r_HZw/maxresdefault.jpg",
+      "rightsHolder": "NORTH STAR ENTERTAINMENT",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:Pbb7VU0VfYA-mingmingnepjune",
+      "path": "assets/cp/media/Pbb7VU0VfYA.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "mingmingnepjune",
+        "title": "[OFFICIAL TRAILER]  Juliet & Juliet | เริ่ม 5 กันยายนนี้ | one31"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=Pbb7VU0VfYA",
+      "sourceImageUrl": "https://i.ytimg.com/vi/Pbb7VU0VfYA/maxresdefault.jpg",
+      "rightsHolder": "ช่อง one31",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:SY0FBEQ6NjM-ingcartoon",
+      "path": "assets/cp/media/SY0FBEQ6NjM.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "ingcartoon",
+        "title": "OFFICIAL TRAILER | Fairway of Love รักออกรอบ"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=SY0FBEQ6NjM",
+      "sourceImageUrl": "https://i.ytimg.com/vi/SY0FBEQ6NjM/maxresdefault.jpg",
+      "rightsHolder": "Mojo Muse Management",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:PNPqobabDiU-bintpuinoon",
+      "path": "assets/cp/media/PNPqobabDiU.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "bintpuinoon",
+        "title": "“ข่มขลัง” (Khom Khlang The Series) | Official Trailer"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=PNPqobabDiU",
+      "sourceImageUrl": "https://i.ytimg.com/vi/PNPqobabDiU/maxresdefault.jpg",
+      "rightsHolder": "Star Hunter Entertainment",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:1dZ-Z7kYsE0-emibonnie",
+      "path": "assets/cp/media/1dZ-Z7kYsE0.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "emibonnie",
+        "title": "[Official Trailer] เงาใต้พระจันทร์ Moonshadow"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=1dZ-Z7kYsE0",
+      "sourceImageUrl": "https://i.ytimg.com/vi/1dZ-Z7kYsE0/maxresdefault.jpg",
+      "rightsHolder": "GMMTV OFFICIAL",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:eWVtJtYbZgI-mimiegarn",
+      "path": "assets/cp/media/eWVtJtYbZgI.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "mimiegarn",
+        "title": "[Official Trailer] Third Person “ถ้อยรัก...คำลวง” | North Star Entertainment"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=eWVtJtYbZgI",
+      "sourceImageUrl": "https://i.ytimg.com/vi/eWVtJtYbZgI/maxresdefault.jpg",
+      "rightsHolder": "NORTH STAR ENTERTAINMENT",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:Mrm0Ej8e_Yw-aoommeena",
+      "path": "assets/cp/media/Mrm0Ej8e_Yw.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "aoommeena",
+        "title": "Official Pilot | Under Her Rules ใต้เงาจันทรา [ENG SUB]"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=Mrm0Ej8e_Yw",
+      "sourceImageUrl": "https://i.ytimg.com/vi/Mrm0Ej8e_Yw/maxresdefault.jpg",
+      "rightsHolder": "MGI BEYOND",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-journal:N6bdFaf37Ms-lenamiu",
+      "path": "assets/cp/media/N6bdFaf37Ms.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "lenamiu",
+        "title": "PLS Love รักได้ไหม"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=N6bdFaf37Ms",
+      "sourceImageUrl": "https://i.ytimg.com/vi/N6bdFaf37Ms/maxresdefault.jpg",
+      "rightsHolder": "Ch3Thailand",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-notice:tanyada-joint-work-concluded:th",
+      "path": "assets/cp/notices/tanyada-2026-06-02-th.webp",
+      "category": "official-announcement",
+      "context": {
+        "kind": "cp",
+        "slug": "yadatan",
+        "title": "tanyada-joint-work-concluded"
+      },
+      "sourceUrl": "https://x.com/PlayparkCH3/status/2061754833351451088",
+      "sourceImageUrl": "https://pbs.twimg.com/media/HJzTFvza8AAIXKY?format=webp&name=large",
+      "rightsHolder": "Channel 3 · Play Park",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-notice:tanyada-joint-work-concluded:en",
+      "path": "assets/cp/notices/tanyada-2026-06-02-en.webp",
+      "category": "official-announcement",
+      "context": {
+        "kind": "cp",
+        "slug": "yadatan",
+        "title": "tanyada-joint-work-concluded"
+      },
+      "sourceUrl": "https://x.com/PlayparkCH3/status/2061754833351451088",
+      "sourceImageUrl": "https://pbs.twimg.com/media/HJzTFv0akAASuhd?format=webp&name=large",
+      "rightsHolder": "Channel 3 · Play Park",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-notice:icememi-joint-work-concluded:th",
+      "path": "assets/cp/notices/icememi-2026-07-17-th.webp",
+      "category": "official-announcement",
+      "context": {
+        "kind": "cp",
+        "slug": "memiice",
+        "title": "icememi-joint-work-concluded"
+      },
+      "sourceUrl": "https://x.com/HeartPopStudio/status/2077938603075018757",
+      "sourceImageUrl": "https://pbs.twimg.com/media/HNZSJJKb0AAWEHC?format=webp&name=large",
+      "rightsHolder": "Heart Pop Studio",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-notice:icememi-joint-work-concluded:en",
+      "path": "assets/cp/notices/icememi-2026-07-17-en.webp",
+      "category": "official-announcement",
+      "context": {
+        "kind": "cp",
+        "slug": "memiice",
+        "title": "icememi-joint-work-concluded"
+      },
+      "sourceUrl": "https://x.com/HeartPopStudio/status/2077938603075018757",
+      "sourceImageUrl": "https://pbs.twimg.com/media/HNZSJJHbYAAa8ry?format=webp&name=large",
+      "rightsHolder": "Heart Pop Studio",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-notice:enjoyjune-joint-work-concluded:th",
+      "path": "assets/cp/notices/enjoyjune-2026-07-23-th.webp",
+      "category": "official-announcement",
+      "context": {
+        "kind": "cp",
+        "slug": "enjoyjune",
+        "title": "enjoyjune-joint-work-concluded"
+      },
+      "sourceUrl": "https://x.com/conversation_tl/status/2080246737474814097",
+      "sourceImageUrl": "https://pbs.twimg.com/media/HN6FYBFbAAAqNG4?format=webp&name=large",
+      "rightsHolder": "Conversation Thailand · Media Passion",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-notice:enjoyjune-joint-work-concluded:en",
+      "path": "assets/cp/notices/enjoyjune-2026-07-23-en.webp",
+      "category": "official-announcement",
+      "context": {
+        "kind": "cp",
+        "slug": "enjoyjune",
+        "title": "enjoyjune-joint-work-concluded"
+      },
+      "sourceUrl": "https://x.com/conversation_tl/status/2080246737474814097",
+      "sourceImageUrl": "https://pbs.twimg.com/media/HN6FX4NaQAA32-1?format=webp&name=large",
+      "rightsHolder": "Conversation Thailand · Media Passion",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-notice:graceoaey-joint-work-concluded:th",
+      "path": "assets/cp/notices/graceoaey-2025-12-04-th.webp",
+      "category": "official-announcement",
+      "context": {
+        "kind": "cp",
+        "slug": "graceoaey",
+        "title": "graceoaey-joint-work-concluded"
+      },
+      "sourceUrl": "https://x.com/zense_more/status/1996565165555548309",
+      "sourceImageUrl": "https://pbs.twimg.com/media/G7U5bu8bIAAAIMa?format=webp&name=large",
+      "rightsHolder": "NEZT MEDIA · ZENSE MORE",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-notice:graceoaey-joint-work-concluded:en",
+      "path": "assets/cp/notices/graceoaey-2025-12-04-en.webp",
+      "category": "official-announcement",
+      "context": {
+        "kind": "cp",
+        "slug": "graceoaey",
+        "title": "graceoaey-joint-work-concluded"
+      },
+      "sourceUrl": "https://x.com/zense_more/status/1996565165555548309",
+      "sourceImageUrl": "https://pbs.twimg.com/media/G7U5bvFbsAA7vRm?format=webp&name=large",
+      "rightsHolder": "NEZT MEDIA · ZENSE MORE",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-child:namtanfilm:0",
+      "path": "assets/cp/children/lunar.webp",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "namtanfilm",
+        "title": "LUNAR"
+      },
+      "sourceUrl": "https://x.com/GMMTV/status/1865412198534914250",
+      "sourceImageUrl": "https://pbs.twimg.com/media/GeHD93aaUAAI0bh?format=webp&name=large",
+      "rightsHolder": "GMMTV",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-child:namtanfilm:1",
+      "path": "assets/cp/children/3ZHj7DMH3sE.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "namtanfilm",
+        "title": "LUNAR"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=3ZHj7DMH3sE",
+      "sourceImageUrl": "https://i.ytimg.com/vi/3ZHj7DMH3sE/maxresdefault.jpg",
+      "rightsHolder": "GMMTV OFFICIAL",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-child:emibonnie:0",
+      "path": "assets/cp/children/any.webp",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "emibonnie",
+        "title": "ANY"
+      },
+      "sourceUrl": "https://x.com/GMMTV/status/1900427925884654002",
+      "sourceImageUrl": "https://pbs.twimg.com/media/Gl7tJ2qbYAckP6G?format=webp&name=large",
+      "rightsHolder": "GMMTV",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-child:emibonnie:1",
+      "path": "assets/cp/children/R0aBXZ2Lypg.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "emibonnie",
+        "title": "ANY"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=R0aBXZ2Lypg",
+      "sourceImageUrl": "https://i.ytimg.com/vi/R0aBXZ2Lypg/maxresdefault.jpg",
+      "rightsHolder": "GMMTV OFFICIAL",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-child:milklove:0",
+      "path": "assets/cp/children/muvmuv.webp",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "milklove",
+        "title": "MUVMUV"
+      },
+      "sourceUrl": "https://x.com/GMMTV/status/1794022543143366684",
+      "sourceImageUrl": "https://pbs.twimg.com/media/GOVKgt3a8AAkene?format=webp&name=large",
+      "rightsHolder": "GMMTV",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-child:milklove:1",
+      "path": "assets/cp/children/qG8WquuErt8.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "milklove",
+        "title": "MUVMUV"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=qG8WquuErt8",
+      "sourceImageUrl": "https://i.ytimg.com/vi/qG8WquuErt8/maxresdefault.jpg",
+      "rightsHolder": "GMMTV OFFICIAL",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-child:janjingjing:0",
+      "path": "assets/cp/children/jewel.webp",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "janjingjing",
+        "title": "JEWEL"
+      },
+      "sourceUrl": "https://x.com/any_GMMTV/status/2065078560302481731",
+      "sourceImageUrl": "https://pbs.twimg.com/media/HKih_dmbkAI-jon?format=webp&name=large",
+      "rightsHolder": "ANY · GMMTV",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-child:janjingjing:1",
+      "path": "assets/cp/children/eEtCIQeJFUo.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "janjingjing",
+        "title": "JEWEL"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=eEtCIQeJFUo",
+      "sourceImageUrl": "https://i.ytimg.com/vi/eEtCIQeJFUo/maxresdefault.jpg",
+      "rightsHolder": "GMMTV OFFICIAL",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-child:viewmim:0",
+      "path": "assets/cp/children/vimmy.webp",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "viewmim",
+        "title": "VIMMY"
+      },
+      "sourceUrl": "https://x.com/view_benyapa/status/2064985514781102166",
+      "sourceImageUrl": "https://pbs.twimg.com/media/HKhNTdGaAAAAica?format=webp&name=large",
+      "rightsHolder": "View Benyapa",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-child:viewmim:1",
+      "path": "assets/cp/children/knCmrEw6og8.jpg",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "viewmim",
+        "title": "VIMMY"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=knCmrEw6og8",
+      "sourceImageUrl": "https://i.ytimg.com/vi/knCmrEw6og8/maxresdefault.jpg",
+      "rightsHolder": "GMMTV OFFICIAL",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
       "publicDownload": false
     }
   ]

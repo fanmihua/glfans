@@ -100,8 +100,8 @@
   .mobile-section-tabs {
     display: grid;
     height: 74px;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: clamp(5px, 2vw, 10px);
+    grid-template-columns: repeat(var(--section-count, 6), minmax(0, 1fr));
+    gap: clamp(2px, 1vw, 6px);
     max-width: 540px;
     margin: 0 auto;
   }
@@ -156,7 +156,7 @@
   }
 
   .mobile-tab-icon { display: flex; height: 24px; }
-  .mobile-tab-label { font: 750 13px/1.1 var(--headline); letter-spacing: .03em; }
+  .mobile-tab-label { font: 750 11px/1.2 var(--headline); letter-spacing: 0; }
 
   .mobile-section-tab[aria-current="page"] { z-index: 1; }
   .mobile-section-tab[aria-current="page"] .mobile-tab-paper {

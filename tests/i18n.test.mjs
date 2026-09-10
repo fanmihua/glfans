@@ -220,7 +220,7 @@ test('README exposes three complete language sections and matching site links', 
   for (const locale of LOCALES) {
     assert.ok(readme.includes(`<a id="${locale}"></a>`));
     assert.ok(readme.includes(`](#${locale})`));
-    assert.equal(readme.split(`https://glfans.com/?lang=${locale}#`).length - 1, 7);
+    assert.equal(readme.split(`https://glfans.com/?lang=${locale}#`).length - 1, 8);
   }
   assert.equal(readme.split('npm ci').length - 1, 3);
   assert.equal(readme.split('npm run test:sites').length - 1, 3);

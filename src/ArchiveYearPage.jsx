@@ -10,6 +10,7 @@ import { archiveYearList } from "./data/archive-dramas.js";
 import { useArchiveSelection } from "./features/archive/useArchiveSelection.js";
 import { formatArchiveDate, formatArchiveRange } from "./features/archive/archive-format.js";
 import "./archive-year-page.css";
+import { CpRelatedLinks } from './features/cp/CpRelatedLinks.jsx';
 
 const withArchivePoster = (path) => `${withBase(path)}?v=20260902-hd`;
 
@@ -201,6 +202,8 @@ export function ArchiveYearPage({ year, eventId, onOpenCalendar }) {
       </div>
       <span className="archive-year-summary-brush" aria-hidden="true" />
       <p>{t(selectedEvent.summary)}</p>
+      <CpRelatedLinks seriesId={selectedEvent.id} />
+      <button className="archive-series-calendar" type="button" aria-haspopup="dialog" onClick={event => onOpenCalendar(event, { ids: [selectedEvent.id], label: seriesName(selectedEvent, getLocale()) })}><CalendarBlank size={18} />{t('查看播出日历')}<ArrowRight size={16} /></button>
       <img src={withBase("assets/repo-handdrawn-heart-pink.webp")} alt="" aria-hidden="true" data-page-critical="true" />
     </aside>
   );

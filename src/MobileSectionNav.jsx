@@ -1,6 +1,6 @@
 import { t } from "./i18n/runtime.js";
 import { useEffect, useId, useRef, useState } from "react";
-import { ArrowRight, FilmStrip, Files, ImageSquare, Pause, Play, Quotes, VinylRecord, X } from "@phosphor-icons/react";
+import { ArrowRight, FilmStrip, Files, ImageSquare, Pause, Play, Quotes, VinylRecord, X, Users } from "@phosphor-icons/react";
 import { MOBILE_NAVIGATION } from "./app/mobile-navigation.js";
 import { mobileRadioControls } from "./app/mobile-radio-controls.js";
 import { hideNativePopoverIfOpen, supportsNativePopover } from "./lib/browser-compat.js";
@@ -8,7 +8,7 @@ import { usePitRadio } from "./PitRadioContext.jsx";
 import { useMobileLayout } from "./hooks/useMobileLayout.js";
 import "./mobile-section-nav.css";
 
-const icons = { "tide-words": Quotes, archive: FilmStrip, column: Files, memes: ImageSquare, radio: VinylRecord };
+const icons = { "tide-words": Quotes, archive: FilmStrip, cp: Users, column: Files, memes: ImageSquare, radio: VinylRecord };
 
 export function MobileSectionNav({ activePath }) {
   const radio = usePitRadio();
@@ -34,7 +34,7 @@ export function MobileSectionNav({ activePath }) {
 
   return (
     <nav className="mobile-section-nav" aria-label={t("栏目导航")}>
-      <div className="mobile-section-tabs">
+      <div className="mobile-section-tabs" style={{ '--section-count': MOBILE_NAVIGATION.length }}>
         {t(MOBILE_NAVIGATION.map((item) => {
           const Icon = icons[item.id];
           const active = activePath === item.id;

@@ -16,6 +16,7 @@ export function SiteHeader({
   showHome = true,
   showAbout = true,
   extraAction,
+  logoSrcSet,
 }) {
   const isMemeGame = activePath === "memes";
   const navRef = useRef(null);
@@ -35,6 +36,8 @@ export function SiteHeader({
         <img
           className="brand-logo"
           src={withBase(SITE_LOGO.src)}
+          srcSet={logoSrcSet}
+          sizes={logoSrcSet ? '90px' : undefined}
           width={SITE_LOGO.width}
           height={SITE_LOGO.height}
           alt={t(SITE_LOGO.alt)}
