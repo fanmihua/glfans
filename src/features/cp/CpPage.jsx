@@ -83,7 +83,7 @@ function CpContent({data}) {
     setCalendar({ ids: items.map(work => work.id), label });
   };
   useLayoutEffect(() => {
-    document.title = `${cp ? cpLabel(cp) : copy.title} · ${copy.title} · glfans`;
+    document.title = `glfans · ${copy.title}`;
   }, [cp, copy]);
 
   return <CpImageContext.Provider value={responsive}><div className="cp-page" lang={locale === 'zh' ? 'zh-CN' : locale}>
