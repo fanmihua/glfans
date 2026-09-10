@@ -1,3 +1,5 @@
+import { isWechatBrowser } from './wechat-share.js';
+
 const RECOVERY_STORAGE_KEY = "glfans:chunk-recovery-at";
 const RECOVERY_QUERY_KEY = "glfans-reload";
 const RECOVERY_COOLDOWN_MS = 60_000;
@@ -43,6 +45,9 @@ export function installChunkRecovery(windowObject = window, now = () => Date.now
 }
 
 export function removeChunkRecoveryQuery(windowObject = window) {
+  // Keep the signed entry query stable for this WeChat document. Its timestamp
+  // remains a bounded loop guard; a later genuine failure can still reload.
+  if (isWechatBrowser(windowObject.navigator?.userAgent)) return;
   const url = new URL(windowObject.location.href);
   if (!url.searchParams.has(RECOVERY_QUERY_KEY)) return;
   url.searchParams.delete(RECOVERY_QUERY_KEY);

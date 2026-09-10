@@ -1,4 +1,6 @@
-// Keep page identity outside the fragment: link preview crawlers do not receive #.
+import { isWechatBrowser } from './wechat-share.js';
+
+// Keep shared page identity outside the fragment: preview crawlers do not receive #.
 // The fragment remains the internal router's source of truth after bootstrap.
 const publicRoute = /^(?:cp|archive|column|memes|radio|tide-words|about)(?:\/[a-z0-9-]+)*\/?$/;
 export function normalizeShareUrl(href, base = '/', bootstrap = false) {
@@ -15,12 +17,26 @@ export function normalizeShareUrl(href, base = '/', bootstrap = false) {
   return url;
 }
 
-export function installShareMetadata(host = window, onMetadata = () => {}) {
+export function normalizeDocumentUrl(href, base = '/', bootstrap = false, userAgent = '') {
+  const normalized = normalizeShareUrl(href, base, bootstrap);
+  if (!isWechatBrowser(userAgent)) return normalized;
+  // WeChat signs the entry document, not every in-page destination. Keep its
+  // pathname/query stable while still bootstrapping public deep links.
+  const documentUrl = new URL(href);
+  documentUrl.hash = normalized.hash;
+  return documentUrl;
+}
+
+export function shareMetadataEndpoint(href, base = '/') {
+  return `${normalizeShareUrl(href, base, true).pathname}share.json`;
+}
+
+export function installShareMetadata(host = window, onMetadata = () => {}, base = '/') {
   let revision = 0;
   const cache = new Map();
   const update = async () => {
     const current = ++revision;
-    const endpoint = `${host.location.pathname}share.json`;
+    const endpoint = shareMetadataEndpoint(host.location.href, base);
     try {
       let data = cache.get(endpoint);
       if (!data) {
@@ -50,12 +66,13 @@ export function installShareMetadata(host = window, onMetadata = () => {}) {
   host.addEventListener('hashchange', update);
   host.addEventListener('popstate', update);
   host.addEventListener('glfans:route-ready', update);
-  return () => {revision++; host.removeEventListener('hashchange',update); host.removeEventListener('popstate',update); host.removeEventListener('glfans:route-ready',update);};
+  host.addEventListener('glfans:locale-changed', update);
+  return () => {revision++; host.removeEventListener('hashchange',update); host.removeEventListener('popstate',update); host.removeEventListener('glfans:route-ready',update); host.removeEventListener('glfans:locale-changed',update);};
 }
 
 export function installShareRoutes(host = window, base = '/') {
   const sync = (bootstrap = false) => {
-    const next = normalizeShareUrl(host.location.href, base, bootstrap);
+    const next = normalizeDocumentUrl(host.location.href, base, bootstrap, host.navigator?.userAgent);
     if (next.href !== host.location.href) host.history.replaceState(host.history.state, '', next.href);
   };
   sync(true);

@@ -11,7 +11,7 @@ import { PageLoader } from "./PageLoader.jsx";
 import { RouteReadyBoundary } from "./RouteReadyBoundary.jsx";
 import { ROOT_ROUTES, ROUTE_LOADING_COPY, parseHashRoute, welcomeLinks } from "./app/routes.js";
 import { shouldSkipHomeJourney } from "./features/home/home-journey-state.js";
-import { normalizeShareUrl } from './app/share-route.js';
+import { normalizeDocumentUrl } from './app/share-route.js';
 
 const HomePage = lazy(() => import("./HomePage.jsx").then((module) => ({ default: module.HomePage })));
 const AdminPage = lazy(() => import("./AdminPage.jsx").then((module) => ({ default: module.AdminPage })));
@@ -36,7 +36,7 @@ function readEntryRoute() {
   const firstHomeDestination = welcomeLinks[0];
   if (!firstHomeDestination) return rootRoute;
   const destination = new URL(firstHomeDestination.href, window.location.href);
-  window.history.replaceState(window.history.state, "", normalizeShareUrl(destination.href, import.meta.env.BASE_URL));
+  window.history.replaceState(window.history.state, "", normalizeDocumentUrl(destination.href, import.meta.env.BASE_URL, false, window.navigator.userAgent));
   return firstHomeDestination.id;
 }
 

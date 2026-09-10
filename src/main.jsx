@@ -20,7 +20,7 @@ import { createWechatSharing } from './app/wechat-share.js';
 
 const configureWechat = createWechatSharing(window, window.location.href);
 installShareRoutes(window, import.meta.env.BASE_URL);
-if (import.meta.env.PROD) installShareMetadata(window, configureWechat);
+if (import.meta.env.PROD) installShareMetadata(window, configureWechat, import.meta.env.BASE_URL);
 installChunkRecovery();
 
 const rootElement = document.getElementById("root");

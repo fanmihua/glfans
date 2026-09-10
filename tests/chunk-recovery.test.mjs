@@ -96,3 +96,23 @@ test("the cache-busting query is removed after the application mounts", () => {
   assert.equal(cleaned.searchParams.has(chunkRecoveryConfig.queryKey), false);
   assert.equal(cleaned.hash, "#/radio");
 });
+
+test('WeChat preserves its signed recovery query without creating a reload loop', () => {
+  const fixture = createWindow('https://glfans.com/cp/emibonnie/?lang=en&glfans-reload=3000#/cp/namtanfilm');
+  fixture.windowObject.navigator = { userAgent: 'MicroMessenger' };
+  fixture.windowObject.sessionStorage.getItem = () => { throw new Error('denied'); };
+  fixture.windowObject.sessionStorage.setItem = () => { throw new Error('denied'); };
+  const entry = fixture.windowObject.location.href;
+  removeChunkRecoveryQuery(fixture.windowObject);
+  assert.equal(fixture.windowObject.location.href, entry);
+  assert.equal(fixture.historyCalls.length, 0);
+  let now = 3500;
+  installChunkRecovery(fixture.windowObject, () => now);
+  let prevented = 0;
+  const fail = () => fixture.listeners.get('vite:preloadError')({ preventDefault: () => prevented++ });
+  fail(); assert.equal(prevented, 0);
+  now = 70000; fail();
+  assert.equal(prevented, 1);
+  assert.equal(new URL(fixture.windowObject.location.href).hash, '#/cp/namtanfilm');
+  fail(); assert.equal(prevented, 1);
+});

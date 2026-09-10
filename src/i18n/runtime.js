@@ -1,5 +1,6 @@
 import { editorial } from './editorial.js';
 import { verifiedName } from './proper-names.js';
+import { isWechatBrowser } from '../app/wechat-share.js';
 
 export const LOCALES = ['zh', 'en', 'th'];
 export const LANGUAGE_NAMES = { zh: '中文', en: 'English', th: 'ไทย' };
@@ -109,6 +110,7 @@ function applyDocumentLocale() {
   document.documentElement.lang = locale === 'zh' ? 'zh-CN' : locale;
   document.documentElement.dataset.locale = locale;
   document.title = { zh: 'glfans — 这次真的不一样', en: 'glfans — This time is different', th: 'glfans — ครั้งนี้ไม่เหมือนเดิม' }[locale];
+  if (isWechatBrowser(window.navigator?.userAgent)) window.dispatchEvent(new Event('glfans:locale-changed'));
 }
 
 export async function initializeLocale() {
@@ -124,10 +126,15 @@ export async function changeLocale(next) {
   await Promise.all(activeCatalogKinds().map(kind => loadCatalog(next, kind)));
   if (request !== switchRequest) return;
   locale = next;
+  if (isWechatBrowser(window.navigator?.userAgent)) document.documentElement.dataset.localeChanged = 'true';
   try { window.localStorage.setItem('glfans:locale', locale); } catch { /* Private browsing may deny persistence. */ }
-  const url = new URL(window.location.href);
-  url.searchParams.set('lang', locale);
-  window.history.replaceState(window.history.state, '', url);
+  // Changing a signed WeChat document's query invalidates its JS-SDK context.
+  // The actual locale stays in app state/storage and in the outgoing share URL.
+  if (!isWechatBrowser(window.navigator?.userAgent)) {
+    const url = new URL(window.location.href);
+    url.searchParams.set('lang', locale);
+    window.history.replaceState(window.history.state, '', url);
+  }
   applyDocumentLocale();
   subscribers.forEach(listener => listener());
 }

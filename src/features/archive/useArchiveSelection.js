@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 import { archiveDramasByYear } from "../../data/archive-dramas.js";
-import { normalizeShareUrl } from '../../app/share-route.js';
+import { normalizeDocumentUrl } from '../../app/share-route.js';
 
 function updateArchiveUrl(year, eventId) {
   const nextHash = eventId ? `#/archive/${year}/${eventId}` : `#/archive/${year}`;
   const next = new URL(nextHash, window.location.href);
-  window.history.replaceState(window.history.state, "", normalizeShareUrl(next.href, import.meta.env.BASE_URL));
+  window.history.replaceState(window.history.state, "", normalizeDocumentUrl(next.href, import.meta.env.BASE_URL, false, window.navigator.userAgent));
   // Update sharing without a router event: selecting a reel must not reset scroll.
   window.dispatchEvent(new Event('glfans:route-ready'));
 }
