@@ -9,7 +9,8 @@ import { MobileSectionNav } from "./MobileSectionNav.jsx";
 import { hasMobileNavigation } from "./app/mobile-navigation.js";
 import { PageLoader } from "./PageLoader.jsx";
 import { RouteReadyBoundary } from "./RouteReadyBoundary.jsx";
-import { ROOT_ROUTES, ROUTE_LOADING_COPY, parseHashRoute } from "./app/routes.js";
+import { ROOT_ROUTES, ROUTE_LOADING_COPY, parseHashRoute, welcomeLinks } from "./app/routes.js";
+import { shouldSkipHomeJourney } from "./features/home/home-journey-state.js";
 
 const HomePage = lazy(() => import("./HomePage.jsx").then((module) => ({ default: module.HomePage })));
 const AdminPage = lazy(() => import("./AdminPage.jsx").then((module) => ({ default: module.AdminPage })));
@@ -26,6 +27,16 @@ function readRootRoute() {
   return ROOT_ROUTES.includes(rootRoute) ? rootRoute : "home";
 }
 
+function readEntryRoute() {
+  const rootRoute = readRootRoute();
+  if (rootRoute !== "home") return rootRoute;
+  if (!shouldSkipHomeJourney(window.location.search, import.meta.env.DEV, window)) return rootRoute;
+  const firstHomeDestination = welcomeLinks[0];
+  if (!firstHomeDestination) return rootRoute;
+  window.history.replaceState(window.history.state, "", firstHomeDestination.href);
+  return firstHomeDestination.id;
+}
+
 function readRouteKey() {
   return window.location.hash || "#/";
 }
@@ -33,14 +44,14 @@ function readRouteKey() {
 export function App() {
   useLocale();
   requireCatalog();
-  const [rootRoute, setRootRoute] = useState(readRootRoute);
+  const [rootRoute, setRootRoute] = useState(readEntryRoute);
   const [routeKey, setRouteKey] = useState(readRouteKey);
   const loadingCopy = ROUTE_LOADING_COPY[rootRoute] ?? ROUTE_LOADING_COPY.home;
   const showMobileNavigation = hasMobileNavigation(rootRoute);
 
   useEffect(() => {
     const update = () => {
-      setRootRoute(readRootRoute());
+      setRootRoute(readEntryRoute());
       setRouteKey(readRouteKey());
     };
     window.addEventListener("hashchange", update);

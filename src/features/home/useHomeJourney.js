@@ -1,9 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { FALLING_DURATION_MS, getHomePreviewScene } from "./home-journey-timing.js";
+import { markHomeJourneySeen } from "./home-journey-state.js";
 
 export function useHomeJourney() {
   const lastAdvanceRef = useRef(0);
-  const [scene, setScene] = useState(() => getHomePreviewScene(window.location.search, import.meta.env.DEV) ?? "cover");
+  const previewScene = getHomePreviewScene(window.location.search, import.meta.env.DEV);
+  const [scene, setScene] = useState(() => previewScene ?? "cover");
   const [fallingSeed, setFallingSeed] = useState(() => Math.floor(Math.random() * 4294967296));
   const rerollFalling = useCallback(() => setFallingSeed(Math.floor(Math.random() * 4294967296)), []);
 
@@ -29,6 +31,10 @@ export function useHomeJourney() {
     }, delay);
     return () => window.clearTimeout(timer);
   }, [scene]);
+
+  useEffect(() => {
+    if (scene === "welcome" && previewScene === null) markHomeJourneySeen(window);
+  }, [previewScene, scene]);
 
   const restartJourney = () => {
     rerollFalling();
