@@ -34,9 +34,9 @@ export function createWechatSharing(host = window, entryUrl = host.location.href
       if(current!==revision) return;
       await new Promise((resolve,reject)=>{
         const timer=host.setTimeout(()=>reject(new Error('WeChat configuration timeout')),10000);
+        wx.config({...cached.data,debug:false,jsApiList:['updateAppMessageShareData','updateTimelineShareData','onMenuShareAppMessage','onMenuShareTimeline']});
         wx.ready(()=>{host.clearTimeout(timer); resolve();});
         wx.error(error=>{host.clearTimeout(timer); reject(new Error(error?.errMsg || 'WeChat configuration rejected'));});
-        wx.config({...cached.data,debug:false,jsApiList:['updateAppMessageShareData','updateTimelineShareData','onMenuShareAppMessage','onMenuShareTimeline']});
       });
       if(current!==revision) return;
       const link=new URL(data.url);

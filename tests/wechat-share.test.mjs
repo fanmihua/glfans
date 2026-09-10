@@ -30,7 +30,7 @@ test('WeChat config installs logo, current title, description and language-speci
   let ready;const calls=[];
   const host={navigator:{userAgent:'iPhone MicroMessenger'},location:{href:'https://glfans.com/cp/emibonnie/?lang=zh#/cp/emibonnie'},document:{documentElement:{dataset:{}}},setTimeout,clearTimeout,console,
     fetch:async()=>({ok:true,json:async()=>({appId:'wx123',signature:'sig'})}),
-    wx:{ready:fn=>{ready=fn;},error:()=>{},config:()=>ready(),updateAppMessageShareData:data=>calls.push(data),updateTimelineShareData:()=>{}}};
+    wx:{ready:fn=>{ready=fn;},error:()=>{},config:()=>queueMicrotask(()=>ready()),updateAppMessageShareData:data=>calls.push(data),updateTimelineShareData:()=>{}}};
   await createWechatSharing(host)({title:'glfans · 百家饭',description:'EmiBonnie',image:'https://glfans.com/logo.jpg',url:'https://glfans.com/cp/emibonnie/'});
   assert.equal(calls[0].link,'https://glfans.com/cp/emibonnie/?lang=zh');
   assert.equal(calls[0].desc,'EmiBonnie'); assert.equal(host.document.documentElement.dataset.wechatShare,'configured');
