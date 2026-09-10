@@ -503,7 +503,7 @@ export function WordsTideLab() {
               {getLocale() === 'zh' ? Array.from('文学').map((character, index) => <i aria-hidden="true" key={index}>{character}</i>) : <i>{getLocale() === 'en' ? 'from the pit' : 'จากด้อม'}</i>}
             </span>
           </h1>
-          <img className="words-keyword-underline" src="assets/repo-handdrawn-underline-pink.webp" alt="" aria-hidden="true" data-page-critical="true" />
+          <img className="words-keyword-underline" src={`${import.meta.env.BASE_URL}assets/repo-handdrawn-underline-pink.webp`} alt="" aria-hidden="true" data-page-critical="true" />
           <span className="words-tide-label">{t("WORDS / FREQUENCY / TIDE")}</span>
         </div>
         <FrequencyFlow isMobile={isMobile} />

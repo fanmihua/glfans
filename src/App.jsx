@@ -11,6 +11,7 @@ import { PageLoader } from "./PageLoader.jsx";
 import { RouteReadyBoundary } from "./RouteReadyBoundary.jsx";
 import { ROOT_ROUTES, ROUTE_LOADING_COPY, parseHashRoute, welcomeLinks } from "./app/routes.js";
 import { shouldSkipHomeJourney } from "./features/home/home-journey-state.js";
+import { normalizeShareUrl } from './app/share-route.js';
 
 const HomePage = lazy(() => import("./HomePage.jsx").then((module) => ({ default: module.HomePage })));
 const AdminPage = lazy(() => import("./AdminPage.jsx").then((module) => ({ default: module.AdminPage })));
@@ -34,7 +35,8 @@ function readEntryRoute() {
   if (!shouldSkipHomeJourney(window.location.search, import.meta.env.DEV, window)) return rootRoute;
   const firstHomeDestination = welcomeLinks[0];
   if (!firstHomeDestination) return rootRoute;
-  window.history.replaceState(window.history.state, "", firstHomeDestination.href);
+  const destination = new URL(firstHomeDestination.href, window.location.href);
+  window.history.replaceState(window.history.state, "", normalizeShareUrl(destination.href, import.meta.env.BASE_URL));
   return firstHomeDestination.id;
 }
 
@@ -60,6 +62,7 @@ export function App() {
   }, []);
 
   useLayoutEffect(() => {
+    window.dispatchEvent(new Event('glfans:route-ready'));
     window.history.scrollRestoration = "manual";
     const root = document.documentElement;
     const previousScrollBehavior = root.style.scrollBehavior;

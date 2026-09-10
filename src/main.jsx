@@ -15,7 +15,10 @@ import "./styles.css";
 import "./pit-radio.css";
 import './i18n/localized-layout.css';
 import { initializeLocale } from './i18n/runtime.js';
+import { installShareRoutes, installShareMetadata } from './app/share-route.js';
 
+installShareRoutes(window, import.meta.env.BASE_URL);
+if (import.meta.env.PROD) installShareMetadata();
 installChunkRecovery();
 
 const rootElement = document.getElementById("root");
