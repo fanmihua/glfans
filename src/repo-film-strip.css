@@ -17,7 +17,7 @@
   display: grid;
   min-width: 0;
   height: 66px;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(var(--repo-film-count, 6), minmax(0, 1fr));
   gap: 10px;
   overflow: hidden;
 }
@@ -42,5 +42,5 @@
 
 @media (max-width: 620px) {
   .repo-film-strip { grid-template-columns: 20px 1fr 20px; gap: 7px; }
-  .repo-film-frames { grid-template-columns: repeat(6, 120px); overflow: hidden; }
+  .repo-film-frames { grid-template-columns: repeat(var(--repo-film-count, 6), 120px); overflow: hidden; }
 }

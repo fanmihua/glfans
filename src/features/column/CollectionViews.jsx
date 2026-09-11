@@ -45,7 +45,7 @@ function CollectionCard({ collection, index }) {
         <span>{t(String(index + 1).padStart(2, "0"))}</span>
       </div>
       <div className="collection-card-copy">
-        <span>{t(collection.issue)}</span>
+        <span>{t(`COLLECTION ${String(index + 1).padStart(2, "0")}`)}</span>
         <h2>{t(collection.title)}</h2>
         <p>{t(visibleArticleCount)}{t(" 篇 Repo / 侧写")}</p>
         <ArrowRight aria-hidden="true" />
@@ -198,7 +198,7 @@ export function ColumnIndex() {
           <p>{t("每一份心动，都有迹可循。")}</p>
           <span className="hero-title-underline" aria-hidden="true" />
           <span className="hero-title-arrow" aria-hidden="true">↗</span>
-          <span className="hero-label hero-label-left">{t("LOVE ARCHIVE / 06 COLLECTIONS")}</span>
+          <span className="hero-label hero-label-left">{`LOVE ARCHIVE / ${String(columnData.collections.length).padStart(2, "0")} COLLECTIONS`}</span>
         </div>
         <aside className="hero-reading-note">
           <div>
@@ -222,7 +222,7 @@ export function ColumnIndex() {
       <section className="repo-index-note" aria-labelledby="repo-index-note-title">
         <div className="repo-index-note-heading">
           <span>{t("ARCHIVE NOTE")}</span>
-          <h2 id="repo-index-note-title">{getLocale() === 'zh' ? <><span className="repo-index-note-title-line">目前包含已有泰百repo</span><span className="repo-index-note-title-line">及二创类文章<span className="repo-index-note-title-total">共<strong>21</strong>篇：</span></span></> : t('目前包含已有泰百repo及二创类文章共21篇：')}</h2>
+          <h2 id="repo-index-note-title">{getLocale() === 'zh' ? <><span className="repo-index-note-title-line">目前包含已有泰百repo</span><span className="repo-index-note-title-line">及二创类文章<span className="repo-index-note-title-total">共<strong>20</strong>篇：</span></span></> : t('目前包含已有泰百repo及二创类文章共20篇：')}</h2>
         </div>
         <div className="repo-pending-copy">
           <span>{t("待更新：")}</span>

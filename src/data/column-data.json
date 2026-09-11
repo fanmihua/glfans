@@ -88,6 +88,7 @@
     },
     {
       "slug": "my-secret-words",
+      "hidden": true,
       "title": "和谐密语",
       "issue": "COLLECTION 05",
       "cover": "assets/column/my-secret-words/overview/01-suakby2xcohn.webp",

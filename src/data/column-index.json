@@ -80,21 +80,6 @@
       ]
     },
     {
-      "slug": "my-secret-words",
-      "title": "和谐密语",
-      "issue": "COLLECTION 05",
-      "cover": "assets/column/my-secret-words/overview/01-suakby2xcohn.webp",
-      "summaryXml": "<fragment mode=\"section\" requested-start=\"HPUAdDqNoorcBVxZt98cWAVGnfb\"><h1 id=\"HPUAdDqNoorcBVxZt98cWAVGnfb\">🐨🐰和谐密语（诡秘契约）</h1><grid id=\"F77qdXrPkorSIOxeZgscLbSVnYe\"><column id=\"QUr3daLLMorKIWx5D6Kc9ed1nRh\" width-ratio=\"0.329268\"><img id=\"MrlXdZQRCom8e0xxGyKcf1oEnDb\" name=\"image.png\" height=\"353\" href=\"assets/column/my-secret-words/overview/01-suakby2xcohn.webp\" mime=\"image/png\" scale=\"0.638298\" src=\"SUakby2XCoHN2QxelUpcLaNknCg\" width=\"282\"/></column><column id=\"LE0OdaerIodxyWxabkocpma9nQe\" width-ratio=\"0.670732\"><p id=\"Grn2d4yP7om5y0xHqsqcPJVknqh\"><b>首播日期</b>：2025年7月26日</p><p id=\"C4T4dXWpcooaTKxN3BscWWDYnzf\"><b>停播/完结日期</b>：2025年9月13日（全8集已播毕）</p><p id=\"JMMjdJR1hos2CnxGGBpcUvJOnke\"><b>播出平台</b>：<a href=\"https://zh.wikipedia.org/wiki/One_31\">One 31</a></p><p id=\"Xnm7d1dIzoK1zZxCE1TcRwQynNg\"><b>主要演员</b>：</p><ul><li id=\"J0OxdZDubodBT9xLxbrcbucTnzf\"><a href=\"https://zh.wikipedia.org/wiki/%E7%8F%AD%E9%9B%85%E5%B8%95%C2%B7%E6%B1%AA%E6%9C%8B%E8%96%A9%E5%A1%94%E7%8F%80%E6%81%A9\">班雅帕·汪朋萨塔珀恩</a>（Lookmhee）饰演 Ai</li><li id=\"Y59WdRucaoxytYxbWdhcD2PBnsd\"><a href=\"https://zh.wikipedia.org/wiki/%E8%8E%8E%E8%98%AD%E5%B8%95%E7%89%B9%C2%B7%E7%9A%AE%E5%BE%B7%E7%88%BE\">莎兰帕特·皮德尔</a>（Sonya）饰演 Maple/May</li></ul><p id=\"PSjKdWqaKoYD7XxjEErceYOknWf\"></p></column></grid><bitable id=\"Aynydi6MuoV2gmxgiilcrPD0nNb\" table-id=\"tblelQpJB1VaD7zv\" token=\"SKAUbLfvqaZc7asfFsXcjYpAnof\"></bitable><p id=\"SCGUdFnIUo4fHxxNvpUcFCBwnPd\"></p></fragment>",
-      "articles": [
-        {
-          "slug": "my-secret-words",
-          "label": "My Secret Words",
-          "title": "和谐密语-My secret words",
-          "cover": "assets/column/my-secret-words/my-secret-words/01-ltcgbsrbqolc.webp"
-        }
-      ]
-    },
-    {
       "slug": "affair",
       "title": "爱情诡计",
       "issue": "COLLECTION 06",
