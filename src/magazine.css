@@ -56,13 +56,11 @@ body { color: var(--plum); background: var(--paper); }
 .repo-teaser-cta,
 .fs-callout { border-radius: 0; }
 
-.collection-cover img,
 .article-card-image img,
 .meme-image-wrap img,
 .collection-hero .fs-figure img,
 .article-magazine .fs-figure img { filter: grayscale(1) contrast(1.08); }
 
-.collection-card:hover .collection-cover img,
 .article-card:hover .article-card-image img,
 .meme-card > button:hover .meme-image-wrap img,
 .article-magazine .fs-grid:hover .fs-figure img { filter: grayscale(0.12) contrast(1.03); }
@@ -541,13 +539,13 @@ body { color: var(--plum); background: var(--paper); }
 .collection-cover,
 .collection-card-copy { position: relative; z-index: 1; background: var(--paper); }
 .collection-cover img {
+  filter: none;
   object-position: var(--collection-card-focus, 50% 50%);
   transform: scale(1.001);
-  transition: filter 360ms ease, transform 620ms cubic-bezier(0.2, 0.75, 0.18, 1);
+  transition: transform 620ms cubic-bezier(0.2, 0.75, 0.18, 1);
 }
 
 .collection-card:hover .collection-cover img {
-  filter: grayscale(0.05) contrast(1.03) saturate(0.9);
   transform: scale(1.055) translate3d(0, -1.5%, 0);
 }
 
@@ -1390,7 +1388,7 @@ body { color: var(--plum); background: var(--paper); }
   margin: 0;
   overflow: hidden;
   border: 1px solid rgba(9, 9, 9, 0.82);
-  transform: rotate(1.25deg);
+  transform: none;
 }
 
 .article-masthead-still img {
@@ -1552,12 +1550,12 @@ body { color: var(--plum); background: var(--paper); }
 
 .article-magazine .article-layout-media-left > .fs-column.is-media {
   margin-left: -2.8vw;
-  transform: rotate(-0.8deg);
+  transform: none;
 }
 
 .article-magazine .article-layout-media-right > .fs-column.is-media {
   margin-right: -2.8vw;
-  transform: rotate(0.75deg);
+  transform: none;
 }
 
 .article-magazine .article-layout-gallery {
@@ -1683,11 +1681,11 @@ body { color: var(--plum); background: var(--paper); }
 .article-reveal.is-visible { opacity: 1; translate: 0 0; }
 
 .article-layout-media-left.article-reveal:not(.is-visible) > .fs-column.is-media {
-  transform: translateX(-24px) rotate(-0.8deg);
+  transform: translateX(-24px);
 }
 
 .article-layout-media-right.article-reveal:not(.is-visible) > .fs-column.is-media {
-  transform: translateX(24px) rotate(0.75deg);
+  transform: translateX(24px);
 }
 
 .article-next-nav {
@@ -2355,8 +2353,7 @@ body { color: var(--plum); background: var(--paper); }
   left: 3.1%;
   width: 45%;
   min-height: 272px;
-  transform: rotate(-1.8deg);
-  transform-origin: left top;
+  transform: none;
 }
 
 .collection-facts {

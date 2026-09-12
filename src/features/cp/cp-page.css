@@ -19,7 +19,7 @@
 .cp-directory-state--active { color: #a31358; }
 .cp-directory-state--ended { color: #393835; }
 .cp-sheet-search .cp-stats { margin-bottom: 12px; }
-.cp-search { display: flex; align-items: center; width: min(100%,360px); min-width: 0; gap: 8px; padding: 0 6px 0 14px; background: #efede8; border: 1px solid transparent; border-radius: 24px; }
+.cp-search { display: flex; align-items: center; width: min(100%,360px); min-width: 0; gap: 8px; padding: 0 6px 0 14px; background: #efede8; border: 1px solid transparent; border-radius: 0; }
 .cp-search > svg { flex-shrink: 0; color: #686863; }
 .cp-search:focus-within { background: #fffafa; border-color: #c82073; }
 .cp-search input { width: 100%; min-width: 0; min-height: 44px; border: 0; padding: 8px 0; background: transparent; color: inherit; font: 13px var(--headline); outline: none; }

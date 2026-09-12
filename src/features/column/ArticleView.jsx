@@ -32,6 +32,7 @@ export function ArticleView({ collection, article }) {
     return Array.from(article.xml.matchAll(/<img\b[^>]*\bhref="([^"]+)"/g), (match) => match[1]);
   }, [article.xml]);
   const mastheadImage = articleImages[0] || article.cover || collection.cover;
+  const hideOpeningImage = collection.slug === 'rival-lover' && article.slug === 'wine-ep06-07';
 
   return (
     <article className="article-view article-magazine" ref={articleRef}>
@@ -57,16 +58,16 @@ export function ArticleView({ collection, article }) {
           </h1>
           <span className="article-masthead-underline" aria-hidden="true" />
         </div>
-        <figure className="article-masthead-still" aria-hidden="true">
+        {!hideOpeningImage && <figure className="article-masthead-still" aria-hidden="true">
           <img src={withBase(mastheadImage)} alt="" decoding="async" fetchPriority="high" data-page-critical="true" />
-        </figure>
+        </figure>}
         <aside className="article-masthead-note">
           <span>{t("EDGE NOTE")}</span>
           <p>{t(article.label)}</p>
         </aside>
       </header>
       {getLocale() !== 'zh' && <p className="article-translation-note">{t('全文译文说明')}</p>}
-      <ArticleDocument xml={article.xml} hideTitle hideLeadHeading />
+      <ArticleDocument xml={article.xml} hideTitle hideLeadHeading hideFirstImage={hideOpeningImage} />
       {t(nextArticle && (
         <nav className="article-next-nav" aria-label={t("下一篇文章")}>
           <span>{t("NEXT ARTICLE")}</span>
