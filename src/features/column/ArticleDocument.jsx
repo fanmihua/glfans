@@ -187,12 +187,11 @@ function renderNode(node, key, layoutIndex = null) {
   return <div className={`fs-block fs-${tag}`} key={key}>{t(children)}</div>;
 }
 
-export function ArticleDocument({ xml, overview = false, hideTitle = false, hideLeadHeading = false, hideFirstImage = false }) {
+export function ArticleDocument({ xml, overview = false, hideTitle = false, hideLeadHeading = false }) {
   const document = useMemo(() => {
     const parsed = new DOMParser().parseFromString(`<doc>${xml}</doc>`, "application/xml");
-    if (hideFirstImage) parsed.querySelector('img[href]')?.remove();
     return parsed.querySelector("parsererror") ? null : parsed.documentElement;
-  }, [xml, hideFirstImage]);
+  }, [xml]);
 
   if (!document) return <p className="column-empty">{t("这篇内容暂时无法解析。")}</p>;
 
