@@ -4,7 +4,7 @@
   background: var(--paper);
 }
 
-.archive-calendar-entry { display:inline-flex; align-items:center; justify-content:center; gap:10px; min-height:44px; padding:10px 20px; color:#fff; background:#090909; border:0; box-shadow:none; font-family:inherit; font-size:13px; font-weight:700; cursor:pointer; transform:rotate(-1.4deg); }
+.archive-calendar-entry { display:inline-flex; align-items:center; justify-content:center; gap:10px; min-height:44px; padding:10px 20px; color:#fff; background:#090909; border:0; box-shadow:none; font-family:inherit; font-size:13px; font-weight:700; cursor:pointer; transform:none; }
 .archive-calendar-entry svg { flex-shrink:0; }
 .archive-calendar-entry svg:last-child { color:var(--pink); }
 .archive-calendar-entry:hover { color:var(--pink); }

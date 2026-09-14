@@ -17,7 +17,8 @@
   display: grid;
   width: max-content;
   min-height: 0;
-  margin: 35px 0 -87px 28px;
+  /* Compensate for the paper tilt so its painted edge aligns with the calendar CTA. */
+  margin: 35px 0 -87px 14px;
   justify-items: stretch;
   justify-self: start;
   color: #090909;
@@ -154,7 +155,7 @@
   background: #090909;
   font-size: 12px;
   letter-spacing: 0.04em;
-  transform: rotate(-1.5deg);
+  transform: none;
 }
 
 .archive-year-tag span { color: var(--pink); font-weight: var(--text-weight-strong); }
@@ -710,7 +711,7 @@
 
 @media (max-width: 760px) {
   .archive-year-main { padding: calc(var(--mobile-header-height, 46px) + 12px) 0 0; }
-  .archive-year-back { display: flex; min-height: 44px; margin: 0 0 0 22px; align-items: center; transform: rotate(-2deg); }
+  .archive-year-back { display: flex; min-height: 44px; margin: 0 0 0 30.75px; align-items: center; transform: rotate(-2deg); }
   .archive-year-back span { display: grid; min-width: 0; height: 28px; padding: 0 8px; place-items: center; font-size: 9px; white-space: nowrap; }
   .archive-year-back strong { display: grid; min-width: 0; height: 28px; padding: 0 9px; place-items: center; font-size: 18px; }
   .archive-year-hero { display: flex; margin-top: 0; flex-direction: column; }

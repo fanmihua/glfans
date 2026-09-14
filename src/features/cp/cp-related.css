@@ -1,7 +1,7 @@
 .cp-related-links { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 14px; margin: 8px 0; font: 600 13px/1.5 var(--headline); }
 .cp-related-links > span { color: #666; font-size: 12px; }
 .cp-related-links a { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; color: #a31358; text-decoration: underline; text-underline-offset: 4px; }
-.archive-series-calendar { display: inline-flex; align-items: center; gap: 8px; border: 0; border-bottom: 1px solid #a31358; background: transparent; min-height: 44px; padding: 0; color: #090909; font: 600 13px var(--headline); cursor: pointer; }
+.archive-series-calendar { display: inline-flex; align-items: center; gap: 8px; border: 0; border-bottom: 1px solid #a31358; background: transparent; min-height: 44px; padding: 0; color: #090909; font: 600 13px var(--headline); cursor: pointer; transform: none; }
 .calendar-scope { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 14px; padding: 6px 16px; font: 600 13px/1.6 var(--headline); background: #f8e6ee; }
 .calendar-scope button { background: transparent; border: 0; padding: 4px 0; min-height: 44px; font: inherit; text-decoration: underline; cursor: pointer; }
 .calendar-scope small { width: 100%; color: #626262; }
