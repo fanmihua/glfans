@@ -1,6 +1,6 @@
 # UI 排版修改交接文档
 
-更新日期：2026-09-14
+更新日期：2026-09-15
 
 ## 交接目标
 
@@ -11,24 +11,30 @@
 1. `88dfa3a` — 调整搜索框、合集封面与文章图片排版
 2. `1802365` — 完善 REPO 正文排版并记录专栏规则
 3. `91767d0` — 添加 UI 排版修改交接文档
+4. `458107c` — 完成 UI 排版调整与交接
 
-本次 REPO 二级目录卡片默认去色及相应规则、CP 移动端筛选覆层、考古档案日历入口、交接文档更新尚在工作树中，需本地提交后才能交由管理员合并或挑选。建议管理员合并完成提交后的整个 `ui-layout-adjustments` 分支，以保留代码和规则文档。
+本次待提交批次为考古档案首页搜索：包含 Figma 搜索框、顶层结果层、连续字符匹配、人物与作品关联、JanJingjing 的 MuTeLuv 作品补充、测试及本交接文档更新。建议管理员合并完成提交后的整个 `ui-layout-adjustments` 分支，以保留代码、数据和规则文档。
 
 ## 最终差异概览
 
-相对初始 `main`，功能与规则变更共涉及 9 个文件（不计本交接文档自身）：
+相对初始 `main`，功能与规则变更共涉及 14 个文件（不计本交接文档自身）：
 
 | 文件 | 最终变化 | 影响范围 |
 | --- | --- | --- |
 | [`AGENTS.md`](../AGENTS.md) | 新增 REPO 二级目录卡片、正文排版及验证规则 | 后续开发约束 |
-| [`src/archive-page.css`](../src/archive-page.css) | 取消考古档案首页日历入口倾斜 | 考古档案首页 |
+| [`src/ArchivePage.jsx`](../src/ArchivePage.jsx) | 新增考古档案搜索框、顶层结果层及完整键盘/关闭交互 | 考古档案首页 |
+| [`src/archive-page.css`](../src/archive-page.css) | 取消日历入口倾斜，并增加搜索框、结果列表及响应式样式 | 考古档案首页 |
 | [`src/archive-year-page.css`](../src/archive-year-page.css) | 取消年份页主日历入口倾斜，并将返回年份按钮与其左边缘对齐 | 考古档案年份二级页 |
+| [`src/features/archive/archive-search.js`](../src/features/archive/archive-search.js) | 实现中英文连续匹配、结果排序及人物作品关联 | 考古档案搜索逻辑 |
 | [`src/features/cp/CpDirectory.jsx`](../src/features/cp/CpDirectory.jsx) | 重构移动端 CP 目录的定位、打开态筛选条及关闭交互 | CP 页移动端 |
+| [`src/features/cp/cp-data.js`](../src/features/cp/cp-data.js) | 将 MuTeLuv 补充为 JanJingjing 的关联作品 | CP 资料与考古档案搜索 |
 | [`src/features/cp/cp-page.css`](../src/features/cp/cp-page.css) | CP 搜索框改为直角，并实现移动端顶部下拉面板与蒙版 | CP 页，桌面与移动端 |
 | [`src/features/cp/cp-related.css`](../src/features/cp/cp-related.css) | 固定年份页剧集摘要日历入口为水平样式 | 考古档案年份二级页 |
 | [`src/features/column/ArticleView.jsx`](../src/features/column/ArticleView.jsx) | 调整标题结构、文章效果与指定文章布局标识 | REPO 正文文章页 |
 | [`src/magazine.css`](../src/magazine.css) | 调整合集封面、二级目录卡片、合集资料块和正文桌面/平板排版 | REPO 首页、合集页和正文页 |
 | [`src/styles/mobile-article.css`](../src/styles/mobile-article.css) | 修正正文移动端图片及段落间距 | REPO 正文移动端 |
+| [`tests/archive-search.test.mjs`](../tests/archive-search.test.mjs) | 覆盖中英文阈值、连续匹配、人物作品关联及结果限制 | 搜索回归测试 |
+| [`tests/cp-data.test.mjs`](../tests/cp-data.test.mjs) | 验证 JanJingjing 与 MuTeLuv 的资料关联 | CP 数据回归测试 |
 
 `ArticleDocument.jsx` 曾在开发过程中临时支持隐藏第一张正文图片，随后已恢复；相对 `main` 没有最终差异，第一张正文图片仍由原始文章 XML 正常渲染。
 
@@ -55,6 +61,16 @@
 - 年份二级页标题区的同名主按钮取消 `rotate(-1.5deg)`；剧集摘要区的日历入口显式设置 `transform: none`，防止被后续共享样式带入倾斜。
 - 年份二级页保留“返回年份”纸片按钮自身的轻微倾斜，并补偿旋转后的视觉偏移，使其左边缘与标题区“查看播出日历”按钮左边缘对齐；桌面与移动端分别校准。
 - 修改同时覆盖桌面与移动端，不改变按钮尺寸、颜色、图标、聚焦状态或打开日历的行为。
+
+### 考古档案首页搜索
+
+- 依据 Figma `GL-repo` 节点 `144:3515`，在考古档案标题下方加入搜索框；桌面端为 `320 × 44px`，与日历入口横向排列，移动端改为上下堆叠并占满操作区宽度。
+- 搜索结果通过 React Portal 挂载到 `document.body`，采用 `position: fixed` 和 `z-index: 1000`，避免被年度胶片层遮挡；滚动或调整窗口尺寸时重新读取搜索框边界。
+- 结果层宽度直接使用搜索框实测宽度，左右边缘对齐，并固定在搜索框下方 `8px`；桌面端实测两者均为 `320px`，移动端随搜索框自适应。
+- 英文输入至少需要两个连续字母，中文输入一个汉字即可触发；不会把被空格或标点分开的字符拼接成误匹配。
+- CP 结果匹配展示名称，剧集结果匹配中英文标题。人物名精确或前缀命中时，会同时加入该人物所属 CP 的关联作品，并将强关联作品排在偶然包含相同字符的结果之前。
+- 搜索 `emi` 时优先显示 `EmiBonnie`、《我们的爱》和《月影》；搜索 `jan` 时显示 `JanJingjing`、其关联作品《爱的魔力转圈圈·号码奇缘》和《宿敌恋人》。MuTeLuv 的关联已写入 `cp-data.js` 源数据，重新生成浏览器载荷后仍会保留。
+- 点击结果或按回车可进入首个结果；清除按钮、`Esc`、焦点移出和点击外部均可关闭结果层。搜索标签、无结果提示及剧集类型标识支持中、英、泰三种语言。
 
 ### REPO 合集页
 
@@ -120,7 +136,7 @@ git diff --check
 结果：
 
 - 生产构建成功。
-- 197 项测试全部通过，0 失败、0 跳过。
+- 204 项测试全部通过，0 失败、0 跳过。
 - 差异格式检查通过。
 - 项目 `package.json` 未配置 lint 命令，因此没有可运行的独立 lint 检查。
 - 在浏览器中确认桌面端左图右文、文字与图片组居中、第一张正文图片存在、图片彩色且无滚动/悬停变化。
@@ -129,6 +145,8 @@ git diff --check
 - 在 `390 × 844` 移动端视口中验证 CP 筛选条吸顶后位于 `46–110px`，展开面板位于 `110–734px`，底部栏目导航从 `754px` 开始，尺寸与 Figma 画板一致。
 - 实际点击面板下方蒙版后，`dialog` 已移除、筛选按钮的 `aria-expanded` 恢复为 `false`，焦点返回 `.cp-mobile-switch`；浏览器控制台无错误或警告。
 - 在考古档案首页及 2024 年份二级页读取全部“查看播出日历”按钮的计算样式：首页主按钮、年份标题区按钮、剧集摘要按钮的 `transform` 均为 `none`；桌面与 `390 × 844` 移动端结果一致。年份页“返回年份”按钮与标题区日历按钮的视觉左边缘也在两种视口下完成实测对齐：桌面误差约 `0.05px`，移动端约 `0.02px`。
+- 在考古档案首页实测搜索结果层的父节点为 `body`、定位为 `fixed`、层级为 `1000`；搜索框和结果层宽度均为 `320px`，左右边缘误差小于 `1px`，垂直间距为 `8px`。
+- 实测 `j` 不触发结果层、`ja` 只命中连续字符的 CP 名称、中文单字 `冥` 命中《冥王星之恋》；`emi` 优先返回 EmiBonnie 及《我们的爱》《月影》，`jan` 返回 JanJingjing 及《爱的魔力转圈圈·号码奇缘》《宿敌恋人》。结果点击跳转和控制台均正常。
 
 ## 管理员审阅重点
 
@@ -151,11 +169,11 @@ git switch main
 git merge --no-ff ui-layout-adjustments
 ```
 
-如管理员只希望挑选提交，应先将当前工作树中的二级目录去色、CP 移动端筛选覆层、考古档案日历入口、规则和文档更新提交，再按顺序挑选相关提交。当前前三个已提交记录为：
+如管理员只希望挑选提交，应按顺序挑选相关提交。当前前四个已提交记录及本次搜索提交占位如下：
 
 ```bash
 git switch main
-git cherry-pick 88dfa3a 1802365 91767d0 <本次修改提交哈希>
+git cherry-pick 88dfa3a 1802365 91767d0 458107c <本次搜索提交哈希>
 ```
 
 合并后再次执行生产构建与完整测试。如果目标 `main` 已更新，应先基于最新 `main` 检查 `ArticleView.jsx`、`magazine.css` 和 `mobile-article.css` 的冲突与样式顺序；其中移动端 `:nth-child(n)` 的优先级用于覆盖旧的偶数图片负上边距，解决冲突时不能误删。

@@ -40,6 +40,7 @@ test('undated announcements stay separate from archive/calendar work IDs', () =>
   }
   assert.ok(findCp('namtanfilm').upcoming.some(work => work.id === 'her'));
   assert.ok(!(findCp('janjingjing').upcoming || []).some(work => work.id === 'bake-love-feeling'), 'ViewMim lead project must not be attributed to JanJingJing');
+  assert.ok(findCp('janjingjing').works.some(work => work.id === 'muteluv-hello-is-this-luck'), 'MuTeLuv must be linked to JanJingJing');
 });
 
 test('unknown CP ids do not silently show another pair', () => {
