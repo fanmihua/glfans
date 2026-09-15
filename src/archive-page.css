@@ -4,7 +4,7 @@
   background: var(--paper);
 }
 
-.archive-calendar-entry { display:inline-flex; align-items:center; justify-content:center; gap:10px; min-height:44px; padding:10px 20px; color:#fff; background:#090909; border:0; box-shadow:none; font-family:inherit; font-size:13px; font-weight:700; cursor:pointer; transform:rotate(-1.4deg); }
+.archive-calendar-entry { display:inline-flex; align-items:center; justify-content:center; gap:10px; min-height:44px; padding:10px 20px; color:#fff; background:#090909; border:0; box-shadow:none; font-family:inherit; font-size:13px; font-weight:700; cursor:pointer; transform:none; }
 .archive-calendar-entry svg { flex-shrink:0; }
 .archive-calendar-entry svg:last-child { color:var(--pink); }
 .archive-calendar-entry:hover { color:var(--pink); }
@@ -132,7 +132,18 @@
   transform-origin: left center;
 }
 
-.archive-masthead .archive-calendar-entry { position:relative; z-index:2; margin:22px auto 0; }
+.archive-actions {
+  position: relative;
+  z-index: 9;
+  display: flex;
+  width: min(850px, 100%);
+  margin: 22px auto 0;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.archive-masthead .archive-calendar-entry { position: relative; z-index: 2; margin: 0; }
 
 .archive-title-doodles { position: absolute; z-index: 4; inset: 0; pointer-events: none; }
 .archive-doodle-image { position: absolute; display: block; height: auto; object-fit: contain; }
@@ -384,7 +395,8 @@
   .archive-masthead { width: calc(100vw - 60px); padding-top: 0; transform: translateY(-46px); }
   .archive-masthead h1 > span { font-size: clamp(61px, 19.3vw, 86px); }
   .archive-masthead h1 strong { font-size: clamp(30px, 9.7vw, 42px); }
-  .archive-masthead .archive-calendar-entry { margin-top:16px; padding-inline:16px; gap:8px; font-size:11px; }
+  .archive-actions { width: min(320px, calc(100vw - 60px)); margin-top: 16px; flex-direction: column; gap: 8px; }
+  .archive-masthead .archive-calendar-entry { width: 100%; padding-inline:16px; gap:8px; font-size:11px; }
   .archive-corner-card-1 { top: 58px; left: -50px; width: 138px; opacity: 0.82; }
   .archive-corner-card-2 { top: 62px; right: -48px; width: 136px; opacity: 0.82; transform: rotate(5deg) scale(.85); }
   .archive-film-heading { width: calc(100% - 36px); margin-bottom: 10px; align-self: end; transform: translateY(-14px); }

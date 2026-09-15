@@ -1,11 +1,11 @@
 import { t } from "../../i18n/runtime.js";
 import { getLocale } from '../../i18n/runtime.js';
-import { useMemo, useRef } from "react";
+import { useMemo } from "react";
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
 import { withBase } from "../../lib/assets.js";
 import { ArticleDocument } from "./ArticleDocument.jsx";
 import { formatArticleTitle } from "./article-title.js";
-import { useReadingProgress, useArticleReveal } from "./useArticleEffects.js";
+import { useReadingProgress } from "./useArticleEffects.js";
 
 function ArticleMastheadSubject({ subject }) {
   const episodeMatch = subject.match(/^(.*?)(\s+EP\s*\d+(?:[–-]\d+)?)$/i);
@@ -20,9 +20,7 @@ function ArticleMastheadSubject({ subject }) {
 }
 
 export function ArticleView({ collection, article }) {
-  const articleRef = useRef(null);
   const progress = useReadingProgress();
-  useArticleReveal(articleRef, article.slug);
   const visibleArticles = collection.articles.filter((item) => !item.hidden);
   const articleIndex = visibleArticles.findIndex((item) => item.slug === article.slug);
   const articleNumber = String(articleIndex + 1).padStart(2, "0");
@@ -32,9 +30,11 @@ export function ArticleView({ collection, article }) {
     return Array.from(article.xml.matchAll(/<img\b[^>]*\bhref="([^"]+)"/g), (match) => match[1]);
   }, [article.xml]);
   const mastheadImage = articleImages[0] || article.cover || collection.cover;
+  const hideOpeningImage = collection.slug === 'rival-lover' && article.slug === 'wine-ep06-07';
+  const usePairedLayout = collection.slug === 'rival-lover' && article.slug === 'wine-ep06-07';
 
   return (
-    <article className="article-view article-magazine" ref={articleRef}>
+    <article className={`article-view article-magazine${usePairedLayout ? ' article-magazine--paired' : ''}`}>
       <div className="article-toolbar">
         <a className="article-toolbar-back" href={`#/column/${collection.slug}`} aria-label={t('返回{0}合集', [t(collection.title)])}>
           <ArrowLeft aria-hidden="true" />
@@ -53,13 +53,15 @@ export function ArticleView({ collection, article }) {
           <span className="article-masthead-kicker">{t("ARTICLE / ")}{t(articleNumber)}</span>
           <h1 aria-label={t(article.title)}>
             <span>{t(collection.title)}</span>
-            <strong><ArticleMastheadSubject subject={articleSubject} /></strong>
+            <strong>
+              <ArticleMastheadSubject subject={articleSubject} />
+              <span className="article-masthead-underline" aria-hidden="true" />
+            </strong>
           </h1>
-          <span className="article-masthead-underline" aria-hidden="true" />
         </div>
-        <figure className="article-masthead-still" aria-hidden="true">
+        {!hideOpeningImage && <figure className="article-masthead-still" aria-hidden="true">
           <img src={withBase(mastheadImage)} alt="" decoding="async" fetchPriority="high" data-page-critical="true" />
-        </figure>
+        </figure>}
         <aside className="article-masthead-note">
           <span>{t("EDGE NOTE")}</span>
           <p>{t(article.label)}</p>

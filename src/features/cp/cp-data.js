@@ -43,7 +43,10 @@ export const cpProfiles = [
       en: 'Jan and JingJing play Lal and Wine in Enemies With Benefits, a shared screen story that begins with rivalry in the office.',
       th: 'Jan และ JingJing รับบทลัลล์และไวน์ใน Enemies With Benefits เรื่องราวความสัมพันธ์บนจอที่เริ่มต้นจากการเป็นคู่แข่งในออฟฟิศ',
     },
-    works: [work('enemies-with-benefits', 'Enemies With Benefits', '2026', 'https://www.gmm-tv.com/news/4214/')],
+    works: [
+      work('enemies-with-benefits', 'Enemies With Benefits', '2026', 'https://www.gmm-tv.com/news/4214/'),
+      work('muteluv-hello-is-this-luck', 'MuTeLuv: Hello, Is This Luck?', '2025', 'https://glspotlight.com/series/muteluv'),
+    ],
     events: [], shops: [shop],
   },
   {

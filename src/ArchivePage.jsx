@@ -8,7 +8,8 @@ import { ArrowRight, CalendarBlank } from '@phosphor-icons/react';
 import { useMobileLayout } from "./hooks/useMobileLayout.js";
 import { ArchiveYearPage } from "./ArchiveYearPage.jsx";
 import { SiteHeader } from "./SiteHeader.jsx";
-import { archiveDramasByYear, archiveRepresentativeIds, archiveYearList } from "./data/archive-dramas.js";
+import { archiveDramas, archiveDramasByYear, archiveRepresentativeIds, archiveYearList } from "./data/archive-dramas.js";
+import { ArchiveSearch } from './features/archive/ArchiveSearch.jsx';
 import "./archive-page.css";
 
 const withArchivePoster = (path) => `${withBase(path)}?v=20260902-hd`;
@@ -55,7 +56,6 @@ function ArchiveOverview({ onOpenCalendar }) {
   const dragRef = useRef({ active: false, startX: 0, startY: 0, startScroll: 0, moved: false, nativeTouch: false });
   const scrollFrameRef = useRef(0);
   const lastScrollAtRef = useRef(-Infinity);
-
   const selectRoll = (index, shouldScroll = true) => {
     const nextIndex = Math.max(0, Math.min(archiveYears.length - 1, index));
     activeIndexRef.current = nextIndex;
@@ -226,9 +226,12 @@ function ArchiveOverview({ onOpenCalendar }) {
             </span>
             <strong>{t("PIT ARCHIVE")}</strong>
           </h1>
-          <button className="archive-calendar-entry" type="button" aria-haspopup="dialog" onClick={onOpenCalendar}>
-            <CalendarBlank size={18} aria-hidden="true" />{t('查看播出日历')}<ArrowRight size={18} aria-hidden="true" />
-          </button>
+          <div className="archive-actions">
+            <ArchiveSearch />
+            <button className="archive-calendar-entry" type="button" aria-haspopup="dialog" onClick={onOpenCalendar}>
+              <CalendarBlank size={18} aria-hidden="true" />{t('查看播出日历')}<ArrowRight size={18} aria-hidden="true" />
+            </button>
+          </div>
         </header>
 
         <div className="archive-film-heading">

@@ -10,6 +10,7 @@ import { archiveYearList } from "./data/archive-dramas.js";
 import { useArchiveSelection } from "./features/archive/useArchiveSelection.js";
 import { formatArchiveDate, formatArchiveRange } from "./features/archive/archive-format.js";
 import "./archive-year-page.css";
+import { ArchiveSearch } from "./features/archive/ArchiveSearch.jsx";
 import { CpRelatedLinks } from './features/cp/CpRelatedLinks.jsx';
 
 const withArchivePoster = (path) => `${withBase(path)}?v=20260902-hd`;
@@ -82,7 +83,6 @@ export function ArchiveYearPage({ year, eventId, onOpenCalendar }) {
 
   // A selected deep link or year change should reveal its card without moving the page.
   useEffect(() => {
-    if (!isMobile) return;
     // A settled swipe already positioned the card. Do not restart its scrolling.
     if (scrollSelectionRef.current === selectedEvent?.id) {
       scrollSelectionRef.current = null;
@@ -225,6 +225,8 @@ export function ArchiveYearPage({ year, eventId, onOpenCalendar }) {
           <span>{t("← 返回年份")}</span>
           <strong>{t(year)}</strong>
         </a>
+
+        <div className="archive-year-search"><ArchiveSearch /></div>
 
         <section className="archive-year-hero" aria-labelledby="archive-year-title">
           <header className="archive-year-masthead">

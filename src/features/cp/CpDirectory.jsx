@@ -13,7 +13,7 @@ export function CpDirectory({ cp, copy, locale }) {
   const mobile = useMobileLayout();
   const [expanded, setExpanded] = useState(false);
   const [search, setSearch] = useState('');
-  const rail = useRef(null), toggle = useRef(null), input = useRef(null), dialog = useRef(null);
+  const rail = useRef(null), toggle = useRef(null), mobileBar = useRef(null), input = useRef(null), dialog = useRef(null);
   const visibleCps = filterCps(cpProfiles, search, archiveById);
   useEffect(() => { setExpanded(false); setSearch(''); }, [mobile]);
   useLayoutEffect(() => {
@@ -28,6 +28,8 @@ export function CpDirectory({ cp, copy, locale }) {
     const node = dialog.current;
     const rootOverflow = document.documentElement.style.overflow;
     const bodyOverflow = document.body.style.overflow;
+    const panelTop = mobileBar.current?.getBoundingClientRect().bottom;
+    if (panelTop != null) node.style.setProperty('--cp-directory-top', `${Math.round(panelTop)}px`);
     document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
     node.showModal();
@@ -54,12 +56,17 @@ export function CpDirectory({ cp, copy, locale }) {
   </nav>;
   if (mobile) return <>
     <div className="cp-mobile-stats"><CpStats locale={locale} /></div>
-    <div className="cp-directory cp-directory--mobile"><button ref={toggle} type="button" className="cp-mobile-switch" aria-haspopup="dialog" aria-expanded={expanded} aria-controls="cp-directory-dialog" aria-label={`${cp ? cpLabel(cp) : copy.title} · ${copy.expandAll}`} onClick={() => setExpanded(true)}>
+    <div ref={mobileBar} className="cp-directory cp-directory--mobile"><button ref={toggle} type="button" className="cp-mobile-switch" aria-haspopup="dialog" aria-expanded={expanded} aria-controls="cp-directory-dialog" aria-label={`${cp ? cpLabel(cp) : copy.title} · ${copy.expandAll}`} onClick={() => setExpanded(true)}>
       <strong>{cp ? cpLabel(cp) : copy.title}</strong><span>{copy.switchCp}<CaretDown size={18} /></span>
     </button></div>
     {expanded && createPortal(<dialog ref={dialog} id="cp-directory-dialog" className="cp-directory-dialog" aria-labelledby="cp-directory-title" onCancel={event => { event.preventDefault(); close(); }} onClick={event => { if (event.target === event.currentTarget) close(); }}>
-      <div className="cp-sheet-header"><h2 id="cp-directory-title" tabIndex={-1}>{copy.allCps}</h2><span aria-live="polite">{visibleCps.length} / {cpProfiles.length}</span><button type="button" className="cp-sheet-close" aria-label={copy.closeDirectory} onClick={close}><X size={22} /></button></div>
-      <div className="cp-sheet-search"><CpStats locale={locale} />{searchBox}</div>{allList}
+      <div className="cp-directory-dialog-bar"><button type="button" className="cp-mobile-switch" aria-expanded="true" aria-controls="cp-directory-dialog" aria-label={`${cp ? cpLabel(cp) : copy.title} · ${copy.closeDirectory}`} onClick={close}>
+        <strong>{cp ? cpLabel(cp) : copy.title}</strong><span>{copy.switchCp}<CaretDown size={18} /></span>
+      </button></div>
+      <div className="cp-directory-panel">
+        <div className="cp-sheet-header"><h2 id="cp-directory-title" tabIndex={-1}>{copy.allCps}</h2><span aria-live="polite">{visibleCps.length} / {cpProfiles.length}</span></div>
+        <div className="cp-sheet-search"><CpStats locale={locale} />{searchBox}</div>{allList}
+      </div>
     </dialog>,document.body)}
   </>;
   return <div className="cp-directory" onKeyDown={event => { if (event.key === 'Escape') { close(); toggle.current?.focus(); } }}>
