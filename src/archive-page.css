@@ -145,91 +145,6 @@
 
 .archive-masthead .archive-calendar-entry { position: relative; z-index: 2; margin: 0; }
 
-.archive-search {
-  position: relative;
-  display: flex;
-  width: 320px;
-  height: 44px;
-  min-width: 0;
-  padding: 0 6px 0 14px;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid transparent;
-  background: #efede8;
-  text-align: left;
-}
-
-.archive-search:focus-within { border-color: #c82073; background: #fffafa; }
-.archive-search > svg { flex: 0 0 auto; color: #686863; }
-
-.archive-search input {
-  width: 100%;
-  min-width: 0;
-  min-height: 42px;
-  padding: 8px 0;
-  border: 0;
-  outline: 0;
-  color: #090909;
-  background: transparent;
-  font: 400 13px/normal var(--display);
-}
-
-.archive-search input::placeholder { color: #686863; opacity: 1; }
-.archive-search input::-webkit-search-cancel-button { display: none; }
-
-.archive-search-clear {
-  display: grid;
-  width: 36px;
-  height: 42px;
-  flex: 0 0 auto;
-  padding: 0;
-  place-items: center;
-  border: 0;
-  color: #686863;
-  background: transparent;
-  cursor: pointer;
-}
-
-.archive-search-clear:hover { color: var(--pink); }
-.archive-search-clear:focus-visible { outline: 2px solid var(--pink); outline-offset: -4px; }
-
-.archive-search-results {
-  position: fixed;
-  z-index: 1000;
-  max-height: min(360px, 48vh);
-  overflow-y: auto;
-  border: 1px solid rgba(9, 9, 9, 0.16);
-  background: var(--paper);
-  box-shadow: 0 16px 40px rgba(9, 9, 9, 0.16);
-}
-
-.archive-search-results ul { margin: 0; padding: 6px; list-style: none; }
-.archive-search-results li + li { border-top: 1px solid rgba(9, 9, 9, 0.08); }
-
-.archive-search-results li > button {
-  display: flex;
-  width: 100%;
-  min-height: 52px;
-  padding: 8px 10px;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  border: 0;
-  color: #090909;
-  background: transparent;
-  font-family: inherit;
-  text-align: left;
-  cursor: pointer;
-}
-
-.archive-search-results li > button:hover,
-.archive-search-results li > button:focus-visible { outline: 0; background: #f7e4ed; }
-.archive-search-results li span { display: grid; min-width: 0; gap: 3px; }
-.archive-search-results b { overflow: hidden; font-size: 13px; text-overflow: ellipsis; white-space: nowrap; }
-.archive-search-results small { overflow: hidden; color: #686863; font: 400 11px/1.3 var(--display); text-overflow: ellipsis; white-space: nowrap; }
-.archive-search-results em { flex: 0 0 auto; color: var(--pink); font: 700 8px/1 var(--display); letter-spacing: 0.12em; text-transform: uppercase; }
-.archive-search-results > p { margin: 0; padding: 16px; color: #686863; font-size: 12px; line-height: 1.6; }
-
 .archive-title-doodles { position: absolute; z-index: 4; inset: 0; pointer-events: none; }
 .archive-doodle-image { position: absolute; display: block; height: auto; object-fit: contain; }
 .archive-doodle-loop { top: 24%; left: -9%; width: 48px; transform: rotate(-30deg); }
@@ -481,7 +396,6 @@
   .archive-masthead h1 > span { font-size: clamp(61px, 19.3vw, 86px); }
   .archive-masthead h1 strong { font-size: clamp(30px, 9.7vw, 42px); }
   .archive-actions { width: min(320px, calc(100vw - 60px)); margin-top: 16px; flex-direction: column; gap: 8px; }
-  .archive-search { width: 100%; }
   .archive-masthead .archive-calendar-entry { width: 100%; padding-inline:16px; gap:8px; font-size:11px; }
   .archive-corner-card-1 { top: 58px; left: -50px; width: 138px; opacity: 0.82; }
   .archive-corner-card-2 { top: 62px; right: -48px; width: 136px; opacity: 0.82; transform: rotate(5deg) scale(.85); }
