@@ -82,7 +82,6 @@ export function ArchiveYearPage({ year, eventId, onOpenCalendar }) {
 
   // A selected deep link or year change should reveal its card without moving the page.
   useEffect(() => {
-    if (!isMobile) return;
     // A settled swipe already positioned the card. Do not restart its scrolling.
     if (scrollSelectionRef.current === selectedEvent?.id) {
       scrollSelectionRef.current = null;
