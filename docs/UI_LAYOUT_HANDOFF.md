@@ -4,7 +4,7 @@
 
 ## 交接目标
 
-本分支汇总了 CP 搜索框、CP 移动端筛选覆层、考古档案日历入口、REPO 合集展示、REPO 二级目录卡片和 REPO 正文文章排版的已确认修改，供管理员对照初始 `main` 审阅、测试和合并。
+本分支汇总了 CP 搜索框、CP 移动端筛选覆层、考古档案日历入口、首页与详情页搜索、年份选中线和胶卷定位、REPO 合集展示、REPO 二级目录卡片和 REPO 正文文章排版的已确认修改，供管理员对照初始 `main` 审阅、测试和合并。
 
 本文以本地 `main` 的 `3f06f3408bedf29568d24d5db46e5d88533fba32` 为初始基线，以 `ui-layout-adjustments` 分支当前工作树为对比终点。已提交记录如下：
 
@@ -12,19 +12,25 @@
 2. `1802365` — 完善 REPO 正文排版并记录专栏规则
 3. `91767d0` — 添加 UI 排版修改交接文档
 4. `458107c` — 完成 UI 排版调整与交接
+5. `a40de87` — 完成考古档案搜索与交接
+6. `04e0124` — 调整考古胶卷选中定位与首尾留白
+7. `3a6dfdb` — 考古详情页复用搜索框并取消年份选中线倾斜
 
-本次待提交批次为考古档案首页搜索：包含 Figma 搜索框、顶层结果层、连续字符匹配、人物与作品关联、JanJingjing 的 MuTeLuv 作品补充、测试及本交接文档更新。建议管理员合并完成提交后的整个 `ui-layout-adjustments` 分支，以保留代码、数据和规则文档。
+考古档案首页搜索、人物作品关联、胶卷定位和详情页搜索均已提交到本地分支。此次仅补充交接文档，建议管理员审阅并合并包含上述提交及本次文档更新的整个 `ui-layout-adjustments` 分支，以保留代码、数据和规则文档。
 
 ## 最终差异概览
 
-相对初始 `main`，功能与规则变更共涉及 14 个文件（不计本交接文档自身）：
+相对初始 `main`，功能与规则变更共涉及 18 个文件（不计本交接文档自身）：
 
 | 文件 | 最终变化 | 影响范围 |
 | --- | --- | --- |
 | [`AGENTS.md`](../AGENTS.md) | 新增 REPO 二级目录卡片、正文排版及验证规则 | 后续开发约束 |
-| [`src/ArchivePage.jsx`](../src/ArchivePage.jsx) | 新增考古档案搜索框、顶层结果层及完整键盘/关闭交互 | 考古档案首页 |
-| [`src/archive-page.css`](../src/archive-page.css) | 取消日历入口倾斜，并增加搜索框、结果列表及响应式样式 | 考古档案首页 |
-| [`src/archive-year-page.css`](../src/archive-year-page.css) | 取消年份页主日历入口倾斜，并将返回年份按钮与其左边缘对齐 | 考古档案年份二级页 |
+| [`src/ArchivePage.jsx`](../src/ArchivePage.jsx) | 首页接入共用 `ArchiveSearch` 搜索组件 | 考古档案首页 |
+| [`src/ArchiveYearPage.jsx`](../src/ArchiveYearPage.jsx) | 详情页加入共用搜索组件，并将选中胶卷定位扩展到桌面端 | 考古档案年份与剧集详情页 |
+| [`src/archive-page.css`](../src/archive-page.css) | 取消日历入口倾斜；搜索样式移入共用组件样式文件 | 考古档案首页 |
+| [`src/archive-year-page.css`](../src/archive-year-page.css) | 日历入口与返回纸片对齐、详情页搜索定位、年份选中线水平化及胶卷首尾留白调整 | 考古档案年份二级页 |
+| [`src/features/archive/ArchiveSearch.jsx`](../src/features/archive/ArchiveSearch.jsx) | 统一搜索输入、结果 Portal、关闭交互和路由跳转 | 考古档案首页与详情页 |
+| [`src/features/archive/archive-search.css`](../src/features/archive/archive-search.css) | 共用搜索框、结果层和移动端样式 | 考古档案首页与详情页 |
 | [`src/features/archive/archive-search.js`](../src/features/archive/archive-search.js) | 实现中英文连续匹配、结果排序及人物作品关联 | 考古档案搜索逻辑 |
 | [`src/features/cp/CpDirectory.jsx`](../src/features/cp/CpDirectory.jsx) | 重构移动端 CP 目录的定位、打开态筛选条及关闭交互 | CP 页移动端 |
 | [`src/features/cp/cp-data.js`](../src/features/cp/cp-data.js) | 将 MuTeLuv 补充为 JanJingjing 的关联作品 | CP 资料与考古档案搜索 |
@@ -33,6 +39,7 @@
 | [`src/features/column/ArticleView.jsx`](../src/features/column/ArticleView.jsx) | 调整标题结构、文章效果与指定文章布局标识 | REPO 正文文章页 |
 | [`src/magazine.css`](../src/magazine.css) | 调整合集封面、二级目录卡片、合集资料块和正文桌面/平板排版 | REPO 首页、合集页和正文页 |
 | [`src/styles/mobile-article.css`](../src/styles/mobile-article.css) | 修正正文移动端图片及段落间距 | REPO 正文移动端 |
+| [`tests/archive-film-centering.test.mjs`](../tests/archive-film-centering.test.mjs) | 覆盖桌面与移动端选中胶卷定位及首尾无空白内边距 | 考古详情页胶卷回归测试 |
 | [`tests/archive-search.test.mjs`](../tests/archive-search.test.mjs) | 覆盖中英文阈值、连续匹配、人物作品关联及结果限制 | 搜索回归测试 |
 | [`tests/cp-data.test.mjs`](../tests/cp-data.test.mjs) | 验证 JanJingjing 与 MuTeLuv 的资料关联 | CP 数据回归测试 |
 
@@ -70,7 +77,24 @@
 - 英文输入至少需要两个连续字母，中文输入一个汉字即可触发；不会把被空格或标点分开的字符拼接成误匹配。
 - CP 结果匹配展示名称，剧集结果匹配中英文标题。人物名精确或前缀命中时，会同时加入该人物所属 CP 的关联作品，并将强关联作品排在偶然包含相同字符的结果之前。
 - 搜索 `emi` 时优先显示 `EmiBonnie`、《我们的爱》和《月影》；搜索 `jan` 时显示 `JanJingjing`、其关联作品《爱的魔力转圈圈·号码奇缘》和《宿敌恋人》。MuTeLuv 的关联已写入 `cp-data.js` 源数据，重新生成浏览器载荷后仍会保留。
-- 点击结果或按回车可进入首个结果；清除按钮、`Esc`、焦点移出和点击外部均可关闭结果层。搜索标签、无结果提示及剧集类型标识支持中、英、泰三种语言。
+- 点击结果进入对应页面，按回车进入首个结果；清除按钮清空输入并收起结果层，`Esc`、焦点移出和点击外部也可关闭结果层。搜索标签、无结果提示及剧集类型标识支持中、英、泰三种语言。
+
+### 考古详情页搜索
+
+- 依据 [Figma `GL-repo` 详情页画板（节点 `151:4362`）](https://www.figma.com/design/llcW426nnCeirJYLh1XBSh/GL-repo?node-id=151-4362)，搜索框节点为 `167:5377`。
+- 适用于 `#/archive/:year` 与 `#/archive/:year/:eventId`，以及对应的直接访问路径；搜索覆盖完整考古档案和 CP 数据，不限制在当前年份。
+- 首页与详情页共用 `src/features/archive/ArchiveSearch.jsx` 和 `archive-search.css`，继续复用 `archive-search.js` 的匹配、排序和人物作品关联逻辑；后续搜索交互调整应修改共用组件，保持两页一致。
+- 桌面端搜索框为 `320 × 44px`，浅灰底 `#efede8`，放在详情页右上方；`.archive-year-search` 使用 `top: 96px`、`right: 3.25vw`。在 `1512px` 视口下实测位置约为 `x=1143px`、`y=96px`，与画板一致。
+- 平板宽度 `761–1100px` 将搜索框顶部调整为 `76px`，避免覆盖剧集海报。移动端宽度不超过 `760px` 时改为正常文档流，位于返回年份纸片之后、标题之前，外边距为 `16px 24px 0`，搜索框占满容器宽度。
+- 结果层与首页相同，通过 Portal 放到 `body`，宽度跟随搜索框、位于其下方 `8px`；不受详情页 `overflow: hidden` 或胶卷层遮挡。结果 ID 使用 `useId()`，输入通过 `aria-controls` 和 `aria-expanded` 关联结果层。
+- 支持 CP、演员、中文及英文剧名搜索；点击 CP 进入 CP 页，点击剧集或按回车进入对应年份的剧集详情。当前年份内的跳转同样更新摘要和选中胶卷。
+- 单个英文字母不显示结果层、无匹配时显示提示，清除输入、`Esc` 和点击外部等行为与首页一致，文案支持中、英、泰三种语言。
+
+### 考古年份选中线与胶卷定位
+
+- `.archive-year-switcher a::after` 由 `rotate(-2deg)` 改为 `transform: none`，选中年份下方的粉色线保持水平。桌面、平板和移动端共用该规则；保留原有颜色、宽度、厚度和选中显示方式。
+- 深链接或切换选中剧集时，胶卷定位逻辑同时适用于桌面和移动端，将选中卡片尽量移至胶卷可视区中心；首尾卡片受实际滚动边界限制。已完成的滑动选择不重复触发定位。
+- `.archive-event-film-track` 在桌面和移动端均使用 `padding: 0`，取消首尾空白内边距；卡片宽度继续由响应式 `--event-card-width` 管理，卡片间距保持 `8px`。
 
 ### REPO 合集页
 
@@ -136,7 +160,7 @@ git diff --check
 结果：
 
 - 生产构建成功。
-- 204 项测试全部通过，0 失败、0 跳过。
+- 最新考古详情页搜索与选中线代码批次（`3a6dfdb`）的生产构建成功，206 项测试全部通过，0 失败、0 跳过。本次文档更新没有修改代码。
 - 差异格式检查通过。
 - 项目 `package.json` 未配置 lint 命令，因此没有可运行的独立 lint 检查。
 - 在浏览器中确认桌面端左图右文、文字与图片组居中、第一张正文图片存在、图片彩色且无滚动/悬停变化。
@@ -148,6 +172,11 @@ git diff --check
 - 在考古档案首页实测搜索结果层的父节点为 `body`、定位为 `fixed`、层级为 `1000`；搜索框和结果层宽度均为 `320px`，左右边缘误差小于 `1px`，垂直间距为 `8px`。
 - 实测 `j` 不触发结果层、`ja` 只命中连续字符的 CP 名称、中文单字 `冥` 命中《冥王星之恋》；`emi` 优先返回 EmiBonnie 及《我们的爱》《月影》，`jan` 返回 JanJingjing 及《爱的魔力转圈圈·号码奇缘》《宿敌恋人》。结果点击跳转和控制台均正常。
 
+- 在 `1512 × 927` 桌面视口实测详情页搜索框为 `320 × 44px`、背景为 `rgb(239, 237, 232)`，位置为 `x≈1142.87px`、`y=96px`。
+- 在 `785px` 平板视口实测搜索框底边为 `120px`、海报顶边约为 `129.60px`，两者没有重叠。
+- 在 `390 × 844` 移动端视口实测详情页搜索框为 `342 × 44px`、左边缘为 `24px`；结果层同宽同左边缘，位于输入框下方 `8px`，页面宽度为 `390px`，无横向溢出。
+- 浏览器实际验证详情页 `Pluto` 搜索跳转到同年份《冥王星之恋》、中文搜索《我们的爱》按回车跳转到 2025 年详情、`LingOrm` 结果跳转 CP 页；同时验证演员关联搜索、单字母门槛、无结果提示、清除按钮和 `Esc` 关闭。首页搜索及点击外部关闭回归正常，浏览器无错误日志。
+
 ## 管理员审阅重点
 
 1. 打开 `/column/rival-lover/wine-ep06-07/?lang=zh#/column/rival-lover/wine-ep06-07`，检查标题、首图、左右两栏、10px 图片间距和文字垂直居中。
@@ -158,7 +187,9 @@ git diff --check
 6. 打开 CP 页，确认搜索框为直角，并检查桌面与移动端输入、清除按钮和聚焦边框。
 7. 在约 `390 × 844` 的移动端视口滚动至筛选条吸顶后点击“切换 CP”，确认筛选条保持可见、面板自上而下展开、CP 列表可独立滚动、底部蒙版覆盖栏目导航；点击面板下方蒙版后确认覆层关闭并恢复焦点。另用 `Esc` 和打开态筛选条各关闭一次。
 8. 打开考古档案首页及任一年份二级页，确认首页主日历按钮、年份标题区按钮和剧集摘要按钮均水平显示、没有倾斜；在年份页确认“返回年份”按钮保留纸片倾斜，但视觉左边缘与标题区日历按钮对齐；同时抽查桌面和移动端。
-9. 抽查其他 REPO 正文文章，确认模板级标题、彩色图片、无滚动效果及段落间距符合预期。
+9. 在考古档案首页与 `/archive/2024/` 分别搜索 CP、演员和剧名，确认结果一致；在详情页搜索 `Pluto` 验证同年份跳转，搜索《我们的爱》并按回车验证跨年份跳转，再验证 CP 跳转、清除、`Esc`、外部关闭和无结果提示。抽查桌面右上方位置、平板海报无覆盖及移动端无横向溢出。
+10. 在年份详情页切换年份，确认选中年份下方粉色线水平无倾斜；直接访问中间剧集深链接，确认桌面和移动端均定位到选中卡片，首尾不再有空白内边距。
+11. 抽查其他 REPO 正文文章，确认模板级标题、彩色图片、无滚动效果及段落间距符合预期。
 
 ## 合并方式
 
@@ -169,11 +200,11 @@ git switch main
 git merge --no-ff ui-layout-adjustments
 ```
 
-如管理员只希望挑选提交，应按顺序挑选相关提交。当前前四个已提交记录及本次搜索提交占位如下：
+如管理员只希望挑选提交，应按顺序挑选相关提交。当前七个已提交记录如下；本次交接文档更新提交后也应一并保留：
 
 ```bash
 git switch main
-git cherry-pick 88dfa3a 1802365 91767d0 458107c <本次搜索提交哈希>
+git cherry-pick 88dfa3a 1802365 91767d0 458107c a40de87 04e0124 3a6dfdb
 ```
 
 合并后再次执行生产构建与完整测试。如果目标 `main` 已更新，应先基于最新 `main` 检查 `ArticleView.jsx`、`magazine.css` 和 `mobile-article.css` 的冲突与样式顺序；其中移动端 `:nth-child(n)` 的优先级用于覆盖旧的偶数图片负上边距，解决冲突时不能误删。
