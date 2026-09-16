@@ -102,15 +102,31 @@ sudo journalctl -u glfans-api.service -n 80 --no-pager
 
 迁移要在切换 API 前单独完成；部署脚本故意不持有 migrator 凭据。需要人工回滚时，先核对目标 release，再创建临时软链接并用 Node `renameSync` 替换 `current`，最后只重启 `glfans-api.service`。
 
-## 5. 首次发布静态文件
+## 5. 增量发布静态文件
 
-先把仓库或构建产物放到服务器上的独立暂存目录，再在服务器运行：
+完成第 1 节的构建与测试后，在本地运行（本地和服务器均需 `rsync`，使用已配置的 SSH 登录）：
+
+```bash
+GLFANS_RELEASE_ID=本次唯一版本号 bash scripts/publish-static-vps.sh dist/client
+```
+
+默认目标为 `root@43.143.216.146` 和 `/var/www/glfans`，可通过 `GLFANS_SSH_TARGET`、`GLFANS_SITE_ROOT` 显式覆盖。脚本按内容校验，只传输与 `current` 不同的文件；相同文件通过 `--link-dest` 在独立暂存目录复用，首次发布自动全量。输出中的 `Total transferred file size` 是本次变化文件体积，不是整个站点大小。上传失败不会切换线上版本，完成后只清理本次独立暂存目录。
+
+已有其他上传流程仍可在服务器上的独立暂存目录运行兼容入口：
 
 ```bash
 sudo bash scripts/deploy-static-vps.sh dist/client
 ```
 
-脚本把完整构建复制到 `/var/www/glfans/releases/<release-id>`，并将已有 release、当前 release 和新 release 的 `/assets` 合并到持久目录 `/var/www/glfans/shared/assets`。相同路径的新文件通过同目录临时文件原子替换，旧哈希资源不删除，因此仍运行上一版 SPA 的浏览器可以继续完成懒加载。复制与合并过程会排除并清理 `._*`、`.DS_Store` 和未完成的临时资产。
+部署脚本按 SHA-256 将内容保存在 `/var/www/glfans/shared/blobs`；各 release 和 `/var/www/glfans/shared/assets` 使用硬链接共享相同内容的磁盘空间。路径保持原样，不引入 CDN 或外部存储。同名文件更新通过新内容和原子替换完成，不会改写旧版本的内容；旧哈希资源不删除，已打开的 SPA 仍可继续懒加载。首次升级补齐历史 assets，之后不再反复扫描全部历史版本。新上传排除 `._*`、`.DS_Store` 和临时资产。并发发布或维护由独立锁阻止。
+
+历史重复文件可在服务器运行一次原地去重（不删除任何版本、图片或旧哈希，不切换 `current`）：
+
+```bash
+sudo bash scripts/deploy-static-vps.sh --deduplicate
+```
+
+维护前后应校验 `releases` 与 `shared/assets` 的逐文件 SHA-256 和 `current` 指向一致。用 `du -sh /var/www/glfans` 统计整体实际占用；各子目录单独统计再相加会重复计算硬链接。所有目录必须在同一文件系统。**禁止就地编辑 release、shared/assets 或 blobs 内的文件，也禁止 rsync --inplace**；修改必须经新版本发布，否则硬链接会使其他版本同时改变。暂不自动清理历史独有资源，新增独有图片仍会增加空间。
 
 确认 `index.html` 和 assets 后，脚本通过 Node 的同文件系统 `rename` 原子切换 `/var/www/glfans/current` 软链接。Nginx 从 shared 目录提供 `/assets/`，HTML 明确返回 `Cache-Control: no-store, no-cache, must-revalidate, max-age=0`；哈希资源继续长期缓存，静态 4xx/5xx 会连同 UA 写入 glfans access log，成功的静态请求不额外增加日志。脚本不会删除旧版本，也不会接触其他站点目录。回滚时将一个经过核对的旧发布目录链接为临时链接，再原子替换 `current`；不要直接覆盖 `current` 中的文件。
 

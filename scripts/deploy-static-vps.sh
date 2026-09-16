@@ -1,131 +1,140 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-source_dir="${1:-dist/client}"
-site_root="${GLFANS_SITE_ROOT:-/var/www/glfans}"
-release_id="${GLFANS_RELEASE_ID:-$(date -u +%Y%m%dT%H%M%SZ)-$$}"
+# 保持单文件入口，服务器只需现有 Node，不依赖 checkout/node_modules。
+node --input-type=module - "${1:-dist/client}" <<'NODE'
+import fs from 'node:fs';
+import path from 'node:path';
+import { createHash, randomUUID } from 'node:crypto';
 
-if [[ ! -f "$source_dir/index.html" ]]; then
-  printf 'Refusing deployment: %s/index.html does not exist.\n' "$source_dir" >&2
-  exit 1
-fi
+const input = process.argv[2];
+const maintenance = input === '--deduplicate';
+const root = process.env.GLFANS_SITE_ROOT || '/var/www/glfans';
+const id = process.env.GLFANS_RELEASE_ID || `${new Date().toISOString().replace(/[-:.]/g, '')}-${process.pid}`;
+if (!path.isAbsolute(root) || path.resolve(root) === '/' || path.resolve(root) !== root) throw Error('Use a specific normalized absolute GLFANS_SITE_ROOT');
+if (!/^[A-Za-z0-9][A-Za-z0-9._-]*$/.test(id)) throw Error('Unsafe release ID');
+const releases = path.join(root, 'releases');
+const release = path.join(releases, id);
+const shared = path.join(root, 'shared/assets');
+const blobs = path.join(root, 'shared/blobs');
+const current = path.join(root, 'current');
+const marker = path.join(root, 'shared/.assets-initialized-v1');
+const ignored = name => name === '.DS_Store' || name.startsWith('._') || name.startsWith('.glfans-asset-');
+const exists = name => { try { fs.lstatSync(name); return true; } catch (e) { if (e.code === 'ENOENT') return false; throw e; } };
 
-if [[ "$site_root" != /* || "$site_root" == "/" ]]; then
-  printf 'Refusing deployment: GLFANS_SITE_ROOT must be a specific absolute path.\n' >&2
-  exit 1
-fi
-
-if [[ ! "$release_id" =~ ^[A-Za-z0-9._-]+$ ]]; then
-  printf 'Refusing deployment: GLFANS_RELEASE_ID contains unsafe characters.\n' >&2
-  exit 1
-fi
-
-releases_dir="$site_root/releases"
-release_dir="$releases_dir/$release_id"
-next_link="$site_root/.current-$release_id"
-current_link="$site_root/current"
-shared_assets_dir="$site_root/shared/assets"
-
-if [[ -e "$release_dir" || -L "$release_dir" ]]; then
-  printf 'Refusing deployment: release already exists: %s\n' "$release_dir" >&2
-  exit 1
-fi
-
-umask 022
-mkdir -p "$releases_dir"
-mkdir "$release_dir"
-COPYFILE_DISABLE=1 cp -a "$source_dir"/. "$release_dir"/
-
-clean_macos_metadata() {
-  local target_dir="$1"
-  find "$target_dir" \
-    \( -name '._*' -o -name '.DS_Store' -o -name '.glfans-asset-*' \) \
-    \( -type f -o -type l \) -delete
+// 所有受控目录禁止软链接，避免写入其他站点；current 是唯一允许的软链接。
+function directory(dir) {
+  if (exists(dir)) {
+    if (!fs.lstatSync(dir).isDirectory()) throw Error(`Not a real directory: ${dir}`);
+    return;
+  }
+  directory(path.dirname(dir));
+  fs.mkdirSync(dir, { mode: 0o755 });
+}
+function files(dir) {
+  if (!fs.lstatSync(dir).isDirectory()) throw Error(`Not a real directory: ${dir}`);
+  const result = [];
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (ignored(entry.name)) continue;
+    const name = path.join(dir, entry.name);
+    if (entry.isDirectory()) result.push(...files(name));
+    else if (entry.isFile()) result.push(name);
+    else throw Error(`Refusing symbolic link or special file: ${name}`);
+  }
+  return result;
+}
+function activeRelease() {
+  if (!exists(current)) return null;
+  if (!fs.lstatSync(current).isSymbolicLink()) throw Error('current must be a symbolic link');
+  const target = fs.realpathSync(current);
+  if (path.dirname(target) !== fs.realpathSync(releases) || !fs.lstatSync(target).isDirectory()) throw Error('current points outside releases');
+  return target;
 }
 
-clean_macos_metadata "$release_dir"
-
-if [[ ! -f "$release_dir/index.html" ]]; then
-  printf 'Refusing activation: copied release has no index.html.\n' >&2
-  exit 1
-fi
-
-if [[ ! -d "$release_dir/assets" ]]; then
-  printf 'Refusing activation: copied release has no assets directory.\n' >&2
-  exit 1
-fi
-
-if [[ -L "$shared_assets_dir" ]]; then
-  printf 'Refusing activation: shared assets path must not be a symbolic link.\n' >&2
-  exit 1
-fi
-
-mkdir -p "$shared_assets_dir"
-clean_macos_metadata "$shared_assets_dir"
-
-merge_asset_tree() {
-  local asset_source="$1"
-  local source_path
-  local relative_path
-  local target_path
-  local target_dir
-  local temporary_path
-
-  if [[ ! -d "$asset_source" ]]; then
-    return 0
-  fi
-
-  while IFS= read -r -d '' source_path; do
-    relative_path="${source_path#"$asset_source"/}"
-    if [[ "$relative_path" == "$source_path" ]]; then
-      continue
-    fi
-    mkdir -p "$shared_assets_dir/$relative_path"
-  done < <(find "$asset_source" -mindepth 1 -type d -print0)
-
-  while IFS= read -r -d '' source_path; do
-    relative_path="${source_path#"$asset_source"/}"
-    case "${relative_path##*/}" in
-      ._*|.DS_Store)
-        continue
-        ;;
-    esac
-    target_path="$shared_assets_dir/$relative_path"
-    target_dir="${target_path%/*}"
-    mkdir -p "$target_dir"
-    temporary_path="$(mktemp "$target_dir/.glfans-asset-$release_id.XXXXXX")"
-    if ! install -m 0644 "$source_path" "$temporary_path"; then
-      unlink "$temporary_path"
-      return 1
-    fi
-    if ! mv -f "$temporary_path" "$target_path"; then
-      unlink "$temporary_path"
-      return 1
-    fi
-  done < <(find "$asset_source" -type f -print0)
+directory(root);
+directory(releases);
+directory(path.join(root, 'shared'));
+directory(shared);
+directory(blobs);
+const lock = path.join(root, '.static-deploy-lock');
+// 并发发布或维护直接失败，不自动清除可能仍在使用的锁。
+fs.mkdirSync(lock, { mode: 0o700 });
+let linked = 0;
+const verified = new Set();
+function blobFor(file) {
+  const bytes = fs.readFileSync(file);
+  const hash = createHash('sha256').update(bytes).digest('hex');
+  const blob = path.join(blobs, hash);
+  if (!verified.has(hash)) {
+    if (exists(blob)) {
+      if (!fs.lstatSync(blob).isFile() || !fs.readFileSync(blob).equals(bytes)) throw Error(`Invalid content blob: ${hash}`);
+    } else {
+      const temp = path.join(blobs, `.glfans-asset-${randomUUID()}`);
+      try {
+        fs.writeFileSync(temp, bytes, { flag: 'wx', mode: 0o644 });
+        fs.renameSync(temp, blob);
+      } finally { if (exists(temp)) fs.unlinkSync(temp); }
+    }
+    verified.add(hash);
+  }
+  return blob;
+}
+function linkFile(blob, target) {
+  directory(path.dirname(target));
+  if (exists(target)) {
+    const old = fs.lstatSync(target);
+    if (!old.isFile()) throw Error(`Not a regular target file: ${target}`);
+    const content = fs.statSync(blob);
+    if (old.ino === content.ino && old.dev === content.dev) return;
+  }
+  const temp = path.join(path.dirname(target), `.glfans-asset-${randomUUID()}`);
+  try {
+    fs.linkSync(blob, temp);
+    fs.renameSync(temp, target);
+    linked++;
+  } finally { if (exists(temp)) fs.unlinkSync(temp); }
+}
+function mergeAssets(dir, missingOnly = false) {
+  if (!exists(dir)) return;
+  for (const file of files(dir)) {
+    const target = path.join(shared, path.relative(dir, file));
+    if (!missingOnly || !exists(target)) linkFile(blobFor(file), target);
+  }
 }
 
-# Bootstrap shared assets from releases created before this mechanism existed,
-# then let the active release and the new release win for stable filenames.
-for existing_release in "$releases_dir"/*; do
-  if [[ -d "$existing_release/assets" && "$existing_release" != "$release_dir" ]]; then
-    merge_asset_tree "$existing_release/assets"
-  fi
-done
-if [[ -L "$current_link" && -d "$current_link/assets" ]]; then
-  merge_asset_tree "$current_link/assets"
-fi
-merge_asset_tree "$release_dir/assets"
-clean_macos_metadata "$shared_assets_dir"
-
-find "$release_dir" -type d -exec chmod 0755 {} +
-find "$release_dir" -type f -exec chmod 0644 {} +
-find "$shared_assets_dir" -type d -exec chmod 0755 {} +
-find "$shared_assets_dir" -type f -exec chmod 0644 {} +
-
-ln -s "$release_dir" "$next_link"
-node -e 'require("node:fs").renameSync(process.argv[1], process.argv[2])' "$next_link" "$current_link"
-
-printf 'Activated glfans release: %s\n' "$release_dir"
-printf 'Current document root: %s -> %s\n' "$current_link" "$(readlink "$current_link")"
-printf 'Shared assets root: %s\n' "$shared_assets_dir"
+try {
+  const previous = activeRelease();
+  if (maintenance) {
+    // 先完整校验，再逐文件原子替换；路径、字节和 current 均不变。
+    const all = [...files(releases), ...files(shared)];
+    for (const file of all) linkFile(blobFor(file), file);
+    console.log(`Deduplicated ${all.length} files; replaced ${linked} links; current unchanged.`);
+  } else {
+    if (exists(release)) throw Error(`Release already exists: ${release}`);
+    const source = path.resolve(input);
+    const incoming = files(source);
+    if (!incoming.includes(path.join(source, 'index.html')) || !fs.statSync(path.join(source, 'assets')).isDirectory()) throw Error('Release needs index.html and assets');
+    files(shared);
+    directory(release);
+    for (const file of incoming) linkFile(blobFor(file), path.join(release, path.relative(source, file)));
+    if (!exists(marker)) {
+      // 兼容旧安装，只做一次历史补齐。此后发布不再重扫全部历史版本。
+      for (const entry of fs.readdirSync(releases)) {
+        if (entry !== id) mergeAssets(path.join(releases, entry, 'assets'), true);
+      }
+      if (previous) mergeAssets(path.join(previous, 'assets'));
+    }
+    mergeAssets(path.join(release, 'assets'));
+    const next = path.join(root, `.current-${randomUUID()}`);
+    try {
+      fs.symlinkSync(release, next);
+      fs.renameSync(next, current);
+    } finally { if (exists(next)) fs.unlinkSync(next); }
+    fs.writeFileSync(marker, '1\n', { mode: 0o644 });
+    console.log(`Activated glfans release: ${release}`);
+    console.log(`Content store: ${blobs}; ${linked} links updated. Old releases/assets retained.`);
+  }
+} finally {
+  fs.rmdirSync(lock);
+}
+NODE

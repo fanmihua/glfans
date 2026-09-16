@@ -126,7 +126,7 @@ function CpContent({data}) {
             const href = work.pending ? work.source : `#/archive/${work.year}/${work.id}`;
             const linkProps = work.pending ? { target: '_blank', rel: 'noopener noreferrer' } : {};
             return <article className="cp-work" key={work.id} data-work-id={work.id}>
-              <a className="cp-work-poster" href={href} {...linkProps} aria-label={`${work.title} · ${work.pending ? copy.openPreview : copy.viewWork}`} tabIndex={-1}><CpImage src={media.image} alt={work.pending ? `${work.title} · ${copy.previewImage}` : work.title} loading="lazy" width={media.width} height={media.height} style={{ objectPosition: media.focus || '50% 32%' }} /></a>
+              <a className="cp-work-poster" href={href} {...linkProps} aria-label={`${work.title} · ${work.pending ? copy.openPreview : copy.viewWork}`} tabIndex={-1}><CpImage src={media.image} sizes="(max-width: 760px) 120px, 168px" alt={work.pending ? `${work.title} · ${copy.previewImage}` : work.title} loading="lazy" width={media.width} height={media.height} style={{ objectPosition: media.focus || '50% 32%' }} /></a>
               <div className="cp-work-info"><a className="cp-work-title" href={href} {...linkProps}>{work.title}<ArrowUpRight size={22} /></a>
                 <p className="cp-work-meta">{work.year}<span>{work.pending ? copy[work.status || 'upcoming'] : work.ensemble ? copy.ensemble : copy.pair}</span></p>
                 {work.pending ? <p className="cp-work-note">{copy.previewImage} · {work.publisher}</p> : null}
