@@ -1654,6 +1654,27 @@ body { color: var(--plum); background: var(--paper); }
 
 .article-magazine .fs-grid:hover .fs-figure img { transform: none; }
 
+/* New imports use the approved reading template without changing older articles. */
+.article-magazine.article-magazine--imported .fs-grid > .fs-column.is-media {
+  position: static;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  gap: 10px;
+  margin: 0;
+  transform: none;
+  transition: none;
+}
+
+.article-magazine.article-magazine--imported .fs-column.is-media > .fs-figure:nth-child(n) {
+  width: 100%;
+  margin: 0;
+  border: 0;
+}
+
+.article-magazine.article-magazine--imported .fs-column.is-media > .fs-spacer { display: none; }
+.article-magazine.article-magazine--imported .article-masthead-note { display: none; }
+
 .article-flow {
   width: min(680px, 86vw);
   margin: 0 auto clamp(64px, 6vw, 90px);

@@ -24,17 +24,18 @@ export function ArticleView({ collection, article }) {
   const visibleArticles = collection.articles.filter((item) => !item.hidden);
   const articleIndex = visibleArticles.findIndex((item) => item.slug === article.slug);
   const articleNumber = String(articleIndex + 1).padStart(2, "0");
-  const articleSubject = getLocale() === 'zh' ? formatArticleTitle(collection.title, article.title) : t(article.title);
+  const isImportedUsEpisode = collection.slug === 'us' && articleIndex >= 2;
+  const articleSubject = isImportedUsEpisode ? t(article.label) : getLocale() === 'zh' ? formatArticleTitle(collection.title, article.title) : t(article.title);
   const nextArticle = visibleArticles[articleIndex + 1];
   const articleImages = useMemo(() => {
     return Array.from(article.xml.matchAll(/<img\b[^>]*\bhref="([^"]+)"/g), (match) => match[1]);
   }, [article.xml]);
   const mastheadImage = articleImages[0] || article.cover || collection.cover;
-  const hideOpeningImage = collection.slug === 'rival-lover' && article.slug === 'wine-ep06-07';
-  const usePairedLayout = collection.slug === 'rival-lover' && article.slug === 'wine-ep06-07';
+  const usePairedLayout = isImportedUsEpisode || (collection.slug === 'rival-lover' && article.slug === 'wine-ep06-07');
+  const hideOpeningImage = usePairedLayout;
 
   return (
-    <article className={`article-view article-magazine${usePairedLayout ? ' article-magazine--paired' : ''}`}>
+    <article className={`article-view article-magazine${usePairedLayout ? ' article-magazine--paired' : ''}${isImportedUsEpisode ? ' article-magazine--imported' : ''}`}>
       <div className="article-toolbar">
         <a className="article-toolbar-back" href={`#/column/${collection.slug}`} aria-label={t('返回{0}合集', [t(collection.title)])}>
           <ArrowLeft aria-hidden="true" />

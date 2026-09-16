@@ -169,6 +169,7 @@ function CollectionFacts({ xml }) {
 }
 
 export function ColumnIndex() {
+  const articleCount = columnData.collections.reduce((total, collection) => total + collection.articles.filter(article => !article.hidden).length, 0);
   return (
     <>
       <section className="column-index-hero">
@@ -222,7 +223,7 @@ export function ColumnIndex() {
       <section className="repo-index-note" aria-labelledby="repo-index-note-title">
         <div className="repo-index-note-heading">
           <span>{t("ARCHIVE NOTE")}</span>
-          <h2 id="repo-index-note-title">{getLocale() === 'zh' ? <><span className="repo-index-note-title-line">目前包含已有泰百repo</span><span className="repo-index-note-title-line">及二创类文章<span className="repo-index-note-title-total">共<strong>20</strong>篇：</span></span></> : t('目前包含已有泰百repo及二创类文章共20篇：')}</h2>
+          <h2 id="repo-index-note-title">{getLocale() === 'zh' ? <><span className="repo-index-note-title-line">目前包含已有泰百repo</span><span className="repo-index-note-title-line">及二创类文章<span className="repo-index-note-title-total">共<strong>{articleCount}</strong>篇：</span></span></> : t('目前包含已有泰百repo及二创类文章共{0}篇：', [articleCount])}</h2>
         </div>
         <div className="repo-pending-copy">
           <span>{t("待更新：")}</span>
