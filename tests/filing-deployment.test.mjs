@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, readlinkSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
@@ -26,6 +27,20 @@ function fixture(t) {
   put(config, original);
   put(path.join(source, 'index.html'), 'archive and cp');
   put(path.join(source, 'filing-build.json'), JSON.stringify({ mode: 'filing', publicSections, communityEnabled: false, radioEnabled: false }));
+  const makeFeed = (sections = publicSections) => {
+    const files = {};
+    for (const name of ['catalog', 'cpCatalog', 'schedule', 'en', 'th', 'calendarZh', 'calendarEn', 'calendarTh', 'sourceContent']) {
+      const bytes = JSON.stringify(name === 'catalog' ? { homeLinks: sections.map(id => ({ id })), quotes: [], radio: { tracks: [] }, homeCards: [] } : {}) + '\n';
+      const sha256 = createHash('sha256').update(bytes).digest('hex');
+      files[name] = { url: `https://glfans.com/assets/app-content/${sha256}.json`, sha256, bytes: Buffer.byteLength(bytes) };
+      put(path.join(source, `assets/app-content/${sha256}.json`), bytes);
+    }
+    const manifest = { schemaVersion: 1, files, assets: {} };
+    manifest.version = createHash('sha256').update(JSON.stringify(manifest) + '\n').digest('hex');
+    put(path.join(source, 'app-content/v1/manifest.json'), JSON.stringify(manifest));
+    return manifest;
+  };
+  makeFeed();
   put(path.join(source, 'assets/ArchivePage-old.js'), 'old archive');
   put(path.join(bin, 'nginx'), `#!/bin/sh\nprintf 'nginx %s\\n' "$*" >> "$MOCK_LOG"\nif [ "$MOCK_FAIL_TEST" = 1 ] && [ -f "$GLFANS_SITE_ROOT/shared/filing-policy.conf" ]; then exit 1; fi\n`, 0o755);
   put(path.join(bin, 'systemctl'), `#!/bin/sh\nprintf 'systemctl %s\\n' "$*" >> "$MOCK_LOG"\nif [ "$MOCK_FAIL_RELOAD" = 1 ] && [ -f "$GLFANS_SITE_ROOT/shared/filing-policy.conf" ]; then exit 1; fi\n`, 0o755);
@@ -34,7 +49,7 @@ function fixture(t) {
       GLFANS_FILING_MODE: filing ? '1' : '0', GLFANS_NGINX_CONFIG: config, MOCK_LOG: log, ...extra },
     encoding: 'utf8', stdio: 'pipe',
   });
-  return { root, source, config, log, policy, original, put, run };
+  return { root, source, config, log, policy, original, put, run, makeFeed };
 }
 
 test('filing release enables isolated nginx restrictions and retains previous assets', t => {
@@ -57,6 +72,7 @@ test('filing release enables isolated nginx restrictions and retains previous as
   assert.equal(readFileSync(path.join(root, 'shared/filing-backups/filing/nginx-before.conf'), 'utf8'), original);
   assert.equal(statSync(path.join(root, 'shared/filing-backups/filing/nginx-before.conf')).mode & 0o777, 0o600);
   assert.ok(readFileSync(config, 'utf8').includes(`    include ${policy};\n    root ${root}/current;`));
+  assert.match(deployed, /location = \/app-content\/v1\/manifest\.json \{\s+default_type application\/json;\s+expires -1;/);
   assert.equal(readFileSync(log, 'utf8'), 'nginx -t\nsystemctl reload nginx\n');
   assert.throws(() => run('accidental-full', false), /Filing policy is active/);
   assert.equal(existsSync(path.join(root, 'releases/accidental-full')), false);
@@ -124,5 +140,20 @@ test('filing mode requires the build marker to declare the restricted sections a
   assert.throws(() => run('missing-marker'), /needs filing-build.json/);
   put(path.join(source, 'filing-build.json'), JSON.stringify({ mode: 'filing', publicSections, communityEnabled: true, radioEnabled: false }));
   assert.throws(() => run('bad-marker'), /Invalid filing build marker/);
+  assert.equal(existsSync(path.join(root, 'current')), false);
+});
+
+test('filing deploy refuses an App manifest whose public sections differ from the website', t => {
+  const { root, run, makeFeed } = fixture(t);
+  makeFeed(['archive', 'cp', 'tide-words', 'column', 'memes', 'about']);
+  assert.throws(() => run('mismatched-app'), /App content visibility differs/);
+  assert.equal(existsSync(path.join(root, 'current')), false);
+});
+
+test('filing deploy verifies referenced App bytes before enabling a release', t => {
+  const { root, source, put, run, makeFeed } = fixture(t);
+  const manifest = makeFeed();
+  put(path.join(source, new URL(manifest.files.catalog.url).pathname.slice(1)), 'corrupted bytes');
+  assert.throws(() => run('corrupt-app'), /App content hash mismatch/);
   assert.equal(existsSync(path.join(root, 'current')), false);
 });

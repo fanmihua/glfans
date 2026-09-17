@@ -64,8 +64,40 @@ const filingRules = [
   '^/assets/pit-radio(?:/|$)',
   '^/assets/(?:HomePage|AdminPage|PitRadioPage|WordsTideLab|Polaroid[^/]*|community-api)-[^/]+\\.(?:m?js|css)(?:\\.map)?$',
 ];
-const filingContents = '# glfans filing visibility policy v2; read-only public content; interaction and radio disabled.\n' +
-  filingRules.map(rule => `if ($uri ~* "${rule}") { return 404; }`).join('\n') + '\n';
+const filingContents = '# glfans filing visibility policy v3; read-only public content; interaction and radio disabled.\n' +
+  filingRules.map(rule => `if ($uri ~* "${rule}") { return 404; }`).join('\n') + '\n' +
+  'location = /app-content/v1/manifest.json {\n' +
+  '    default_type application/json;\n' +
+  '    expires -1;\n' +
+  '    try_files $uri =404;\n' +
+  '}\n';
+
+function verifyAppManifest(incoming, source, build) {
+  const manifestFile = path.join(source, 'app-content/v1/manifest.json');
+  if (!incoming.includes(manifestFile)) throw Error('Filing release needs the versioned App content manifest');
+  const manifest = JSON.parse(fs.readFileSync(manifestFile, 'utf8'));
+  const names = ['catalog', 'cpCatalog', 'schedule', 'en', 'th', 'calendarZh', 'calendarEn', 'calendarTh', 'sourceContent'];
+  if (manifest.schemaVersion !== 1 || !/^[a-f0-9]{64}$/.test(manifest.version || '') ||
+      JSON.stringify(Object.keys(manifest.files || {}).sort()) !== JSON.stringify(names.sort()) ||
+      !manifest.assets || Array.isArray(manifest.assets)) throw Error('Invalid App content manifest');
+  const incomingSet = new Set(incoming);
+  for (const entry of [...Object.values(manifest.files), ...Object.values(manifest.assets)]) {
+    const url = new URL(entry.url);
+    if (!/^[a-f0-9]{64}$/.test(entry.sha256 || '') || !Number.isSafeInteger(entry.bytes) || entry.bytes < 1 ||
+        url.origin !== 'https://glfans.com' || url.href !== `${url.origin}${url.pathname}` ||
+        !new RegExp(`^/assets/app-content/${entry.sha256}\\.[a-z0-9]+$`).test(url.pathname)) throw Error('Unsafe App content reference');
+    const file = path.join(source, url.pathname.slice(1));
+    if (!incomingSet.has(file)) throw Error(`Missing App content bytes: ${url.pathname}`);
+    const bytes = fs.readFileSync(file);
+    if (bytes.length !== entry.bytes || createHash('sha256').update(bytes).digest('hex') !== entry.sha256) throw Error(`App content hash mismatch: ${url.pathname}`);
+  }
+  const expectedVersion = createHash('sha256').update(JSON.stringify({ schemaVersion: 1, files: manifest.files, assets: manifest.assets }) + '\n').digest('hex');
+  if (manifest.version !== expectedVersion) throw Error('App content version mismatch');
+  const catalog = JSON.parse(fs.readFileSync(path.join(source, new URL(manifest.files.catalog.url).pathname.slice(1)), 'utf8'));
+  if (JSON.stringify(catalog.homeLinks?.map(item => item.id)) !== JSON.stringify(build.publicSections) ||
+      !Array.isArray(catalog.quotes) || catalog.quotes.length || !Array.isArray(catalog.radio?.tracks) || catalog.radio.tracks.length ||
+      !Array.isArray(catalog.homeCards) || catalog.homeCards.length) throw Error('App content visibility differs from the filing build');
+}
 
 function atomicWrite(name, bytes, mode = 0o644) {
   const temp = path.join(path.dirname(name), `.glfans-asset-${randomUUID()}`);
@@ -100,6 +132,7 @@ function prepareFilingPolicy(incoming, source) {
   const build = JSON.parse(fs.readFileSync(buildMarker, 'utf8'));
   if (build.mode !== 'filing' || JSON.stringify(build.publicSections) !== JSON.stringify(['archive', 'cp', 'column', 'memes', 'about']) ||
       build.communityEnabled !== false || build.radioEnabled !== false) throw Error('Invalid filing build marker');
+  verifyAppManifest(incoming, source, build);
   // 拒绝错误构建，不能仅靠服务器隐藏把完整版重新传到备案 release。
   const hidden = incoming.filter(file => filingRules.slice(1).some(rule => new RegExp(rule, 'i').test('/' + path.relative(source, file).split(path.sep).join('/'))));
   if (hidden.length) throw Error(`Filing release contains hidden files: ${hidden.slice(0, 5).map(file => path.relative(source, file)).join(', ')}`);

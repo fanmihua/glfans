@@ -14,6 +14,10 @@ GLFANS_FILING_MODE=1 GLFANS_RELEASE_ID=已核对的唯一版本号 bash scripts/
 
 发布器要求 `filing-build.json` 声明 `mode: filing`、公开栏目顺序为 `archive/cp/column/memes/about`，并关闭 `communityEnabled` 与 `radioEnabled`；也会检查产物不存在隐藏目录与组件 chunk。脚本默认模式保持不变，备案发布显式传入 `GLFANS_FILING_MODE=1`。
 
+同一次构建生成 `/app-content/v1/manifest.json`，App 与网页共用当前资料。发布器逐项校验 manifest 中 9 份 JSON 及图片的本站内容地址、字节数、SHA-256、整体内容版本，并核对 App 导航与网页公开栏目完全一致，文学、音频与欢迎卡片保持空。manifest 使用 `application/json` 和 `Cache-Control: no-cache`；客户端每次检查可重新验证，旧的内容 hash 地址仍由 shared assets 保留。
+
+App 的公开说明页为 `/app-privacy/`（隐私政策）与 `/app-support/`（支持），中英文连续阅读。这两页由 `public/` 中的独立 HTML 构建，不依赖应用路由或登录。
+
 服务器只为现有 `/etc/nginx/sites-available/glfans.com.conf` 添加一行 `include /var/www/glfans/shared/filing-policy.conf;`。策略在 `server` 层执行，先限制旧入口，再原子切换 `current`：
 
 - `/api` 及 `/api/` 下的读写接口返回 404，仅放行精确的 `/api/health`、`/api/wechat/jssdk-signature`。
