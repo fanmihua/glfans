@@ -1,6 +1,17 @@
 # iOS 发布说明
 
-本轮准备版本为 `1.0.0 (2)`，最低 iOS 17。2026-09-17 已上传 App Store Connect，Apple 处理完成，TestFlight 状态为 Ready to Submit。当前尚未提交正式 App Store 审核，也未上架；上传和处理完成不能表述为审核通过。
+本轮准备版本为 `1.0.0 (3)`，最低 iOS 17。构建 3 替换包含已隐藏文章的构建 2；当前尚未提交正式 App Store 审核，也未上架。各阶段状态见下文，上传和处理完成不能表述为审核通过。
+
+## 三篇 Us 文章隐藏后的更新
+
+- 用户确认网页和 App 同时隐藏 `us/unsaid-fragments-ep07`、`ep08`、`ep12`。原稿及原始译文保留，所有原始文章 XML 校验无变化；只在发布产物中过滤正文及不再使用的译文。
+- 网站已发布 `d785e6564f83a2c9f76af911e9718dd8b644011a`，新 manifest 为 `6e8d36c957ee7d57ab86b927599e36d7d488bde22875ec9b52b79b159d859d5d`。Us 保留 9 篇，全站 17 篇公开 REPO，App feed 为 9 个 JSON、317 张图片。
+- 线上三篇独立地址均为 404，其余文章正常；旧 hash 入口回到合集。新网站 JS 和 App 归档排除这三篇正文，目录计数及下一篇跳转按可见条目计算。
+- 网站 227 项测试、6 项服务端测试、4 项 Sites 测试通过。新归档内容核验与模拟器四栏目／文章导航测试通过，实际生产 HTTPS、JSON 完整校验及离线缓存恢复验证通过。
+- `ReleaseArtifacts/Glfans-1.0.0-3.xcarchive` 于北京时间 2026-09-17 11:28 上传成功（Xcode `EXPORT SUCCEEDED`），Apple 处理后已可选择。构建 3（ID `d5969ffc-9f8c-4316-bf75-6c243ce2e74c`）已替换构建 2 关联并保存到正式版本草稿。
+- Apple 年龄问卷按删减后内容填写，计算结果为 18+（旧于 iOS 26 的系统显示全球 17+，有地区例外）。审核说明已明确免费、非商业、无广告、内购、付费订阅或付费访问。
+- Apple 内容权利表单仅允许“含第三方内容且拥有必要权利”或“不含第三方内容”。当前仍有第三方剧照、演员照片和表情包，未选择与事实不符的选项；非盈利说明不替代该必填声明。正式提审仍未完成。
+- 构建 3 保存后再次点击 Add for Review，Apple 返回 `Unable to Add for Review`，唯一列出的未完成项为 `Content Rights Information`；年龄分级已不再阻挡。内容权利弹窗当前没有证书上传栏，但 Apple 可以在审核中要求授权材料。
 
 - **公开功能：**考古档案（含播出日历）、百家饭、REPO、表情包，按此顺序组成四项导航；关于、隐私与联系支持保留。文学、电台、开屏、评论、点赞、投稿关闭，隐藏合集／文章不进入内容快照。百家饭不包含超话和商店入口。
 - **同源内容：**网站每次构建与发布生成 `https://glfans.com/app-content/v1/manifest.json`。协议为 `schemaVersion: 1`，含 `version`、`generatedAt`、`sourceCommit`、九项 `files` 和图片 `assets`；每项为 `{url, sha256, bytes}`，URL 指向同源 `/assets/app-content/<sha256>.<ext>`。SHA-256 为小写十六进制；相同内容保持同一版本摘要，旧哈希资源跨网站版本保留。
@@ -11,14 +22,14 @@
 
 具体命令、离线图片限制与维护路径见 [README.md](README.md)。
 
-## 2026-09-17 构建与商店准备结果
+## 2026-09-17 初始构建 2 与商店准备结果（历史记录）
 
 - 网站独立分支 `codex/filing-preparation` 已发布 `f8ae9b26a64262f7dcb96a52a715618daf61b922`；生产资料为 75 部剧、613 条排期、51 对 CP、5 个合集／20 篇文章、5 张表情包。九个 JSON 和 340 张图片的线上字节数与摘要均验证通过。
 - Swift 核心测试 17 项通过；模拟器日历、四项导航、英泰界面、在线刷新和表情包操作通过。隐藏栏目参数的批量测试曾有一次失败，独立重跑三个关闭入口均通过。模拟器构建和签名 Release archive 成功。
 - `ReleaseArtifacts/Glfans-1.0.0-2.xcarchive` 已用 Xcode 上传；Apple 页面显示上传 Complete、Build 2 为 Ready to Submit。未新建外部测试分发；内部测试组由既有设置自动关联。
 - App Store 草稿已有中文描述、关键词、支持与营销地址、版权、审核说明和用户提供的审核联系方式。五张 1284×2778 真实截图依次展示档案、日历、百家饭、REPO、表情包。免费定价，沿用页面默认全部地区（包含中国大陆），关闭本轮未验证的 Mac 与 Vision Pro 分发。
 - 隐私标签已在用户明确确认后发布：服务访问日志归 Other Data Types，错误日志归 Other Diagnostic Data；用于 App Functionality、与身份关联、不追踪。与线上隐私页及包内隐私清单保持一致。
-- 构建 2 已关联并保存到正式版本草稿；再次实际尝试 Add for Review 后，校验仅列出年龄分级与内容权利信息两项未完成。年龄与权利仍待下述内容范围／授权信息决定。没有填写虚构 ICP 备案号，也没有因未备案而排除中国大陆；当前表单未阻挡 ICP 不等于中国大陆上架已获准。
+- 构建 2 当时已关联并保存到正式版本草稿；实际尝试 Add for Review 后，校验仅列出年龄分级与内容权利信息两项未完成。后续内容隐藏及年龄分级结果见上方更新记录。没有填写虚构 ICP 备案号，也没有因未备案而排除中国大陆；当前表单未阻挡 ICP 不等于中国大陆上架已获准。
 - 每周一北京时间 10:00 的既有网站资料任务已恢复，日历发布改用备案分支，网站发布同时更新 App feed；CP 资料维护仍遵循既有本地核对边界。
 
 ## 2026-09-17 内容年龄审查记录
@@ -33,7 +44,7 @@
 | `us/unsaid-fragments-ep08` | 第 49 段 `OMuadJjv3o2iGOxYT3Kc3ZX1nZb` | 具体动作与高潮过程描写。 |
 | `us/unsaid-fragments-ep12` | 第 58 段 `A73fdiUH8oZZxbxWCkEc4JPHnse` | 以隐喻表达身体部位，并连续描述具体性行为。 |
 
-Apple [审核指南 1.1.4](https://developer.apple.com/app-store/review/guidelines/#objectionable-content) 的范围包含露骨文字描写；[年龄分级定义](https://developer.apple.com/help/app-store-connect/reference/app-information/age-ratings-values-and-definitions) 将露骨性内容的任何频次列入不能在 App Store 发布的 Unrated。上述三篇有触及该边界的风险，不能仅以选 18+ 视为问题已解决，最终适用由 Apple 审核判断。网页和 App 的隐藏范围已向用户询问，尚待确认；本记录未改动或删除原稿，未代填商店问卷。
+Apple [审核指南 1.1.4](https://developer.apple.com/app-store/review/guidelines/#objectionable-content) 的范围包含露骨文字描写；[年龄分级定义](https://developer.apple.com/help/app-store-connect/reference/app-information/age-ratings-values-and-definitions) 将露骨性内容的任何频次列入不能在 App Store 发布的 Unrated。上述三篇有触及该边界的风险，不能仅以选 18+ 视为问题已解决，最终适用由 Apple 审核判断。初始审查时隐藏范围尚待用户确认；后续用户已明确确认双端隐藏，执行结果见上方更新记录。以下表格保留初始内容审查证据，不代表删减后的公开内容。
 
 | 问卷内容项 | 暂定频次 | 当前实际证据 |
 | --- | --- | --- |
