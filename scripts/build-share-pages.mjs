@@ -42,9 +42,11 @@ const introductions = {
   archive:'沿着年份翻阅泰百剧集，重温故事，也找到下一部想追的剧。',
   calendar:'查看已公布的泰百剧集逐集排期，按日期浏览播出信息。',
   cp:'认识她们，收藏共同作品、音乐与舞台，记录两个人的来时路。',
+  column:'把看剧时的心动写下来，一起重读故事里的细节。',
+  memes:'捡一张表情包，把今天的心情带走。',
   about:'由粉丝维护的非官方、非商业泰百影视资料站，整理剧集、播出排期与演员公开资料。',
 };
-const description = '泰百影视资料站：考古档案、播出日历与百家饭，整理剧集、已公布排期及演员公开资料。';
+const description = '泰百影视资料站：考古档案、播出日历、百家饭、REPO 与表情包，整理剧集、已公布排期及演员公开资料。';
 async function emit(route, data) {
   const directory = `${root}/${route}`;
   await mkdir(directory,{recursive:true});
@@ -52,7 +54,7 @@ async function emit(route, data) {
   await writeFile(`${directory}/share.json`,JSON.stringify(data));
 }
 await emit('',{title:'glfans · 每一种喜欢，都值得被认真记录',description,image,url:`${origin}${base}`});
-for (const nav of SITE_NAVIGATION.filter(item=>['archive','cp','about'].includes(item.id))) {
+for (const nav of SITE_NAVIGATION.filter(item=>['archive','cp','column','memes','about'].includes(item.id))) {
   await emit(nav.id,{title:`glfans · ${nav.label}`,description:introductions[nav.id],image,url:`${origin}${base}${nav.id}/`});
 }
 for (const cp of profiles) {
@@ -68,4 +70,15 @@ for (const work of archiveDramas) {
   await emit(route,{title:'glfans · 考古档案',description:`${work.title} · ${work.titleEn}｜${introductions.archive}`,
     image,url:`${origin}${base}${route}/`});
 }
-console.log('Generated share pages for archive, calendar, CPs, about and retained detail pages.');
+const {collections}=JSON.parse(await readFile('src/data/column-index.json','utf8'));
+for (const collection of collections) {
+  const route=`column/${collection.slug}`;
+  await emit(route,{title:'glfans · REPO 文专栏',description:`${collection.title}｜${introductions.column}`,
+    image,url:`${origin}${base}${route}/`});
+  for (const article of collection.articles.filter(article=>!article.hidden)) {
+    const articleRoute=`${route}/${article.slug}`;
+    await emit(articleRoute,{title:'glfans · REPO 文专栏',description:`${article.title}｜${introductions.column}`,
+      image,url:`${origin}${base}${articleRoute}/`});
+  }
+}
+console.log('Generated share pages for archive, calendar, CPs, REPO, memes, about and retained detail pages.');

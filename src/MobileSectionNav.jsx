@@ -1,10 +1,10 @@
 import { t } from "./i18n/runtime.js";
 import { useState } from "react";
-import { FilmStrip, Users } from "@phosphor-icons/react";
+import { FilmStrip, Users, Files, ImageSquare } from "@phosphor-icons/react";
 import { MOBILE_NAVIGATION } from "./app/mobile-navigation.js";
 import "./mobile-section-nav.css";
 
-const icons = { archive: FilmStrip, cp: Users };
+const icons = { archive: FilmStrip, cp: Users, column: Files, memes: ImageSquare };
 
 export function MobileSectionNav({ activePath }) {
   const [tap, setTap] = useState({ id: null, count: 0 });

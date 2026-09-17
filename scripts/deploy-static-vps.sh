@@ -60,11 +60,11 @@ function activeRelease() {
 // 保留健康检查与微信分享签名；所有社区读写接口统一关闭，API 进程及数据库保持。
 const filingRules = [
   '^/api(?:/(?!health$|wechat/jssdk-signature$)|$)',
-  '^/(?:home|column|memes|radio|tide-words|admin|polaroid-lab)(?:/|$)',
-  '^/assets/(?:column|fan-memes|meme-game|pit-radio)(?:/|$)',
-  '^/assets/(?:HomePage|AdminPage|ArticlePage|Column|MemesPage|PitRadioPage|RepoFilmStrip|WordsTideLab|Polaroid[^/]*|(?:en|th)-articles?|community-api)-[^/]+\\.(?:m?js|css)(?:\\.map)?$',
+  '^/(?:home|radio|tide-words|admin|polaroid-lab)(?:/|$)',
+  '^/assets/pit-radio(?:/|$)',
+  '^/assets/(?:HomePage|AdminPage|PitRadioPage|WordsTideLab|Polaroid[^/]*|community-api)-[^/]+\\.(?:m?js|css)(?:\\.map)?$',
 ];
-const filingContents = '# glfans filing visibility policy v1; restore only by an explicit release.\n' +
+const filingContents = '# glfans filing visibility policy v2; read-only public content; interaction and radio disabled.\n' +
   filingRules.map(rule => `if ($uri ~* "${rule}") { return 404; }`).join('\n') + '\n';
 
 function atomicWrite(name, bytes, mode = 0o644) {
@@ -98,7 +98,7 @@ function prepareFilingPolicy(incoming, source) {
   const buildMarker = path.join(source, 'filing-build.json');
   if (!incoming.includes(buildMarker)) throw Error('Filing release needs filing-build.json');
   const build = JSON.parse(fs.readFileSync(buildMarker, 'utf8'));
-  if (build.mode !== 'filing' || JSON.stringify(build.publicSections) !== JSON.stringify(['archive', 'cp', 'about']) ||
+  if (build.mode !== 'filing' || JSON.stringify(build.publicSections) !== JSON.stringify(['archive', 'cp', 'column', 'memes', 'about']) ||
       build.communityEnabled !== false || build.radioEnabled !== false) throw Error('Invalid filing build marker');
   // 拒绝错误构建，不能仅靠服务器隐藏把完整版重新传到备案 release。
   const hidden = incoming.filter(file => filingRules.slice(1).some(rule => new RegExp(rule, 'i').test('/' + path.relative(source, file).split(path.sep).join('/'))));

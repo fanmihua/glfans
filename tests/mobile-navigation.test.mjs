@@ -5,7 +5,7 @@ import { SITE_NAVIGATION, welcomeLinks, parseHashRoute } from "../src/app/routes
 import { MOBILE_NAVIGATION, hasMobileNavigation } from "../src/app/mobile-navigation.js";
 
 test("mobile tabs reuse the retained public content destinations in order", () => {
-  assert.deepEqual(MOBILE_NAVIGATION.map((item) => item.shortLabel), ["档案", "百家饭"]);
+  assert.deepEqual(MOBILE_NAVIGATION.map((item) => item.shortLabel), ["档案", "百家饭", "REPO", "表情"]);
   assert.ok(MOBILE_NAVIGATION.every((item) => !("number" in item)), "mobile tabs do not carry display numbers");
   for (const tab of MOBILE_NAVIGATION) {
     assert.equal(tab.href, SITE_NAVIGATION.find((item) => item.id === tab.id).href);
@@ -14,7 +14,7 @@ test("mobile tabs reuse the retained public content destinations in order", () =
 });
 
 test("desktop, shared index and mobile expose only the retained sections", () => {
-  const orderedIds = ["archive", "cp", "about"];
+  const orderedIds = ["archive", "cp", "column", "memes", "about"];
   assert.deepEqual(SITE_NAVIGATION.map((item) => item.id), orderedIds);
   assert.deepEqual(welcomeLinks.map((item) => item.id), orderedIds);
   assert.deepEqual(MOBILE_NAVIGATION.map((item) => item.id), orderedIds.slice(0, -1));
@@ -22,7 +22,7 @@ test("desktop, shared index and mobile expose only the retained sections", () =>
 });
 
 test("nested pages keep their parent tab; about has the bar without a false selection", () => {
-  for (const hash of ["#/archive/2026", "#/archive/calendar", "#/cp/lingorm", "#/about/rights"]) {
+  for (const hash of ["#/archive/2026", "#/archive/calendar", "#/cp/lingorm", "#/column/us/unsaid-fragments-ep01", "#/memes", "#/about/rights"]) {
     const root = parseHashRoute(hash)[0];
     assert.equal(hasMobileNavigation(root), true);
     assert.equal(MOBILE_NAVIGATION.filter((item) => item.id === root).length, root === "about" ? 0 : 1);
@@ -30,7 +30,7 @@ test("nested pages keep their parent tab; about has the bar without a false sele
 });
 
 test("hidden sections and unknown routes never have a mobile content bar", () => {
-  for (const root of ["home", "admin", "column", "memes", "radio", "tide-words", "unknown", undefined]) assert.equal(hasMobileNavigation(root), false);
+  for (const root of ["home", "admin", "radio", "tide-words", "unknown", undefined]) assert.equal(hasMobileNavigation(root), false);
 });
 
 test("mobile tabs use one real paper surface without stacked backing layers", () => {

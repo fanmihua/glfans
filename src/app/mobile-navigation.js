@@ -3,6 +3,8 @@ import { SITE_NAVIGATION } from "./routes.js";
 const labels = {
   archive: "档案",
   cp: "百家饭",
+  column: "REPO",
+  memes: "表情",
 };
 
 // Reuse the public route order and destinations; only the mobile labels differ.

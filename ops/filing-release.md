@@ -1,6 +1,6 @@
 # 备案公开范围的发布与恢复
 
-本分支公开考古档案、播出日历、百家饭及必要站点说明。原始代码、素材、历史静态版本、社区数据库和 API 进程继续保留。此发布范围不构成备案通过的保证。
+本分支公开考古档案、播出日历、百家饭、REPO、表情包及必要站点说明。坑底文学、评论、投稿、点赞、电台、后台和欢迎开屏保持关闭。原始代码、素材、历史静态版本、社区数据库和 API 进程继续保留。此发布范围不构成备案通过的保证。
 
 ## 发布
 
@@ -12,18 +12,19 @@
 GLFANS_FILING_MODE=1 GLFANS_RELEASE_ID=已核对的唯一版本号 bash scripts/publish-static-vps.sh dist/client
 ```
 
-发布器要求 `filing-build.json` 声明 `mode: filing`、仅公开 `archive/cp/about`，并关闭 `communityEnabled` 与 `radioEnabled`；也会检查产物不存在隐藏目录与组件 chunk。
+发布器要求 `filing-build.json` 声明 `mode: filing`、公开栏目顺序为 `archive/cp/column/memes/about`，并关闭 `communityEnabled` 与 `radioEnabled`；也会检查产物不存在隐藏目录与组件 chunk。脚本默认模式保持不变，备案发布显式传入 `GLFANS_FILING_MODE=1`。
 
 服务器只为现有 `/etc/nginx/sites-available/glfans.com.conf` 添加一行 `include /var/www/glfans/shared/filing-policy.conf;`。策略在 `server` 层执行，先限制旧入口，再原子切换 `current`：
 
 - `/api` 及 `/api/` 下的读写接口返回 404，仅放行精确的 `/api/health`、`/api/wechat/jssdk-signature`。
-- `/home`、`/column`、`/memes`、`/radio`、`/tide-words`、`/admin`、`/polaroid-lab` 及其子路径返回 404。
-- `/assets/column`、`fan-memes`、`meme-game`、`pit-radio` 下的旧资源，以及隐藏页面、文章译文、社区客户端的具名 chunk 返回 404。
-- 档案、CP、通用旧 hash 资源和共用纸张/装饰素材保留。哈希路由由新前端返回考古档案，哈希本身不会发送到 Nginx。
+- `/home`、`/radio`、`/tide-words`、`/admin`、`/polaroid-lab` 及其子路径返回 404。
+- `/assets/pit-radio` 下的旧资源，以及欢迎页、后台、电台、坑底文学、拍立得实验、社区客户端的具名 chunk 返回 404。
+- `/column`、`/memes`、对应组件与文章译文 chunk、`/assets/column`、`fan-memes`、`meme-game` 素材恢复公开，社区 API 保持关闭。
+- 档案、CP、通用旧 hash 资源和共用纸张/装饰素材保留。隐藏哈希路由由新前端返回考古档案，哈希本身不会发送到 Nginx。
 
 `nginx -t` 通过才 reload。失败时恢复之前的 glfans 配置与策略，`current` 保持；不重启 API、不写数据库、不触碰其他站点配置。配置原件保存在 `shared/filing-backups/<release-id>/`，每个备案 release 同时保存 `.glfans-filing-policy.conf` 以便审计。策略激活后，本分支脚本拒绝没有 `GLFANS_FILING_MODE=1` 的发布。
 
-2026-09-17 只读核验：API 仅监听 `127.0.0.1:3100`，UFW 对 IPv4/IPv6 的 `3100/tcp` 都是 DENY。上线后仍需检查根页面、archive/calendar/cp、隐藏直达路径、旧 hidden chunk、社区读写接口的真实状态码，并确认 health 为 `data.status=ok`、`data.database=connected`。
+2026-09-17 只读核验：API 仅监听 `127.0.0.1:3100`，UFW 对 IPv4/IPv6 的 `3100/tcp` 都是 DENY。上线后仍需检查根页面、archive/calendar/cp/column/memes、隐藏直达路径、旧 hidden chunk、社区读写接口的真实状态码，并确认 health 为 `data.status=ok`、`data.database=connected`。
 
 ## 恢复
 

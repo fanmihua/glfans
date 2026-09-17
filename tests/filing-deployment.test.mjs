@@ -7,6 +7,7 @@ import test from 'node:test';
 import { fileURLToPath } from 'node:url';
 
 const script = fileURLToPath(new URL('../scripts/deploy-static-vps.sh', import.meta.url));
+const publicSections = ['archive', 'cp', 'column', 'memes', 'about'];
 
 function fixture(t) {
   const base = mkdtempSync(path.join(tmpdir(), 'glfans-filing-'));
@@ -24,7 +25,7 @@ function fixture(t) {
   const original = `server {\n    server_name glfans.com;\n    root ${root}/current;\n    location ^~ /api/ { proxy_pass http://127.0.0.1:3100; }\n}\n`;
   put(config, original);
   put(path.join(source, 'index.html'), 'archive and cp');
-  put(path.join(source, 'filing-build.json'), JSON.stringify({ mode: 'filing', publicSections: ['archive', 'cp', 'about'], communityEnabled: false, radioEnabled: false }));
+  put(path.join(source, 'filing-build.json'), JSON.stringify({ mode: 'filing', publicSections, communityEnabled: false, radioEnabled: false }));
   put(path.join(source, 'assets/ArchivePage-old.js'), 'old archive');
   put(path.join(bin, 'nginx'), `#!/bin/sh\nprintf 'nginx %s\\n' "$*" >> "$MOCK_LOG"\nif [ "$MOCK_FAIL_TEST" = 1 ] && [ -f "$GLFANS_SITE_ROOT/shared/filing-policy.conf" ]; then exit 1; fi\n`, 0o755);
   put(path.join(bin, 'systemctl'), `#!/bin/sh\nprintf 'systemctl %s\\n' "$*" >> "$MOCK_LOG"\nif [ "$MOCK_FAIL_RELOAD" = 1 ] && [ -f "$GLFANS_SITE_ROOT/shared/filing-policy.conf" ]; then exit 1; fi\n`, 0o755);
@@ -40,10 +41,18 @@ test('filing release enables isolated nginx restrictions and retains previous as
   const { root, source, config, log, policy, original, put, run } = fixture(t);
   run('full', false);
   put(path.join(source, 'assets/ArchivePage-new.js'), 'new archive');
+  put(path.join(source, 'column/us/index.html'), 'public REPO');
+  put(path.join(source, 'assets/column/us/1.webp'), 'article photo');
+  put(path.join(source, 'assets/fan-memes/a.jpg'), 'public meme');
+  put(path.join(source, 'assets/meme-game/a.glb'), 'meme camera');
+  put(path.join(source, 'assets/ArticlePage-new.js'), 'article page');
+  put(path.join(source, 'assets/MemesPage-new.js'), 'meme page');
   run('filing');
   const deployed = readFileSync(policy, 'utf8');
   assert.equal(readlinkSync(path.join(root, 'current')), path.join(root, 'releases/filing'));
   assert.equal(readFileSync(path.join(root, 'shared/assets/ArchivePage-old.js'), 'utf8'), 'old archive');
+  assert.equal(readFileSync(path.join(root, 'releases/filing/column/us/index.html'), 'utf8'), 'public REPO');
+  assert.equal(readFileSync(path.join(root, 'shared/assets/fan-memes/a.jpg'), 'utf8'), 'public meme');
   assert.equal(readFileSync(path.join(root, 'releases/filing/.glfans-filing-policy.conf'), 'utf8'), deployed);
   assert.equal(readFileSync(path.join(root, 'shared/filing-backups/filing/nginx-before.conf'), 'utf8'), original);
   assert.equal(statSync(path.join(root, 'shared/filing-backups/filing/nginx-before.conf')).mode & 0o777, 0o600);
@@ -62,16 +71,18 @@ test('filing rules close hidden routes, historical chunks, media and community e
   const expressions = [...readFileSync(policy, 'utf8').matchAll(/if \(\$uri ~\* "(.+)"\)/g)].map(match => new RegExp(match[1], 'i'));
   const blocked = uri => expressions.some(regex => regex.test(uri));
   for (const uri of ['/api', '/api/', '/api/quotes', '/api/comments', '/api/admin/login', '/api/health/',
-    '/api/wechat/jssdk-signature/anything', '/home', '/column/us/episode/1', '/memes/', '/radio/', '/tide-words', '/admin',
-    '/assets/column/us/1.webp', '/assets/fan-memes/a.jpg', '/assets/meme-game/a.glb', '/assets/pit-radio/a.mp3',
-    '/assets/HomePage-old.js', '/assets/WordsTideLab-old.css', '/assets/Column-old.js', '/assets/community-api-old.js',
-    '/assets/en-article-old.js', '/assets/th-article-old.js', '/assets/PolaroidLab-old.js']) {
+    '/api/wechat/jssdk-signature/anything', '/home', '/radio/', '/tide-words', '/admin', '/polaroid-lab',
+    '/assets/pit-radio/a.mp3', '/assets/HomePage-old.js', '/assets/AdminPage-old.js', '/assets/community-api-old.js',
+    '/assets/PitRadioPage-old.css', '/assets/WordsTideLab-old.css', '/assets/PolaroidLab-old.js']) {
     assert.equal(blocked(uri), true, uri);
   }
   for (const uri of ['/', '/archive', '/archive/2026/', '/archive/calendar/', '/cp/emibonnie/', '/about/',
     '/api/health', '/api/wechat/jssdk-signature', '/assets/ArchivePage-old.js', '/assets/CpPage-old.js',
     '/assets/en-archive-old.js', '/assets/index-old.js', '/assets/home/cp-cutout.webp', '/assets/cp/children/a.webp',
-    '/assets/repo-handdrawn-heart-pink.webp', '/assets/repo-handdrawn-underline-pink.webp']) {
+    '/assets/repo-handdrawn-heart-pink.webp', '/assets/repo-handdrawn-underline-pink.webp',
+    '/column/us/episode/1', '/memes/', '/assets/column/us/1.webp', '/assets/fan-memes/a.jpg',
+    '/assets/meme-game/a.glb', '/assets/Column-old.js', '/assets/ArticlePage-old.js',
+    '/assets/MemesPage-old.js', '/assets/RepoFilmStrip-old.js', '/assets/en-article-old.js', '/assets/th-article-old.js']) {
     assert.equal(blocked(uri), false, uri);
   }
 });
@@ -111,7 +122,7 @@ test('filing mode requires the build marker to declare the restricted sections a
   const { root, source, put, run } = fixture(t);
   rmSync(path.join(source, 'filing-build.json'));
   assert.throws(() => run('missing-marker'), /needs filing-build.json/);
-  put(path.join(source, 'filing-build.json'), JSON.stringify({ mode: 'filing', publicSections: ['archive', 'cp', 'about'], communityEnabled: true, radioEnabled: false }));
+  put(path.join(source, 'filing-build.json'), JSON.stringify({ mode: 'filing', publicSections, communityEnabled: true, radioEnabled: false }));
   assert.throws(() => run('bad-marker'), /Invalid filing build marker/);
   assert.equal(existsSync(path.join(root, 'current')), false);
 });

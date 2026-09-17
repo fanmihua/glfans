@@ -26,7 +26,7 @@ test('supports deployment prefix and does not interpret arbitrary external redir
   assert.equal(unsafe.hash, '#/archive');
 });
 test('hidden paths and hashes fall back to archive in every locale and deployment prefix', () => {
-  const hidden = ['home','admin','admin/dashboard','column','column/us/unsaid-fragments-ep01','memes','radio','tide-words','unknown','cp/../../admin','radio%2Fanything'];
+  const hidden = ['home','admin','admin/dashboard','radio','tide-words','unknown','cp/../../admin','radio%2Fanything'];
   for (const lang of ['zh','en','th']) {
     for (const base of ['/','/glfans/']) {
       const query = `?lang=${lang}&from=singlemessage&note=a%20b`;
@@ -61,19 +61,26 @@ test('listener sync preserves history state and cleans up', () => {
   href='https://glfans.com/cp/emibonnie/#/archive'; listeners.get('hashchange')();
   assert.equal(new URL(href).pathname,'/archive/'); stop(); assert.equal(listeners.size,0);
 });
-test('every retained section, calendar and nested archive/CP page survives fragment removal', () => {
-  for (const route of ['archive','archive/calendar','archive/2024/pluto','about','about/rights','cp','cp/emibonnie']) {
-    const shared = normalizeShareUrl(`https://glfans.com/?lang=en#/${route}`);
-    shared.hash='';
-    const opened=normalizeShareUrl(shared.href,'/',true);
-    assert.equal(opened.hash,`#/${route}`); assert.equal(opened.search,'?lang=en');
+test('retained routes including reopened REPO and memes survive fragment removal in each locale and prefix', () => {
+  for (const lang of ['zh','en','th']) {
+    for (const base of ['/','/glfans/']) {
+      for (const route of ['archive','archive/calendar','archive/2024/pluto','about','about/rights','cp','cp/emibonnie','column','column/us','column/us/unsaid-fragments-ep01','memes']) {
+        const shared = normalizeShareUrl(`https://glfans.com${base}?lang=${lang}#/${route}`,base);
+        shared.hash='';
+        const opened=normalizeShareUrl(shared.href,base,true);
+        assert.equal(opened.hash,`#/${route}`);
+        assert.equal(opened.pathname,`${base}${route}/`);
+        assert.equal(opened.search,`?lang=${lang}`);
+        assert.equal(shareMetadataEndpoint(opened.href,base),`${base}${route}/share.json`);
+      }
+    }
   }
 });
 
 test('WeChat hidden routes retain the signed entry URL while using safe archive identity', () => {
   for (const lang of ['zh','en','th']) {
     for (const base of ['/','/glfans/']) {
-      for (const route of ['radio','column/us/unsaid-fragments-ep01','admin']) {
+      for (const route of ['radio','tide-words','admin']) {
         const entry = `https://glfans.com${base}${route}/?lang=${lang}&from=singlemessage`;
         for (const hash of ['', '#/tide-words', '#/']) {
           const url = normalizeDocumentUrl(`${entry}${hash}`, base, true, 'iPhone MicroMessenger');

@@ -15,6 +15,9 @@ const AboutPage = lazy(() => import("./AboutPage.jsx").then((module) => ({ defau
 const ArchivePage = lazy(() => import("./ArchivePage.jsx").then((module) => ({ default: module.ArchivePage })));
 const CpPage = lazy(() => import("./features/cp/CpPage.jsx").then(module => ({ default: module.CpPage })));
 
+const ColumnExperience = lazy(() => import("./Column.jsx").then((module) => ({ default: module.ColumnExperience })));
+const MemesPage = lazy(() => import("./MemesPage.jsx").then((module) => ({ default: module.MemesPage })));
+
 function readEntryRoute() {
   const destination = normalizeDocumentUrl(window.location.href, import.meta.env.BASE_URL, true, window.navigator.userAgent);
   if (destination.href !== window.location.href) window.history.replaceState(window.history.state, "", destination);
@@ -67,7 +70,9 @@ export function App() {
 
   const page = rootRoute === "about"
     ? <AboutPage key={routeKey} defaultRightsOpen={routeKey.startsWith("#/about/rights")} />
-    : rootRoute === "cp" ? <CpPage /> : <ArchivePage />;
+    : rootRoute === "cp" ? <CpPage />
+    : rootRoute === "column" ? <ColumnExperience />
+    : rootRoute === "memes" ? <MemesPage /> : <ArchivePage />;
 
   return (
     <div className={`app-shell${rootRoute === "cp" ? " app-shell--cp" : ""}${rootRoute === "archive" ? " app-shell--archive" : ""}${showMobileNavigation ? " has-mobile-navigation" : ""}`}>

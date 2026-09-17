@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { existsSync, readFileSync, statSync } from 'node:fs';
+import { readFileSync, statSync } from 'node:fs';
 import test from 'node:test';
 import sharp from 'sharp';
 
@@ -52,12 +52,16 @@ test('all 75 image positions resolve to optimized WebP assets without original P
   assert.equal(bytes, 7842422);
 });
 
-test('filing build keeps retained Us episodes out of public share pages', () => {
-  for (const article of collection.articles.slice(2)) {
-    assert.equal(existsSync(new URL(`../dist/client/column/us/${article.slug}/index.html`, import.meta.url)), false);
-    assert.equal(existsSync(new URL(`../dist/client/column/us/${article.slug}/share.json`, import.meta.url)), false);
+test('reopened REPO emits direct share pages for all published Us episodes', () => {
+  for (const article of collection.articles) {
+    const route = `/column/us/${article.slug}/`;
+    const html = readFileSync(new URL(`../dist/client${route}index.html`, import.meta.url), 'utf8');
+    const share = JSON.parse(readFileSync(new URL(`../dist/client${route}share.json`, import.meta.url), 'utf8'));
+    assert.ok(html.includes(route));
+    assert.equal(new URL(share.url).pathname, route);
+    assert.equal(share.title, 'glfans · REPO 文专栏');
+    assert.ok(share.description.includes(article.title));
   }
-  assert.equal(existsSync(new URL('../dist/client/archive/index.html', import.meta.url)), true, 'check a completed public build');
 });
 
 test('new episodes have complete English and Thai prose, with stable episode titles', () => {

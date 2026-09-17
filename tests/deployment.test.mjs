@@ -59,7 +59,9 @@ test("filing notice is present in retained page footers and the application shel
 test("filing application entry does not load hidden routes or a global radio player", () => {
   const app = read("../src/App.jsx");
   const main = read("../src/main.jsx");
-  assert.doesNotMatch(app, /HomePage|AdminPage|ColumnExperience|MemesPage|PitRadioPage|WordsTideLab|GlobalRadioDock/);
+  assert.doesNotMatch(app, /HomePage|AdminPage|PitRadioPage|WordsTideLab|GlobalRadioDock/);
+  assert.match(app, /const ColumnExperience = lazy/);
+  assert.match(app, /const MemesPage = lazy/);
   assert.doesNotMatch(main, /PitRadioProvider|PitRadioContext|pit-radio\.css/);
 });
 
