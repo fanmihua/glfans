@@ -84,7 +84,8 @@ test('Community uses display translations while music and article quotations kee
 
 test('Language catalogs stay lazy and language changes do not reload or reset the route', () => {
   const runtime = read('../src/i18n/runtime.js');
-  assert.match(runtime, /import\('\.\/en-article\.json'\)/);
+  assert.match(runtime, /import\('\.\/en-ui\.json'\)/);
+  assert.doesNotMatch(runtime, /import\('\.\/(?:en|th)-article\.json'\)/);
   assert.match(runtime, /import\('\.\/th-archive\.json'\)/);
   assert.doesNotMatch(runtime, /location\.(?:reload|assign)|location\.hash\s*=/);
   assert.match(runtime, /replaceState\(window\.history\.state/);

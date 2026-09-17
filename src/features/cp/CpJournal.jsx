@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { ArrowRight, ArrowUpRight, CaretDown, MusicNote, Play } from '@phosphor-icons/react';
 import { withBase } from '../../lib/assets.js';
-import { usePitRadio, pitRadioTrackCatalog } from '../../PitRadioContext.jsx';
 import { cpJournalCopy } from './cp-journal-copy.js';
 import { CpImage } from './CpImage.jsx';
 import './cp-journal.css';
@@ -62,7 +61,6 @@ export function CpTimeline({ cp, events, archiveById, locale }) {
 
 export function CpMediaSection({ items, category, archiveById, locale }) {
   const copy = cpJournalCopy[locale];
-  const radio = usePitRadio();
   const [expanded, setExpanded] = useState(false);
   if (!items.length) return null;
   return <section className="cp-journal cp-media-section" id={`cp-${category}`} tabIndex={-1} aria-labelledby={`cp-${category}-title`}>
@@ -80,7 +78,6 @@ export function CpMediaSection({ items, category, archiveById, locale }) {
         <p className="cp-media-credits">{item.performers.join(' & ')}</p>
         <p className="cp-media-publisher">{item.publisher}</p>
         {work && <a className="cp-journal-link" href={`#/archive/${work.year}/${work.id}`}>{work.titleEn}<ArrowRight size={16} /></a>}
-        {item.radioTrackId && pitRadioTrackCatalog.some(track => track.id === item.radioTrackId && track.cpId === item.cpId) && <button className="cp-journal-radio" type="button" onClick={() => { radio.chooseTrack(item.radioTrackId); window.location.hash = '#/radio'; }}><MusicNote size={16} />{copy.openRadio}<ArrowRight size={16} /></button>}
       </article>;
     })}</div>
     {items.length > 3 && <button type="button" className="cp-journal-more" aria-expanded={expanded} aria-controls={`cp-${category}-list`} onClick={() => { if (expanded) jumpToJournal(`cp-${category}`); setExpanded(!expanded); }}>{expanded ? copy.less : `${copy.more} · ${items.length}`}<CaretDown size={16} /></button>}

@@ -27,7 +27,6 @@ export const getDateLocale = () => ({ zh: 'zh-CN', en: 'en-GB', th: 'th-TH-u-ca-
 const loaders = {
   'en-ui': () => import('./en-ui.json'), 'th-ui': () => import('./th-ui.json'),
   'en-archive': () => import('./en-archive.json'), 'th-archive': () => import('./th-archive.json'),
-  'en-article': () => import('./en-article.json'), 'th-article': () => import('./th-article.json'),
 };
 
 const normalize = (value) => value.replace(/\s+/g, ' ').trim();
@@ -102,7 +101,7 @@ export function requireCatalog(kind = 'ui') {
 export function activeCatalogKinds() {
   if (typeof window === 'undefined') return ['ui'];
   const parts = window.location.hash.replace(/^#\/?/, '').split('/');
-  return ['ui', ...(parts[0] === 'archive' ? ['archive'] : []), ...(parts[0] === 'column' && parts[2] ? ['article'] : [])];
+  return ['ui', ...(parts[0] === 'archive' ? ['archive'] : [])];
 }
 
 function applyDocumentLocale() {

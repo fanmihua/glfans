@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { readFileSync, statSync } from 'node:fs';
+import { existsSync, readFileSync, statSync } from 'node:fs';
 import test from 'node:test';
 import sharp from 'sharp';
 
@@ -19,7 +19,7 @@ const expected = [
   [8, '235574ffbc8b0933377a25c1f1905d36076c25240965680f507904a5be09fa48'],
 ];
 
-test('Us publishes EP01–EP12 in order and keeps hidden collections hidden', () => {
+test('Us source preserves EP01–EP12 in order and existing hidden collection flags', () => {
   assert.deepEqual(collection.articles.map(a => a.slug), Array.from({ length: 12 }, (_, i) => `unsaid-fragments-ep${String(i + 1).padStart(2, '0')}`));
   assert.ok(collection.articles.every(a => !a.hidden));
   assert.equal(data.collections.find(c => c.slug === 'my-secret-words').hidden, true);
@@ -52,12 +52,12 @@ test('all 75 image positions resolve to optimized WebP assets without original P
   assert.equal(bytes, 7842422);
 });
 
-test('build emits direct share pages for every newly published episode', () => {
+test('filing build keeps retained Us episodes out of public share pages', () => {
   for (const article of collection.articles.slice(2)) {
-    const html = readFileSync(new URL(`../dist/client/column/us/${article.slug}/index.html`, import.meta.url), 'utf8');
-    assert.ok(html.includes(`/column/us/${article.slug}/`));
-    assert.ok(html.includes('glfans'));
+    assert.equal(existsSync(new URL(`../dist/client/column/us/${article.slug}/index.html`, import.meta.url)), false);
+    assert.equal(existsSync(new URL(`../dist/client/column/us/${article.slug}/share.json`, import.meta.url)), false);
   }
+  assert.equal(existsSync(new URL('../dist/client/archive/index.html', import.meta.url)), true, 'check a completed public build');
 });
 
 test('new episodes have complete English and Thai prose, with stable episode titles', () => {

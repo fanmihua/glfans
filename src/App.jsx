@@ -3,41 +3,22 @@ import { requireCatalog } from './i18n/runtime.js';
 import { useLocale } from './i18n/LanguageSwitcher.jsx';
 import { lazy, Suspense, useEffect, useLayoutEffect, useState } from "react";
 import { GlobalFooter } from "./GlobalFooter.jsx";
-import { GlobalRadioDock } from "./GlobalRadioDock.jsx";
 import { FilingNotice } from "./FilingNotice.jsx";
 import { MobileSectionNav } from "./MobileSectionNav.jsx";
 import { hasMobileNavigation } from "./app/mobile-navigation.js";
 import { PageLoader } from "./PageLoader.jsx";
 import { RouteReadyBoundary } from "./RouteReadyBoundary.jsx";
-import { ROOT_ROUTES, ROUTE_LOADING_COPY, parseHashRoute, welcomeLinks } from "./app/routes.js";
-import { shouldSkipHomeJourney } from "./features/home/home-journey-state.js";
+import { DEFAULT_ROUTE, ROUTE_LOADING_COPY, parseHashRoute } from "./app/routes.js";
 import { normalizeDocumentUrl } from './app/share-route.js';
 
-const HomePage = lazy(() => import("./HomePage.jsx").then((module) => ({ default: module.HomePage })));
-const AdminPage = lazy(() => import("./AdminPage.jsx").then((module) => ({ default: module.AdminPage })));
 const AboutPage = lazy(() => import("./AboutPage.jsx").then((module) => ({ default: module.AboutPage })));
 const ArchivePage = lazy(() => import("./ArchivePage.jsx").then((module) => ({ default: module.ArchivePage })));
-const ColumnExperience = lazy(() => import("./Column.jsx").then((module) => ({ default: module.ColumnExperience })));
-const MemesPage = lazy(() => import("./MemesPage.jsx").then((module) => ({ default: module.MemesPage })));
-const PitRadioPage = lazy(() => import("./PitRadioPage.jsx").then((module) => ({ default: module.PitRadioPage })));
-const WordsTideLab = lazy(() => import("./WordsTideLab.jsx").then((module) => ({ default: module.WordsTideLab })));
 const CpPage = lazy(() => import("./features/cp/CpPage.jsx").then(module => ({ default: module.CpPage })));
 
-function readRootRoute() {
-  const rootRoute = parseHashRoute(window.location.hash)[0];
-  if (!rootRoute) return "home";
-  return ROOT_ROUTES.includes(rootRoute) ? rootRoute : "home";
-}
-
 function readEntryRoute() {
-  const rootRoute = readRootRoute();
-  if (rootRoute !== "home") return rootRoute;
-  if (!shouldSkipHomeJourney(window.location.search, import.meta.env.DEV, window)) return rootRoute;
-  const firstHomeDestination = welcomeLinks[0];
-  if (!firstHomeDestination) return rootRoute;
-  const destination = new URL(firstHomeDestination.href, window.location.href);
-  window.history.replaceState(window.history.state, "", normalizeDocumentUrl(destination.href, import.meta.env.BASE_URL, false, window.navigator.userAgent));
-  return firstHomeDestination.id;
+  const destination = normalizeDocumentUrl(window.location.href, import.meta.env.BASE_URL, true, window.navigator.userAgent);
+  if (destination.href !== window.location.href) window.history.replaceState(window.history.state, "", destination);
+  return parseHashRoute(destination.hash)[0] || DEFAULT_ROUTE;
 }
 
 function readRouteKey() {
@@ -49,7 +30,7 @@ export function App() {
   requireCatalog();
   const [rootRoute, setRootRoute] = useState(readEntryRoute);
   const [routeKey, setRouteKey] = useState(readRouteKey);
-  const loadingCopy = ROUTE_LOADING_COPY[rootRoute] ?? ROUTE_LOADING_COPY.home;
+  const loadingCopy = ROUTE_LOADING_COPY[rootRoute] ?? ROUTE_LOADING_COPY[DEFAULT_ROUTE];
   const showMobileNavigation = hasMobileNavigation(rootRoute);
 
   useEffect(() => {
@@ -58,7 +39,8 @@ export function App() {
       setRouteKey(readRouteKey());
     };
     window.addEventListener("hashchange", update);
-    return () => window.removeEventListener("hashchange", update);
+    window.addEventListener("popstate", update);
+    return () => { window.removeEventListener("hashchange", update); window.removeEventListener("popstate", update); };
   }, []);
 
   useLayoutEffect(() => {
@@ -83,34 +65,9 @@ export function App() {
     };
   }, [routeKey]);
 
-  useEffect(() => {
-    const currentRoot = parseHashRoute(window.location.hash)[0];
-    if (currentRoot && !ROOT_ROUTES.includes(currentRoot)) {
-      window.history.replaceState(null, "", "#/");
-    }
-  }, []);
-
-  let page;
-
-  if (rootRoute === "home") {
-    page = <HomePage />;
-  } else if (rootRoute === "admin") {
-    page = <AdminPage />;
-  } else if (rootRoute === "about") {
-    page = <AboutPage key={routeKey} defaultRightsOpen={routeKey.startsWith("#/about/rights")} />;
-  } else if (rootRoute === "tide-words") {
-    page = <WordsTideLab />;
-  } else if (rootRoute === "archive") {
-    page = <ArchivePage />;
-  } else if (rootRoute === "cp") {
-    page = <CpPage />;
-  } else if (rootRoute === "radio") {
-    page = <PitRadioPage />;
-  } else if (rootRoute === "memes") {
-    page = <MemesPage />;
-  } else {
-    page = <ColumnExperience />;
-  }
+  const page = rootRoute === "about"
+    ? <AboutPage key={routeKey} defaultRightsOpen={routeKey.startsWith("#/about/rights")} />
+    : rootRoute === "cp" ? <CpPage /> : <ArchivePage />;
 
   return (
     <div className={`app-shell${rootRoute === "cp" ? " app-shell--cp" : ""}${rootRoute === "archive" ? " app-shell--archive" : ""}${showMobileNavigation ? " has-mobile-navigation" : ""}`}>
@@ -122,15 +79,14 @@ export function App() {
           navigation={showMobileNavigation ? <MobileSectionNav activePath={rootRoute} /> : null}
         >
           {t(page)}
-          {t(rootRoute !== "home" && rootRoute !== "about" && rootRoute !== "admin" && <GlobalFooter />)}
-          {t(rootRoute !== "home" && (
-            <footer className={`route-filing-footer route-filing-footer--${rootRoute}${rootRoute !== "about" && rootRoute !== "admin" ? " route-filing-footer--mobile-only" : ""}`}>
+          {t(rootRoute !== "about" && <GlobalFooter />)}
+          {t(
+            <footer className={`route-filing-footer route-filing-footer--${rootRoute}${rootRoute !== "about" ? " route-filing-footer--mobile-only" : ""}`}>
               <FilingNotice />
             </footer>
-          ))}
+          )}
         </RouteReadyBoundary>
       </Suspense>
-      <GlobalRadioDock hidden={rootRoute === "radio" || rootRoute === "admin"} />
     </div>
   );
 }

@@ -25,7 +25,7 @@
     "stats:schedule": "node scripts/report-archive-schedule.mjs",
     "test:schedule": "node --test tests/archive-schedule.test.mjs tests/archive-history.test.mjs",
     "dev": "vite",
-    "build": "vite build && node scripts/build-share-pages.mjs && node scripts/prepare-sites-build.mjs",
+    "build": "vite build && node scripts/prepare-filing-build.mjs && node scripts/build-share-pages.mjs && node scripts/prepare-sites-build.mjs",
     "rights:inventory": "node scripts/build-media-rights-inventory.mjs",
     "preview": "vite preview",
     "test:sites": "node --test tests/sites-worker.test.mjs",

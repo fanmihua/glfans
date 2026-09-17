@@ -40,14 +40,11 @@ async function thumbnail(source, fit) {
 const image = await thumbnail('assets/glfans-logo-brush.webp', 'contain');
 const introductions = {
   archive:'沿着年份翻阅泰百剧集，重温故事，也找到下一部想追的剧。',
+  calendar:'查看已公布的泰百剧集逐集排期，按日期浏览播出信息。',
   cp:'认识她们，收藏共同作品、音乐与舞台，记录两个人的来时路。',
-  'tide-words':'收集坑底人的心动、碎碎念，和那些忍不住想说的话。',
-  column:'把看剧时的心动写下来，一起重读故事里的细节。',
-  memes:'捡一张表情包，把今天的心情带走。',
-  radio:'打开坑底电台，让喜欢的旋律陪你多待一会儿。',
-  about:'一个非官方、非商业的泰百粉丝共创站。每一种喜欢，都值得被认真记录。',
+  about:'由粉丝维护的非官方、非商业泰百影视资料站，整理剧集、播出排期与演员公开资料。',
 };
-const description = '泰百粉丝共创档案：百家饭、考古档案、播出日历、坑底文学、REPO 与电台。';
+const description = '泰百影视资料站：考古档案、播出日历与百家饭，整理剧集、已公布排期及演员公开资料。';
 async function emit(route, data) {
   const directory = `${root}/${route}`;
   await mkdir(directory,{recursive:true});
@@ -55,13 +52,14 @@ async function emit(route, data) {
   await writeFile(`${directory}/share.json`,JSON.stringify(data));
 }
 await emit('',{title:'glfans · 每一种喜欢，都值得被认真记录',description,image,url:`${origin}${base}`});
-for (const nav of SITE_NAVIGATION.filter(item=>item.id!=='home')) {
+for (const nav of SITE_NAVIGATION.filter(item=>['archive','cp','about'].includes(item.id))) {
   await emit(nav.id,{title:`glfans · ${nav.label}`,description:introductions[nav.id],image,url:`${origin}${base}${nav.id}/`});
 }
 for (const cp of profiles) {
   await emit(`cp/${cp.id}`,{title:'glfans · 百家饭',description:`${cpLabel(cp)}｜${introductions.cp}`,image,url:`${origin}${base}cp/${cp.id}/`});
 }
 await emit('about/rights',{title:'glfans · 关于',description:`权利说明与反馈｜${introductions.about}`,image,url:`${origin}${base}about/rights/`});
+await emit('archive/calendar',{title:'glfans · 播出日历',description:introductions.calendar,image,url:`${origin}${base}archive/calendar/`});
 for (const year of new Set(archiveDramas.map(work=>work.year))) {
   await emit(`archive/${year}`,{title:'glfans · 考古档案',description:`${year} 年度胶卷｜${introductions.archive}`,image,url:`${origin}${base}archive/${year}/`});
 }
@@ -70,15 +68,4 @@ for (const work of archiveDramas) {
   await emit(route,{title:'glfans · 考古档案',description:`${work.title} · ${work.titleEn}｜${introductions.archive}`,
     image,url:`${origin}${base}${route}/`});
 }
-const {collections}=JSON.parse(await readFile('src/data/column-index.json','utf8'));
-for (const collection of collections) {
-  const route=`column/${collection.slug}`;
-  await emit(route,{title:'glfans · REPO 文专栏',description:`${collection.title}｜${introductions.column}`,
-    image,url:`${origin}${base}${route}/`});
-  for (const article of collection.articles.filter(article=>!article.hidden)) {
-    const articleRoute=`${route}/${article.slug}`;
-    await emit(articleRoute,{title:'glfans · REPO 文专栏',description:`${article.title}｜${introductions.column}`,
-      image,url:`${origin}${base}${articleRoute}/`});
-  }
-}
-console.log('Generated share pages for all public sections, CPs, archive years/works and REPO articles.');
+console.log('Generated share pages for archive, calendar, CPs, about and retained detail pages.');

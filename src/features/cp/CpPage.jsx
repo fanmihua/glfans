@@ -1,5 +1,5 @@
 import { Component, lazy, Suspense, useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { ArrowRight, ArrowUpRight, CalendarBlank, ChatCircleDots, Hash, InstagramLogo, XLogo } from '@phosphor-icons/react';
+import { ArrowRight, ArrowUpRight, CalendarBlank, ChatCircleDots, InstagramLogo, XLogo } from '@phosphor-icons/react';
 import { SiteHeader } from '../../SiteHeader.jsx';
 import { useHashRoute } from '../../hooks/useHashRoute.js';
 import { useLocale } from '../../i18n/LanguageSwitcher.jsx';
@@ -72,7 +72,7 @@ function CpContent({data}) {
   useLocale();
   const locale = getLocale();
   const copy = cpCopy[locale];
-  const {cp=null, media=[], notice=null, child=null, collaboration=null, community=null, timeline=[], milestones=[], responsive={}, works:archiveWorks=[]} = data || {};
+  const {cp=null, media=[], notice=null, child=null, collaboration=null, timeline=[], milestones=[], responsive={}, works:archiveWorks=[]} = data || {};
   const archiveById = new Map(archiveWorks.map(work=>[work.id,work]));
   const works = useRef(null);
   const calendarTrigger = useRef(null);
@@ -107,10 +107,6 @@ function CpContent({data}) {
               <MemberFacts member={member} locale={locale} copy={copy} />
               <MemberSocials member={member} copy={copy} />
             </section>)}</div>
-            <div className="cp-community-link">
-              <External href={community?.url || `https://s.weibo.com/weibo?q=${encodeURIComponent(`${cpLabel(cp)} 超话`)}`}><Hash size={20} aria-hidden="true" /><span>{community ? `${community.name} · ${copy.community}` : copy.searchCommunity}</span><ArrowUpRight size={16} aria-hidden="true" /></External>
-              <small>{community ? copy.communityNote : copy.communityPending}</small>
-            </div>
             <button className="cp-primary" type="button" onClick={() => {
               works.current?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
               works.current?.focus({ preventScroll: true });
@@ -140,12 +136,9 @@ function CpContent({data}) {
         </section>
         <CpChildren cp={cp} child={child} locale={locale} />
         {['music','video'].map(category => <CpMediaSection key={`${cp.id}-${category}`} category={category} items={media.filter(item => item.category === category)} archiveById={archiveById} locale={locale} />)}
-        {(cp.events.length > 0 || cp.shops.length > 0) && <div className="cp-updates">
+        {cp.events.length > 0 && <div className="cp-updates">
           {cp.events.length > 0 && <section><div className="cp-section-heading"><h2>{copy.events}</h2><span>EVENT</span></div>
             {cp.events.map(event => <article key={event.title} className="cp-info-entry">{event.image && <External href={event.source} tabIndex={-1}><CpImage className="cp-event-image" src={event.image} alt={event.title} loading="lazy" width="480" height="360" /></External>}<h3>{event.title}</h3><p>{copy[event.kind]}{event.date && ` · ${event.date}`}</p><External className="cp-entry-link" href={event.source}>{event.kind === 'recap' ? copy.openRecap : copy.openEvent}<ArrowUpRight size={18} /></External><small>{event.publisher} · {copy.checked} {verifiedAt}</small></article>)}
-          </section>}
-          {cp.shops.length > 0 && <section><div className="cp-section-heading"><h2>{copy.shops}</h2><span>SHOP</span></div>
-            {cp.shops.map(shop => <article key={shop.url} className="cp-info-entry"><h3>{shop.title}</h3><p>{shop.owner && `${shop.owner} · `}{copy[shop.kind]}</p><External className="cp-entry-link" href={shop.url}>{shop.kind === 'officialShop' ? copy.openShop : copy.openBrand}<ArrowUpRight size={18} /></External></article>)}
           </section>}
         </div>}
         <details className="cp-sources" key={cp.id}><summary>{copy.sources}</summary>
@@ -156,9 +149,8 @@ function CpContent({data}) {
           {cpNameRecords[cp.id] && <External className="cp-source-link" href={cpNameRecords[cp.id].source}>{cpLabel(cp)} · {copy.pairNameSource}<ArrowUpRight size={12} /></External>}
           <p className="cp-source-note">{copy.zodiacNote}</p>
           <p className="cp-source-note">{copy.profileNote}</p>
-          <div>{[...cp.members, ...cp.works, ...(cp.upcoming || []), ...cp.events, ...cp.shops].map((item, index) => <External className="cp-source-link" key={index} href={item.source}>{item.name || item.title}<ArrowUpRight size={12} /></External>)}</div>
+          <div>{[...cp.members, ...cp.works, ...(cp.upcoming || []), ...cp.events].map((item, index) => <External className="cp-source-link" key={index} href={item.source}>{item.name || item.title}<ArrowUpRight size={12} /></External>)}</div>
           <div>{cp.members.flatMap(member => member.profile.references.map(reference => <External className="cp-source-link" key={`${member.name}-${reference.url}`} href={reference.url}>{member.name} · {copy.referenceKinds[reference.kind]}<ArrowUpRight size={12} /></External>))}</div>
-          {community && <External className="cp-source-link" href={community.source}>{community.name} · {copy.communityNote}<ArrowUpRight size={12} /></External>}
           <div>{[...media, ...milestones].map(item => <External className="cp-source-link" key={item.id} href={item.source}>{item.title}<ArrowUpRight size={12} /></External>)}</div>
           {child && <div><External className="cp-source-link" href={child.source}>{child.name} · {child.publisher}<ArrowUpRight size={12} /></External><External className="cp-source-link" href={child.video.url}>{child.name} · MY IDEAL FAN<ArrowUpRight size={12} /></External></div>}
         </details>
