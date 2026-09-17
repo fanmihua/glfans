@@ -61,6 +61,7 @@ function activeRelease() {
 const filingRules = [
   '^/api(?:/(?!health$|wechat/jssdk-signature$)|$)',
   '^/(?:home|radio|tide-words|admin|polaroid-lab)(?:/|$)',
+  '^/column/us/unsaid-fragments-ep(?:07|08|12)(?:/|$)',
   '^/assets/pit-radio(?:/|$)',
   '^/assets/(?:HomePage|AdminPage|PitRadioPage|WordsTideLab|Polaroid[^/]*|community-api)-[^/]+\\.(?:m?js|css)(?:\\.map)?$',
 ];

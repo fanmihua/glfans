@@ -87,6 +87,7 @@ test('filing rules close hidden routes, historical chunks, media and community e
   const expressions = [...readFileSync(policy, 'utf8').matchAll(/if \(\$uri ~\* "(.+)"\)/g)].map(match => new RegExp(match[1], 'i'));
   const blocked = uri => expressions.some(regex => regex.test(uri));
   for (const uri of ['/api', '/api/', '/api/quotes', '/api/comments', '/api/admin/login', '/api/health/',
+    '/column/us/unsaid-fragments-ep07/', '/column/us/unsaid-fragments-ep08', '/column/us/unsaid-fragments-ep12/share.json',
     '/api/wechat/jssdk-signature/anything', '/home', '/radio/', '/tide-words', '/admin', '/polaroid-lab',
     '/assets/pit-radio/a.mp3', '/assets/HomePage-old.js', '/assets/AdminPage-old.js', '/assets/community-api-old.js',
     '/assets/PitRadioPage-old.css', '/assets/WordsTideLab-old.css', '/assets/PolaroidLab-old.js']) {

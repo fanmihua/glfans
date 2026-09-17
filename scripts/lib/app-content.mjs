@@ -4,6 +4,7 @@ import { pathToFileURL } from 'node:url';
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { aboutCopy } from '../../src/data/site-about.js';
+import { publicArticleTranslations } from './public-columns.mjs';
 
 export const APP_ORIGIN = 'https://glfans.com';
 export const APP_FILE_NAMES = {
@@ -59,7 +60,8 @@ export async function createAppSnapshot(webRoot) {
     load('src/features/archive/calendar-data.js'), load('src/features/archive/calendar-copy.js'),
     load('src/i18n/editorial.js'), load('src/i18n/proper-names.js'), load('src/app/routes.js'), read('src/features/cp/generated/index.json'),
   ]);
-  const collections = filterCollections((await read('src/data/column-data.json')).collections, titleModule.formatArticleTitle);
+  const columnSource = await read('src/data/column-data.json');
+  const collections = filterCollections(columnSource.collections, titleModule.formatArticleTitle);
   const catalog = {
     schemaVersion: 1, years: archive.archiveYearList, archiveRepresentativeIds: archive.archiveRepresentativeIds,
     dramas: archive.archiveDramas, collections, quotes: [], memes: memes.memeCollection,
@@ -107,7 +109,10 @@ export async function createAppSnapshot(webRoot) {
     snapshot[{ zh: 'calendarZh', en: 'calendarEn', th: 'calendarTh' }[locale]] = strings;
   }
   for (const locale of ['en', 'th']) {
-    const dictionaries = await Promise.all(['ui', 'archive', 'article'].map(kind => read(`src/i18n/${locale}-${kind}.json`)));
+    const dictionaries = await Promise.all(['ui', 'archive', 'article'].map(async kind => {
+      const dictionary = await read(`src/i18n/${locale}-${kind}.json`);
+      return kind === 'article' ? publicArticleTranslations(dictionary, columnSource) : dictionary;
+    }));
     const dictionary = Object.assign({}, ...dictionaries, editorialModule.editorial[locale]);
     for (const [key, text] of Object.entries(aboutCopy.zh)) dictionary[text] = aboutCopy[locale][key];
     for (const drama of archive.archiveDramas) dictionary[drama.title] = drama.titleEn || drama.title;

@@ -7,6 +7,19 @@ import { fileURLToPath } from 'node:url';
 import { APP_FILE_NAMES, collectAssetPaths, createAppSnapshot, filterCollections, publicCpDetail, sha256, writeAppContent } from '../scripts/lib/app-content.mjs';
 import { archiveDramas } from '../src/data/archive-dramas.js';
 import { mergeCalendarData } from '../src/features/archive/calendar-data.js';
+import { publicColumns, publicArticleTranslations } from '../scripts/lib/public-columns.mjs';
+
+test('hidden article text and translations are excluded while shared visible text is retained', () => {
+  const source = { collections: [{ articles: [
+    { title: 'Open', xml: '<p>Shared</p><p>Visible</p>' },
+    { title: 'Closed', hidden: true, xml: '<p>Shared</p><p>Hidden &amp; private</p>' },
+  ] }] };
+  const original = JSON.stringify(source);
+  assert.deepEqual(publicColumns(source).collections[0].articles.map(a => a.title), ['Open']);
+  assert.deepEqual(publicArticleTranslations({ Open: 'o', Closed: 'c', Shared: 's', Visible: 'v', 'Hidden & private': 'h', 'UI copy': 'ui' }, source),
+    { Open: 'o', Shared: 's', Visible: 'v', 'UI copy': 'ui' });
+  assert.equal(JSON.stringify(source), original);
+});
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const read = async relative => JSON.parse(await fs.readFile(path.join(root, relative), 'utf8'));
@@ -18,6 +31,12 @@ test('App shares current website series, published REPO articles and schedules w
   assert.deepEqual(snapshot.catalog.dramas, archiveDramas);
   assert.deepEqual(snapshot.catalog.collections.map(collection => collection.slug), visible.map(collection => collection.slug));
   assert.ok(!snapshot.catalog.collections.some(collection => collection.slug === 'my-secret-words'));
+  const hiddenUs = source.collections.find(c => c.slug === 'us').articles.filter(a => a.hidden);
+  assert.equal(snapshot.catalog.collections.find(c => c.slug === 'us').articles.length, 9);
+  for (const article of hiddenUs) {
+    assert.ok(!JSON.stringify(snapshot.catalog).includes(article.slug));
+    for (const locale of ['en', 'th']) assert.ok(!(article.title in snapshot[locale]));
+  }
   for (const collection of snapshot.catalog.collections) {
     const articles = visible.find(item => item.slug === collection.slug).articles.filter(article => !article.hidden);
     assert.deepEqual(collection.articles.map(article => [article.slug, article.xml]), articles.map(article => [article.slug, article.xml]));

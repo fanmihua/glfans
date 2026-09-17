@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { readFileSync, statSync } from 'node:fs';
+import { readFileSync, statSync, existsSync } from 'node:fs';
 import test from 'node:test';
 import sharp from 'sharp';
 
@@ -21,7 +21,7 @@ const expected = [
 
 test('Us source preserves EP01–EP12 in order and existing hidden collection flags', () => {
   assert.deepEqual(collection.articles.map(a => a.slug), Array.from({ length: 12 }, (_, i) => `unsaid-fragments-ep${String(i + 1).padStart(2, '0')}`));
-  assert.ok(collection.articles.every(a => !a.hidden));
+  assert.deepEqual(collection.articles.filter(a => a.hidden).map(a => a.slug), ['unsaid-fragments-ep07', 'unsaid-fragments-ep08', 'unsaid-fragments-ep12']);
   assert.equal(data.collections.find(c => c.slug === 'my-secret-words').hidden, true);
 });
 
@@ -55,6 +55,10 @@ test('all 75 image positions resolve to optimized WebP assets without original P
 test('reopened REPO emits direct share pages for all published Us episodes', () => {
   for (const article of collection.articles) {
     const route = `/column/us/${article.slug}/`;
+    if (article.hidden) {
+      assert.equal(existsSync(new URL(`../dist/client${route}index.html`, import.meta.url)), false);
+      continue;
+    }
     const html = readFileSync(new URL(`../dist/client${route}index.html`, import.meta.url), 'utf8');
     const share = JSON.parse(readFileSync(new URL(`../dist/client${route}share.json`, import.meta.url), 'utf8'));
     assert.ok(html.includes(route));
