@@ -38,7 +38,7 @@ struct HomeView: View {
             }
             .frame(width: size.width, height: size.height, alignment: .topLeading)
             .clipped()
-            .buttonStyle(.plain)
+            .buttonStyle(SourceButtonStyle())
             .background(Pit.paper.ignoresSafeArea())
             .task {
                 // Decode the same six critical images before revealing any scene.
@@ -83,6 +83,7 @@ struct HomeView: View {
         return .asymmetric(insertion:fade,removal:fade.combined(with:move))
     }
     private func change(_ destination: HomeScene) {
+        if destination == .welcome { app.markOpeningComplete() }
         withAnimation(.timingCurve(0.25,0.1,0.25,1,duration:reduceMotion ? 0.001 : destination == .falling ? 0.18 : 0.52)) {
             elapsed = 0; scene = destination
         }
@@ -280,6 +281,7 @@ struct HomeView: View {
         let group = g.welcomeGroup, pw = group.width*1.24
         let portal = CGRect(x:g.w/2-pw/2,y:group.minY+group.height*0.72-pw*0.75*0.61,width:pw,height:pw*0.75)
         let cardW = min(group.width*0.32,group.height*0.55,146), markY = group.minY+max(44,group.height*0.17)
+        let linksHeight = 38 + CGFloat(Int(ceil(Double(catalog.homeLinks.count) / 2.0))) * 44
         return ZStack(alignment:.topLeading) {
             line("Love is not a feeling. It's Evidence.",11,lh:16.5,color:Pit.pink,family:app.locale == "th" ? bodyFamily : "BradleyHandITCTT-Bold",translate:false).position(x:g.w/2,y:44+8.25)
             welcomeTitle(g).zIndex(6)
@@ -288,7 +290,7 @@ struct HomeView: View {
             LocalArtwork(source:catalog.homeCards[0].image).frame(width:cardW,height:cardW).rotationEffect(.degrees(-5)).at(x:group.minX+group.width*0.02,y:group.minY+group.height*0.44).accessibilityHidden(true)
             LocalArtwork(source:catalog.homeCards[4].image).frame(width:cardW,height:cardW).rotationEffect(.degrees(5)).at(x:group.maxX-group.width*0.02-cardW,y:group.minY+group.height*0.32).accessibilityHidden(true)
             enterMark("再次入新坑 ",size:11,replay:true).position(x:g.w/2,y:markY+28).zIndex(8)
-            welcomeLinks.frame(width:g.w-44,height:182).at(x:22,y:g.h-48-182).zIndex(10)
+            welcomeLinks.frame(width:g.w-44,height:linksHeight).at(x:22,y:g.h-48-linksHeight).zIndex(10)
         }.frame(width:g.w,height:g.h,alignment:.topLeading)
     }
     @ViewBuilder private func welcomeTitle(_ g:HomeGeometry)->some View {
@@ -309,35 +311,40 @@ struct HomeView: View {
         }
     }
     private var welcomeLinks: some View {
-        VStack(spacing:0) {
+        let links = catalog.homeLinks
+        let rows = Int(ceil(Double(links.count) / 2.0))
+        return VStack(spacing:0) {
             HStack {
                 line("坑底索引",app.locale == "zh" ? 14 : 13,weight:700,lh:app.locale == "zh" ? 16.1 : 19.5,family:app.locale == "th" ? bodyFamily : "RobotoCondensed-Regular")
                 Spacer()
-                line("CONTENTS / 06",8,kern:1.12,lh:8,color:Pit.pink,family:app.locale == "th" ? bodyFamily : "RobotoCondensed-Regular")
+                line("CONTENTS / \(String(format: "%02d", links.count))",8,kern:1.12,lh:8,color:Pit.pink,family:app.locale == "th" ? bodyFamily : "RobotoCondensed-Regular", translate: false)
             }.frame(height:38).overlay(alignment:.top){ Rectangle().fill(Pit.ink).frame(height:1) }
-            ForEach(0..<3,id:\.self) { row in
+            ForEach(0..<rows,id:\.self) { row in
                 HStack(spacing:0) {
                     ForEach(0..<2,id:\.self) { col in
-                        let i = row*2+col, item = catalog.homeLinks[i]
-                        Button { navigate(item) } label: {
-                            HStack(spacing:8) {
-                                line(String(format:"%02d",i+1),14,weight:500,kern:0.28,lh:14,color:Pit.pink,family:app.locale == "th" ? bodyFamily : "RobotoCondensed-Regular")
-                                line(item.label,app.locale == "zh" ? 14 : 13,weight:700,lh:app.locale == "zh" ? 16.1 : 19.5,family:app.locale == "th" ? bodyFamily : "RobotoCondensed-Regular")
-                                Spacer(minLength:0)
-                                SourceArrow().frame(width:15,height:15)
-                            }.padding(.horizontal,9).frame(maxWidth:.infinity).frame(height:48).contentShape(Rectangle())
-                        }.accessibilityLabel(app.t(item.label)).accessibilityIdentifier("home-link-\(item.id)")
-                            .overlay(alignment:.top){ Rectangle().fill(Pit.ink).frame(height:1) }
-                            .overlay(alignment:.leading){ if col == 1 { Rectangle().fill(Pit.ink).frame(width:1) } }
-                            .overlay(alignment:.bottom){ if row == 2 { Rectangle().fill(Pit.ink).frame(height:1) } }
+                        let i = row*2+col
+                        if i < links.count {
+                            let item = links[i]
+                            Button { navigate(item) } label: {
+                                HStack(spacing:8) {
+                                    line(String(format:"%02d",i+1),14,weight:500,kern:0.28,lh:14,color:Pit.pink,family:app.locale == "th" ? bodyFamily : "RobotoCondensed-Regular", translate:false)
+                                    line(item.label,app.locale == "zh" ? 14 : 13,weight:700,lh:app.locale == "zh" ? 16.1 : 19.5,family:app.locale == "th" ? bodyFamily : "RobotoCondensed-Regular")
+                                    Spacer(minLength:0)
+                                    SourceArrow().frame(width:15,height:15)
+                                }.padding(.horizontal,9).frame(maxWidth:.infinity).frame(height:44).contentShape(Rectangle())
+                            }.accessibilityLabel(app.t(item.label)).accessibilityIdentifier("home-link-\(item.id)")
+                                .overlay(alignment:.top){ Rectangle().fill(Pit.ink).frame(height:1) }
+                                .overlay(alignment:.leading){ if col == 1 { Rectangle().fill(Pit.ink).frame(width:1) } }
+                                .overlay(alignment:.bottom){ if row == rows-1 { Rectangle().fill(Pit.ink).frame(height:1) } }
+                        } else { Color.clear.frame(maxWidth:.infinity).frame(height:44) }
                     }
                 }
             }
         }
     }
     private func navigate(_ link:HomeLink) {
-        if link.id == "about" { app.showingAbout = true;return }
-        let map:[String:AppSection] = ["archive":.archive,"tide-words":.literature,"column":.repo,"memes":.memes,"radio":.radio]
+        if link.id == "about" { app.enter(.about);return }
+        let map:[String:AppSection] = ["archive":.archive,"cp":.cp,"tide-words":.literature,"column":.repo,"memes":.memes,"radio":.radio]
         if let section = map[link.id] { app.enter(section) }
     }
     private func welcomeOrbit(_ g:HomeGeometry,start:CGPoint,end:CGPoint)->some View {
@@ -355,7 +362,7 @@ struct HomeView: View {
     }
 }
 
-private extension View {
+extension View {
     func at(x:CGFloat,y:CGFloat)->some View { fixedSize().frame(maxWidth:.infinity,maxHeight:.infinity,alignment:.topLeading).offset(x:x,y:y) }
 }
 

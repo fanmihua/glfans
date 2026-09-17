@@ -21,6 +21,7 @@ public struct ScheduledSeries: Codable, Identifiable, Sendable {
     public let network: String?
     public let platforms: [String]
     public let sourceUrl: String
+    public let premiereDate: String?
 }
 public struct BroadcastEvent: Codable, Identifiable, Sendable {
     public let id: String
@@ -31,6 +32,7 @@ public struct BroadcastEvent: Codable, Identifiable, Sendable {
     public let kind: String
     public let sourceUrl: String
     public let needsReview: Bool
+    public let network: String?
 
     public var timestamp: Date? { airsAt.flatMap(CalendarRules.timestamp) }
     public func day(in zone: TimeZone) -> String {
@@ -61,5 +63,43 @@ public enum CalendarRules {
         let weekday = calendar.component(.weekday, from: date)
         let start = calendar.date(byAdding: .day, value: -((weekday + 5) % 7), to: calendar.startOfDay(for: date))!
         return (0..<7).compactMap { calendar.date(byAdding: .day, value: $0, to: start) }
+    }
+}
+
+/// Parsed once per schedule/time-zone change, shared by the week and month views.
+/// Pointer movement and button taps only look up the visible days.
+public struct CalendarEventIndex: Sendable {
+    private let days: [String: [BroadcastEvent]]
+    private let months: [String: [BroadcastEvent]]
+    public let confirmedSeriesIDs: Set<String>
+
+    public init(events: [BroadcastEvent], zone: TimeZone) {
+        let fractional = ISO8601DateFormatter()
+        fractional.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        let whole = ISO8601DateFormatter()
+        let dayFormatter = DateFormatter()
+        dayFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dayFormatter.calendar = Calendar(identifier: .gregorian)
+        dayFormatter.timeZone = zone
+        dayFormatter.dateFormat = "yyyy-MM-dd"
+        var days: [String: [BroadcastEvent]] = [:]
+        var months: [String: [BroadcastEvent]] = [:]
+        var ids: Set<String> = []
+        for event in events where !event.needsReview {
+            let timestamp = event.airsAt.flatMap { fractional.date(from: $0) ?? whole.date(from: $0) }
+            let day = timestamp.map { dayFormatter.string(from: $0) } ?? event.date
+            days[day, default: []].append(event)
+            months[String(day.prefix(7)), default: []].append(event)
+            ids.insert(event.seriesId)
+        }
+        self.days = days; self.months = months; confirmedSeriesIDs = ids
+    }
+    public func events(on day: String, following: Set<String>? = nil) -> [BroadcastEvent] {
+        let entries = days[day] ?? []
+        return following.map { ids in entries.filter { ids.contains($0.seriesId) } } ?? entries
+    }
+    public func availableMonths(following: Set<String>? = nil) -> [String: [BroadcastEvent]] {
+        guard let following else { return months }
+        return months.mapValues { $0.filter { following.contains($0.seriesId) } }.filter { !$0.value.isEmpty }
     }
 }

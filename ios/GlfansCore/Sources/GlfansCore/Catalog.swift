@@ -55,6 +55,7 @@ public struct RepoCollection: Decodable, Identifiable, Hashable, Sendable {
     public var visibleArticles: [RepoArticle] { articles.filter { $0.hidden != true } }
 }
 public struct RepoArticle: Decodable, Identifiable, Hashable, Sendable {
+    public let displayTitle: String?
     public var id: String { slug }
     public let slug: String
     public let label: String
@@ -71,8 +72,18 @@ public struct Quote: Codable, Identifiable, Hashable, Sendable {
     public var sort_order: Int?
     public var is_pinned: Bool?
     public var created_at: String?
+    public var author_key: String?
     public init(id: String, text: String, speaker: String) {
         self.id = id; self.text = text; self.speaker = speaker
+    }
+    private enum CodingKeys:String,CodingKey {case id,text,speaker,cover_path,sort_order,is_pinned,created_at,author_key}
+    public init(from decoder:Decoder) throws {
+        let c=try decoder.container(keyedBy:CodingKeys.self)
+        id=try c.decode(String.self,forKey:.id);text=try c.decode(String.self,forKey:.text);speaker=try c.decode(String.self,forKey:.speaker)
+        cover_path=try c.decodeIfPresent(String.self,forKey:.cover_path);sort_order=try c.decodeIfPresent(Int.self,forKey:.sort_order)
+        created_at=try c.decodeIfPresent(String.self,forKey:.created_at);author_key=try c.decodeIfPresent(String.self,forKey:.author_key)
+        if let value=try? c.decode(Bool.self,forKey:.is_pinned) {is_pinned=value}
+        else {is_pinned=try c.decodeIfPresent(Int.self,forKey:.is_pinned).map {$0 != 0}}
     }
 }
 public struct Meme: Codable, Identifiable, Hashable, Sendable {
@@ -132,12 +143,13 @@ public struct Station: Identifiable, Sendable {
 }
 
 public enum AppSection: String, CaseIterable, Identifiable, Sendable {
-    case home, archive, literature, repo, memes, radio, about
+    case home, archive, cp, literature, repo, memes, radio, about
     public var id: String { rawValue }
     public var title: String {
         switch self {
         case .home: "欢迎入坑"
         case .archive: "考古档案"
+        case .cp: "百家饭"
         case .literature: "坑底文学"
         case .repo: "Repo 文专栏"
         case .memes: "来捡表情包"
@@ -148,6 +160,7 @@ public enum AppSection: String, CaseIterable, Identifiable, Sendable {
     public var shortTitle: String {
         switch self {
         case .archive: "档案"
+        case .cp: "百家饭"
         case .literature: "文学"
         case .repo: "REPO"
         case .memes: "表情"
@@ -155,5 +168,6 @@ public enum AppSection: String, CaseIterable, Identifiable, Sendable {
         default: title
         }
     }
-    public static let navigation: [AppSection] = [.archive, .literature, .repo, .memes, .radio]
+    public static let navigation: [AppSection] = [.archive, .cp, .repo, .memes]
+    public var isPubliclyAvailable: Bool { Self.navigation.contains(self) || self == .about }
 }

@@ -8,6 +8,9 @@ public struct CommunityStats: Codable, Sendable {
     public var unique_visitor_count: Int
     public var view_count: Int
     public var key: String { "\(target_type):\(target_id)" }
+    public init(type:String,id:String,comments:Int,reactions:Int,visitors:Int,views:Int) {
+        target_type=type;target_id=id;comment_count=comments;reaction_count=reactions;unique_visitor_count=visitors;view_count=views
+    }
 }
 public struct CommunityComment: Codable, Identifiable, Sendable {
     public let id: String
@@ -16,6 +19,12 @@ public struct CommunityComment: Codable, Identifiable, Sendable {
     public let nickname: String
     public let body: String
     public let created_at: String
+    public var author_key: String?
+}
+public struct CommunityBlock: Codable, Identifiable, Sendable {
+    public let author_key: String
+    public let created_at: String
+    public var id: String { author_key }
 }
 public struct ReactionResult: Decodable, Sendable {
     public let liked: Bool

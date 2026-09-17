@@ -11,7 +11,7 @@ struct HomeSnapshotExport: UIViewRepresentable {
     func updateUIView(_ view: HomeSnapshotProbe, context: Context) {
         guard enabled, view.lastName != name else { return }
         view.lastName = name
-        DispatchQueue.main.asyncAfter(deadline: .now()+1) { [weak view] in
+        DispatchQueue.main.asyncAfter(deadline: .now()+(name.hasPrefix("page-") ? 2.5 : 1)) { [weak view] in
             guard let view, let window = view.window else { return }
             let origin = view.convert(CGPoint.zero,to:window)
             let format = UIGraphicsImageRendererFormat(); format.scale = 2
@@ -22,7 +22,7 @@ struct HomeSnapshotExport: UIViewRepresentable {
             }
             let docs = FileManager.default.urls(for:.documentDirectory,in:.userDomainMask)[0]
             try? image.pngData()?.write(to:docs.appendingPathComponent("home-\(name).png"))
-            let metrics = ["family":UIFont(name:"AlibabaPuHuiTi-Heavy",size:90)?.familyName ?? "MISSING", "origin":"\(origin)","size":"\(size)"]
+            let metrics: [String:Any] = ["fonts":UIFont.familyNames.filter{ $0.localizedCaseInsensitiveContains("kai") || $0.localizedCaseInsensitiveContains("song") }.map { [$0:UIFont.fontNames(forFamilyName:$0)] },"family":UIFont(name:"AlibabaPuHuiTi-Heavy",size:90)?.familyName ?? "MISSING", "origin":"\(origin)","size":"\(size)"]
             if let data = try? JSONSerialization.data(withJSONObject:metrics,options:.prettyPrinted) { try? data.write(to:docs.appendingPathComponent("home-snapshot.json")) }
         }
     }

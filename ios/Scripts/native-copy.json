@@ -1,4 +1,5 @@
 {
+  "百家饭": ["CP Archive", "รวมทุกคู่"],
   "上个月": [
     "Previous month",
     "เดือนก่อน"
@@ -294,5 +295,169 @@
   "评论内容": [
     "Comment text",
     "เนื้อหาความคิดเห็น"
+  ],
+  "举报与屏蔽": [
+    "Report and block",
+    "รายงานและบล็อก"
+  ],
+  "骚扰或歧视": [
+    "Harassment or discrimination",
+    "การคุกคามหรือเลือกปฏิบัติ"
+  ],
+  "色情内容": [
+    "Sexual content",
+    "เนื้อหาทางเพศ"
+  ],
+  "暴力或威胁": [
+    "Violence or threats",
+    "ความรุนแรงหรือการข่มขู่"
+  ],
+  "垃圾广告": [
+    "Spam",
+    "สแปม"
+  ],
+  "侵犯权利": [
+    "Rights infringement",
+    "การละเมิดสิทธิ"
+  ],
+  "其他问题": [
+    "Other issue",
+    "ปัญหาอื่น"
+  ],
+  "举报已收到": [
+    "Report received",
+    "ได้รับรายงานแล้ว"
+  ],
+  "处理结果可在关于页的举报记录中查看。": [
+    "Check the report history on the About page for its status.",
+    "ดูสถานะได้ในประวัติการรายงานในหน้าเกี่ยวกับ"
+  ],
+  "举报原因": [
+    "Reason",
+    "เหตุผลที่รายงาน"
+  ],
+  "补充说明（选填，最多 500 字）": [
+    "Details (optional, up to 500 characters)",
+    "รายละเอียด (ไม่บังคับ สูงสุด 500 ตัวอักษร)"
+  ],
+  "请勿填写身份证、住址等敏感信息。": [
+    "Do not include sensitive information such as ID numbers or home addresses.",
+    "อย่าใส่ข้อมูลอ่อนไหว เช่น เลขบัตรประชาชนหรือที่อยู่บ้าน"
+  ],
+  "屏蔽这位作者": [
+    "Block this author",
+    "บล็อกผู้เขียนนี้"
+  ],
+  "联系客服": [
+    "Contact support",
+    "ติดต่อผู้ดูแล"
+  ],
+  "提交举报": [
+    "Submit report",
+    "ส่งรายงาน"
+  ],
+  "屏蔽后将不再显示这位作者的原话和评论，可在关于页解除。": [
+    "This author’s quotes and comments will be hidden. Unblock them on the About page.",
+    "จะซ่อนข้อความและความคิดเห็นของผู้เขียนนี้ คุณปลดบล็อกได้ในหน้าเกี่ยวกับ"
+  ],
+  "浏览内容无需注册。首次点赞、发布或举报时会建立匿名社区身份，用于保存互动与处理滥用。": [
+    "No account is needed to browse. Your first like, post or report creates an anonymous community identity to save interactions and handle abuse.",
+    "อ่านเนื้อหาได้โดยไม่ต้องสมัคร การกดถูกใจ โพสต์ หรือรายงานครั้งแรกจะสร้างตัวตนชุมชนแบบไม่ระบุชื่อเพื่อบันทึกการโต้ตอบและจัดการการใช้งานที่ไม่เหมาะสม"
+  ],
+  "语言与关注保存在此设备；昵称、公开投稿、互动及举报由社区服务处理。保存图片时仅请求添加照片权限，播放音乐时访问音源服务。": [
+    "Language and follows stay on this device. The community service processes nicknames, public posts, interactions and reports. Saving images requests add-only Photos access; playing music contacts the audio provider.",
+    "ภาษาและรายการติดตามบันทึกในอุปกรณ์นี้ บริการชุมชนประมวลผลชื่อเล่น โพสต์สาธารณะ การโต้ตอบ และรายงาน การบันทึกรูปขอสิทธิ์เพิ่มรูปเท่านั้น การเล่นเพลงจะติดต่อผู้ให้บริการเสียง"
+  ],
+  "完整隐私政策": [
+    "Full privacy policy",
+    "นโยบายความเป็นส่วนตัวฉบับเต็ม"
+  ],
+  "社区规范": [
+    "Community guidelines",
+    "กฎชุมชน"
+  ],
+  "请尊重他人，不发布骚扰、歧视、威胁、色情、垃圾广告或侵犯他人权利的内容。可在原话或评论的更多菜单中举报和屏蔽；管理员会核查并处理违规内容。匿名身份不用于随机配对或私聊。": [
+    "Respect others. Do not post harassment, discrimination, threats, sexual material, spam or content that infringes others’ rights. Report or block from the more menu on a quote or comment. Moderators review and act on violations. Anonymous identities are not used for random matching or private chat.",
+    "เคารพผู้อื่น ห้ามโพสต์เนื้อหาคุกคาม เลือกปฏิบัติ ข่มขู่ ลามก สแปม หรือละเมิดสิทธิ รายงานหรือบล็อกได้จากเมนูเพิ่มเติมของข้อความหรือความคิดเห็น ผู้ดูแลจะตรวจสอบและจัดการการละเมิด ตัวตนแบบไม่ระบุชื่อไม่ใช้สำหรับสุ่มจับคู่หรือแชตส่วนตัว"
+  ],
+  "已屏蔽的作者": [
+    "Blocked authors",
+    "ผู้เขียนที่บล็อก"
+  ],
+  "作者": [
+    "Author",
+    "ผู้เขียน"
+  ],
+  "解除屏蔽": [
+    "Unblock",
+    "ปลดบล็อก"
+  ],
+  "举报记录": [
+    "Report history",
+    "ประวัติการรายงาน"
+  ],
+  "待处理": [
+    "Pending",
+    "รอดำเนินการ"
+  ],
+  "已处理": [
+    "Action taken",
+    "ดำเนินการแล้ว"
+  ],
+  "已核查": [
+    "Reviewed",
+    "ตรวจสอบแล้ว"
+  ],
+  "暂无举报记录": [
+    "No reports yet",
+    "ยังไม่มีรายงาน"
+  ],
+  "正在删除账号": [
+    "Deleting account",
+    "กำลังลบบัญชี"
+  ],
+  "删除匿名账号与数据": [
+    "Delete anonymous account and data",
+    "ลบบัญชีนิรนามและข้อมูล"
+  ],
+  "账号与关联数据已删除。继续浏览不会重新注册。": [
+    "Your account and associated data were deleted. Browsing does not create a new account.",
+    "ลบบัญชีและข้อมูลที่เกี่ยวข้องแล้ว การอ่านเนื้อหาจะไม่สร้างบัญชีใหม่"
+  ],
+  "删除匿名账号与数据？": [
+    "Delete anonymous account and data?",
+    "ลบบัญชีนิรนามและข้อมูลหรือไม่?"
+  ],
+  "永久删除": [
+    "Delete permanently",
+    "ลบถาวร"
+  ],
+  "将永久删除此匿名账号、发布的原话及其评论线程、你的其他评论、点赞、浏览和举报记录，并清除本机昵称及草稿。此操作无法撤销。语言与关注列表保留；以后主动互动时会创建新身份。": [
+    "This permanently deletes your anonymous account, your quotes and their comment threads, your other comments, likes, views and reports, plus your local nickname and drafts. It cannot be undone. Language and follows stay; a new identity is created only when you interact again.",
+    "จะลบบัญชีนิรนาม ข้อความที่คุณโพสต์และชุดความคิดเห็น ความคิดเห็นอื่น การถูกใจ การเข้าชม และรายงาน รวมถึงชื่อเล่นและร่างในเครื่องอย่างถาวร กู้คืนไม่ได้ ภาษาและรายการติดตามยังอยู่ จะสร้างตัวตนใหม่เมื่อคุณโต้ตอบอีกครั้งเท่านั้น"
+  ],
+  "账号正在删除，请稍候。": [
+    "Account deletion is in progress. Please wait.",
+    "กำลังลบบัญชี โปรดรอสักครู่"
+  ],
+  "不能屏蔽自己的内容。": [
+    "You cannot block your own content.",
+    "คุณไม่สามารถบล็อกเนื้อหาของตัวเองได้"
+  ],
+  "此内容没有可屏蔽的社区作者，可以举报这条内容。": [
+    "This item has no community author to block. You can report the content.",
+    "เนื้อหานี้ไม่มีผู้เขียนชุมชนให้บล็อก คุณรายงานเนื้อหาได้"
+  ],
+  "账号删除尚未确认，请在隐私与数据中重试。": [
+    "Account deletion has not been confirmed. Retry in Privacy and data.",
+    "ยังยืนยันการลบบัญชีไม่ได้ ลองอีกครั้งในความเป็นส่วนตัวและข้อมูล"
+  ],
+  "社区安全服务暂不可用，请稍后重试或联系客服。": [
+    "Community safety is temporarily unavailable. Retry later or contact support.",
+    "บริการความปลอดภัยชุมชนไม่พร้อมใช้งานชั่วคราว ลองใหม่ภายหลังหรือติดต่อผู้ดูแล"
+  ],
+  "内容操作": [
+    "Content actions",
+    "จัดการเนื้อหา"
   ]
 }

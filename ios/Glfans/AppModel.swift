@@ -2,45 +2,84 @@ import SwiftUI
 import GlfansCore
 
 @MainActor final class AppModel: ObservableObject {
-    @Published var section: AppSection = .archive
-    @Published var entered = false
-    @Published var locale: String { didSet { UserDefaults.standard.set(locale, forKey: "glfans.locale"); loadDictionary() } }
+    @Published var section: AppSection = .archive {
+        didSet { if !section.isPubliclyAvailable { section = .archive } }
+    }
+    @Published var entered: Bool
+    @Published var locale: String { didSet { UserDefaults.standard.set(locale, forKey: "glfans.locale"); loadDictionary(); rebuildCalendarIndex() } }
     @Published var followed: Set<String> { didSet { UserDefaults.standard.set(Array(followed), forKey: "glfans.followed") } }
     @Published var followingOnly: Bool { didSet { UserDefaults.standard.set(followingOnly, forKey: "glfans.followingOnly") } }
     @Published var showingAbout = false
     @Published var selectedDrama: Drama?
-    let catalog: Catalog?
-    @Published var schedule: BroadcastSchedule?
+    @Published var selectedCpID: String { didSet { UserDefaults.standard.set(selectedCpID, forKey: "glfans.selectedCp") } }
+    @Published private(set) var catalog: Catalog?
+    @Published private(set) var cpCatalog: CpCatalog?
+    @Published private(set) var sourceContent: WebsiteContent? = WebsiteContent.shared
+    @Published private(set) var contentVersion: String?
+    @Published private(set) var contentUpdatedAt: String?
+    @Published private(set) var contentLastCheckedAt: Date?
+    @Published private(set) var contentError: String?
+    @Published private(set) var refreshingContent = false
+    private var lastContentCheck: Date?
+    private var retryContentAfter: Date?
+    private var contentSnapshot: ContentSnapshot?
+    @Published var schedule: BroadcastSchedule? { didSet { rebuildCalendarIndex() } }
+    @Published private(set) var calendarIndex = CalendarEventIndex(events: [], zone: TimeZone(secondsFromGMT: 0)!)
     @Published var scheduleError: String?
     @Published var refreshingSchedule = false
-    private var lastScheduleRefresh: Date?
-    let loadError: String?
+    private(set) var loadError: String?
     private var dictionary: [String: String] = [:]
+    private var calendarDictionary: [String: String] = [:]
+    private static let openingSeenKey = "glfans.home-journey-seen.v1"
     init() {
+        let arguments = ProcessInfo.processInfo.arguments
+        entered = true
         locale = UserDefaults.standard.string(forKey: "glfans.locale") ?? "zh"
         followed = Set(UserDefaults.standard.stringArray(forKey: "glfans.followed") ?? [])
         followingOnly = UserDefaults.standard.bool(forKey: "glfans.followingOnly")
+        selectedCpID = UserDefaults.standard.string(forKey: "glfans.selectedCp") ?? "namtanfilm"
         do {
             catalog = try Catalog.decode(Self.resource("catalog.json"))
             loadError = nil
         } catch { catalog = nil; loadError = error.localizedDescription }
+        cpCatalog = try? CpCatalog.decode(Self.resource("cp-catalog.json"))
         schedule = try? JSONDecoder().decode(BroadcastSchedule.self, from: Self.resource("schedule.json"))
         loadDictionary()
-        if let data = try? Data(contentsOf: Self.scheduleCache), let cached = try? JSONDecoder().decode(BroadcastSchedule.self, from: data), cached.checkedAt >= (schedule?.checkedAt ?? "") { schedule = cached }
-        if let index = ProcessInfo.processInfo.arguments.firstIndex(of: "--locale"), ProcessInfo.processInfo.arguments.indices.contains(index + 1) {
-            let value = ProcessInfo.processInfo.arguments[index + 1]
+        let bundled = Self.bundledSnapshot()
+        let cached = (try? ContentRepository.cache.load()).flatMap { snapshot -> ContentSnapshot? in
+            guard let data = snapshot.files["sourceContent"], (try? JSONDecoder().decode(WebsiteContent.self, from: data)) != nil else { return nil }
+            return snapshot
+        }
+        if let snapshot = cached, snapshot.manifest.generatedAt >= (bundled?.manifest.generatedAt ?? "") {
+            apply(snapshot)
+        } else if let bundled { apply(bundled) }
+        if let index = arguments.firstIndex(of: "--locale"), arguments.indices.contains(index + 1) {
+            let value = arguments[index + 1]
             if ["zh", "en", "th"].contains(value) { locale = value; loadDictionary() }
         }
-        if let index = ProcessInfo.processInfo.arguments.firstIndex(of: "--section"), ProcessInfo.processInfo.arguments.indices.contains(index + 1),
-           let destination = AppSection(rawValue: ProcessInfo.processInfo.arguments[index + 1]) {
-            section = destination; entered = destination != .home
+        if let index = arguments.firstIndex(of: "--section"), arguments.indices.contains(index + 1),
+           let destination = AppSection(rawValue: arguments[index + 1]) {
+            section = destination.isPubliclyAvailable ? destination : .archive; entered = true
         }
+        if let index = arguments.firstIndex(of: "--cp"), arguments.indices.contains(index + 1) { selectedCpID = arguments[index + 1] }
+        rebuildCalendarIndex()
+    }
+    private func rebuildCalendarIndex() {
+        calendarIndex = CalendarEventIndex(events: schedule?.events ?? [], zone: timeZone)
     }
     static func resource(_ name: String) throws -> Data {
         guard let url = Bundle.main.resourceURL?.appendingPathComponent("Generated/" + name) else { throw CocoaError(.fileNoSuchFile) }
         return try Data(contentsOf: url)
     }
-    func loadDictionary() { dictionary = (try? JSONDecoder().decode([String: String].self, from: Self.resource(locale + ".json"))) ?? [:] }
+    func loadDictionary() {
+        dictionary = contentSnapshot?.dictionaries[locale] ?? (try? JSONDecoder().decode([String: String].self, from: Self.resource(locale + ".json"))) ?? [:]
+        calendarDictionary = contentSnapshot?.calendarDictionaries[locale] ?? (try? JSONDecoder().decode([String: String].self, from: Self.resource("calendar-" + locale + ".json"))) ?? [:]
+        if locale != "zh", let data = try? Self.resource("native-copy.json"), let copy = try? JSONDecoder().decode([String: [String]].self, from: data) {
+            let index = locale == "en" ? 0 : 1
+            for (key, values) in copy where dictionary[key] == nil && values.indices.contains(index) { dictionary[key] = values[index] }
+        }
+    }
+    func calendarCopy(_ key: String) -> String { calendarDictionary[key] ?? key }
     func t(_ source: String) -> String {
         guard locale != "zh" else { return source }
         let normalized = source.replacingOccurrences(of: "\\s+", with: " ", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
@@ -49,50 +88,116 @@ import GlfansCore
     var timeZone: TimeZone { TimeZone(identifier: locale == "zh" ? "Asia/Shanghai" : "Asia/Bangkok")! }
     var systemLocale: Locale { Locale(identifier: locale == "zh" ? "zh_CN" : locale == "th" ? "th_TH" : "en_GB") }
     func toggleFollow(_ id: String) { if followed.contains(id) { followed.remove(id) } else { followed.insert(id) } }
-    func enter(_ destination: AppSection) { section = destination; withAnimation(.easeInOut(duration: 0.3)) { entered = true } }
-    private static var scheduleCache: URL { FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("glfans-schedule.json") }
-    func refreshSchedule(force: Bool = false) async {
-        guard !refreshingSchedule else { return }
-        if !force, let lastScheduleRefresh, Date().timeIntervalSince(lastScheduleRefresh) < 3600 { return }
-        refreshingSchedule = true; defer { refreshingSchedule = false }
-        do {
-            async let history = fetchSchedule("archive-history")
-            async let current = fetchSchedule("archive-schedule")
-            let merged = try await BroadcastSchedule.merge(history: history, current: current)
-            guard !merged.series.isEmpty, !merged.events.isEmpty else { throw CocoaError(.fileReadCorruptFile) }
-            if merged.checkedAt >= (schedule?.checkedAt ?? "") {
-                let data = try JSONEncoder().encode(merged)
-                try FileManager.default.createDirectory(at: Self.scheduleCache.deletingLastPathComponent(), withIntermediateDirectories: true)
-                try data.write(to: Self.scheduleCache, options: .atomic)
-                schedule = merged
-            }
-            scheduleError = nil; lastScheduleRefresh = Date()
-        } catch { scheduleError = "排期更新失败，继续显示已保存的排期。" }
+    func enter(_ destination: AppSection) { section = destination.isPubliclyAvailable ? destination : .archive; withAnimation(.easeInOut(duration: 0.3)) { entered = true } }
+    func markOpeningComplete() { UserDefaults.standard.set(true, forKey: Self.openingSeenKey) }
+    func showOpening() { enter(.archive) }
+    func cpCopy(_ section: CpCopySection, _ key: String) -> String { cpCatalog?.copy(section, key, locale: locale) ?? key }
+    private static func bundledSnapshot() -> ContentSnapshot? {
+        guard let data = try? resource("content-manifest.json"), let manifest = try? ContentManifest.decode(data) else { return nil }
+        var files: [String: Data] = [:]
+        for (key, filename) in ContentManifest.filenames { files[key] = try? resource(filename) }
+        return try? ContentSnapshot(manifest: manifest, files: files)
     }
-    private func fetchSchedule(_ name: String) async throws -> BroadcastSchedule {
-        let url = URL(string: "https://raw.githubusercontent.com/fanmihua/glfans/main/src/data/\(name).json")!
-        let (data, response) = try await URLSession.shared.data(for: URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 20))
-        guard let http = response as? HTTPURLResponse, http.statusCode == 200 else { throw CocoaError(.fileReadUnknown) }
-        return try JSONDecoder().decode(BroadcastSchedule.self, from: data)
+    private func apply(_ snapshot: ContentSnapshot) {
+        guard let sourceData = snapshot.files["sourceContent"], let source = try? JSONDecoder().decode(WebsiteContent.self, from: sourceData) else { return }
+        contentSnapshot = snapshot; sourceContent = source
+        Artwork.configure(snapshot.manifest)
+        catalog = snapshot.catalog; cpCatalog = snapshot.cpCatalog; schedule = snapshot.schedule
+        contentVersion = snapshot.manifest.version; contentUpdatedAt = snapshot.manifest.generatedAt
+        if let current = selectedDrama { selectedDrama = snapshot.catalog.dramas.first { $0.id == current.id } }
+        if !snapshot.cpCatalog.profiles.contains(where: { $0.id == selectedCpID }), let first = snapshot.cpCatalog.profiles.first { selectedCpID = first.id }
+        loadError = nil; loadDictionary()
+    }
+    /// The calendar, app lifecycle and manual refresh share one release and one throttle.
+    func refreshContent(force: Bool = false) async {
+        guard !refreshingContent else { return }
+        if !force, let lastContentCheck, Date().timeIntervalSince(lastContentCheck) < 3600 { return }
+        if !force, let retryContentAfter, retryContentAfter > Date() { return }
+        refreshingContent = true; refreshingSchedule = true
+        defer { refreshingContent = false; refreshingSchedule = false }
+        do {
+            if let snapshot = try await ContentRepository.shared.refresh(currentVersion: contentVersion) { apply(snapshot) }
+            contentError = nil; scheduleError = nil; contentLastCheckedAt = Date()
+            lastContentCheck = Date(); retryContentAfter = nil
+        } catch is CancellationError { }
+        catch let error as URLError where error.code == .cancelled { }
+        catch {
+            retryContentAfter = Date().addingTimeInterval(60)
+            contentError = "内容更新失败，继续显示已保存的内容。"
+            scheduleError = "排期更新失败，继续显示已保存的排期。"
+        }
+    }
+    func refreshSchedule(force: Bool = false) async { await refreshContent(force: force) }
+
+}
+
+@MainActor enum Artwork {
+    private static let cache: NSCache<NSString, UIImage> = {
+        let value = NSCache<NSString, UIImage>(); value.countLimit = 80; value.totalCostLimit = 96 * 1024 * 1024; return value
+    }()
+    private static let bundledAssets: [String: ContentFile] = {
+        guard let data = try? AppModel.resource("content-manifest.json"), let manifest = try? ContentManifest.decode(data) else { return [:] }
+        return manifest.assets
+    }()
+    private static var assets: [String: ContentFile] = [:]
+    static func configure(_ manifest: ContentManifest) { assets = manifest.assets }
+    private static func descriptor(_ source: String) -> ContentFile? {
+        assets[source] ?? assets.values.first(where: { $0.url == source })
+    }
+    private static func cacheKey(_ source: String) -> NSString { (descriptor(source)?.sha256 ?? "bundle:" + source) as NSString }
+    private static func bundleURL(_ source: String) -> URL? {
+        guard source.hasPrefix("assets/"), !source.contains(".."), !source.contains("%"), !source.contains("\\") else { return nil }
+        if let current = descriptor(source), bundledAssets[source]?.sha256 != current.sha256 { return nil }
+        let relative = source.replacingOccurrences(of: ".webp", with: ".png")
+        let converted = Bundle.main.resourceURL?.appendingPathComponent("Generated/" + relative)
+        if let converted, FileManager.default.fileExists(atPath: converted.path) { return converted }
+        return Bundle.main.resourceURL?.appendingPathComponent("Generated/" + source)
+    }
+    static func url(_ source: String) -> URL? {
+        if let file = descriptor(source) {
+            let cached = ContentRepository.artworkDirectory.appendingPathComponent(file.sha256)
+            if FileManager.default.fileExists(atPath: cached.path) { return cached }
+            return bundleURL(source) ?? URL(string: file.url)
+        }
+        return bundleURL(source)
+    }
+    static func image(_ source: String) -> UIImage? {
+        let key = cacheKey(source)
+        if let image = cache.object(forKey: key) { return image }
+        var result: UIImage?
+        if let file = descriptor(source), let data = try? Data(contentsOf: ContentRepository.artworkDirectory.appendingPathComponent(file.sha256)), (try? file.verify(data)) != nil { result = UIImage(data: data) }
+        if result == nil, let url = bundleURL(source) { result = UIImage(contentsOfFile: url.path) }
+        if let result { remember(result, key: key) }
+        return result
+    }
+    static func load(_ source: String) async -> UIImage? {
+        if let image = image(source) { return image }
+        guard let file = descriptor(source), let data = try? await ContentRepository.shared.artwork(file), let image = UIImage(data: data) else { return nil }
+        remember(image, key: file.sha256 as NSString)
+        return image
+    }
+    private static func remember(_ image: UIImage, key: NSString) {
+        let cost = image.cgImage.map { $0.bytesPerRow * $0.height } ?? Int(image.size.width * image.size.height * 4)
+        cache.setObject(image, forKey: key, cost: cost)
     }
 }
 
-enum Artwork {
-    private static let cache: NSCache<NSString, UIImage> = {
-        let value = NSCache<NSString, UIImage>(); value.countLimit = 40; value.totalCostLimit = 64 * 1024 * 1024; return value
-    }()
-    static func url(_ source: String) -> URL? {
-        if source.hasPrefix("https://") { return URL(string: source) }
-        let relative = source.trimmingCharacters(in: CharacterSet(charactersIn: "/")).replacingOccurrences(of: ".webp", with: ".png")
-        return Bundle.main.resourceURL?.appendingPathComponent("Generated/" + relative)
-    }
-    static func image(_ source: String) -> UIImage? {
-        if let image = cache.object(forKey: source as NSString) { return image }
-        guard let url = url(source), url.isFileURL else { return nil }
-        guard let image = UIImage(contentsOfFile: url.path) else { return nil }
-        let cost = image.cgImage.map { $0.bytesPerRow * $0.height } ?? Int(image.size.width * image.size.height * 4)
-        cache.setObject(image, forKey: source as NSString, cost: cost)
-        return image
+/// All image surfaces observe content releases and resolve the same validated on-disk cache.
+struct LoadedArtwork<Content: View>: View {
+    @EnvironmentObject private var app: AppModel
+    let source: String
+    @ViewBuilder let content: (UIImage?) -> Content
+    @State private var loaded: UIImage?
+    @State private var loadedIdentity: String?
+    private var identity: String { (app.contentVersion ?? "bundled") + ":" + source }
+    var body: some View {
+        content(loadedIdentity == identity ? loaded : Artwork.image(source))
+            .task(id: identity) {
+                loaded = Artwork.image(source); loadedIdentity = identity
+                let value = await Artwork.load(source)
+                guard !Task.isCancelled else { return }
+                loaded = value
+            }
     }
 }
 
@@ -100,11 +205,10 @@ struct LocalArtwork: View {
     let source: String
     var mode: ContentMode = .fit
     var body: some View {
-        if let image = Artwork.image(source) {
-            Image(uiImage: image).resizable().aspectRatio(contentMode: mode)
-        } else if let url = Artwork.url(source), !url.isFileURL {
-            AsyncImage(url: url) { image in image.resizable().aspectRatio(contentMode: mode) } placeholder: { Rectangle().fill(Pit.paper).overlay(Image(systemName: "photo").foregroundStyle(.secondary)) }
-        } else { Rectangle().fill(Pit.paper).overlay(Image(systemName: "photo").foregroundStyle(.secondary)) }
+        LoadedArtwork(source: source) { image in
+            if let image { Image(uiImage: image).resizable().aspectRatio(contentMode: mode) }
+            else { Rectangle().fill(Pit.paper).overlay(Image(systemName: "photo").foregroundStyle(.secondary)) }
+        }
     }
 }
 
@@ -177,6 +281,18 @@ struct PaperButton: ViewModifier {
     }
 }
 extension View { func pitButton() -> some View { modifier(PaperButton()) } }
+
+/// Keep source geometry and colors while making the entire label rectangle
+/// interactive. PlainButtonStyle can restrict Path icons to their painted area,
+/// even when the icon is placed inside a transparent 44-point frame.
+struct SourceButtonStyle: ButtonStyle {
+    @Environment(\.isEnabled) private var enabled
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .contentShape(.interaction, Rectangle())
+            .opacity(enabled ? (configuration.isPressed ? 0.65 : 1) : 0.4)
+    }
+}
 
 struct PitTapStyle: ButtonStyle {
     @Environment(\.isEnabled) private var enabled

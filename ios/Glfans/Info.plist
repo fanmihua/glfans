@@ -8,6 +8,7 @@
   <key>CFBundlePackageType</key><string>APPL</string>
   <key>CFBundleShortVersionString</key><string>$(MARKETING_VERSION)</string>
   <key>CFBundleVersion</key><string>$(CURRENT_PROJECT_VERSION)</string>
+  <key>ITSAppUsesNonExemptEncryption</key><false/>
   <key>LSRequiresIPhoneOS</key><true/>
   <key>UILaunchScreen</key><dict/>
   <key>UIAppFonts</key><array>
@@ -16,11 +17,9 @@
     <string>RobotoCondensedVariable.ttf</string>
     <string>NotoSansThaiVariable.ttf</string>
   </array>
-  <key>UIBackgroundModes</key><array><string>audio</string></array>
   <key>UISupportedInterfaceOrientations</key><array><string>UIInterfaceOrientationPortrait</string></array>
   <key>NSPhotoLibraryAddUsageDescription</key><string>将你主动选择的表情包保存到相册。</string>
-  <key>GLFansSupabaseHost</key><string>$(GLFANS_SUPABASE_HOST)</string>
-  <key>GLFansSupabaseKey</key><string>$(GLFANS_SUPABASE_KEY)</string>
+  <key>GLFansAPIHost</key><string>$(GLFANS_API_HOST)</string>
   <key>GLFansSupportEmail</key><string>$(GLFANS_SUPPORT_EMAIL)</string>
   <key>GLFansPrivacyHostPath</key><string>$(GLFANS_PRIVACY_HOST_PATH)</string>
   <key>CFBundleURLTypes</key><array><dict>

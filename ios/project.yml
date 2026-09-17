@@ -7,8 +7,8 @@ settings:
   base:
     SWIFT_VERSION: '5.0'
     MARKETING_VERSION: 1.0.0
-    CURRENT_PROJECT_VERSION: 1
-    DEVELOPMENT_TEAM: ''
+    CURRENT_PROJECT_VERSION: 2
+    DEVELOPMENT_TEAM: $(GLFANS_DEVELOPMENT_TEAM)
     CODE_SIGN_STYLE: Automatic
     ENABLE_USER_SCRIPT_SANDBOXING: NO
 packages:
@@ -37,7 +37,7 @@ targets:
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         SUPPORTS_MACCATALYST: NO
     preBuildScripts:
-      - name: 同步完整内容与图片
+      - name: 同步网站已发布内容与图片
         script: |
           export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
           node "$SRCROOT/Scripts/prepare-content.mjs"
@@ -47,6 +47,8 @@ targets:
     platform: iOS
     sources:
       - path: GlfansUITests
+        excludes:
+          - HomeJourneyUITests.swift
     dependencies:
       - target: Glfans
     settings:

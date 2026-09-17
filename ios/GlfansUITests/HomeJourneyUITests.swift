@@ -27,7 +27,7 @@ final class HomeJourneyUITests: XCTestCase {
         XCTAssertTrue(replay.waitForExistence(timeout:8))
         let image = XCTAttachment(screenshot:app.screenshot());image.name="opening-welcome-13ProMax";image.lifetime = .keepAlways;add(image)
         app.buttons["home-link-about"].tap()
-        XCTAssertTrue(app.staticTexts["关于这个坑"].firstMatch.waitForExistence(timeout:4))
+        XCTAssertTrue(app.buttons["about-rights"].waitForExistence(timeout:4))
     }
     func testLanguagePreservesWelcomeAndArchiveRouteWorks() {
         launch(["--home-scene","welcome"])

@@ -6,6 +6,8 @@ import GlfansCore
     @Published var track: Track?
     @Published var stationID: String?
     @Published var playing = false
+    @Published var needleDown = false
+    @Published private(set) var wantsPlayback = false
     @Published var loading = false
     @Published var repeatOne = false
     @Published var error: String?
@@ -21,7 +23,6 @@ import GlfansCore
     private var resumeAfterInterruption = false
     private var mediaArtwork: MPMediaItemArtwork?
     private var preparation: Task<Void, Never>?
-    private var wantsPlayback = false
     init() {
         observation = player.observe(\.timeControlStatus, options: [.new]) { [weak self] player, _ in
             Task { @MainActor in
@@ -42,7 +43,7 @@ import GlfansCore
         notifications.append(NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: nil, queue: .main) { [weak self] note in
             Task { @MainActor in
                 guard let self, let item = note.object as? AVPlayerItem, item === self.player.currentItem else { return }
-                if self.repeatOne { self.player.seek(to: .zero); self.player.play() } else { self.next(autoplay: true) }
+                if self.repeatOne { self.player.seek(to: .zero); self.player.play() } else if self.position + 1 < self.queue.count { self.next(autoplay: true) } else { self.pause() }
             }
         })
         notifications.append(NotificationCenter.default.addObserver(forName: AVAudioSession.interruptionNotification, object: nil, queue: .main) { [weak self] note in
@@ -70,7 +71,9 @@ import GlfansCore
     }
     func select(_ station: Station, track selected: Track? = nil, autoplay: Bool = false) {
         if stationID == station.id && selected == nil { return }
-        let wasPlaying = playing || wantsPlayback
+        let sameStation = stationID == station.id
+        let wasPlaying = sameStation && (playing || wantsPlayback)
+        if !sameStation { needleDown = false }
         queue = station.tracks; stationID = station.id
         position = selected.flatMap { value in queue.firstIndex(where: { $0.id == value.id }) } ?? 0
         prepare()
@@ -86,19 +89,37 @@ import GlfansCore
         updateNowPlaying()
         preparation = Task { [weak self] in
             do {
-                let url = try await AudioSourceResolver.resolve(track.outerUrl)
+                let url = try await self?.sourceURL(track.outerUrl)
+                guard let url else { return }
                 guard !Task.isCancelled, let self, self.track?.id == track.id else { return }
                 let item = AVPlayerItem(url: url)
                 self.itemObservation = item.observe(\.status, options: [.new]) { [weak self] item, _ in
-                    Task { @MainActor in if item.status == .failed { self?.error = "音源暂时无法播放，请稍后重试。"; self?.loading = false; self?.wantsPlayback = false } }
+                    Task { @MainActor in if item.status == .failed { self?.error = "音源暂时无法播放，请稍后重试。"; self?.loading = false; self?.wantsPlayback = false; self?.needleDown = false } }
                 }
                 self.player.replaceCurrentItem(with: item); self.preparation = nil; self.loading = false
                 if self.wantsPlayback { self.player.play() }
             } catch {
                 guard !Task.isCancelled, let self, self.track?.id == track.id else { return }
-                self.preparation = nil; self.loading = false; self.wantsPlayback = false; self.error = "音源暂时无法播放，请稍后重试。"
+                self.preparation = nil; self.loading = false; self.wantsPlayback = false; self.needleDown = false; self.error = "音源暂时无法播放，请稍后重试。"
             }
         }
+    }
+    private func sourceURL(_ source: String) async throws -> URL {
+        #if DEBUG
+        if ProcessInfo.processInfo.arguments.contains("--offline-audio") {
+            let url = FileManager.default.temporaryDirectory.appendingPathComponent("glfans-audio-integration.wav")
+            if !FileManager.default.fileExists(atPath:url.path) {
+                let format = AVAudioFormat(standardFormatWithSampleRate:8000, channels:1)!
+                let file = try AVAudioFile(forWriting:url, settings:format.settings)
+                let buffer = AVAudioPCMBuffer(pcmFormat:format, frameCapacity:240000)!
+                buffer.frameLength=240000
+                memset(buffer.floatChannelData![0],0,Int(buffer.frameLength)*MemoryLayout<Float>.size)
+                try file.write(from:buffer)
+            }
+            return url
+        }
+        #endif
+        return try await AudioSourceResolver.resolve(source)
     }
     func play() {
         guard track != nil else { return }
@@ -106,14 +127,14 @@ import GlfansCore
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
             try AVAudioSession.sharedInstance().setActive(true)
             if player.currentItem?.status == .failed || (player.currentItem == nil && preparation == nil) { prepare() }
-            wantsPlayback = true
+            wantsPlayback = true; needleDown = true
             if player.currentItem != nil { player.play() }; error = nil
         } catch { self.error = error.localizedDescription }
     }
     func pause() { wantsPlayback = false; player.pause() }
     func toggle() { if playing || wantsPlayback { pause() } else { play() } }
-    func next(autoplay: Bool? = nil) { guard !queue.isEmpty else { return }; let shouldPlay = autoplay ?? (playing || wantsPlayback); position = (position + 1) % queue.count; prepare(); if shouldPlay { play() } }
-    func previous() { guard !queue.isEmpty else { return }; let shouldPlay = playing || wantsPlayback; position = (position - 1 + queue.count) % queue.count; prepare(); if shouldPlay { play() } }
+    func next(autoplay: Bool? = nil) { guard queue.count > 1 else { return }; let shouldPlay = autoplay ?? (playing || wantsPlayback); position = (position + 1) % queue.count; prepare(); if shouldPlay { play() } }
+    func previous() { guard queue.count > 1 else { return }; let shouldPlay = playing || wantsPlayback; position = (position - 1 + queue.count) % queue.count; prepare(); if shouldPlay { play() } }
     func seek(_ seconds: Double) { guard seconds.isFinite else { return }; player.seek(to: CMTime(seconds: max(0, seconds), preferredTimescale: 600)); elapsed = seconds; updateNowPlaying() }
     private func updateNowPlaying() {
         guard let track else { return }

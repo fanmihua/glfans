@@ -2,6 +2,8 @@ Generated/
 .build/
 GlfansCore/.build/
 DerivedData/
+DeviceDerivedData/
+ServerRuntime/
 Config/Local.xcconfig
 *.xcodeproj/
 output/
@@ -12,3 +14,12 @@ output/
 SOURCE_CONVERSION.md
 Scripts/capture-home.py
 Scripts/compare-home.py
+Scripts/capture-pages.py
+
+ReleaseArtifacts/
+SimulatorDerivedData/
+.Generated-*/
+Generated.previous/
+
+# Legacy local CP snapshot; current builds use the website manifest.
+Content/

@@ -11,6 +11,7 @@ struct SourceLine: View {
     var kern: CGFloat = 0
     var lineHeight: CGFloat? = nil
     var color: UIColor = UIColor(Pit.ink)
+    var stroke: CGFloat = 0
 
     var font: UIFont { Self.font(family, size: size, weight: weight) }
     static func font(_ family: String, size: CGFloat, weight: CGFloat) -> UIFont {
@@ -22,7 +23,9 @@ struct SourceLine: View {
         return UIFont(descriptor: descriptor, size: size)
     }
     var attributed: NSAttributedString {
-        NSAttributedString(string: text, attributes: [.font: font, .kern: kern, .foregroundColor: color])
+        var attributes: [NSAttributedString.Key: Any] = [.font: font, .kern: kern, .foregroundColor: color]
+        if stroke > 0 { attributes[.strokeWidth] = -stroke / size * 100; attributes[.strokeColor] = color }
+        return NSAttributedString(string: text, attributes: attributes)
     }
     var width: CGFloat { CGFloat(CTLineGetTypographicBounds(CTLineCreateWithAttributedString(attributed), nil, nil, nil)) }
     var height: CGFloat { lineHeight ?? font.lineHeight }
@@ -30,6 +33,8 @@ struct SourceLine: View {
         SourceGlyphRepresentable(source:self)
             .frame(width:width+size*2,height:height+size*2)
             .frame(width:width,height:height)
+            .alignmentGuide(.firstTextBaseline) { _ in height * 0.8 }
+            .alignmentGuide(.lastTextBaseline) { _ in height * 0.8 }
             .accessibilityElement(children:.ignore).accessibilityLabel(text).accessibilityAddTraits(.isStaticText)
     }
 }
@@ -71,7 +76,7 @@ struct SourceParagraph: View {
     var body: some View {
         VStack(alignment:.leading,spacing:0) {
             ForEach(Array(lines.enumerated()),id:\.offset) { _, text in
-                SourceLine(text:text,size:source.size,family:source.family,weight:source.weight,kern:source.kern,lineHeight:source.lineHeight,color:source.color)
+                SourceLine(text:text,size:source.size,family:source.family,weight:source.weight,kern:source.kern,lineHeight:source.lineHeight,color:source.color,stroke:source.stroke)
             }
         }.frame(width:min(source.width,maxWidth),alignment:.leading)
             .accessibilityElement(children:.ignore).accessibilityLabel(source.text).accessibilityAddTraits(.isStaticText)

@@ -6,427 +6,349 @@ struct ArchiveView: View {
     let catalog: Catalog
     @State private var year: String?
     @State private var activeOverviewYear: String? = "2024"
-    @State private var selected: String?
     @State private var calendarOpen = false
-    @State private var query = ""
-    var dramas: [Drama] {
-        catalog.dramas.filter { ($0.year == year || !query.isEmpty) && (query.isEmpty || $0.title.localizedCaseInsensitiveContains(query) || $0.titleEn.localizedCaseInsensitiveContains(query) || $0.cast.joined().localizedCaseInsensitiveContains(query)) }
-    }
     var body: some View {
         Group {
-            if year == nil {
-                ArchiveOverview(
-                    catalog: catalog,
-                    activeYear: $activeOverviewYear,
-                    openCalendar: { calendarOpen = true },
-                    openYear: { value in
-                        year = value
-                        selected = catalog.dramas(in: value).first?.id
-                    }
-                )
+            if let year {
+                ArchiveYearView(catalog: catalog, year: year,
+                                initialDrama: app.selectedDrama?.year == year ? app.selectedDrama?.id : nil,
+                                back: { self.year = nil; app.selectedDrama = nil },
+                                changeYear: { self.year = $0; app.selectedDrama = nil },
+                                openCalendar: { calendarOpen = true }).id(year)
             } else {
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 18) {
-                    HStack {
-                        Button { year = nil; query = "" } label: { Label(app.t("返回"), systemImage: "arrow.left").frame(minHeight: 44) }
-                        Spacer()
-                        if query.isEmpty {
-                            Menu(year ?? "") { ForEach(catalog.years, id: \.self) { value in Button(value) { year = value; selected = catalog.dramas(in: value).first?.id } } }.font(.title2.bold())
-                        }
-                    }
-                    if dramas.isEmpty { ContentUnavailableView.search(text: query) }
-                    ScrollView(.horizontal) {
-                        LazyHStack(spacing: 18) {
-                            ForEach(dramas) { drama in
-                                Button { withAnimation { selected = drama.id } } label: {
-                                    VStack(alignment: .leading, spacing: 10) {
-                                        HStack { ForEach(0..<7) { _ in RoundedRectangle(cornerRadius: 2).fill(Pit.paper).frame(width: 15, height: 7) } }
-                                        LocalArtwork(source: drama.image, mode: .fill).frame(width: 210, height: 280).clipped().saturation(selected == drama.id ? 1 : 0)
-                                        Text(app.t(drama.title)).font(.headline).foregroundStyle(selected == drama.id ? Pit.pink : .white).fixedSize(horizontal: false, vertical: true)
-                                        Text(drama.startDate).font(.caption.monospaced()).foregroundStyle(.white.opacity(0.65))
-                                    }.padding(14).frame(width: 238).background(Pit.ink)
-                                }.buttonStyle(.plain).id(drama.id)
-                            }
-                        }.scrollTargetLayout()
-                    }.scrollIndicators(.hidden).scrollTargetBehavior(.viewAligned).scrollPosition(id: $selected, anchor: .center)
-                    if let drama = dramas.first(where: { $0.id == selected }) ?? dramas.first { DramaDetails(drama: drama) }
-                    }.padding(20).padding(.bottom, 96)
-                }
-                .background(Pit.paper)
+                ArchiveOverview(catalog: catalog, activeYear: $activeOverviewYear,
+                                openCalendar: { calendarOpen = true }, openYear: { year = $0 })
             }
+        }.fullScreenCover(isPresented: $calendarOpen) {
+            CalendarView().sourceSheet(fraction:0.9)
         }
-        .background(Pit.paper).navigationBarTitleDisplayMode(.inline)
-        .sheet(isPresented: $calendarOpen) { NavigationStack { CalendarView() } }
-        .sheet(item: $app.selectedDrama) { drama in NavigationStack { ScrollView { DramaDetails(drama: drama).padding(24) }.background(Pit.paper).navigationTitle(app.t(drama.title)).toolbar { ToolbarItem(placement: .confirmationAction) { Button(app.t("完成")) { app.selectedDrama = nil } } } } }
+        .onChange(of: app.selectedDrama) { _, drama in if let drama { year = drama.year } }
+        .onAppear {
+            if let drama = app.selectedDrama { year = drama.year }
+            #if DEBUG
+            let args = ProcessInfo.processInfo.arguments
+            if let i = args.firstIndex(of: "--archive-year"), args.indices.contains(i+1) { year = args[i+1] }
+            if args.contains("--calendar") { calendarOpen = true }
+            #endif
+        }
     }
 }
 
-/// Source conversion of `ArchiveOverview` in `src/ArchivePage.jsx` and its
-/// `@media (max-width: 760px)` rules in `src/archive-page.css`.
+/// Exact mobile selectors from ArchivePage.jsx / archive-page.css.
 private struct ArchiveOverview: View {
     @EnvironmentObject private var app: AppModel
+    @Environment(\.sourceViewport) private var viewport
+    @Environment(\.sourceBottomInset) private var bottom
     let catalog: Catalog
     @Binding var activeYear: String?
     let openCalendar: () -> Void
     let openYear: (String) -> Void
-
-    private var years: [String] { catalog.years.sorted() }
-    private var activeIndex: Int { years.firstIndex(of: activeYear ?? "2024") ?? 2 }
-
+    private var activeIndex: Int { catalog.years.firstIndex(of: activeYear ?? "2024") ?? 2 }
     var body: some View {
-        GeometryReader { geometry in
-            VStack(spacing: 0) {
-                hero(width: geometry.size.width)
-                    .frame(height: 278)
-
-                Spacer(minLength: 0)
-
-                HStack(alignment: .lastTextBaseline) {
-                    Text(app.t("按年份归档"))
-                        .font(PitFont.interface(11, locale: app.locale).weight(.bold))
-                        .padding(.bottom, 4)
+        let w = viewport.width, filmW = min(280, max(220, viewport.width * 0.6))
+        let filmH = filmW * 4 / 3 + 44
+        let stageH = max(viewport.height - 50 - bottom, 204 + 168 + 50 + filmH - 14)
+        ScrollView {
+            ZStack(alignment: .topLeading) {
+                SourceLine(text: "ARCHIVE", size: w * 0.27, weight: 700, kern: w * 0.0027, lineHeight: w * 0.216)
+                    .opacity(0.025).position(x: w / 2, y: 100 + w * 0.108).accessibilityHidden(true)
+                LocalArtwork(source: "assets/home/freenbecky-card-v1.webp").frame(width: 138, height: 138 * 0.667)
+                    .saturation(0.88).contrast(1.02).opacity(0.82).rotationEffect(.degrees(-5))
+                    .position(x: -50 + 69, y: 58 + 138 * 0.667 / 2).accessibilityHidden(true)
+                LocalArtwork(source: "assets/home/lingorm-card-v1.webp").frame(width: 136, height: 136)
+                    .saturation(0.88).contrast(1.02).opacity(0.82).scaleEffect(0.85).rotationEffect(.degrees(5))
+                    .position(x: w + 48 - 68, y: 62 + 68).accessibilityHidden(true)
+                ArchiveMasthead(annual: false, width: w, openCalendar: openCalendar)
+                    .frame(width: w - 60).at(x: 30, y: 158)
+                HStack(alignment: .bottom) {
+                    SourceLine(text: app.t("按年份归档"), size: 11, weight: 700)
+                        .padding(.trailing, 4).padding(.bottom, 4)
+                        .frame(height: 30, alignment: .center)
                         .overlay(alignment: .bottom) { Rectangle().fill(Pit.pink).frame(height: 2) }
                     Spacer()
-                    Text(activeYear ?? "2024")
-                        .font(PitFont.display(13).weight(.bold))
-                        .foregroundStyle(Pit.pink)
-                    Text(String(format: "%02d / %02d", activeIndex + 1, years.count))
-                        .font(PitFont.display(8).weight(.bold))
-                        .foregroundStyle(Pit.ink.opacity(0.58))
-                }
-                .padding(.horizontal, WebMobileDesign.ArchiveOverview.filmHeadingHorizontalInset)
-                .padding(.bottom, WebMobileDesign.ArchiveOverview.filmHeadingBottom)
-
-                film(width: geometry.size.width)
-            }
-            .frame(maxHeight: .infinity, alignment: .top)
-        }
-        .background(Pit.paper)
+                    HStack(alignment: .firstTextBaseline, spacing: 7) {
+                        SourceLine(text: activeYear ?? "2024", size: 13, weight: 700, color: UIColor(Pit.pink))
+                        SourceLine(text: String(format: "%02d / %02d", activeIndex + 1, catalog.years.count), size: 8, weight: 700, kern: 1.12, color: UIColor(Pit.ink.opacity(0.52)))
+                    }.padding(.bottom, 2)
+                }.frame(width: w - 36, height: 30).at(x: 18, y: stageH - filmH - 40)
+                ScrollViewReader { reader in
+                    ScrollView(.horizontal) {
+                        HStack(spacing: 8) {
+                            ForEach(catalog.years, id: \.self) { year in
+                                let drama = catalog.dramas.first { $0.id == catalog.archiveRepresentativeIds[year] } ?? catalog.dramas(in: year).first
+                                Button { openYear(year) } label: {
+                                    ArchiveYearFrame(year: year, drama: drama, count: catalog.dramas(in: year).count, active: activeYear == year)
+                                        .frame(width: filmW, height: filmW * 4 / 3).offset(y: activeYear == year ? -2 : 0)
+                                }.buttonStyle(SourceButtonStyle()).id(year).accessibilityIdentifier("archive-year-\(year)")
+                            }
+                        }.scrollTargetLayout().padding(.vertical, 22)
+                    }.contentMargins(.horizontal, max(0, (w - filmW) / 2), for: .scrollContent)
+                        .scrollIndicators(.hidden).scrollTargetBehavior(.viewAligned)
+                        .scrollPosition(id: $activeYear, anchor: .center)
+                        .onAppear { reader.scrollTo(activeYear ?? "2024", anchor: .center) }
+                }.frame(width: w, height: filmH).background(FilmPerforations()).at(x: 0, y: stageH - filmH)
+            }.frame(width: w, height: stageH).clipped()
+        }.scrollIndicators(.hidden).background(Pit.paper)
     }
+}
 
-    private func hero(width: CGFloat) -> some View {
-        ZStack(alignment: .top) {
-            Text("ARCHIVE")
-                .font(PitFont.display(width * 0.27).weight(.bold))
-                .tracking(-5)
-                .foregroundStyle(Pit.ink.opacity(0.035))
-                .offset(y: 30)
+private struct ArchiveYearFrame: View {
+    @EnvironmentObject var app: AppModel
+    let year: String
+    let drama: Drama?
+    let count: Int
+    let active: Bool
+    var body: some View {
+        GeometryReader { g in
+            ZStack(alignment: .topLeading) {
+                SourcePhoto(source: drama?.image ?? "", focus: drama?.focus ?? "50% 40%")
+                    .saturation(active ? 0.9 : 0).contrast(active ? 1.03 : 1.12).scaleEffect(active ? 1.035 : 1)
+                VStack(alignment: .leading, spacing: 0) {
+                    SourceLine(text: "ARCHIVE YEAR", size: 7, weight: 700, kern: 0.98, color: active ? UIColor(Pit.pink) : .white.withAlphaComponent(0.72))
+                    SourceLine(text: year, size: 48, family: "AlibabaPuHuiTi-Heavy", weight: 900, kern: -3.36, lineHeight: 44.16, color: .white).padding(.top, 2).padding(.bottom, 4)
+                    SourceLine(text: "\(count)\(app.t(" 部剧集"))", size: 7, weight: 700, kern: 0.98, color: active ? UIColor(Pit.pink) : .white.withAlphaComponent(0.72))
+                }.padding(.top, 34).padding(.horizontal, 16).padding(.bottom, 15)
+                    .frame(width: g.size.width * 0.68, alignment: .leading)
+                    .background(LinearGradient(stops: [.init(color: Pit.ink.opacity(0.92), location: 0), .init(color: Pit.ink.opacity(0.66), location: 0.66), .init(color: .clear, location: 1)], startPoint: .leading, endPoint: .trailing))
+            }.clipped().overlay(Rectangle().strokeBorder(active ? Pit.pink : Pit.paper.opacity(0.5), lineWidth: active ? 3 : 1))
+        }.accessibilityElement(children: .ignore).accessibilityLabel(year + " " + app.t(drama?.title ?? ""))
+    }
+}
 
-            LocalArtwork(source: "assets/home/freenbecky-card-v1.webp", mode: .fit)
-                .frame(width: 138)
-                .rotationEffect(.degrees(-5))
-                .opacity(0.82)
-                .offset(x: -width / 2 + 18, y: 12)
-                .accessibilityHidden(true)
-            LocalArtwork(source: "assets/home/lingorm-card-v1.webp", mode: .fit)
-                .frame(width: 116)
-                .rotationEffect(.degrees(5))
-                .opacity(0.82)
-                .offset(x: width / 2 - 24, y: 15)
-                .accessibilityHidden(true)
-
-            VStack(spacing: 0) {
-                Spacer().frame(height: 70)
-                chineseTitle
-                ZStack(alignment: .bottom) {
-                    LocalArtwork(source: "assets/repo-collection-pink-brush-v1.webp", mode: .fill)
-                        .frame(width: 224, height: 22)
-                        .clipped()
-                        .offset(y: 7)
-                    Text(app.t("PIT ARCHIVE"))
-                        .font(PitFont.headline(38).weight(.bold))
-                        .tracking(1.2)
-                        .foregroundStyle(Pit.pink)
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.65)
+struct FilmPerforations: View {
+    var body: some View {
+        Canvas { context, size in
+            context.fill(Path(CGRect(origin: .zero, size: size)), with: .color(Pit.ink))
+            for x in stride(from: 26.0, to: size.width, by: 56) {
+                for y in [CGFloat(7), size.height - 16] {
+                    context.fill(Path(CGRect(x: x, y: y, width: 14, height: 9)), with: .color(Pit.paper.opacity(0.98)))
                 }
-                .rotationEffect(.degrees(-1.8))
+            }
+        }.accessibilityHidden(true)
+    }
+}
 
-                Button(action: openCalendar) {
-                    HStack(spacing: 8) {
-                        Image(systemName: "calendar")
-                        Text(app.t("查看播出日历"))
-                        Image(systemName: "arrow.right")
-                            .foregroundStyle(Pit.pink)
+struct ArchiveMasthead: View {
+    @EnvironmentObject private var app: AppModel
+    let annual: Bool
+    let width: CGFloat
+    let openCalendar: () -> Void
+    private var chinese: Bool { app.locale == "zh" }
+    private var titleSize: CGFloat { annual ? min(72, max(50, width * 0.16)) : min(86, max(61, width * 0.193)) }
+    private var englishSize: CGFloat { annual ? min(32, max(23, width * 0.07)) : min(42, max(30, width * 0.097)) }
+    private var scales: [CGFloat] { annual ? [1, 1.08, 0.96, 1.05] : [0.93, 1.04, 0.96, 1.06] }
+    var body: some View {
+        VStack(alignment: annual ? .leading : .center, spacing: 0) {
+            if chinese {
+                HStack(alignment: .bottom, spacing: 0) {
+                    ForEach(Array((annual ? "年度胶卷" : "考古档案").enumerated()), id: \.offset) { i, char in
+                        let size = titleSize * scales[i]
+                        SourceLine(text: String(char), size: size, family: "AlibabaPuHuiTi-Heavy",
+                                   weight: [780,950,760,950][i], kern: -(annual ? 0.13 : 0.1) * titleSize,
+                                   lineHeight: size * (annual ? 0.9 : 0.78),
+                                   stroke: annual ? [0, size * 0.012, 0, size * 0.016][i] : [0.8,2,0.55,1.85][i])
+                            .offset(y: size * (annual ? [0.05,-0.02,0.08,-0.01][i] : [-0.02,0.035,-0.025,0.02][i]))
+                            .rotationEffect(.degrees([-3,1,-1.5,annual ? 2.5 : 2][i]), anchor: .bottom)
                     }
-                    .font(PitFont.interface(11, locale: app.locale).weight(.bold))
-                    .padding(.horizontal, 16)
-                    .frame(height: 44)
-                    .background(Pit.ink)
-                    .foregroundStyle(.white)
-                }
-                .buttonStyle(.plain)
-                .rotationEffect(.degrees(-1.4))
-                .padding(.top, 14)
+                }.padding(.trailing, annual ? titleSize * 0.06 : 0).padding(.bottom, annual ? titleSize * 0.06 : 0)
+                    .accessibilityElement(children: .ignore).accessibilityLabel(annual ? "年度胶卷" : "考古档案")
+            } else {
+                let size = annual ? min(50, max(34, width * 0.09)) : min(58, max(36, width * 0.1))
+                SourceParagraph(source: SourceLine(text: app.t(annual ? "年度胶卷" : "考古档案"), size: size,
+                    family: app.locale == "th" ? "NotoSansThai-Regular" : "AlibabaPuHuiTi-Heavy", weight: 900, kern: -size * 0.035,
+                    lineHeight: size * (annual ? 1.25 : 1.3)), maxWidth: width - (annual ? 44 : 60))
+                    .rotationEffect(.degrees(-2), anchor: .bottom)
             }
-
-            LocalArtwork(source: "assets/about/annotation-loop-arrow-v1.webp")
-                .frame(width: 31, height: 55)
-                .rotationEffect(.degrees(-30))
-                .offset(x: -width * 0.39, y: 154)
-                .accessibilityHidden(true)
-            LocalArtwork(source: "assets/about/annotation-loop-arrow-v1.webp")
-                .frame(width: 28, height: 50)
-                .rotationEffect(.degrees(158))
-                .offset(x: width * 0.38, y: 120)
-                .accessibilityHidden(true)
-            LocalArtwork(source: "assets/repo-handdrawn-heart-pink.webp")
-                .frame(width: 22, height: 22)
-                .offset(x: width * 0.39, y: 208)
-                .accessibilityHidden(true)
-        }
-        .clipped()
-    }
-
-    @ViewBuilder private var chineseTitle: some View {
-        if app.locale == "zh" {
-            HStack(alignment: .bottom, spacing: -6) {
-                ForEach(Array("考古档案".enumerated()), id: \.offset) { index, character in
-                    Text(String(character))
-                        .font(PitFont.hero([61, 68, 63, 69][index]))
-                        .rotationEffect(.degrees([-3, 1, -1.5, 2][index]))
-                        .offset(y: [-1, 2, -2, 1][index])
-                }
+            SourceLine(text: app.t(annual ? "YEAR ARCHIVE" : "PIT ARCHIVE"), size: englishSize, family: "RobotoCondensed-Regular", weight: 760,
+                       kern: englishSize * (annual ? -0.02 : 0.04), lineHeight: englishSize * (annual ? 0.92 : 1), color: UIColor(Pit.pink))
+                .background(alignment: .bottom) {
+                    SourceTexture("assets/repo-collection-pink-brush-v1.webp")
+                        .frame(height: englishSize * (annual ? 0.3 : 0.38))
+                        .padding(.horizontal, -englishSize * 0.18)
+                        .rotationEffect(.degrees(annual ? -2 : -1.4)).offset(y: englishSize * (annual ? 0.33 : 0.31))
+                }.rotationEffect(.degrees(annual ? 0 : -1.8))
+                .padding(.top, annual ? 16 : englishSize * 0.2).padding(.leading, annual ? 2 : 0)
+            Button(action: openCalendar) {
+                HStack(spacing: annual ? 10 : 8) {
+                    SourceIcon("CalendarBlank", size: 18)
+                    SourceLine(text: app.t("查看播出日历"), size: annual ? 12 : 11, weight: 700, color: .white)
+                    SourceIcon("ArrowRight", size: 18).foregroundStyle(Pit.pink)
+                }.foregroundStyle(.white).padding(.horizontal, annual ? 17 : 16).frame(height: 44).background(Pit.ink)
+            }.buttonStyle(SourceButtonStyle()).rotationEffect(.degrees(annual ? -1.5 : -1.4))
+                .padding(.top, annual ? 22 : 16).padding(.leading, annual ? 8 : 0).accessibilityIdentifier("open-calendar")
+        }.frame(maxWidth: .infinity, alignment: annual ? .leading : .center)
+        .overlay {
+            if !annual {
+                GeometryReader { g in
+                    LocalArtwork(source: "assets/about/annotation-loop-arrow-v1.webp").frame(width: 31)
+                        .rotationEffect(.degrees(-30)).position(x: -g.size.width * 0.01 + 15.5, y: g.size.height * 0.31 + 38)
+                    LocalArtwork(source: "assets/about/annotation-loop-arrow-v1.webp").frame(width: 28)
+                        .rotationEffect(.degrees(158)).position(x: g.size.width * 1.01 - 14, y: g.size.height * 0.17 + 34)
+                    LocalArtwork(source: "assets/repo-handdrawn-heart-pink.webp").frame(width: 22, height: 22)
+                        .rotationEffect(.degrees(10)).position(x: g.size.width * 0.99 - 11, y: g.size.height * 0.64 + 11)
+                }.allowsHitTesting(false).accessibilityHidden(true)
             }
-        } else {
-            Text(app.t("考古档案"))
-                .font(PitFont.interface(54, locale: app.locale).weight(.black))
-                .minimumScaleFactor(0.55)
-                .lineLimit(2)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 28)
         }
     }
+}
 
-    private func film(width: CGFloat) -> some View {
-        let cardWidth = min(
-            WebMobileDesign.ArchiveOverview.filmWidthMax,
-            max(WebMobileDesign.ArchiveOverview.filmWidthMin, width * WebMobileDesign.ArchiveOverview.filmWidthRatio)
-        )
-        let cardHeight = cardWidth * 4 / 3
-        return ZStack {
-            Pit.ink
-            VStack {
-                perforations(width: width)
-                Spacer()
-                perforations(width: width)
-            }
-            .padding(.vertical, 7)
-
-            ScrollView(.horizontal) {
-                LazyHStack(spacing: WebMobileDesign.ArchiveOverview.filmGap) {
-                    ForEach(years, id: \.self) { value in
-                        Button {
-                            activeYear = value
-                            openYear(value)
-                        } label: {
-                            yearFrame(value, active: activeYear == value)
-                                .frame(width: cardWidth, height: cardHeight)
+private struct ArchiveYearView: View {
+    @EnvironmentObject var app: AppModel
+    @Environment(\.sourceViewport) private var viewport
+    @Environment(\.sourceBottomInset) private var bottom
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    let catalog: Catalog
+    let year: String
+    let initialDrama: String?
+    let back: () -> Void
+    let changeYear: (String) -> Void
+    let openCalendar: () -> Void
+    @State private var selected: String?
+    @State private var centered: String?
+    @State private var dragged = false
+    @State private var revealed = false
+    @State private var filmTop:CGFloat = .greatestFiniteMagnitude
+    private var dramas: [Drama] { catalog.dramas(in: year) }
+    var body: some View {
+        let w = viewport.width, cardW = min(180, max(144, viewport.width * 0.4))
+        ScrollViewReader { vertical in
+            ScrollView {
+                VStack(alignment: .leading, spacing: 0) {
+                    Button(action: back) {
+                        HStack(spacing: 0) {
+                            SourceLine(text: app.t("← 返回年份"), size: 9, weight: 700, kern: 0.63).padding(.horizontal, 8).frame(height: 28).background(Color(red: 1, green: 197/255, blue: 223/255))
+                            SourceLine(text: year, size: 18, family: "RobotoCondensed-Regular", weight: 700, lineHeight: 18, color: .white).padding(.horizontal, 9).frame(height: 28).background(Pit.ink)
+                        }.rotationEffect(.degrees(-2)).frame(minHeight: 44)
+                    }.padding(.leading, 22).accessibilityLabel(app.t("返回全部年份"))
+                    ArchiveMasthead(annual: true, width: w, openCalendar: openCalendar).padding(.horizontal, 22).padding(.top, 20).padding(.bottom, 18)
+                    HStack(spacing: 10) {
+                        ScrollView(.horizontal) {
+                            HStack(spacing: 8) {
+                                ForEach(catalog.years, id: \.self) { value in
+                                    Button { changeYear(value) } label: {
+                                        SourceLine(text: value, size: 15, family: "RobotoCondensed-Regular", weight: 700, color: UIColor(year == value ? Pit.pink : Pit.ink))
+                                            .frame(minWidth: 42, minHeight: 44)
+                                            .overlay(alignment: .bottom) { if year == value { Rectangle().fill(Pit.pink).frame(height: 2).rotationEffect(.degrees(-2)).padding(.bottom, 5) } }
+                                    }.accessibilityIdentifier("switch-year-\(value)")
+                                }
+                            }
+                        }.scrollIndicators(.hidden)
+                        HStack(alignment: .firstTextBaseline, spacing: 3) {
+                            SourceLine(text: String(format: "%02d", dramas.count), size: 16, family: "RobotoCondensed-Regular", weight: 800, color: UIColor(Pit.pink))
+                            SourceLine(text: app.t("部剧集"), size: 9, family: "RobotoCondensed-Regular", weight: 650, color: UIColor(Pit.ink.opacity(0.52)))
                         }
-                        .buttonStyle(.plain)
-                        .id(value)
+                    }.frame(height: 44).padding(.horizontal, 16)
+                    ScrollViewReader { horizontal in
+                        ScrollView(.horizontal) {
+                            HStack(alignment: .top, spacing: 8) {
+                                ForEach(dramas) { drama in
+                                    Button {
+                                        selected = drama.id
+                                        withAnimation(reduceMotion ? nil : .easeOut(duration: 0.24)) { centered = drama.id; horizontal.scrollTo(drama.id, anchor: .center) }
+                                    } label: {
+                                        VStack(alignment: .leading, spacing: 0) {
+                                            SourcePhoto(source: drama.image, focus: drama.focus ?? "50% 40%")
+                                                .frame(width: cardW - 6, height: (cardW - 6) * 4 / 3).saturation(selected == drama.id ? 1 : 0).contrast(selected == drama.id ? 1 : 1.14)
+                                            VStack(alignment: .leading, spacing: 4) {
+                                                Text(drama.startDate.replacingOccurrences(of: "-", with: ".")).sourceFont(9, weight: 700).tracking(0.9).foregroundStyle(selected == drama.id ? Pit.pink : .white.opacity(0.72))
+                                                Text(app.t(drama.title)).sourceFont(12, weight: 700).fixedSize(horizontal: false, vertical: true).foregroundStyle(.white)
+                                            }.padding(.horizontal, 9).padding(.vertical, 6).frame(maxWidth: .infinity, minHeight: 48, alignment: .leading)
+                                                .overlay(alignment: .top) { Rectangle().fill(Pit.paper.opacity(0.36)).frame(height: 1) }
+                                        }.padding(3).frame(width: cardW).background(Pit.ink)
+                                            .overlay(Rectangle().strokeBorder(selected == drama.id ? Pit.pink : Pit.paper.opacity(0.5), lineWidth: 3))
+                                    }.buttonStyle(SourceButtonStyle()).id(drama.id).accessibilityIdentifier("drama-\(drama.id)").accessibilityAddTraits(selected==drama.id ? .isSelected:[])
+                                }
+                            }.scrollTargetLayout().padding(.top, 22).padding(.bottom, 21)
+                        }.contentMargins(.horizontal, (w - cardW) / 2, for: .scrollContent)
+                            .scrollIndicators(.hidden).scrollTargetBehavior(.viewAligned).scrollPosition(id: $centered, anchor: .center)
+                            .simultaneousGesture(DragGesture(minimumDistance: 8).onChanged { value in if abs(value.translation.width) > abs(value.translation.height) { dragged = true } })
+                            .background(FilmPerforations()).accessibilityIdentifier("annual-film")
+                            .background(GeometryReader {g in
+                                Color.clear.preference(key:AnnualFilmPosition.self,value:g.frame(in:.named("annual-reading")).minY)
+                            })
+                            .overlay(alignment:.top) {Color.clear.frame(height:1).offset(y:-58).id("film")}
+                            .onAppear { let id = initialDrama ?? dramas.first?.id; selected = id; centered = id; if let id { horizontal.scrollTo(id, anchor: .center) } }
+                            .task(id: centered) {
+                                guard let centered else { return }
+                                do { try await Task.sleep(for: .milliseconds(160)) } catch { return }
+                                selected = centered
+                                if dragged && !revealed {
+                                    revealed = true
+                                    if filmTop>58 {
+                                        withAnimation(reduceMotion ? nil : .easeOut(duration: 0.35)) { vertical.scrollTo("film", anchor: .top) }
+                                    }
+                                }
+                            }
+                    }.padding(.top, 4)
+                    if let drama = dramas.first(where: { $0.id == selected }) ?? dramas.first {
+                        DramaDetails(drama: drama).padding(.horizontal, 24).padding(.top, 24).padding(.bottom, 74)
                     }
-                }
-                .scrollTargetLayout()
-                .padding(.horizontal, max(0, (width - cardWidth) / 2))
-            }
-            .scrollIndicators(.hidden)
-            .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
-            .scrollPosition(id: $activeYear, anchor: .center)
+                }.padding(.top, 58).padding(.bottom, 90 + bottom)
+            }.coordinateSpace(name:"annual-reading").onPreferenceChange(AnnualFilmPosition.self) {filmTop=$0}
+                .scrollIndicators(.hidden).buttonStyle(SourceButtonStyle())
         }
-        .frame(height: cardHeight + 44)
     }
+}
 
-    private func perforations(width: CGFloat) -> some View {
-        HStack(spacing: 32) {
-            ForEach(0..<10, id: \.self) { _ in Rectangle().fill(Pit.paper).frame(width: 15, height: 7) }
-        }
-        .frame(width: width, alignment: .leading)
-        .clipped()
-    }
-
-    private func yearFrame(_ value: String, active: Bool) -> some View {
-        let dramas = catalog.dramas(in: value)
-        let representative = dramas.first(where: { $0.id == catalog.archiveRepresentativeIds[value] }) ?? dramas.first
-        return ZStack(alignment: .topLeading) {
-            if let representative {
-                LocalArtwork(source: representative.image, mode: .fill)
-                    .saturation(active ? 0.9 : 0)
-                    .contrast(active ? 1.03 : 1.12)
-                    .scaleEffect(active ? 1.035 : 1)
-            }
-            GeometryReader { geometry in
-                LinearGradient(
-                    colors: [Pit.ink.opacity(0.92), Pit.ink.opacity(0.66), .clear],
-                    startPoint: .leading,
-                    endPoint: .trailing
-                )
-                .frame(width: geometry.size.width * WebMobileDesign.ArchiveOverview.yearStampWidthRatio)
-            }
-            VStack(alignment: .leading, spacing: 2) {
-                Text("ARCHIVE YEAR")
-                    .font(PitFont.display(7).weight(.bold))
-                    .tracking(1)
-                    .foregroundStyle(active ? Pit.pink : .white.opacity(0.72))
-                Text(value)
-                    .font(PitFont.hero(48))
-                    .tracking(-3)
-                    .foregroundStyle(.white)
-                Text("\(dramas.count) " + app.t("部剧集"))
-                    .font(PitFont.display(8).weight(.bold))
-                    .foregroundStyle(active ? Pit.pink : .white.opacity(0.72))
-            }
-            .padding(.horizontal, WebMobileDesign.ArchiveOverview.yearStampHorizontal)
-            .padding(.top, WebMobileDesign.ArchiveOverview.yearStampTop)
-            .padding(.bottom, WebMobileDesign.ArchiveOverview.yearStampBottom)
-        }
-        .clipped()
-        .overlay(Rectangle().stroke(active ? Pit.pink : .white.opacity(0.45), lineWidth: active ? 3 : 1))
-    }
+private struct AnnualFilmPosition:PreferenceKey {
+    static var defaultValue:CGFloat = .greatestFiniteMagnitude
+    static func reduce(value:inout CGFloat,nextValue:()->CGFloat) {value=nextValue()}
 }
 
 struct DramaDetails: View {
     @EnvironmentObject var app: AppModel
     let drama: Drama
+    private var range: String {
+        let start = drama.startDate.replacingOccurrences(of: "-", with: ".")
+        return drama.endDate.map { start + " — " + $0.replacingOccurrences(of: "-", with: ".") } ?? app.t("\(start) 起")
+    }
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            Text(app.t(drama.title)).font(.title.bold()).foregroundStyle(Pit.pink).fixedSize(horizontal: false, vertical: true)
-            Text(drama.titleEn).font(.subheadline.weight(.semibold))
-            HStack { Text(app.t(drama.status)); Spacer(); Text(drama.startDate) }.font(.caption).foregroundStyle(.secondary)
-            Divider()
-            Text(app.t(drama.summary)).font(.body).lineSpacing(6).textSelection(.enabled)
-            if !drama.cast.isEmpty { Text(drama.cast.joined(separator: "\n")).font(.subheadline).lineSpacing(6) }
-            Text(([drama.company] + drama.platforms).joined(separator: " · ")).font(.caption).foregroundStyle(.secondary)
-            if let url = URL(string: drama.sourceUrl), url.scheme == "https" { Link(destination: url) { Label(app.t("来源"), systemImage: "arrow.up.right") }.frame(minHeight: 44) }
-        }.padding(20).frame(maxWidth: .infinity, alignment: .leading).background(.white)
+        VStack(alignment: .leading, spacing: 0) {
+            Text(range).sourceFont(11, weight: 700).tracking(0.66).foregroundStyle(Pit.pink)
+            Text(app.t(drama.title)).sourceFont(28, weight: 800).tracking(-0.42).fixedSize(horizontal: false, vertical: true).padding(.top, 8)
+            Text(drama.titleEn.uppercased()).sourceFont(10, family: "RobotoCondensed-Regular", weight: 650).tracking(0.6).foregroundStyle(Pit.ink.opacity(0.58)).padding(.top, 5)
+            SourceFlow(spacing: 14, rowSpacing: 8) {
+                fact("播出", app.t(drama.weekday ?? "") + " · " + app.t(drama.status))
+                fact("集数", drama.episodes.map { app.t("\($0) 集") } ?? app.t("待公布"))
+                fact("平台", drama.platforms.isEmpty ? drama.company : drama.platforms.joined(separator: " / "))
+            }.padding(.top, 11)
+            HStack(alignment: .firstTextBaseline, spacing: 7) {
+                Text(app.t("主演")).sourceFont(8, weight: 750).foregroundStyle(Pit.pink)
+                Text(drama.cast.map{app.t($0)}.joined(separator: " / ")).sourceFont(9, weight: 650).foregroundStyle(Pit.ink.opacity(0.76)).fixedSize(horizontal: false, vertical: true)
+            }.padding(.top, 9)
+            SourceTexture("assets/repo-handdrawn-underline-pink.webp").frame(height: 10).padding(.trailing, 58).padding(.top, 9).padding(.bottom, 10)
+            Text(app.t(drama.summary)).sourceFont(13).foregroundStyle(Pit.ink.opacity(0.68)).lineSpacing(13 * 0.25).fixedSize(horizontal: false, vertical: true)
+        }.frame(maxWidth: .infinity, alignment: .leading)
+            .overlay(alignment: .bottomTrailing) {
+                LocalArtwork(source: "assets/repo-handdrawn-heart-pink.webp").frame(width: 29, height: 29)
+                    .rotationEffect(.degrees(-13)).offset(x: 6, y: 34).accessibilityHidden(true)
+            }
+    }
+    private func fact(_ label: String, _ value: String) -> some View {
+        HStack(alignment: .firstTextBaseline, spacing: 5) {
+            Text(app.t(label)).sourceFont(8, weight: 750).foregroundStyle(Pit.pink)
+            Text(value).sourceFont(9, weight: 650).foregroundStyle(Pit.ink.opacity(0.74)).fixedSize(horizontal: false, vertical: true)
+        }
     }
 }
 
-struct CalendarView: View {
-    @EnvironmentObject var app: AppModel
-    @Environment(\.dismiss) var dismiss
-    @State private var date = Date()
-    @State private var selecting = false
-    @State private var periodPicker = false
-    @State private var expanded: String?
-    @State private var now = Date()
-    private let clock = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
-    var calendar: Calendar { var c = Calendar(identifier: .gregorian); c.timeZone = app.timeZone; return c }
-    var events: [BroadcastEvent] { (app.schedule?.confirmed ?? []).filter { !app.followingOnly || app.followed.contains($0.seriesId) } }
-    var week: [Date] { CalendarRules.week(containing: date, zone: app.timeZone) }
-    func dateLabel(_ date: Date, format: String) -> String { let f = DateFormatter(); f.locale = app.systemLocale; f.calendar = calendar; f.timeZone = app.timeZone; f.dateFormat = format; return f.string(from: date) }
-    var month: String { dateLabel(date, format: "yyyy · MM") }
-    var body: some View {
-        VStack(spacing: 0) {
-            VStack(spacing: 10) {
-                HStack {
-                    Button { moveMonth(-1) } label: { Image(systemName: "chevron.left").frame(width: 44, height: 44) }.accessibilityLabel(app.t("上个月"))
-                    Spacer()
-                    Button { periodPicker = true } label: { Text(month).font(.title3.bold()); Image(systemName: "chevron.down").font(.caption) }
-                    Spacer()
-                    Button { moveMonth(1) } label: { Image(systemName: "chevron.right").frame(width: 44, height: 44) }.accessibilityLabel(app.t("下个月"))
-                }
-                HStack(spacing: 12) {
-                    Text(dateLabel(week.first!, format: "M/d") + " – " + dateLabel(week.last!, format: "M/d")).font(.caption).lineLimit(1)
-                    Spacer(minLength: 0)
-                    Button(app.t("全部")) { app.followingOnly = false }.foregroundStyle(app.followingOnly ? Pit.ink : Pit.pink)
-                    Button(app.t("关注")) { app.followingOnly = true }.foregroundStyle(app.followingOnly ? Pit.pink : Pit.ink)
-                    Divider().frame(height: 14)
-                    Button(app.t("选剧")) { selecting = true }
-                }.font(.subheadline.bold()).frame(minHeight: 44)
-            }.padding(.horizontal, 16).background(Pit.paper)
-            Divider()
-            ScrollView {
-                VStack(alignment: .leading, spacing: 0) {
-                    if app.followingOnly && app.followed.isEmpty { Text(app.t("还没有关注的剧集")).padding(20).foregroundStyle(.secondary) }
-                    ForEach(week, id: \.self) { day in
-                        let key = CalendarRules.day(day, zone: app.timeZone)
-                        let daily = events.filter { $0.day(in: app.timeZone) == key }
-                        HStack(alignment: .top, spacing: 12) {
-                            VStack(spacing: 4) {
-                                Text(dateLabel(day, format: "EEE")).font(.caption2)
-                                Text(String(calendar.component(.day, from: day))).font(.headline).frame(width: 32, height: 32)
-                                    .background(calendar.isDateInToday(day) ? Pit.ink : .clear).foregroundStyle(calendar.isDateInToday(day) ? .white : Pit.ink).clipShape(Circle())
-                            }.frame(width: 44).padding(.top, 8)
-                            VStack(spacing: 10) {
-                                if daily.isEmpty { Text(app.t("暂无排期")).font(.caption).foregroundStyle(.secondary).frame(maxWidth: .infinity, alignment: .leading).padding(.vertical, 14) }
-                                ForEach(daily) { event in eventRow(event) }
-                            }
-                        }.padding(.vertical, 10)
-                        Divider()
-                    }
-                    DisclosureGroup(app.t("来源与说明")) {
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text(app.locale == "zh" ? "北京时间 · UTC+8" : "Thailand time · UTC+7")
-                            Text((app.schedule?.checkedAt ?? "").prefix(10)).font(.caption.monospaced())
-                            Text(app.t("时间待公布")).font(.caption)
-                            Text("GL Spotlight · TVmaze").font(.caption)
-                            if let error = app.scheduleError { Text(app.t(error)).font(.caption).foregroundStyle(.secondary) }
-                            Button(app.t(app.refreshingSchedule ? "更新中…" : "更新排期")) { Task { await app.refreshSchedule(force: true) } }.disabled(app.refreshingSchedule).frame(minHeight: 44)
-                        }.frame(maxWidth: .infinity, alignment: .leading).padding(.vertical, 8)
-                    }.font(.footnote).padding(.vertical, 20)
-                }.padding(.horizontal, 16)
-            }.simultaneousGesture(DragGesture(minimumDistance: 40).onEnded { gesture in
-                if abs(gesture.translation.width) > abs(gesture.translation.height) * 1.5 { moveWeek(gesture.translation.width < 0 ? 1 : -1) }
-            })
-            HStack {
-                Button { moveWeek(-1) } label: { Label(app.t("上周"), systemImage: "chevron.left").frame(minHeight: 44) }
-                Spacer()
-                Button(app.t("今天")) { date = Date(); expanded = nil }.frame(minHeight: 44)
-                Spacer()
-                Button { moveWeek(1) } label: { Label(app.t("下周"), systemImage: "chevron.right").frame(minHeight: 44) }
-            }.font(.subheadline).padding(.horizontal, 20).background(Pit.paper)
-        }.background(Pit.paper).navigationTitle(app.t("播出日历")).navigationBarTitleDisplayMode(.inline)
-        .task { await app.refreshSchedule() }
-        .onReceive(clock) { now = $0 }
-        .toolbar { ToolbarItem(placement: .confirmationAction) { Button(app.t("完成")) { dismiss() } } }
-        .sheet(isPresented: $selecting) { followingSheet }
-        .sheet(isPresented: $periodPicker) {
-            NavigationStack {
-                ScrollView {
-                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], spacing: 14) {
-                        ForEach(Array(Set(events.map { String($0.day(in: app.timeZone).prefix(7)) })).sorted().reversed(), id: \.self) { month in
-                            Button(month) { let f = DateFormatter(); f.dateFormat = "yyyy-MM-dd"; f.timeZone = app.timeZone; if let value = f.date(from: month + "-01") { date = value; expanded = nil }; periodPicker = false }.pitButton()
-                        }
-                    }.padding(20)
-                }.background(Pit.paper).navigationTitle(app.t("选择月份")).toolbar { ToolbarItem(placement: .confirmationAction) { Button(app.t("完成")) { periodPicker = false } } }
-            }.presentationDetents([.medium, .large])
+/// Flex-wrap for original metadata/chips; keeps full translated text visible.
+struct SourceFlow: Layout {
+    var spacing: CGFloat = 8
+    var rowSpacing: CGFloat = 8
+    func layout(_ proposal: ProposedViewSize, _ subviews: Subviews) -> (CGSize, [CGPoint]) {
+        let width = proposal.width ?? 350
+        var x: CGFloat = 0, y: CGFloat = 0, row: CGFloat = 0, points: [CGPoint] = []
+        for view in subviews {
+            let size = view.sizeThatFits(.init(width: width, height: nil))
+            if x > 0 && x + size.width > width { x = 0; y += row + rowSpacing; row = 0 }
+            points.append(CGPoint(x: x, y: y)); x += size.width + spacing; row = max(row, size.height)
         }
+        return (CGSize(width: width, height: y + row), points)
     }
-    func moveMonth(_ value: Int) { let first = calendar.date(from: calendar.dateComponents([.year, .month], from: date))!; date = calendar.date(byAdding: .month, value: value, to: first)!; expanded = nil }
-    func moveWeek(_ value: Int) { date = calendar.date(byAdding: .day, value: value * 7, to: date)!; expanded = nil }
-    func name(_ id: String) -> String { app.catalog?.dramas.first(where: { $0.id == id }).map { app.t($0.title) } ?? app.schedule?.series.first(where: { $0.id == id })?.name ?? id }
-    @ViewBuilder func eventRow(_ event: BroadcastEvent) -> some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Button { withAnimation { expanded = expanded == event.id ? nil : event.id } } label: {
-                VStack(alignment: .leading, spacing: 7) {
-                    Text(name(event.seriesId)).font(.subheadline.bold()).fixedSize(horizontal: false, vertical: true)
-                    HStack { Text(event.episode.map { "EP \($0)" } ?? app.t("首播")); Spacer(); Text(event.timestamp.map { timestamp in let f = DateFormatter(); f.timeZone = app.timeZone; f.dateFormat = "HH:mm"; return f.string(from: timestamp) } ?? app.t("时间待公布")) }
-                        .font(.caption)
-                }.padding(12).frame(maxWidth: .infinity, alignment: .leading).background(expanded == event.id ? Pit.pink : .white).foregroundStyle(Pit.ink)
-            }.buttonStyle(.plain)
-            if expanded == event.id {
-                VStack(alignment: .leading, spacing: 12) {
-                    Text(app.t(event.status(now: now))).font(.caption.bold())
-                    if let drama = app.catalog?.dramas.first(where: { $0.id == event.seriesId }) {
-                        LocalArtwork(source: drama.image).frame(maxHeight: 180)
-                        Text(app.t(drama.summary)).font(.subheadline).lineSpacing(4)
-                    }
-                    if let series = app.schedule?.series.first(where: { $0.id == event.seriesId }) { Text(series.platforms.joined(separator: " · ")).font(.caption) }
-                    if let url = URL(string: event.sourceUrl) { Link(app.t("来源"), destination: url).font(.caption).frame(minHeight: 44) }
-                }.padding(12).frame(maxWidth: .infinity, alignment: .leading).background(.white)
-            }
-        }
-    }
-    var followingSheet: some View {
-        NavigationStack {
-            List {
-                ForEach((app.schedule?.series ?? []).filter { series in app.schedule?.confirmed.contains(where: { $0.seriesId == series.id }) == true }) { series in
-                    Button { app.toggleFollow(series.id) } label: {
-                        HStack { Text(name(series.id)).foregroundStyle(Pit.ink); Spacer(); Image(systemName: app.followed.contains(series.id) ? "checkmark.circle.fill" : "circle") }.frame(minHeight: 32)
-                    }
-                }
-            }.navigationTitle(app.t("选剧")).toolbar { ToolbarItem(placement: .confirmationAction) { Button(app.t("完成")) { app.followingOnly = true; selecting = false } } }
-        }
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize { layout(proposal, subviews).0 }
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        let (_, points) = layout(.init(width: bounds.width, height: nil), subviews)
+        for (i, view) in subviews.enumerated() { view.place(at: CGPoint(x: bounds.minX + points[i].x, y: bounds.minY + points[i].y), proposal: .init(width: min(bounds.width, view.sizeThatFits(.unspecified).width), height: nil)) }
     }
 }
