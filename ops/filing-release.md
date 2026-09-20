@@ -75,3 +75,9 @@ trap - ERR
 # 2026-09-17 Us 文章范围更新
 
 `d785e65` 发布后，Us EP07、EP08、EP12 在网页和 App feed 同时隐藏；原稿及译文仍保留在源码中。网站构建通过 `public-column-payloads` 排除隐藏正文及其独有译文，App exporter 使用同一过滤规则。Nginx 对三篇独立路径返回 404，旧 hash 入口回到合集。Us 当前 9 篇，全站公开 REPO 17 篇。恢复文章须同时调整 `hidden` 标记及发布脚本中的路径限制，并按实际内容重新核对 App 年龄分级。
+
+## 2026-09-20 网站功能恢复
+
+用户明确授权开放线上网站全部既有功能。网页恢复欢迎页、文学与社区互动、电台、后台登录、百家饭的电台/超话/商店入口。App 继续使用其当前审核范围；和谐密语与 Us EP07/EP08/EP12 的独立内容隐藏决定继续保留。每周任务未自动恢复。
+
+完整构建生成 `public-build.json`；运行 `GLFANS_FULL_MODE=1 GLFANS_RELEASE_ID=已核对版本号 bash scripts/publish-static-vps.sh dist/client` 发布。发布器先校验完整组件与 App feed 的 hash，再将服务器策略更新为只保留独立文章限制和 App manifest 不缓存规则。原策略、Nginx 配置、旧静态版本均保留；策略失败会还原，静态切换失败也会还原策略。无需重启社区 API 或写入数据库。后续完整网页发布沿用 `GLFANS_FULL_MODE=1`。

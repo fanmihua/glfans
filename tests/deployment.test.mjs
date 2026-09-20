@@ -42,27 +42,19 @@ test("production boot recovers stale lazy chunks without leaving a blank page", 
   assert.match(boundary, /重新加载/);
 });
 
-test("filing notice is present in retained page footers and the application shell", () => {
+test("filing notice is shared by page footers and standalone special routes", () => {
   const filing = read("../src/FilingNotice.jsx");
   const rights = read("../src/RightsNotice.jsx");
   const app = read("../src/App.jsx");
+  const home = read("../src/HomePage.jsx");
   const mobileStyles = read("../src/mobile-section-nav.css");
 
   assert.match(filing, /京ICP备2025151071号-4/);
   assert.match(filing, /https:\/\/beian\.miit\.gov\.cn\//);
   assert.match(rights, /<FilingNotice \/>/);
-  assert.match(app, /<footer className=\{`route-filing-footer[^]*?<FilingNotice \/>/);
-  assert.doesNotMatch(app, /rootRoute !== "home"/);
+  assert.match(app, /rootRoute !== "home"/);
+  assert.match(home, /HomeRightsNotice className="home-rights-cover"/);
   assert.match(mobileStyles, /site-rights-notice:not\(\.about-mobile-rights\)/);
-});
-
-test("filing application entry does not load hidden routes or a global radio player", () => {
-  const app = read("../src/App.jsx");
-  const main = read("../src/main.jsx");
-  assert.doesNotMatch(app, /HomePage|AdminPage|PitRadioPage|WordsTideLab|GlobalRadioDock/);
-  assert.match(app, /const ColumnExperience = lazy/);
-  assert.match(app, /const MemesPage = lazy/);
-  assert.doesNotMatch(main, /PitRadioProvider|PitRadioContext|pit-radio\.css/);
 });
 
 test("VPS defaults to the domain root and Pages opts into its fallback subpath", () => {

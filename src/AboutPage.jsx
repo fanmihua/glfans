@@ -2,13 +2,22 @@ import { t } from "./i18n/runtime.js";
 import { getLocale } from './i18n/runtime.js';
 import { withBase } from "./lib/assets.js";
 import { useState } from "react";
+import { RepoFilmStrip } from "./RepoFilmStrip.jsx";
 import { SiteHeader } from "./SiteHeader.jsx";
 import { RightsNotice } from "./RightsNotice.jsx";
 import { RIGHTS_FEEDBACK_URL, RIGHTS_SHORT_NOTICE } from "./rights.js";
 import "./about-page.css";
-import { aboutCopy } from "./data/site-about.js";
 
 
+function ParticipationCopy() {
+  if (getLocale() !== 'zh') return t('参与完整说明');
+  return (
+    <>
+      <span className="about-welcome-sentence">{t("如果你也想分享你的文字、图文、表情包或")}<span className="about-welcome-phrase">{t("宝藏资源，")}</span></span><br />
+      <span className="about-welcome-sentence"><span className="about-welcome-phrase">{t("欢迎联系我们，")}</span>{t("一起把这份热爱攒得更大、")}<span className="about-welcome-phrase">{t("更久一点。")}</span></span>
+    </>
+  );
+}
 
 function HanddrawnHeart({ className = "" }) {
   return (
@@ -25,7 +34,6 @@ function HanddrawnHeart({ className = "" }) {
 
 export function AboutPage({ defaultRightsOpen = false }) {
   const [rightsOpen, setRightsOpen] = useState(defaultRightsOpen);
-  const copy = aboutCopy[getLocale()] || aboutCopy.zh;
 
   return (
     <main className="about-shell">
@@ -66,8 +74,9 @@ export function AboutPage({ defaultRightsOpen = false }) {
 
         <div className="about-copy">
           <div className="about-copy-text">
-            <p>{copy.intro}</p>
-            <p className="about-participation">{copy.note}</p>
+            <p>{t("这是一个自嘲式泰百粉丝磕糖网站，记录泰百 CP 的入坑欣喜、 磕糖的上头、塌房的心酸，以及自嘲的嘴硬。二创是因为真的热爱， 也时刻提醒自己保留一点“良好心态”——")}<strong>{t("【不磕 RPS】【都是侄女，放心磕】")}</strong>。
+            </p>
+            <p className="about-participation"><ParticipationCopy /></p>
           </div>
           <p className="about-top-note">{t("we pit, we write,")}<br />{t("we love.")}</p>
           <HanddrawnHeart className="about-heart about-heart-top" />
@@ -99,10 +108,12 @@ export function AboutPage({ defaultRightsOpen = false }) {
           </p>
         </section>
 
-        <aside className="about-welcome" aria-label={copy.sections}>
-          <strong>{copy.heading}</strong>
+        <aside className="about-welcome" aria-label={t("欢迎与参与说明")}>
+          <strong>{getLocale() === 'zh' ? <>欢迎入坑，磕得<span>开心</span>最重要！</> : t('欢迎完整说明')}</strong>
           <i aria-hidden="true" />
-          <p>{copy.note}</p>
+          <p>
+            <ParticipationCopy />
+          </p>
           <HanddrawnHeart className="about-heart about-heart-welcome" />
         </aside>
 
@@ -120,7 +131,7 @@ export function AboutPage({ defaultRightsOpen = false }) {
           <div className="about-rights-content">
             <article>
               <h3>{t("非官方声明")}</h3>
-              <p>{copy.declaration}</p>
+              <p>{t("glfans 是由粉丝自发维护的非商业共创网站，与相关艺人、经纪公司、 剧集制作方、发行平台及品牌不存在隶属、合作或授权关系，页面另有明确说明的除外。")}</p>
             </article>
             <article>
               <h3>{t("内容与权利")}</h3>
@@ -128,7 +139,7 @@ export function AboutPage({ defaultRightsOpen = false }) {
             </article>
             <article>
               <h3>{t("使用边界")}</h3>
-              <p>{copy.boundaries}</p>
+              <p>{t("除页面明确开放的无真人脸表情素材外，glfans 不提供完整剧集、完整音视频、破解资源、 付费内容转载或来源待核实的第三方素材下载，也不会利用艺人肖像暗示代言、合作或进行商品销售。")}</p>
             </article>
             <article>
               <h3>{t("权利反馈")}</h3>
@@ -140,6 +151,7 @@ export function AboutPage({ defaultRightsOpen = false }) {
         </details>
       </section>
 
+      <RepoFilmStrip />
       <RightsNotice className="about-mobile-rights" />
     </main>
   );

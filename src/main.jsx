@@ -5,12 +5,14 @@ import "@fontsource-variable/roboto-condensed";
 import { App } from "./App.jsx";
 import { AppRecoveryBoundary, AppRecoveryScreen } from "./AppRecoveryBoundary.jsx";
 import { PageLoader } from "./PageLoader.jsx";
+import { PitRadioProvider } from "./PitRadioContext.jsx";
 import {
   chunkRecoveryConfig,
   installChunkRecovery,
   removeChunkRecoveryQuery,
 } from "./app/chunk-recovery.js";
 import "./styles.css";
+import "./pit-radio.css";
 import './i18n/localized-layout.css';
 import { initializeLocale } from './i18n/runtime.js';
 import { installShareRoutes, installShareMetadata } from './app/share-route.js';
@@ -31,7 +33,9 @@ initializeLocale()
     applicationRoot.render(
       <React.StrictMode>
         <AppRecoveryBoundary>
-          <App />
+          <PitRadioProvider>
+            <App />
+          </PitRadioProvider>
         </AppRecoveryBoundary>
       </React.StrictMode>,
     );

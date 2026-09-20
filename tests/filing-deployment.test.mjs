@@ -158,3 +158,46 @@ test('filing deploy verifies referenced App bytes before enabling a release', t 
   assert.throws(() => run('corrupt-app'), /App content hash mismatch/);
   assert.equal(existsSync(path.join(root, 'current')), false);
 });
+
+function fullBuild(source, put) {
+  put(path.join(source, 'public-build.json'), JSON.stringify({mode:'full', communityEnabled:true, radioEnabled:true,
+    publicSections:['home','archive','cp','tide-words','column','memes','radio','about']}));
+  for (const name of ['HomePage','AdminPage','PitRadioPage','WordsTideLab']) put(path.join(source, `assets/${name}-new.js`), name);
+}
+
+test('explicit full release reopens functions while preserving editorial restrictions and App caching', t => {
+  const { root, source, policy, put, run } = fixture(t);
+  run('filing');
+  fullBuild(source, put);
+  run('restored', false, {GLFANS_FULL_MODE:'1'});
+  const content = readFileSync(policy, 'utf8');
+  const rules = [...content.matchAll(/if \(\$uri ~\* "([^"]+)"\)/g)].map(match=>new RegExp(match[1],'i'));
+  for (const route of ['/api/quotes','/api/comments','/api/admin/session','/radio','/tide-words','/admin','/assets/HomePage-old.js','/assets/pit-radio/song.mp3']) {
+    assert.equal(rules.some(rule=>rule.test(route)),false,route);
+  }
+  assert.ok(rules.some(rule=>rule.test('/column/us/unsaid-fragments-ep07/')));
+  assert.match(content,/expires -1;/);
+  assert.equal(readlinkSync(path.join(root,'current')),path.join(root,'releases/restored'));
+  assert.match(readFileSync(path.join(root,'shared/filing-backups/restored/policy-before.conf'),'utf8'),/interaction and radio disabled/);
+});
+
+test('failed full policy reload restores filing policy and previous release', t => {
+  const { root, source, policy, put, run } = fixture(t);
+  run('filing');
+  const before = readFileSync(policy,'utf8');
+  fullBuild(source, put);
+  assert.throws(()=>run('restore-failed',false,{GLFANS_FULL_MODE:'1',MOCK_FAIL_TEST:'1'}));
+  assert.equal(readFileSync(policy,'utf8'),before);
+  assert.equal(readlinkSync(path.join(root,'current')),path.join(root,'releases/filing'));
+});
+
+test('full mode rejects incomplete builds before changing production policy', t => {
+  const { root, source, policy, put, run } = fixture(t);
+  run('filing');
+  const before = readFileSync(policy,'utf8');
+  fullBuild(source, put);
+  rmSync(path.join(source,'assets/PitRadioPage-new.js'));
+  assert.throws(()=>run('incomplete',false,{GLFANS_FULL_MODE:'1'}),/missing PitRadioPage/);
+  assert.equal(readFileSync(policy,'utf8'),before);
+  assert.equal(existsSync(path.join(root,'releases/incomplete')),false);
+});

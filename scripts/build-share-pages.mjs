@@ -40,13 +40,15 @@ async function thumbnail(source, fit) {
 const image = await thumbnail('assets/glfans-logo-brush.webp', 'contain');
 const introductions = {
   archive:'沿着年份翻阅泰百剧集，重温故事，也找到下一部想追的剧。',
+  radio:'打开坑底电台，让喜欢的旋律陪你多待一会儿。',
+  'tide-words':'收集坑底人的心动、碎碎念，和那些忍不住想说的话。',
   calendar:'查看已公布的泰百剧集逐集排期，按日期浏览播出信息。',
   cp:'认识她们，收藏共同作品、音乐与舞台，记录两个人的来时路。',
   column:'把看剧时的心动写下来，一起重读故事里的细节。',
   memes:'捡一张表情包，把今天的心情带走。',
   about:'由粉丝维护的非官方、非商业泰百影视资料站，整理剧集、播出排期与演员公开资料。',
 };
-const description = '泰百影视资料站：考古档案、播出日历、百家饭、REPO 与表情包，整理剧集、已公布排期及演员公开资料。';
+const description = '泰百粉丝共创档案：考古档案、播出日历、百家饭、坑底文学、REPO、表情包与电台。';
 async function emit(route, data) {
   const directory = `${root}/${route}`;
   await mkdir(directory,{recursive:true});
@@ -54,7 +56,7 @@ async function emit(route, data) {
   await writeFile(`${directory}/share.json`,JSON.stringify(data));
 }
 await emit('',{title:'glfans · 每一种喜欢，都值得被认真记录',description,image,url:`${origin}${base}`});
-for (const nav of SITE_NAVIGATION.filter(item=>['archive','cp','column','memes','about'].includes(item.id))) {
+for (const nav of SITE_NAVIGATION.filter(item=>item.id !== 'home')) {
   await emit(nav.id,{title:`glfans · ${nav.label}`,description:introductions[nav.id],image,url:`${origin}${base}${nav.id}/`});
 }
 for (const cp of profiles) {
@@ -81,4 +83,4 @@ for (const collection of collections) {
       image,url:`${origin}${base}${articleRoute}/`});
   }
 }
-console.log('Generated share pages for archive, calendar, CPs, REPO, memes, about and retained detail pages.');
+console.log('Generated share pages for all public website sections and retained detail pages.');

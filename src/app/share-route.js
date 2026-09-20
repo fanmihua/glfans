@@ -1,21 +1,19 @@
 import { isWechatBrowser } from './wechat-share.js';
-import { DEFAULT_ROUTE, isPublicRoute } from './routes.js';
 
 // Keep shared page identity outside the fragment: preview crawlers do not receive #.
 // The fragment remains the internal router's source of truth after bootstrap.
+const publicRoute = /^(?:cp|archive|column|memes|radio|tide-words|about|admin)(?:\/[a-z0-9-]+)*\/?$/;
 export function normalizeShareUrl(href, base = '/', bootstrap = false) {
   const url = new URL(href);
   const prefix = `/${base.replace(/^\/+|\/+$/g, '')}`.replace(/\/$/, '');
   const root = `${prefix}/`;
   const path = url.pathname.startsWith(root) ? url.pathname.slice(root.length) : '';
-  const fromPath = isPublicRoute(path);
+  const fromPath = publicRoute.test(path);
   if (bootstrap && !url.hash && fromPath) url.hash = `#/${path.replace(/\/$/, '')}`;
-  let route = url.hash.replace(/^#\/?/, '').replace(/\/$/, '');
-  if (!isPublicRoute(route)) {
-    route = DEFAULT_ROUTE;
-    url.hash = `#/${route}`;
-  }
-  url.pathname = `${root}${route}/`;
+  const route = url.hash.replace(/^#\//, '').replace(/\/$/, '');
+  const fromHash = publicRoute.test(route);
+  if (fromHash) url.pathname = `${root}${route}/`;
+  else if (fromPath) url.pathname = root;
   return url;
 }
 

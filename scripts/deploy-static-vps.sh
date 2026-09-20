@@ -22,6 +22,8 @@ const current = path.join(root, 'current');
 const marker = path.join(root, 'shared/.assets-initialized-v1');
 const filingMode = process.env.GLFANS_FILING_MODE || '0';
 if (!['0', '1'].includes(filingMode)) throw Error('GLFANS_FILING_MODE must be 0 or 1');
+const fullMode = process.env.GLFANS_FULL_MODE || '0';
+if (!['0', '1'].includes(fullMode) || (fullMode === '1' && filingMode === '1')) throw Error('Choose exactly one release mode');
 const filingPolicy = path.join(root, 'shared/filing-policy.conf');
 const nginxConfig = process.env.GLFANS_NGINX_CONFIG || '/etc/nginx/sites-available/glfans.com.conf';
 const ignored = name => name === '.DS_Store' || name.startsWith('._') || name.startsWith('.glfans-asset-');
@@ -73,6 +75,10 @@ const filingContents = '# glfans filing visibility policy v3; read-only public c
   '    try_files $uri =404;\n' +
   '}\n';
 
+const fullContents = '# glfans full website; independent editorial restrictions retained.\n' +
+  'if ($uri ~* "^/column/us/unsaid-fragments-ep(?:07|08|12)(?:/|$)") { return 404; }\n' +
+  'location = /app-content/v1/manifest.json {\n    default_type application/json;\n    expires -1;\n    try_files $uri =404;\n}\n';
+
 function verifyAppManifest(incoming, source, build) {
   const manifestFile = path.join(source, 'app-content/v1/manifest.json');
   if (!incoming.includes(manifestFile)) throw Error('Filing release needs the versioned App content manifest');
@@ -122,21 +128,32 @@ function nginxReload() {
   execFileSync('systemctl', ['reload', 'nginx'], { stdio: 'pipe' });
 }
 function prepareFilingPolicy(incoming, source) {
-  if (filingMode !== '1') {
+  if (filingMode !== '1' && fullMode !== '1') {
     if (exists(filingPolicy)) throw Error('Filing policy is active; refusing a non-filing release');
     return null;
   }
   if (!/^\/[A-Za-z0-9_/-]+$/.test(root)) throw Error('Filing mode needs a safe nginx site-root path');
   if (!path.isAbsolute(nginxConfig) || path.resolve(nginxConfig) !== nginxConfig) throw Error('Unsafe nginx config path');
-  const buildMarker = path.join(source, 'filing-build.json');
-  if (!incoming.includes(buildMarker)) throw Error('Filing release needs filing-build.json');
-  const build = JSON.parse(fs.readFileSync(buildMarker, 'utf8'));
-  if (build.mode !== 'filing' || JSON.stringify(build.publicSections) !== JSON.stringify(['archive', 'cp', 'column', 'memes', 'about']) ||
-      build.communityEnabled !== false || build.radioEnabled !== false) throw Error('Invalid filing build marker');
-  verifyAppManifest(incoming, source, build);
-  // 拒绝错误构建，不能仅靠服务器隐藏把完整版重新传到备案 release。
-  const hidden = incoming.filter(file => filingRules.slice(1).some(rule => new RegExp(rule, 'i').test('/' + path.relative(source, file).split(path.sep).join('/'))));
-  if (hidden.length) throw Error(`Filing release contains hidden files: ${hidden.slice(0, 5).map(file => path.relative(source, file)).join(', ')}`);
+  if (fullMode === '1') {
+    const build = JSON.parse(fs.readFileSync(path.join(source, 'public-build.json'), 'utf8'));
+    if (build.mode !== 'full' || build.communityEnabled !== true || build.radioEnabled !== true ||
+        JSON.stringify(build.publicSections) !== JSON.stringify(['home', 'archive', 'cp', 'tide-words', 'column', 'memes', 'radio', 'about'])) throw Error('Invalid full build marker');
+    const restrictedApp = ['archive', 'cp', 'column', 'memes', 'about'];
+    verifyAppManifest(incoming, source, { publicSections: restrictedApp });
+    for (const component of ['HomePage', 'AdminPage', 'PitRadioPage', 'WordsTideLab']) {
+      if (!incoming.some(file => path.basename(file).startsWith(`${component}-`) && file.endsWith('.js'))) throw Error(`Full build missing ${component}`);
+    }
+  } else {
+    const buildMarker = path.join(source, 'filing-build.json');
+    if (!incoming.includes(buildMarker)) throw Error('Filing release needs filing-build.json');
+    const build = JSON.parse(fs.readFileSync(buildMarker, 'utf8'));
+    if (build.mode !== 'filing' || JSON.stringify(build.publicSections) !== JSON.stringify(['archive', 'cp', 'column', 'memes', 'about']) ||
+        build.communityEnabled !== false || build.radioEnabled !== false) throw Error('Invalid filing build marker');
+    verifyAppManifest(incoming, source, build);
+    // 拒绝错误构建，不能仅靠服务器隐藏把完整版重新传到备案 release。
+    const hidden = incoming.filter(file => filingRules.slice(1).some(rule => new RegExp(rule, 'i').test('/' + path.relative(source, file).split(path.sep).join('/'))));
+    if (hidden.length) throw Error(`Filing release contains hidden files: ${hidden.slice(0, 5).map(file => path.relative(source, file)).join(', ')}`);
+  }
   const configBefore = snapshot(nginxConfig);
   if (!configBefore) throw Error('Missing glfans nginx config');
   const policyBefore = snapshot(filingPolicy);
@@ -146,7 +163,7 @@ function prepareFilingPolicy(incoming, source) {
   if (original.split(rootLine).length !== 2 || !original.includes('    server_name glfans.com;')) throw Error('Nginx config does not match the isolated glfans site');
   if (/include [^;]*filing-policy\.conf;/.test(original) && !original.includes(includeLine)) throw Error('Unexpected existing filing policy include');
   const updated = original.includes(includeLine) ? original : original.replace(rootLine, `${includeLine}\n${rootLine}`);
-  return { configBefore, policyBefore, updated };
+  return { configBefore, policyBefore, updated, contents: fullMode === '1' ? fullContents : filingContents };
 }
 function activateFilingPolicy(prepared) {
   if (!prepared) return;
@@ -154,9 +171,9 @@ function activateFilingPolicy(prepared) {
   directory(backups);
   fs.writeFileSync(path.join(backups, 'nginx-before.conf'), prepared.configBefore.bytes, { flag: 'wx', mode: 0o600 });
   if (prepared.policyBefore) fs.writeFileSync(path.join(backups, 'policy-before.conf'), prepared.policyBefore.bytes, { flag: 'wx', mode: 0o600 });
-  fs.writeFileSync(path.join(release, '.glfans-filing-policy.conf'), filingContents, { flag: 'wx', mode: 0o644 });
+  fs.writeFileSync(path.join(release, '.glfans-filing-policy.conf'), prepared.contents, { flag: 'wx', mode: 0o644 });
   try {
-    atomicWrite(filingPolicy, filingContents);
+    atomicWrite(filingPolicy, prepared.contents);
     atomicWrite(nginxConfig, prepared.updated, prepared.configBefore.mode);
     nginxReload();
   } catch (error) {
@@ -243,17 +260,20 @@ try {
       if (previous) mergeAssets(path.join(previous, 'assets'));
     }
     mergeAssets(path.join(release, 'assets'));
-    // 先关旧接口和隐藏资源，再切换前端。若静态切换失败，限制继续生效，避免意外重新开放。
+    // 先验证并激活本次策略，再原子切换前端；切换失败时恢复原策略。
     activateFilingPolicy(filing);
     const next = path.join(root, `.current-${randomUUID()}`);
     try {
       fs.symlinkSync(release, next);
       fs.renameSync(next, current);
+    } catch (error) {
+      if (filing) { restore(nginxConfig, filing.configBefore); restore(filingPolicy, filing.policyBefore); nginxReload(); }
+      throw error;
     } finally { if (exists(next)) fs.unlinkSync(next); }
     fs.writeFileSync(marker, '1\n', { mode: 0o644 });
     console.log(`Activated glfans release: ${release}`);
     console.log(`Content store: ${blobs}; ${linked} links updated. Old releases/assets retained.`);
-    if (filing) console.log(`Filing policy active: ${filingPolicy}; hidden routes/assets and community API return 404.`);
+    if (filing) console.log(fullMode === '1' ? 'Full website active: community, radio, welcome and admin restored; editorial restrictions retained.' : `Filing policy active: ${filingPolicy}; hidden routes/assets and community API return 404.`);
   }
 } finally {
   fs.rmdirSync(lock);
