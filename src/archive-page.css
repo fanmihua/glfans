@@ -146,6 +146,7 @@
 .archive-masthead .archive-calendar-entry { position: relative; z-index: 2; margin: 0; }
 
 .archive-title-doodles { position: absolute; z-index: 4; inset: 0; pointer-events: none; }
+.archive-corner-collages { position: absolute; inset: 0; pointer-events: none; }
 .archive-doodle-image { position: absolute; display: block; height: auto; object-fit: contain; }
 .archive-doodle-loop { top: 24%; left: -9%; width: 48px; transform: rotate(-30deg); }
 .archive-doodle-accent { top: -8%; right: -7%; width: 42px; transform: rotate(158deg); }
@@ -390,7 +391,6 @@
     padding: calc(var(--mobile-header-height, 46px) + 158px) 0 0;
     grid-template-rows: auto minmax(auto, 1fr) auto;
   }
-  .archive-corner-collages { position: absolute; inset: 0; pointer-events: none; }
   .archive-stage::before { top: 100px; font-size: 27vw; }
   .archive-masthead { width: calc(100vw - 60px); padding-top: 0; transform: translateY(-46px); }
   .archive-masthead h1 > span { font-size: clamp(61px, 19.3vw, 86px); }
