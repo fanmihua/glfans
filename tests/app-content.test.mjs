@@ -32,7 +32,7 @@ test('App shares current website series, published REPO articles and schedules w
   assert.deepEqual(snapshot.catalog.collections.map(collection => collection.slug), visible.map(collection => collection.slug));
   assert.ok(!snapshot.catalog.collections.some(collection => collection.slug === 'my-secret-words'));
   const hiddenUs = source.collections.find(c => c.slug === 'us').articles.filter(a => a.hidden);
-  assert.equal(snapshot.catalog.collections.find(c => c.slug === 'us').articles.length, 9);
+  assert.equal(snapshot.catalog.collections.find(c => c.slug === 'us').articles.length, 12);
   for (const article of hiddenUs) {
     assert.ok(!JSON.stringify(snapshot.catalog).includes(article.slug));
     for (const locale of ['en', 'th']) assert.ok(!(article.title in snapshot[locale]));

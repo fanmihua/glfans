@@ -175,7 +175,8 @@ test('explicit full release reopens functions while preserving editorial restric
   for (const route of ['/api/quotes','/api/comments','/api/admin/session','/radio','/tide-words','/admin','/assets/HomePage-old.js','/assets/pit-radio/song.mp3']) {
     assert.equal(rules.some(rule=>rule.test(route)),false,route);
   }
-  assert.ok(rules.some(rule=>rule.test('/column/us/unsaid-fragments-ep07/')));
+  for (const ep of ['07','08','12']) assert.equal(rules.some(rule=>rule.test(`/column/us/unsaid-fragments-ep${ep}/`)),false);
+  assert.ok(rules.some(rule=>rule.test('/column/my-secret-words/')));
   assert.match(content,/expires -1;/);
   assert.equal(readlinkSync(path.join(root,'current')),path.join(root,'releases/restored'));
   assert.match(readFileSync(path.join(root,'shared/filing-backups/restored/policy-before.conf'),'utf8'),/interaction and radio disabled/);

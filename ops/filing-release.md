@@ -81,3 +81,7 @@ trap - ERR
 用户明确授权开放线上网站全部既有功能。网页恢复欢迎页、文学与社区互动、电台、后台登录、百家饭的电台/超话/商店入口。App 继续使用其当前审核范围；和谐密语与 Us EP07/EP08/EP12 的独立内容隐藏决定继续保留。每周任务未自动恢复。
 
 完整构建生成 `public-build.json`；运行 `GLFANS_FULL_MODE=1 GLFANS_RELEASE_ID=已核对版本号 bash scripts/publish-static-vps.sh dist/client` 发布。发布器先校验完整组件与 App feed 的 hash，再将服务器策略更新为只保留独立文章限制和 App manifest 不缓存规则。原策略、Nginx 配置、旧静态版本均保留；策略失败会还原，静态切换失败也会还原策略。无需重启社区 API 或写入数据库。后续完整网页发布沿用 `GLFANS_FULL_MODE=1`。
+
+## 2026-09-21 恢复已发布文章
+
+Us EP07、EP08、EP12 恢复公开，Us 共 12 篇；网页和共用 App 内容快照同步。完整发布策略移除三篇 Us 路径拦截，保留 `/column/my-secret-words/` 及其子路径的 404。原文、译文与素材不变。

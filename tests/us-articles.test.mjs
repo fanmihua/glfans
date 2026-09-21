@@ -21,7 +21,7 @@ const expected = [
 
 test('Us source preserves EP01–EP12 in order and existing hidden collection flags', () => {
   assert.deepEqual(collection.articles.map(a => a.slug), Array.from({ length: 12 }, (_, i) => `unsaid-fragments-ep${String(i + 1).padStart(2, '0')}`));
-  assert.deepEqual(collection.articles.filter(a => a.hidden).map(a => a.slug), ['unsaid-fragments-ep07', 'unsaid-fragments-ep08', 'unsaid-fragments-ep12']);
+  assert.deepEqual(collection.articles.filter(a => a.hidden).map(a => a.slug), []);
   assert.equal(data.collections.find(c => c.slug === 'my-secret-words').hidden, true);
 });
 

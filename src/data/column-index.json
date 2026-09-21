@@ -69,15 +69,13 @@
           "slug": "unsaid-fragments-ep07",
           "label": "未说的碎片 EP07",
           "title": "我们的爱US-未说的碎片ep07",
-          "cover": "assets/column/us/unsaid-fragments-ep07/01-a918969464b8.webp",
-          "hidden": true
+          "cover": "assets/column/us/unsaid-fragments-ep07/01-a918969464b8.webp"
         },
         {
           "slug": "unsaid-fragments-ep08",
           "label": "未说的碎片 EP08",
           "title": "我们的爱US-未说的碎片ep08",
-          "cover": "assets/column/us/unsaid-fragments-ep08/01-a1d546a44201.webp",
-          "hidden": true
+          "cover": "assets/column/us/unsaid-fragments-ep08/01-a1d546a44201.webp"
         },
         {
           "slug": "unsaid-fragments-ep09",
@@ -101,8 +99,7 @@
           "slug": "unsaid-fragments-ep12",
           "label": "未说的碎片 EP12",
           "title": "我们的爱US-未说的碎片ep12",
-          "cover": "assets/column/us/unsaid-fragments-ep12/01-a41f522272db.webp",
-          "hidden": true
+          "cover": "assets/column/us/unsaid-fragments-ep12/01-a41f522272db.webp"
         }
       ]
     },

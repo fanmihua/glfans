@@ -76,7 +76,7 @@ const filingContents = '# glfans filing visibility policy v3; read-only public c
   '}\n';
 
 const fullContents = '# glfans full website; independent editorial restrictions retained.\n' +
-  'if ($uri ~* "^/column/us/unsaid-fragments-ep(?:07|08|12)(?:/|$)") { return 404; }\n' +
+  'if ($uri ~* "^/column/my-secret-words(?:/|$)") { return 404; }\n' +
   'location = /app-content/v1/manifest.json {\n    default_type application/json;\n    expires -1;\n    try_files $uri =404;\n}\n';
 
 function verifyAppManifest(incoming, source, build) {
