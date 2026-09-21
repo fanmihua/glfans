@@ -4251,11 +4251,19 @@
       "misses": 0
     },
     "cp:namtanfilm:news": {
-      "fingerprint": "c0f9a205ee8eaedd582529526abb116d1f82529603c3ffaee90d7b93a9b4c36f",
-      "lastAttemptAt": "2026-09-10",
-      "lastVerifiedAt": "2026-09-10",
+      "fingerprint": "7e29f2d47d21bade18a5fb9f2c2b19e1fe09eb9bca35cff14a54dfdfdd4e9dd1",
+      "lastAttemptAt": "2026-09-21",
+      "lastVerifiedAt": "2026-09-21",
       "outcome": "verified",
-      "misses": 0
+      "misses": 0,
+      "review": {
+        "id": "cp:namtanfilm:news",
+        "outcome": "verified",
+        "sources": [
+          "https://www.gmm-tv.com/news/"
+        ],
+        "note": "已核对官方新活动或音乐公告，更新对应资料。"
+      }
     },
     "cp:namtanfilm:history": {
       "fingerprint": "94ad0af085ff3ecd8fdaf3b39d311a959a89e347257ab86095d74251bbaf5c59",
@@ -4272,11 +4280,20 @@
       "misses": 0
     },
     "cp:emibonnie:news": {
-      "fingerprint": "209ae9d6dca3eaee82f5efdfe886e585d36261351681a77815815f638c21c245",
-      "lastAttemptAt": "2026-09-10",
-      "lastVerifiedAt": "2026-09-10",
+      "fingerprint": "c11ec2ad90055b6daa1e1c7201992f62eb0d12a50e84011e727efcf496bed25b",
+      "lastAttemptAt": "2026-09-21",
+      "lastVerifiedAt": "2026-09-21",
       "outcome": "verified",
-      "misses": 0
+      "misses": 0,
+      "review": {
+        "id": "cp:emibonnie:news",
+        "outcome": "verified",
+        "sources": [
+          "https://www.youtube.com/watch?v=AUPbHx7J8iQ",
+          "https://www.gmm-tv.com/news/"
+        ],
+        "note": "已核对官方新活动或音乐公告，更新对应资料。"
+      }
     },
     "cp:emibonnie:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -4293,11 +4310,19 @@
       "misses": 0
     },
     "cp:janjingjing:news": {
-      "fingerprint": "2facfaaa26122617ce8c5338910e1007b753cef36578f94611f121da41b7c4dc",
-      "lastAttemptAt": "2026-09-10",
-      "lastVerifiedAt": "2026-09-10",
+      "fingerprint": "564bf1d0846ab426c0d1e4881fac30006698fbd6fc60c34216b161694e7e1e98",
+      "lastAttemptAt": "2026-09-21",
+      "lastVerifiedAt": "2026-09-21",
       "outcome": "verified",
-      "misses": 0
+      "misses": 0,
+      "review": {
+        "id": "cp:janjingjing:news",
+        "outcome": "verified",
+        "sources": [
+          "https://www.gmm-tv.com/news/"
+        ],
+        "note": "已核对官方新活动或音乐公告，更新对应资料。"
+      }
     },
     "cp:janjingjing:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -4315,10 +4340,15 @@
     },
     "cp:freenbecky:news": {
       "fingerprint": "e3928867cbe818e5871bce6a72d0c307799d824d92a5c39f946dd402b4cd56ef",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:freenbecky:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:freenbecky:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -4336,10 +4366,15 @@
     },
     "cp:lingorm:news": {
       "fingerprint": "f04299346ff606a4f7e086b514b0d3cf24959152ab15f74030da0a2207726f03",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:lingorm:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:lingorm:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -4357,10 +4392,15 @@
     },
     "cp:janekao:news": {
       "fingerprint": "4e602ab52e17ab0d62cab251dfe851b16a0cc1b24105cc8b8fcb9a9b92304e8f",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:janekao:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:janekao:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -4378,10 +4418,15 @@
     },
     "cp:ginjay:news": {
       "fingerprint": "9695ccc53d7d69041650faec8a2ab9995445d7f12699bf42b9f578ebfc8f3f44",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:ginjay:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:ginjay:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -4398,11 +4443,19 @@
       "misses": 0
     },
     "cp:milklove:news": {
-      "fingerprint": "36cd8fa294227a0364f83ca4f969c81816994cf31feb2523259405a7b82fd69a",
-      "lastAttemptAt": "2026-09-10",
-      "lastVerifiedAt": "2026-09-10",
+      "fingerprint": "17e1b1e70d8a7fab187ab7ee079a5bbf3f12bc4e0acd6581ff54b53be708e0e4",
+      "lastAttemptAt": "2026-09-21",
+      "lastVerifiedAt": "2026-09-21",
       "outcome": "verified",
-      "misses": 0
+      "misses": 0,
+      "review": {
+        "id": "cp:milklove:news",
+        "outcome": "verified",
+        "sources": [
+          "https://www.gmm-tv.com/news/"
+        ],
+        "note": "已核对官方新活动或音乐公告，更新对应资料。"
+      }
     },
     "cp:milklove:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -4420,10 +4473,15 @@
     },
     "cp:viewmim:news": {
       "fingerprint": "1e8d226a84b6f7028550e1c4e98b5eb524b42e21196a2eed871346ee6e99e98e",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:viewmim:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:viewmim:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -4441,10 +4499,15 @@
     },
     "cp:engfacharlotte:news": {
       "fingerprint": "3fc331cc175d143e1e8c33bdea3ee54a9dc8c45fd8488f84dc3ad1ed69df0da8",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:engfacharlotte:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:engfacharlotte:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -4462,10 +4525,15 @@
     },
     "cp:lookmheesonya:news": {
       "fingerprint": "c0568bc56d7a8b99a72684b59950f42208e3aa027f77ccd89c669ea827dfb410",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:lookmheesonya:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:lookmheesonya:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -4483,10 +4551,15 @@
     },
     "cp:fayeyoko:news": {
       "fingerprint": "f426c801a14bd93c84f37eeb410ae778416f1812359b8b17701afce8664f9685",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:fayeyoko:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:fayeyoko:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -4504,10 +4577,15 @@
     },
     "cp:faymay:news": {
       "fingerprint": "682ab9e99792570d2926cf014edb4be8b5061e56a501cf944011b74c70d03c76",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:faymay:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:faymay:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -4525,10 +4603,15 @@
     },
     "cp:andalookkaew:news": {
       "fingerprint": "4151784ce0d691244cac00f4f97c4d953fb1458a406333dff61d28081a03ad45",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:andalookkaew:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:andalookkaew:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -4546,10 +4629,15 @@
     },
     "cp:bminenear:news": {
       "fingerprint": "132a55a95236afcdb78c50d0cb5e45e0131946fac18a15b41b37cab3b3f3622e",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:bminenear:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:bminenear:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -4567,10 +4655,15 @@
     },
     "cp:ormsinfolk:news": {
       "fingerprint": "f04c662c3549bb0d8dd99a47f894edc21bc8c35c44658bb9b4227cf7141a7651",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:ormsinfolk:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:ormsinfolk:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -4588,10 +4681,15 @@
     },
     "cp:christinemae:news": {
       "fingerprint": "57867b53f2fddba51c443f566f0f8c58118826d7b8a386c5f2597b69b6fc1109",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:christinemae:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:christinemae:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -4651,10 +4749,15 @@
     },
     "cp:applemim:news": {
       "fingerprint": "577f38ab9019df4716c8b471ae2b61dc4e13ce6261083fd7fc40021e587d9a1e",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:applemim:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:applemim:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -4672,10 +4775,15 @@
     },
     "cp:namnoey:news": {
       "fingerprint": "92903f6b75391b7efeac871db70a1eaf95c930c1437466de2bf9e775ef26d00c",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:namnoey:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:namnoey:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -4693,10 +4801,15 @@
     },
     "cp:lenamiu:news": {
       "fingerprint": "d4888f042689e3b7154e66ca319833a94330525d53c05652e8acecbee1b07dcb",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:lenamiu:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:lenamiu:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -4714,10 +4827,15 @@
     },
     "cp:mablepangjie:news": {
       "fingerprint": "d91bb2bd6bebfd8baf7d2afe216f9e8b748a8847b41d8f9e8d10220524b4b22a",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:mablepangjie:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:mablepangjie:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -4735,10 +4853,15 @@
     },
     "cp:oombam:news": {
       "fingerprint": "7eff3ac0bbaa0a8cd25a9560baa0730d922cfffee8394657be55516e2aa62025",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:oombam:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:oombam:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -4777,10 +4900,15 @@
     },
     "cp:jessietungpang:news": {
       "fingerprint": "b351be264d6fe77b9ac4dd9cf680fe0200dfeaba44f7faa75124303d2281619a",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:jessietungpang:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:jessietungpang:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -4798,10 +4926,15 @@
     },
     "cp:bambambaipor:news": {
       "fingerprint": "c26cd905a4f46ef8bfa7688ba54da87c178acb0a6ea7034b19285ecc9ec8a967",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:bambambaipor:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:bambambaipor:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -4819,10 +4952,15 @@
     },
     "cp:lillybelle:news": {
       "fingerprint": "73fba1c84d4e4a3e78ee748d9143efe626d9be4de65cc5347cdc6dffa0c09dbd",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:lillybelle:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:lillybelle:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -4840,10 +4978,15 @@
     },
     "cp:nattyyeepun:news": {
       "fingerprint": "a3af2d8d51df1888db5289017facb797eabc51b0776b8a6e2a52fa19c4a7986c",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:nattyyeepun:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:nattyyeepun:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -4861,10 +5004,15 @@
     },
     "cp:atommer:news": {
       "fingerprint": "c8fb554c79e5643432be12e7b35f58bf5142f289c798ccc76812def40c8432b6",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:atommer:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:atommer:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -4882,10 +5030,15 @@
     },
     "cp:fayeatom:news": {
       "fingerprint": "7045c9bf0fab0c5ea6225b4842c5f0c70d3b49d5fd3fc868df620cddca102ad6",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:fayeatom:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:fayeatom:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -4903,10 +5056,15 @@
     },
     "cp:praifahbebell:news": {
       "fingerprint": "7d57af64f3796628f7407f67cfea8b850fcd91f691efbcbb810188bb73842fd9",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:praifahbebell:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:praifahbebell:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -4924,10 +5082,15 @@
     },
     "cp:myyuchanya:news": {
       "fingerprint": "9b979593d836ee35d34df05c3650cd0c741141a491b0aa4a608fbbb4e6cbd97c",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:myyuchanya:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:myyuchanya:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -4945,10 +5108,15 @@
     },
     "cp:nilenamwan:news": {
       "fingerprint": "9fb22da93f83e95f9d9bf62bc19ba5877b7f7041a1ad12215ffa9a939af659bf",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:nilenamwan:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:nilenamwan:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -4966,10 +5134,15 @@
     },
     "cp:aoommeena:news": {
       "fingerprint": "e225e6206d1fc8fce90590b79236bb27e463bbdcc9b50b7703504d4321ff422b",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:aoommeena:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:aoommeena:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -4987,10 +5160,15 @@
     },
     "cp:tknur:news": {
       "fingerprint": "bdcfba3c9b72a3d0a7e801793999fe9983b2672b51ba014ea9186a4dd9306423",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:tknur:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:tknur:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -5029,10 +5207,15 @@
     },
     "cp:nattpitcha:news": {
       "fingerprint": "b30eec1b945f64d0663d0c4a39147b1d393f322c3cc09c758a5968e8c09c2f1d",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:nattpitcha:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:nattpitcha:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -5050,10 +5233,15 @@
     },
     "cp:spritepiano:news": {
       "fingerprint": "928917003d49f4584f8d2456d088f6e8d27c13f8c187b299a191c96f1ab330c4",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:spritepiano:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:spritepiano:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -5071,10 +5259,15 @@
     },
     "cp:mookpinky:news": {
       "fingerprint": "bf34f6270c77e9a50f21f48ed422390b85d87253cec7000e1da1e138313cc903",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:mookpinky:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:mookpinky:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -5092,10 +5285,15 @@
     },
     "cp:prigkhingthongfah:news": {
       "fingerprint": "f3cac6653b97533cd6d5eb6e7d4f58ade3ea731cb6946d1b4876dc7fe821afb1",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:prigkhingthongfah:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:prigkhingthongfah:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -5113,10 +5311,15 @@
     },
     "cp:mimiegarn:news": {
       "fingerprint": "dc972e3d1f1945ad3e4e98b8b3d48fde84c77cecaa36b7d8f70254492d75dd64",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:mimiegarn:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:mimiegarn:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -5134,10 +5337,15 @@
     },
     "cp:mieaya:news": {
       "fingerprint": "deda796e2ca4f91d0f44b2983ae5f5c014eb3ec6da3b194e9853e4486febe8bb",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:mieaya:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:mieaya:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -5155,10 +5363,15 @@
     },
     "cp:ingcartoon:news": {
       "fingerprint": "4545d6c94a856169536c95a885c4d5126a06e22dd8d0a06fba352757f3183581",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:ingcartoon:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:ingcartoon:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -5176,10 +5389,15 @@
     },
     "cp:mingmingnepjune:news": {
       "fingerprint": "f7bd706265633dac174a50e603c461091721dc8a2056f714eeded90f28eaf551",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:mingmingnepjune:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:mingmingnepjune:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -5197,10 +5415,15 @@
     },
     "cp:bintpuinoon:news": {
       "fingerprint": "abd6f07b2a144a7f4addd50bce7159e8bd12c43304aa7b4a38511cf3a6285161",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:bintpuinoon:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:bintpuinoon:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -5218,10 +5441,15 @@
     },
     "cp:aomying:news": {
       "fingerprint": "f78d34c0fce4b80622c8db2663403c1b4906d495155d7cffea1160e161004384",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:aomying:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:aomying:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -5239,10 +5467,15 @@
     },
     "cp:yoshidiana:news": {
       "fingerprint": "826a94ca35b342b99a8c5fd6f176fc8f7e3895f5ad1a13d5c25d3ed8ec305a9c",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:yoshidiana:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:yoshidiana:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -5260,10 +5493,15 @@
     },
     "cp:tinanana:news": {
       "fingerprint": "9b9e71d224ca1d6b818626bb72e6155ad817017353e5e792cd10fa686fee8544",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:tinanana:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:tinanana:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -5281,10 +5519,15 @@
     },
     "cp:arhoungpamp:news": {
       "fingerprint": "1708722b699d763a7957a605fdfdfe7f06b7b30e516062f2ecf198e73fb3ae96",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:arhoungpamp:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:arhoungpamp:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
@@ -5302,10 +5545,15 @@
     },
     "cp:icemarissa:news": {
       "fingerprint": "31567ca3e841f07dc6b8bdd3d0d2738e9ae1e9fe56c36ff0df71690bf49d4451",
-      "lastAttemptAt": "2026-09-10",
+      "lastAttemptAt": "2026-09-21",
       "lastVerifiedAt": "2026-09-10",
-      "outcome": "verified",
-      "misses": 0
+      "outcome": "error",
+      "misses": 0,
+      "review": {
+        "id": "cp:icemarissa:news",
+        "outcome": "error",
+        "note": "本周已检索组合近期动态，但未取得足以更新此动态项的一手证据；保留原资料及上次核实日期，下周继续核对。演员目录和已有作品一致性检查不等于近期动态已核实。"
+      }
     },
     "cp:icemarissa:history": {
       "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",

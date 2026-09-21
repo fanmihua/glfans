@@ -120,7 +120,7 @@ function CollectionFacts({ xml }) {
     const findFact = (pattern) => paragraphs.find((node) => pattern.test(node.textContent?.trim() ?? ""));
     const selected = [
       findFact(/首播/),
-      findFact(/放送时间|播放时间/),
+      findFact(/放送时间|播放时间|^集数/),
       findFact(/播出平台|制作公司/),
       findFact(/主要演员/),
     ].filter(Boolean);

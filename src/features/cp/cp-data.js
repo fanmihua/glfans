@@ -2,6 +2,7 @@
 // not that the artist has no events or brands. Never infer current stock.
 import { expandedCpProfiles } from './cp-expanded-data.js';
 import { enrichMember } from './member-profiles.js';
+import { cpEventUpdates } from './cp-event-updates.js';
 export const verifiedAt = '2026-09-10';
 const gm = (id) => `https://www.gmm-tv.com/artists/view/${id}/`;
 const person = (name, instagram, x, source) => ({ name, instagram, x, source });
@@ -89,7 +90,7 @@ export const cpProfiles = [
     events: [], shops: [],
   },
   ...expandedCpProfiles,
-].map(cp => ({ ...cp, members: cp.members.map(enrichMember) }));
+].map(cp => ({ ...cp, events: cpEventUpdates[cp.id] || cp.events, members: cp.members.map(enrichMember) }));
 
 export function findCp(id) { return cpProfiles.find((cp) => cp.id === id); }
 export function cpsForWork(id) { return cpProfiles.filter(cp => cp.works.some(work => work.id === id)); }

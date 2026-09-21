@@ -193,7 +193,7 @@ export function ArchiveYearPage({ year, eventId, onOpenCalendar }) {
       <small className="archive-year-original-title">{t(selectedEvent.titleEn)}</small>
       <dl className="archive-year-facts">
         <div><dt>{t("播出")}</dt><dd>{t(selectedEvent.weekday)} · {t(selectedEvent.status)}</dd></div>
-        <div><dt>{t("集数")}</dt><dd>{t(selectedEvent.episodes ? `${selectedEvent.episodes} 集` : "待公布")}</dd></div>
+        <div><dt>{t("集数")}</dt><dd>{t(selectedEvent.factReview?.fields.includes('episodes') ? '待核实' : selectedEvent.episodes ? `${selectedEvent.episodes} 集` : "待公布")}</dd></div>
         <div><dt>{t("平台")}</dt><dd>{t(selectedEvent.platforms.join(" / ") || selectedEvent.company || "待公布")}</dd></div>
       </dl>
       <div className="archive-year-cast">

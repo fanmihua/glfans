@@ -5,6 +5,7 @@ import trailers from './cp-trailers.json' with { type: 'json' };
 export const mediaCheckedAt = '2026-09-10';
 // Official YouTube publication dates; these are not inferred album release dates.
 const videoMilestones = {
+  AUPbHx7J8iQ: { date: '2026-09-12', memberIndex: 1 },
   hsvQg5JSDHU: { date: '2024-11-09', memberIndex: 0 },
   saSPFSwHbrk: { date: '2024-12-07', memberIndex: 1 },
   BG_yN4HCr44: { date: '2025-02-01', memberIndex: 1 },
@@ -26,6 +27,7 @@ const album = (id, cpId, title, performers, scope, workId, publisher, date, slug
   ...(id === '1840114672' ? { radioTrackId: 'netease:2757267299' } : {}),
 });
 export const cpMedia = [
+  yt('AUPbHx7J8iQ', 'emibonnie', 'จะรักให้จำ (Your One)', ['Bonnie Pattraphus'], 'solo', 'moonshadow', 'RISER MUSIC'),
   yt('0teLUM61UMY', 'milklove', 'ช็อตฟีล (Shot-Feel)', ['Milk Pansa', 'Love Pattranite'], 'duet', null),
   yt('27klSLsVCR4', 'janjingjing', 'ระยะใกล้รัก (Afraid)', ['Jingjing Yu'], 'solo', 'enemies-with-benefits'),
   ...[

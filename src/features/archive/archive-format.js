@@ -4,6 +4,7 @@ export function formatArchiveDate(date) {
 }
 
 export function formatArchiveRange(event) {
+  if (event.factReview) return '播出日期口径待核实';
   if (!event.endDate) return `${formatArchiveDate(event.startDate)} 起`;
   return `${formatArchiveDate(event.startDate)} — ${formatArchiveDate(event.endDate)}`;
 }

@@ -1,4 +1,5 @@
 import { archiveMainCastById } from "./archive-cast.js";
+import { archiveFactReviews } from './archive-fact-reviews.js';
 
 export const archiveYearList = ["2022", "2023", "2024", "2025", "2026"];
 
@@ -53,7 +54,7 @@ export const archiveDramas = [
     "startDate": "2023-10-28",
     "endDate": "2023-11-25",
     "weekday": "周六",
-    "episodes": 6,
+    "episodes": 5,
     "status": "已完结",
     "company": "K11D House",
     "platforms": [
@@ -158,7 +159,7 @@ export const archiveDramas = [
     "title": "爱填满空白 · 第二季",
     "titleEn": "Blank: Season 2",
     "startDate": "2024-05-19",
-    "endDate": "2024-06-21",
+    "endDate": "2024-06-29",
     "weekday": "周日",
     "episodes": 6,
     "status": "已完结",
@@ -374,7 +375,7 @@ export const archiveDramas = [
     "title": "我的青梅是讨厌鬼",
     "titleEn": "Mate",
     "startDate": "2024-11-26",
-    "endDate": "2025-01-21",
+    "endDate": "2025-02-18",
     "weekday": "周二",
     "episodes": 12,
     "status": "已完结",
@@ -893,7 +894,7 @@ export const archiveDramas = [
     "startDate": "2025-11-29",
     "endDate": "2026-01-17",
     "weekday": "周六",
-    "episodes": 10,
+    "episodes": 8,
     "status": "已完结",
     "company": "WonderLife Entertainment",
     "platforms": [
@@ -1620,6 +1621,11 @@ export const archiveDramas = [
   }
 ].map((drama) => ({
   ...drama,
+  ...(archiveFactReviews[drama.id] ? {
+    factReview: archiveFactReviews[drama.id],
+    endDate: null,
+    ...(archiveFactReviews[drama.id].fields.includes('episodes') ? { episodes: null } : {}),
+  } : {}),
   cast: archiveMainCastById[drama.id] || [],
 }));
 
