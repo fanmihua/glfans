@@ -86,8 +86,8 @@ export const cpProfiles = [
   {
     id: 'ginjay', names: ['Gin', 'Jay'], image: 'assets/home/ginjay-card-v1.webp',
     members: [person('Ginny Natnicha', 'ginnynatnicha', 'ginnynatnicha', 'https://x.com/ginnynatnicha'), person('Jayna Angelina', 'aangelinaa.ss', 'j_jayyna', 'https://x.com/j_jayyna')],
-    intro: { zh: 'Ginny 与 Jayna 共同主演《Poisonous Love》和《Love On Hire》，并已官宣《Lunar Secret》。', en: 'Ginny and Jayna star together in Poisonous Love and Love On Hire, with Lunar Secret also announced.', th: 'Ginny และ Jayna แสดงนำร่วมกันใน Poisonous Love และ Love On Hire และมีโปรเจกต์ Lunar Secret ที่ประกาศแล้ว' },
-    works: [work('poisonous-love', 'Poisonous Love', '2025', 'https://glspotlight.com/series/poisonous-love'), work('love-on-hire', 'Love On Hire', '2026', 'https://www.youtube.com/watch?v=F1l1mAvSmZo')],
+    intro: { zh: 'Ginny 与 Jayna 共同主演《Poisonous Love》和《分手代理》，并已官宣《Lunar Secret》。', en: 'Ginny and Jayna star together in Poisonous Love and Love On Hire, with Lunar Secret also announced.', th: 'Ginny และ Jayna แสดงนำร่วมกันใน Poisonous Love และ Love On Hire และมีโปรเจกต์ Lunar Secret ที่ประกาศแล้ว' },
+    works: [work('poisonous-love', 'Poisonous Love', '2025', 'https://glspotlight.com/series/poisonous-love'), work('love-on-hire', '分手代理', '2026', 'https://www.youtube.com/watch?v=F1l1mAvSmZo')],
     upcoming: [preview('lunar-secret', 'Lunar Secret', 'TDY-ZwAtCPI', 'NORTH STAR ENTERTAINMENT')],
     events: [], shops: [],
   },

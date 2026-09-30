@@ -69,6 +69,7 @@ export function archiveSearchResults(query, dramas, cps, limit = 8) {
     const titleScore = matchScore([
       drama.title,
       drama.titleEn,
+      ...(drama.aliases || []),
     ], needles);
     const score = Math.min(titleScore >= 0 ? titleScore : Infinity, relatedDramaScores.get(drama.id) ?? Infinity);
     return {

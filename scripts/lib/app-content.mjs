@@ -76,7 +76,7 @@ export async function createAppSnapshot(webRoot) {
     return {
       id: entry.id, label: cpNames.cpLabel(detail.cp), names: entry.names, aliases: entry.aliases || [], status: entry.status,
       searchTerms: [entry.id, cpNames.cpLabel(detail.cp), ...entry.names, ...(entry.aliases || []),
-        ...entry.works.flatMap(work => [work.title, work.titleZh]), ...entry.upcoming.map(work => work.title)].filter(Boolean),
+        ...entry.works.flatMap(work => [work.title, work.titleZh, ...(work.aliases || []), ...names.workTitleAliases(work)]), ...entry.upcoming.map(work => work.title)].filter(Boolean),
       detail,
     };
   }));

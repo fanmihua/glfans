@@ -4,6 +4,7 @@ import { SiteHeader } from '../../SiteHeader.jsx';
 import { useHashRoute } from '../../hooks/useHashRoute.js';
 import { useLocale } from '../../i18n/LanguageSwitcher.jsx';
 import { getLocale } from '../../i18n/runtime.js';
+import { localizedWorkTitle } from '../../i18n/proper-names.js';
 import { withBase } from '../../lib/assets.js';
 import { cpProfiles, verifiedAt, cpStatusCopy, statusCheckedAt, zodiacLabels } from './cp-runtime-data.js';
 import { cpCopy } from './cp-copy.js';
@@ -126,14 +127,15 @@ function CpContent({data}) {
             const href = work.pending ? work.source : `#/archive/${work.year}/${work.id}`;
             const linkProps = work.pending ? { target: '_blank', rel: 'noopener noreferrer' } : {};
             const sourceLabel = work.sourceKind === 'announcement' ? copy.openAnnouncement : copy.openPreview;
+            const title = localizedWorkTitle(work, locale);
             return <article className={`cp-work${media.image ? '' : ' cp-work--announcement'}`} key={work.id} data-work-id={work.id}>
-              {media.image && <a className="cp-work-poster" href={href} {...linkProps} aria-label={`${work.title} · ${work.pending ? sourceLabel : copy.viewWork}`} tabIndex={-1}><CpImage src={media.image} sizes="(max-width: 760px) 120px, 168px" alt={work.pending ? `${work.title} · ${copy.previewImage}` : work.title} loading="lazy" width={media.width} height={media.height} style={{ objectPosition: media.focus || '50% 32%' }} /></a>}
-              <div className="cp-work-info"><a className="cp-work-title" href={href} {...linkProps}>{work.title}<ArrowUpRight size={22} /></a>
+              {media.image && <a className="cp-work-poster" href={href} {...linkProps} aria-label={`${title} · ${work.pending ? sourceLabel : copy.viewWork}`} tabIndex={-1}><CpImage src={media.image} sizes="(max-width: 760px) 120px, 168px" alt={work.pending ? `${title} · ${copy.previewImage}` : title} loading="lazy" width={media.width} height={media.height} style={{ objectPosition: media.focus || '50% 32%' }} /></a>}
+              <div className="cp-work-info"><a className="cp-work-title" href={href} {...linkProps}>{title}<ArrowUpRight size={22} /></a>
                 <p className="cp-work-meta">{work.year}<span>{work.pending ? copy[work.status || 'upcoming'] : work.ensemble ? copy.ensemble : copy.pair}</span></p>
                 {work.pending ? <p className="cp-work-note">{work.sourceKind === 'announcement' ? copy.officialAnnouncement : copy.previewImage} · {work.publisher}</p> : null}
                 <div className="cp-work-actions">{work.pending ? <External className="cp-work-action" href={work.source}>{sourceLabel}<ArrowUpRight size={16} /></External> : <>
                   <a className="cp-work-action" href={href}>{copy.archive}<ArrowRight size={16} /></a>
-                  <button type="button" className="cp-calendar-link" aria-haspopup="dialog" onClick={event => openCalendar(event, [work], work.title)}><CalendarBlank size={18} />{copy.calendar}</button>
+                  <button type="button" className="cp-calendar-link" aria-haspopup="dialog" onClick={event => openCalendar(event, [work], title)}><CalendarBlank size={18} />{copy.calendar}</button>
                 </>}</div>
               </div>
             </article>;

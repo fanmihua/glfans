@@ -1,5 +1,6 @@
 // Public pairing names are editorial data, not initials generated from actors.
 // Keep stable route IDs and actor records independent from display names.
+import { workTitleAliases } from '../../i18n/proper-names.js';
 const directorySource = 'https://glthai.com/couple/';
 const catalogueNames = {
   namtanfilm: 'NamtanFilm', emibonnie: 'EmiBonnie', janjingjing: 'JanJingjing',
@@ -41,6 +42,6 @@ export function filterCps(profiles, query, archiveById) {
   const needle = normalize(query.trim());
   return profiles.filter(cp => [cpLabel(cp), cp.names.join(''), cp.names.slice().reverse().join(''),
     ...(cp.aliases || []), ...(cpNameRecords[cp.id]?.aliases || []), ...cp.members.map(member => member.name),
-    ...[...cp.works, ...(cp.upcoming || [])].flatMap(work => [work.title, archiveById.get(work.id)?.title || '']),
+    ...[...cp.works, ...(cp.upcoming || [])].flatMap(work => [work.title, archiveById.get(work.id)?.title || '', ...(archiveById.get(work.id)?.aliases || []), ...workTitleAliases(work)]),
   ].some(value => normalize(value).includes(needle)));
 }

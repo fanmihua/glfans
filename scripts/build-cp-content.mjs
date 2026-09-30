@@ -12,6 +12,7 @@ import { timelineForCp, personalMilestones, noticeForCp } from '../src/features/
 import { mediaForCp } from '../src/features/cp/cp-media.js';
 import { cpCommunities } from '../src/features/cp/cp-communities.js';
 import { archiveDramas } from '../src/data/archive-dramas.js';
+import { workTitleAliases } from '../src/i18n/proper-names.js';
 
 const target = 'src/features/cp/generated';
 await mkdir(target, { recursive: true });
@@ -58,7 +59,7 @@ for (const original of cpProfiles) {
   const responsive = Object.fromEntries(await Promise.all([...sources].map(async s=>[s, await imageVariants(s)])));
   const data = {cp, media, timeline, works, child, notice:noticeForCp(cp.id), milestones:personalMilestones[cp.id] || [], collaboration:statusForCp(cp.id), community:cpCommunities[cp.id] || null, responsive};
   await sameWrite(`${target}/${cp.id}.json`, JSON.stringify(data)+'\n');
-  directory.push({id:cp.id, names:cp.names, aliases:cp.aliases || [], members:cp.members.map(m=>({name:m.name})), works:cp.works.map(w=>({id:w.id,title:w.title,titleZh:archive.get(w.id)?.title || ''})), upcoming:(cp.upcoming || []).map(w=>({title:w.title})), status:statusForCp(cp.id).status});
+  directory.push({id:cp.id, names:cp.names, aliases:cp.aliases || [], members:cp.members.map(m=>({name:m.name})), works:cp.works.map(w=>({id:w.id,title:w.title,titleZh:archive.get(w.id)?.title || '',aliases:workTitleAliases(w)})), upcoming:(cp.upcoming || []).map(w=>({title:w.title})), status:statusForCp(cp.id).status});
 }
 await sameWrite(`${target}/index.json`, JSON.stringify({profiles:directory,verifiedAt,statusCheckedAt,cpStatusCopy,cpChildrenCopy,zodiacLabels})+'\n');
 console.log(`CP content: ${directory.length} lazy detail payloads; ${images.size} responsive source images. Editorial sources unchanged.`);

@@ -1498,7 +1498,8 @@ export const archiveDramas = [
   {
     "id": "khom-khlang",
     "year": "2026",
-    "title": "女警与萨满",
+    "title": "镇灵",
+    "aliases": ["女警与萨满"],
     "titleEn": "Khom Khlang",
     "startDate": "2026-09-07",
     "endDate": "",
@@ -1615,7 +1616,7 @@ export const archiveDramas = [
   {
     "id": "love-on-hire",
     "year": "2026",
-    "title": "Love On Hire",
+    "title": "分手代理",
     "titleEn": "Love On Hire",
     "startDate": "2026-10-22",
     "endDate": "",

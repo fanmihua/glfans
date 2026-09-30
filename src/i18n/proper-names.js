@@ -2,7 +2,8 @@
 export const verifiedSeries = [
   { aliases: ["Don't say ‘NO’ yet"], en: "Don't say ‘NO’ yet", th: "อย่าพึ่งตอบว่า'ไม่'", source: 'https://www.youtube.com/watch?v=WR-HPcdHxlQ' },
   { aliases: ['Built in Love'], en: 'Built in Love', th: 'ก่อร่างสร้างเลิฟ', source: 'https://www.youtube.com/watch?v=3fOkgCnjv5M' },
-  { aliases: ['Love On Hire'], en: 'Love On Hire', th: 'รับจ้างเลิกรัก', source: 'https://www.youtube.com/watch?v=F1l1mAvSmZo' },
+  { id: 'love-on-hire', zh: '分手代理', aliases: ['分手代理', 'Love On Hire'], en: 'Love On Hire', th: 'รับจ้างเลิกรัก', source: 'https://www.youtube.com/watch?v=F1l1mAvSmZo' },
+  { id: 'khom-khlang', zh: '镇灵', aliases: ['镇灵', '女警与萨满', 'Khom Khlang'], en: 'Khom Khlang', th: 'Khom Khlang', source: 'https://www.youtube.com/watch?v=UtfSy3QiCts' },
   { aliases: ['宿敌恋人'], en: 'Enemies With Benefits', th: 'ลัลล์ไม่ชอบไวน์', source: 'https://www.gmm-tv.com/news/4214/' },
   { aliases: ['我们的爱'], en: 'Us', th: 'Us รักของเรา', source: 'https://www.gmm-tv.com/contents/VBYEO/' },
   { aliases: ['设计爱情', '爱情设计'], en: 'Love Design', th: 'รับ(รัก)ออกแบบ', source: 'https://wetv.vip/en/play/8fejxmjkf8gde4x', thaiSource: 'https://wetv.vip/th/play/8fejxmjkf8gde4x' },
@@ -24,6 +25,15 @@ export const verifiedPeople = [
   { aliases: ['安吉丽娜·史蒂文斯'], en: 'Jayna Angelina Stevens', th: 'เจน่า แองเจลิน่า สติเวนส์', source: 'https://www.yesasia.com/global/kazz-magazine-issue-212-poisonous-love-cover-ginny-jayna/1136806444-0-0-0-en/info.html', thaiSource: 'https://www.youtube.com/watch?v=Q_Dg-JOKrsg' },
 ];
 const byAlias = new Map([...verifiedSeries, ...verifiedPeople].flatMap(entry => entry.aliases.map(alias => [alias, entry])));
+const bySeriesId = new Map(verifiedSeries.filter(entry => entry.id).map(entry => [entry.id, entry]));
+// User-specified Chinese names only affect these explicit series IDs. Existing
+// source titles for other CP works keep their established display behavior.
+export function localizedWorkTitle(work, locale) {
+  return bySeriesId.get(work.workId || work.id)?.[locale] || work.title;
+}
+export function workTitleAliases(work) {
+  return bySeriesId.get(work.workId || work.id)?.aliases || [];
+}
 export function verifiedName(source, locale) {
   return locale === 'zh' ? source : byAlias.get(source)?.[locale];
 }

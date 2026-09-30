@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ArrowRight, ArrowUpRight, CaretDown, MusicNote, Play } from '@phosphor-icons/react';
 import { withBase } from '../../lib/assets.js';
+import { localizedWorkTitle } from '../../i18n/proper-names.js';
 import { usePitRadio, pitRadioTrackCatalog } from '../../PitRadioContext.jsx';
 import { cpJournalCopy } from './cp-journal-copy.js';
 import { CpImage } from './CpImage.jsx';
@@ -47,7 +48,7 @@ export function CpTimeline({ cp, events, archiveById, locale }) {
         {isConclusion ? <CpNotice notice={event} locale={locale} /> : <article className="cp-milestone">
           <div className="cp-milestone-meta">{event.date && <time dateTime={event.date}>{event.date.replace(/-/g, '.')}</time>}<span>{copy[event.kind]}</span></div>
           {event.lane !== 'joint' && <p className={`cp-lane-label cp-lane-label--${event.lane}`}><i aria-hidden="true" />{cp.names[event.lane]}</p>}
-          <h3>{event.title}</h3>
+          <h3>{localizedWorkTitle(event, locale)}</h3>
           {event.description && <p>{event.description[locale]}</p>}
           {event.performers && <p>{event.performers.join(' & ')}</p>}
           {event.sectionId ? <button type="button" className="cp-journal-radio" onClick={() => jumpToJournal(event.sectionId)}>{copy.details}<ArrowRight size={16} /></button> : work ? <a className="cp-journal-link" href={`#/archive/${work.year}/${work.id}`}>{copy.archive}<ArrowRight size={16} /></a>
@@ -79,7 +80,7 @@ export function CpMediaSection({ items, category, archiveById, locale }) {
         <h3><a href={item.url} {...external}>{item.title}<ArrowUpRight size={16} /></a></h3>
         <p className="cp-media-credits">{item.performers.join(' & ')}</p>
         <p className="cp-media-publisher">{item.publisher}</p>
-        {work && <a className="cp-journal-link" href={`#/archive/${work.year}/${work.id}`}>{work.titleEn}<ArrowRight size={16} /></a>}
+        {work && <a className="cp-journal-link" href={`#/archive/${work.year}/${work.id}`}>{localizedWorkTitle({ ...work, title: work.titleEn }, locale)}<ArrowRight size={16} /></a>}
         {item.radioTrackId && pitRadioTrackCatalog.some(track => track.id === item.radioTrackId && track.cpId === item.cpId) && <button className="cp-journal-radio" type="button" onClick={() => { radio.chooseTrack(item.radioTrackId); window.location.hash = '#/radio'; }}><MusicNote size={16} />{copy.openRadio}<ArrowRight size={16} /></button>}
       </article>;
     })}</div>

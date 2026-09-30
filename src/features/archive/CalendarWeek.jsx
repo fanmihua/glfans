@@ -16,7 +16,12 @@ export function CalendarWeek({ selected, onSelect, today, eventsByDate, copy, ti
       clearTimeout(timer);
       if (!track.clientWidth) return;
       const direction = Math.round(track.scrollLeft / track.clientWidth) - 1;
-      if (direction) onSelect((date) => moveDate(date, direction * 7));
+      if (direction) {
+        if (document.activeElement !== track && track.contains(document.activeElement)) {
+          track.focus({ preventScroll: true });
+        }
+        onSelect((date) => moveDate(date, direction * 7));
+      }
     };
     const scroll = () => { clearTimeout(timer); timer = setTimeout(settle, 180); };
     center();
@@ -46,7 +51,7 @@ export function CalendarWeek({ selected, onSelect, today, eventsByDate, copy, ti
       }}>
       {[-1, 0, 1].map((offset) => {
         const first = moveDate(start, offset * 7);
-        return <div className="calendar-week-page" key={first} aria-hidden={offset !== 0 ? true : undefined}>
+        return <div className="calendar-week-page" key={first} aria-hidden={offset !== 0 ? true : undefined} inert={offset !== 0 ? true : undefined}>
           {Array.from({ length: 7 }, (_, index) => {
             const date = moveDate(first, index);
             const entries = eventsByDate.get(date) || [];

@@ -26,7 +26,7 @@ const confirmedSeriesIds = new Set(schedule.events.filter((event) => !event.need
 const followableSeries = schedule.series.filter((series) => confirmedSeriesIds.has(series.id)).map((series) => {
   const archive = archiveById.get(series.id);
   return { ...series, year: archive?.year || series.premiereDate?.slice(0, 4),
-    searchText: [archive?.title, archive?.titleEn, ...(archive?.cast || []).map((person) => typeof person === 'string' ? person : Object.values(person).join(' '))].join(' ') };
+    searchText: [archive?.title, archive?.titleEn, ...(archive?.aliases || []), ...(archive?.cast || []).map((person) => typeof person === 'string' ? person : Object.values(person).join(' '))].join(' ') };
 });
 const sourcesById = new Map(schedule.series.map((item) => [item.id, item]));
 
