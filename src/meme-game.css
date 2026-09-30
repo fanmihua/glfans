@@ -288,7 +288,7 @@ body.meme-game-active .column-shell {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: grayscale(1) contrast(0.28) brightness(1.72) blur(4px);
+  filter: contrast(0.28) brightness(1.72) blur(4px);
   opacity: 0.34;
   transition: filter 420ms ease, opacity 420ms ease;
 }
@@ -328,7 +328,7 @@ body.meme-game-active .column-shell {
 .instant-camera-stage.is-revealed .instant-print-photo img,
 .instant-camera-stage.is-preview .instant-print-photo img,
 .instant-camera-stage.is-archiving .instant-print-photo img {
-  filter: grayscale(0.08) contrast(1.02) brightness(1) blur(0);
+  filter: none;
   opacity: 1;
 }
 
@@ -520,14 +520,14 @@ body.meme-game-active .column-shell {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: grayscale(1) contrast(1.05);
-  transition: filter 180ms ease, transform 180ms ease;
+  filter: none;
+  transition: transform 180ms ease;
 }
 
 .meme-film-card:hover img,
 .meme-film-card:focus-visible img,
 .meme-film-card.is-active img {
-  filter: grayscale(0.08) contrast(1.02);
+  filter: none;
   transform: scale(1.035);
 }
 

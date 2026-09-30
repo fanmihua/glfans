@@ -1,10 +1,12 @@
 import { cpProfiles } from './cp-data.js';
 import { noticeForCp } from './cp-timeline.js';
 
-export const statusCheckedAt = '2026-09-10';
+export const statusCheckedAt = '2026-09-30';
 // Explicit editorial evidence, never "all profiles minus ended". Recent shared
 // projects/activity establish the directory category, not an agency contract.
-const recent = (date, source, title, publisher) => ({ date, source, title, publisher, checkedAt: statusCheckedAt });
+const recent = (date, source, title, publisher, checkedAt = '2026-09-10') => ({ date, source, title, publisher, checkedAt });
+const reviewed = (date, source, title, publisher) => recent(date, source, title, publisher, statusCheckedAt);
+const fourElements = reviewed('2026-09-12', 'https://www.thaiticketmajor.com/performance/4-elements-infinite-bonds-fan-meeting.html', '4 Elements Infinite Bonds Fan Meeting', 'North Star Entertainment · ThaiTicketMajor');
 const blush = recent('2026-06-23', 'https://www.youtube.com/watch?v=rkEhavadMn0', 'Blush Blossom Fan Fest 2026 · GMMTV LIVE HOUSE', 'GMMTV OFFICIAL');
 export const activeEvidence = {
   namtanfilm: blush, milklove: blush, viewmim: blush, janjingjing: blush,
@@ -18,6 +20,16 @@ export const activeEvidence = {
   ingcartoon: recent('2026-07-31', 'https://www.youtube.com/watch?v=SY0FBEQ6NjM', 'Fairway of Love · Official Trailer', 'Mojo Muse Management'),
   mingmingnepjune: recent('2026-08-19', 'https://www.youtube.com/watch?v=Pbb7VU0VfYA', 'Juliet & Juliet · Official Trailer', 'one31'),
   bintpuinoon: recent('2026-08-24', 'https://www.youtube.com/watch?v=PNPqobabDiU', 'Khom Khlang · Official Trailer', 'Star Hunter Entertainment'),
+  ginjay: reviewed('2026-09-26', 'https://www.youtube.com/watch?v=F1l1mAvSmZo', 'Love On Hire · Official Teaser', 'COPY A BANGKOK'),
+  friendpalm: reviewed('2026-09-19', 'https://www.youtube.com/watch?v=FoVP2y29_Tk', 'Resonance · Official Pilot', 'VelCurve Studio Official'),
+  tanzanook: reviewed('2026-09-24', 'https://www.youtube.com/watch?v=AWnUGoONk_o', 'YES maybe NO · Official Pilot', "Kongthup’s Channel"),
+  ferinpuifai: reviewed('2026-09-12', 'https://www.youtube.com/watch?v=WR-HPcdHxlQ', "Don't Say No Yet · Official Trailer", "H’our channel"),
+  pimjipineare: reviewed('2026-09-23', 'https://x.com/wabisabiTH/status/2102725466373464369', 'Built In Love · Official premiere announcement', 'Studio Wabi Sabi'),
+  jessietungpang: reviewed('2026-09-14', 'https://x.com/LoveInBloomMono/status/2099514391507153367', 'Love In Bloom · Q1', 'MONO Original'),
+  tknur: reviewed('2026-07-18', 'https://www.youtube.com/watch?v=mML5eJ5o1PE', 'Dangerous Queen: Special Edition · Official Teaser Part 2', 'Snur Entertainment'),
+  freenbecky: fourElements, engfacharlotte: fourElements, applemim: fourElements,
+  lookmheesonya: reviewed('2026-10-09', 'https://pixelticket.com.br/eventos/32854/lookmhee-sonya-everafter-bloom-in-sao-paulo', 'LOOKMHEE SONYA EVERAFTER: BLOOM IN SÃO PAULO', 'GIG Music · PixelTicket'),
+  andalookkaew: reviewed('2026-10-16', 'https://www.ticketmelon.com/th/NDEntertainment/andalookkaewunfiltered', 'ANDA LOOKKAEW UNFILTERED SESSION IN TAIPEI', 'ND Entertainment · Ticketmelon'),
 };
 export function statusForCp(id) {
   const notice = noticeForCp(id);

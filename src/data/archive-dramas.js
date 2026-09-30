@@ -1503,8 +1503,8 @@ export const archiveDramas = [
     "startDate": "2026-09-07",
     "endDate": "",
     "weekday": "周一",
-    "episodes": 0,
-    "status": "待播",
+    "episodes": 10,
+    "status": "播出中",
     "company": "Star Hunter Entertainment",
     "platforms": [
       "WeTV"
@@ -1514,7 +1514,8 @@ export const archiveDramas = [
     "width": 800,
     "height": 1200,
     "focus": "50% 32%",
-    "sourceUrl": "https://glspotlight.com/series/khom-khlang"
+    "sourceUrl": "https://wetv.vip/en/play/l8u24vqut3sseql",
+    "airingNote": "每周一泰国时间 20:00，WeTV 独家 UNCUT 版。"
   },
   {
     "id": "pls-love",
@@ -1525,10 +1526,12 @@ export const archiveDramas = [
     "endDate": "2026-10-30",
     "weekday": "周五",
     "episodes": 8,
-    "status": "待播",
+    "status": "播出中",
     "company": "Channel 3",
     "platforms": [
-      "CH3Plus"
+      "Channel 3",
+      "CH3Plus",
+      "iQIYI"
     ],
     "summary": "夜店老板 Angel 接下看不起她的女商人项目，两人在冲突中意外发生关系，工作与私生活彻底缠在一起。",
     "image": "assets/archive/posters/pls-love.webp",
@@ -1546,9 +1549,10 @@ export const archiveDramas = [
     "endDate": "2026-11-21",
     "weekday": "周六",
     "episodes": 10,
-    "status": "待播",
+    "status": "播出中",
     "company": "NorthStar Entertainment",
     "platforms": [
+      "Channel 3",
       "YouTube"
     ],
     "summary": "失忆四年后的 Kris 与 Nadia 生活稳定，Sun 的出现却让她开始怀疑：现在拥有的记忆是否一直是别人提供的版本。",
@@ -1556,28 +1560,80 @@ export const archiveDramas = [
     "width": 800,
     "height": 1200,
     "focus": "50% 32%",
-    "sourceUrl": "https://glspotlight.com/series/third-person"
+    "sourceUrl": "https://www.youtube.com/watch?v=eWVtJtYbZgI",
+    "airingNote": "每周六泰国时间 22:25 于 Channel 3 播出，23:30 于官方 YouTube 发布 UNCUT 版。"
   },
   {
-    "id": "under-her-rules",
+    "id": "dont-say-no-yet",
     "year": "2026",
-    "title": "她的规则",
-    "titleEn": "Under Her Rules",
-    "startDate": "2026-10-17",
+    "title": "Don't say ‘NO’ yet",
+    "titleEn": "Don't say ‘NO’ yet",
+    "startDate": "2026-09-21",
     "endDate": "",
-    "weekday": "周六",
-    "episodes": 8,
-    "status": "待播",
-    "company": "MGI Beyond",
+    "weekday": "周一 / 周二（已发布分段）",
+    "episodes": 0,
+    "parts": 10,
+    "episodeUnit": "part",
+    "status": "播出中",
+    "company": "H'our channel",
     "platforms": [
-      "iQIYI"
+      "YouTube"
     ],
-    "summary": "职场新人 Alice 被冷淡上司 Nannalin 带进充满奇怪任务的世界，工作服从与私人欲望之间的界线越来越模糊。",
-    "image": "assets/archive/posters/under-her-rules.webp",
+    "summary": "CEO Frantz 与主厨 Nize 的故事，由 Ferin 与 Puifai 主演。官方以 10 个短篇分段发布，后续日期以频道公告为准。",
+    "image": "assets/archive/posters/dont-say-no-yet.webp",
     "width": 800,
-    "height": 1200,
-    "focus": "50% 32%",
-    "sourceUrl": "https://glspotlight.com/series/under-her-rules"
+    "height": 1000,
+    "focus": "50% 65%",
+    "sourceUrl": "https://www.youtube.com/watch?v=WR-HPcdHxlQ",
+    "imageSourceUrl": "https://webasiapress.com/wp-content/uploads/2026/08/DONTSAYNOYETOFFICIALPOSTER2026.jpg",
+    "airingNote": "已核实 Part 1–4 于 9 月 21、22、28、29 日泰国时间 18:00 发布。"
+  },
+  {
+    "id": "built-in-love",
+    "year": "2026",
+    "title": "Built in Love",
+    "titleEn": "Built in Love",
+    "startDate": "2026-10-21",
+    "endDate": "",
+    "weekday": "周三",
+    "episodes": 0,
+    "status": "待播",
+    "company": "Studio Wabi Sabi",
+    "platforms": [
+      "GMM25",
+      "WeTV"
+    ],
+    "summary": "建筑师 Soul 与风水师 Xinxin 为重要客户共同设计住宅，截然不同的工作理念让两人不断交锋，也逐渐萌生感情。",
+    "image": "assets/archive/posters/built-in-love.webp",
+    "width": 800,
+    "height": 1000,
+    "focus": "50% 45%",
+    "sourceUrl": "https://www.youtube.com/watch?v=3fOkgCnjv5M",
+    "imageSourceUrl": "https://x.com/wabisabiTH/status/2102725466373464369",
+    "airingNote": "每周三泰国时间 20:30 于 GMM25 播出，21:30 于 WeTV 独家上线 UNCUT 版。"
+  },
+  {
+    "id": "love-on-hire",
+    "year": "2026",
+    "title": "Love On Hire",
+    "titleEn": "Love On Hire",
+    "startDate": "2026-10-22",
+    "endDate": "",
+    "weekday": "周四",
+    "episodes": 0,
+    "status": "待播",
+    "company": "NorthStar Entertainment / COPY A BANGKOK",
+    "platforms": [
+      "WeTV"
+    ],
+    "summary": "一位 CEO 的婚礼被受雇搅局的女子打断。对方后来成为她公司的实习生，两人展开报复与诱惑的较量，却逐渐陷入超出计划的感情。",
+    "image": "assets/archive/posters/love-on-hire.webp",
+    "width": 800,
+    "height": 1000,
+    "focus": "50% 45%",
+    "sourceUrl": "https://www.youtube.com/watch?v=F1l1mAvSmZo",
+    "imageSourceUrl": "https://x.com/LoveOnHire/status/2102020024772764038",
+    "airingNote": "10 月 22 日起，每周四泰国时间 20:00 于 WeTV 独家上线 UNCUT 版。"
   },
   {
     "id": "buy-my-boss",
@@ -1599,6 +1655,28 @@ export const archiveDramas = [
     "height": 1200,
     "focus": "50% 32%",
     "sourceUrl": "https://glspotlight.com/series/buy-my-boss"
+  },
+  {
+    "id": "under-her-rules",
+    "year": "2026",
+    "title": "她的规则",
+    "titleEn": "Under Her Rules",
+    "startDate": "2026-11-07",
+    "endDate": "",
+    "weekday": "周六",
+    "episodes": 8,
+    "status": "待播",
+    "company": "MGI Beyond",
+    "platforms": [
+      "iQIYI"
+    ],
+    "summary": "职场新人 Alice 被冷淡上司 Nannalin 带进充满奇怪任务的世界，工作服从与私人欲望之间的界线越来越模糊。",
+    "image": "assets/archive/posters/under-her-rules.webp",
+    "width": 800,
+    "height": 1200,
+    "focus": "50% 32%",
+    "sourceUrl": "https://x.com/MGIBeyond/status/2103084608183296422",
+    "airingNote": "每周六泰国时间 20:00 于 iQIYI 播出；首播已由 10 月 17 日改为 11 月 7 日。"
   },
   {
     "id": "my-boss-i-love-you",

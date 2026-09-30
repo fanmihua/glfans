@@ -13,7 +13,7 @@ export function profileCoverage() {
     fields: Object.fromEntries(['fullName', 'birthday', 'heightCm', 'instagram', 'x', 'weibo'].map(field => [field, profiles.filter(profile => Boolean(profile[field])).length])),
     communityCount: Object.keys(cpCommunities).length,
     // Missing information is a research backlog, not evidence that no account exists.
-    missing: profiles.map(profile => ({ name: profile.name, fields: ['birthday', 'instagram', 'x', 'weibo'].filter(field => !profile[field]) })).filter(item => item.fields.length),
+    missing: profiles.map(profile => ({ name: profile.name, fields: ['fullName', 'birthday', 'heightCm', 'instagram', 'x', 'weibo'].filter(field => !profile[field]) })).filter(item => item.fields.length),
     missingCommunities: cpProfiles.filter(cp => !cpCommunities[cp.id]).map(cp => cp.id),
     needsReview: socialNeedsReview,
   };

@@ -40,6 +40,7 @@ export function profileForMember(member) {
   const xConflict = socialNeedsReview.some(item => item.instagram === instagram && item.platform === 'x');
   const weibo = actorWeibo[instagram] || null;
   const references = [
+    !catalogue && member.source && { url: member.source, kind: member.sourceKind || 'producer' },
     catalogue && { url: catalogue.source, kind: 'catalogue' },
     original && { url: original.source, kind: original.source.includes('gmm-tv.com') ? 'agency' : 'media' },
     agency && { url: agency.source, kind: 'agency' },
@@ -49,7 +50,7 @@ export function profileForMember(member) {
   ].filter(Boolean);
   return {
     ...catalogue, ...original, ...agency, ...artist,
-    fullName: agency?.fullName || original?.fullName || catalogue?.fullName || member.name,
+    fullName: agency?.fullName || original?.fullName || catalogue?.fullName || (member.fullName === null ? null : member.fullName || member.name),
     birthday: agency?.birthday || original?.birthday || catalogue?.birthday || null,
     // Different sources list different heights for Mook; don't silently choose one.
     heightCm: instagram === '_mookynapapach' ? null : (agency?.heightCm || catalogue?.heightCm || null),
@@ -57,7 +58,7 @@ export function profileForMember(member) {
     x: xConflict ? null : (xUpdate?.handle || member.x || catalogue?.x || null),
     weibo,
     references: references.filter((item, index) => references.findIndex(other => other.url === item.url) === index),
-    checkedAt: catalogue?.checkedAt || '2026-09-10',
+    checkedAt: catalogue?.checkedAt || member.checkedAt || '2026-09-10',
   };
 }
 

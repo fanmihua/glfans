@@ -14,7 +14,7 @@
   "type": "module",
   "scripts": {
     "predev": "node scripts/build-column-index.mjs && node scripts/build-cp-content.mjs",
-    "prebuild": "node scripts/build-column-index.mjs && node scripts/build-cp-content.mjs",
+    "prebuild": "node scripts/build-column-index.mjs && node scripts/build-cp-content.mjs && node scripts/check-media-budget.mjs",
     "build:cp": "node scripts/build-cp-content.mjs",
     "research:cp": "node scripts/research-cp-profiles.mjs",
     "plan:cp": "node scripts/plan-cp-maintenance.mjs",
@@ -36,9 +36,15 @@
     "db:init": "npm run db:migrate && npm run db:seed",
     "db:import": "node scripts/import-glfans-community.mjs",
     "db:admin": "node scripts/create-glfans-admin.mjs",
-    "test:server": "node --test server/tests/*.test.mjs"
+    "test:server": "node --test server/tests/*.test.mjs",
+    "sync:memes": "node scripts/import-feishu-memes.mjs",
+    "media:optimize": "node scripts/optimize-media.mjs",
+    "media:check": "node scripts/check-media-budget.mjs",
+    "test:media": "node --test tests/media-optimization.test.mjs"
   },
-  "devDependencies": { "sharp": "0.34.3" },
+  "devDependencies": {
+    "sharp": "0.34.3"
+  },
   "dependencies": {
     "@fontsource-variable/manrope": "^5.3.0",
     "@fontsource-variable/noto-sans-thai": "^5.3.0",

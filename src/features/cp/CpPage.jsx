@@ -42,7 +42,7 @@ function MemberFacts({ member, locale, copy }) {
   const profile = member.profile;
   const sign = profile.sign;
   return <div className="cp-member-facts">
-    <p className="cp-member-fullname">{profile.fullName}</p>
+    <p className="cp-member-fullname">{profile.fullName || copy.notVerified}</p>
     <dl><div><dt>{copy.birthday}</dt><dd>{profile.birthday ? <time dateTime={profile.birthday}>{profile.birthday.replace(/-/g, '.')}</time> : profile.birthdayMonthDay ? <>{profile.birthdayMonthDay.replace('-', '.')}<small className="cp-birth-year-note">{copy.birthYearPending}</small></> : copy.notVerified}</dd></div>
       {sign && <div><dt>{copy.zodiac}</dt><dd>{zodiacLabels[locale][sign]}</dd></div>}
       {profile.heightCm && <div><dt>{copy.height}</dt><dd>{profile.heightCm} cm</dd></div>}</dl>
@@ -115,7 +115,7 @@ function CpContent({data}) {
               works.current?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
               works.current?.focus({ preventScroll: true });
             }}>{copy.viewWorks}<ArrowRight size={22} /></button>
-            <button className="cp-calendar-link" type="button" aria-haspopup="dialog" onClick={event => openCalendar(event, cp.works, cpLabel(cp))}><CalendarBlank size={20} />{copy.cpCalendar}<ArrowRight size={18} /></button>
+            {cp.works.length > 0 && <button className="cp-calendar-link" type="button" aria-haspopup="dialog" onClick={event => openCalendar(event, cp.works, cpLabel(cp))}><CalendarBlank size={20} />{copy.cpCalendar}<ArrowRight size={18} /></button>}
           </div>
         </section>
         <CpTimeline key={`timeline-${cp.id}`} cp={cp} events={timeline} archiveById={archiveById} locale={locale} />
@@ -125,12 +125,13 @@ function CpContent({data}) {
             const media = work.pending ? work : archiveById.get(work.id);
             const href = work.pending ? work.source : `#/archive/${work.year}/${work.id}`;
             const linkProps = work.pending ? { target: '_blank', rel: 'noopener noreferrer' } : {};
-            return <article className="cp-work" key={work.id} data-work-id={work.id}>
-              <a className="cp-work-poster" href={href} {...linkProps} aria-label={`${work.title} · ${work.pending ? copy.openPreview : copy.viewWork}`} tabIndex={-1}><CpImage src={media.image} sizes="(max-width: 760px) 120px, 168px" alt={work.pending ? `${work.title} · ${copy.previewImage}` : work.title} loading="lazy" width={media.width} height={media.height} style={{ objectPosition: media.focus || '50% 32%' }} /></a>
+            const sourceLabel = work.sourceKind === 'announcement' ? copy.openAnnouncement : copy.openPreview;
+            return <article className={`cp-work${media.image ? '' : ' cp-work--announcement'}`} key={work.id} data-work-id={work.id}>
+              {media.image && <a className="cp-work-poster" href={href} {...linkProps} aria-label={`${work.title} · ${work.pending ? sourceLabel : copy.viewWork}`} tabIndex={-1}><CpImage src={media.image} sizes="(max-width: 760px) 120px, 168px" alt={work.pending ? `${work.title} · ${copy.previewImage}` : work.title} loading="lazy" width={media.width} height={media.height} style={{ objectPosition: media.focus || '50% 32%' }} /></a>}
               <div className="cp-work-info"><a className="cp-work-title" href={href} {...linkProps}>{work.title}<ArrowUpRight size={22} /></a>
                 <p className="cp-work-meta">{work.year}<span>{work.pending ? copy[work.status || 'upcoming'] : work.ensemble ? copy.ensemble : copy.pair}</span></p>
-                {work.pending ? <p className="cp-work-note">{copy.previewImage} · {work.publisher}</p> : null}
-                <div className="cp-work-actions">{work.pending ? <External className="cp-work-action" href={work.source}>{copy.openPreview}<ArrowUpRight size={16} /></External> : <>
+                {work.pending ? <p className="cp-work-note">{work.sourceKind === 'announcement' ? copy.officialAnnouncement : copy.previewImage} · {work.publisher}</p> : null}
+                <div className="cp-work-actions">{work.pending ? <External className="cp-work-action" href={work.source}>{sourceLabel}<ArrowUpRight size={16} /></External> : <>
                   <a className="cp-work-action" href={href}>{copy.archive}<ArrowRight size={16} /></a>
                   <button type="button" className="cp-calendar-link" aria-haspopup="dialog" onClick={event => openCalendar(event, [work], work.title)}><CalendarBlank size={18} />{copy.calendar}</button>
                 </>}</div>

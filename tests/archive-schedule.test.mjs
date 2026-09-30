@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readPayloadList, assembleSchedule } from '../scripts/lib/archive-schedule.mjs';
 import { calendarDate, eventDate, eventStatus, scheduleStats, monthDates, moveDate } from '../src/features/archive/calendar-model.js';
+import { applyOfficialScheduleOverrides, officialUpcomingForAssembly } from '../scripts/lib/archive-schedule-overrides.mjs';
 
 const checkedAt = '2026-09-04T12:00:00Z';
 const series = { slug: 'example-series', name: 'Example', country: 'Thailand', network: 'TV', platforms: [{ name: 'Stream' }] };
@@ -102,4 +103,62 @@ test('full episode feeds add dated later episodes, retain exact primary times an
   assert.equal(missing.events.find((event) => event.episode === 3).needsReview, true);
   changed[0].show.id = 456;
   assert.throws(() => mergeEpisodeSchedules(fresh(), changed));
+});
+
+test('official postponed premieres survive stale dates, blank channels and repeated refreshes', () => {
+  const first = assembleSchedule(fixture(), [{ slug: 'delayed-series', name: 'Delayed', startDate: '2026-10-17' }], null, checkedAt).data;
+  const overrides = { version: 1, checkedAt, series: [{ id: 'delayed-series', name: 'Delayed', network: 'iQIYI',
+    platforms: ['iQIYI'], premiereDate: '2026-11-07', sourceUrl: 'https://x.com/MGIBeyond/status/2103084608183296422' }],
+  events: [{ id: 'delayed-series:premiere', seriesId: 'delayed-series', episode: null, kind: 'premiere', date: '2026-11-07',
+    airsAt: '2026-11-07T13:00:00Z', sourceProvider: 'official', sourceUrl: 'https://x.com/MGIBeyond/status/2103084608183296422', checkedAt, needsReview: false }] };
+  applyOfficialScheduleOverrides(first, overrides);
+  const second = assembleSchedule(fixture(), [{ slug: 'delayed-series', name: 'Delayed', startDate: '2026-10-17', platforms: [] }], first, checkedAt).data;
+  applyOfficialScheduleOverrides(second, overrides);
+  assert.deepEqual(second.series.find(item => item.id === 'delayed-series').platforms, ['iQIYI']);
+  assert.equal(second.series.find(item => item.id === 'delayed-series').premiereDate, '2026-11-07');
+  assert.equal(second.events.find(item => item.seriesId === 'delayed-series').airsAt, '2026-11-07T13:00:00Z');
+  assert.equal(second.events.some(item => item.seriesId === 'delayed-series' && item.date === '2026-10-17'), false);
+  assert.deepEqual(applyOfficialScheduleOverrides(structuredClone(second), overrides), second);
+});
+
+test('official premiere corrects a real EP1, reviews pre-premiere rows and does not manufacture later episodes', () => {
+  const data = { series: [{ id: 'delayed-series', name: 'Delayed' }], events: [
+    { id: 'delayed-series:ep:1', seriesId: 'delayed-series', episode: 1, kind: 'episode', date: '2026-10-17', airsAt: null },
+    { id: 'delayed-series:ep:2', seriesId: 'delayed-series', episode: 2, kind: 'episode', date: '2026-10-24', airsAt: null },
+  ] };
+  const overrides = { version: 1, checkedAt, series: [{ id: 'delayed-series', name: 'Delayed', premiereDate: '2026-11-07', sourceUrl: 'https://example.com/official' }],
+    events: [{ id: 'delayed-series:premiere', seriesId: 'delayed-series', kind: 'premiere', date: '2026-11-07', airsAt: '2026-11-07T13:00:00Z',
+      sourceProvider: 'official', sourceUrl: 'https://example.com/official', checkedAt }] };
+  const result = applyOfficialScheduleOverrides(data, overrides);
+  assert.equal(result.events.length, 2);
+  assert.equal(result.events.some(item => item.kind === 'premiere'), false);
+  assert.equal(result.events.find(item => item.episode === 1).date, '2026-11-07');
+  assert.equal(result.events.find(item => item.episode === 2).needsReview, true);
+  assert.equal(result.events.find(item => item.episode === 2).date, '2026-10-24');
+});
+
+test('official short-series records preserve only the four published parts and reject incoherent times', async () => {
+  const { readFile } = await import('node:fs/promises');
+  const overrides = JSON.parse(await readFile(new URL('../src/data/archive-schedule-overrides.json', import.meta.url), 'utf8'));
+  const data = applyOfficialScheduleOverrides({ series: [], events: [
+    { id: 'dont-say-no-yet:ep:1', seriesId: 'dont-say-no-yet', episode: 1, kind: 'episode', date: '2026-09-22', sourceUrl: 'https://glspotlight.com/airing' },
+    { id: 'dont-say-no-yet:ep:5', seriesId: 'dont-say-no-yet', episode: 5, kind: 'episode', date: '2026-10-05', sourceUrl: 'https://glspotlight.com/airing' },
+  ] }, overrides);
+  const parts = data.events.filter(item => item.seriesId === 'dont-say-no-yet');
+  assert.deepEqual(parts.filter(item => !item.needsReview).map(item => [item.episode, item.date]), [[1, '2026-09-21'], [2, '2026-09-22'], [3, '2026-09-28'], [4, '2026-09-29']]);
+  assert.ok(parts.every(item => item.kind === 'part' && item.episodeUnit === 'part'));
+  assert.equal(parts.length, 5);
+  assert.equal(parts.find(item => item.episode === 5).needsReview, true);
+  const broken = structuredClone(overrides); broken.events[0].airsAt = '2026-11-08T13:00:00Z';
+  assert.throws(() => applyOfficialScheduleOverrides({ series: [], events: [] }, broken));
+});
+
+test('stale aggregator premiere dates cannot reject an EP1 covered by an official correction', () => {
+  const stale = [{ ...series, startDate: '2026-09-05' }, { slug: 'other', name: 'Other', startDate: '2026-10-01' }];
+  const overrides = { events: [{ kind: 'premiere', seriesId: series.slug }] };
+  const prepared = officialUpcomingForAssembly(stale, overrides);
+  assert.equal(stale[0].startDate, '2026-09-05');
+  assert.equal(prepared[0].startDate, null);
+  assert.equal(prepared[1].startDate, '2026-10-01');
+  assert.doesNotThrow(() => assembleSchedule(fixture(), prepared, null, checkedAt));
 });

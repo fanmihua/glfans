@@ -19,6 +19,10 @@ const catalogueNames = {
 
 export const cpNameRecords = Object.fromEntries(Object.entries(catalogueNames).map(([id, label]) => [id, { label, source: directorySource }]));
 Object.assign(cpNameRecords, {
+  friendpalm: { label: 'FriendPalm', source: 'https://www.youtube.com/watch?v=FoVP2y29_Tk' },
+  tanzanook: { label: 'TanZanook', source: 'https://www.youtube.com/watch?v=AWnUGoONk_o' },
+  ferinpuifai: { label: 'Ferin · Puifai', source: 'https://www.youtube.com/watch?v=WR-HPcdHxlQ' },
+  pimjipineare: { label: 'Pimji · Pineare', source: 'https://x.com/wabisabiTH/status/2102725466373464369' },
   engfacharlotte: { label: 'EngLot', source: 'https://missgrand.com/wp-content/uploads/2024/03/MGI-OppDay-Y2023.pdf' },
   lookmheesonya: { label: 'LMSY', source: 'https://www.thaiticketmajor.com/performance/lmsy-1st-fan-meeting-in-thailand-be-my-valentine.html' },
   mablepangjie: { label: 'BleJie', source: 'https://mablesiriwalee.com/en/works' },

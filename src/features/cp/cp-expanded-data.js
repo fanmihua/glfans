@@ -78,3 +78,50 @@ export const expandedCpProfiles = expandedPairDefinitions.map(([id, names, workI
     },
   };
 });
+
+// New pairings come from explicit producer announcements. A published nickname
+// does not verify a legal full name, birthday or an account with a similar name.
+export const announcedPairDefinitions = [
+  {
+    id: 'friendpalm', names: ['Friend', 'Palm'], workIds: [],
+    source: 'https://www.youtube.com/watch?v=FoVP2y29_Tk',
+    members: [{ name: 'Friend Torfan', fullName: null }, { name: 'Palm Paramee', fullName: null }],
+    titles: 'Resonance',
+  },
+  {
+    id: 'tanzanook', names: ['Tan', 'Zanook'], workIds: [],
+    source: 'https://www.youtube.com/watch?v=AWnUGoONk_o',
+    members: [{ name: 'Tan Thanatcha', fullName: null }, { name: 'Zanook Nadnada', fullName: null }],
+    titles: 'YES maybe NO',
+  },
+  {
+    id: 'ferinpuifai', names: ['Ferin', 'Puifai'], workIds: ['dont-say-no-yet'],
+    source: 'https://www.youtube.com/watch?v=WR-HPcdHxlQ',
+    members: [
+      { name: 'Ferin', fullName: null, instagram: 'ferinweerin' },
+      { name: 'Puifai', fullName: null, instagram: 'mikiipu_i' },
+    ],
+    titles: "Don't Say No Yet",
+  },
+  {
+    id: 'pimjipineare', names: ['Pimji', 'Pineare'], workIds: ['built-in-love'],
+    source: 'https://x.com/wabisabiTH/status/2102725466373464369',
+    members: [{ name: 'Pimji', fullName: null }, { name: 'Pineare', fullName: null }],
+    titles: 'Built In Love',
+  },
+];
+
+export const announcedCpProfiles = announcedPairDefinitions.map(({ id, names, workIds, source, members, titles }) => ({
+  id, names, image: null, events: [], shops: [],
+  members: members.map((member, index) => ({ instagram: null, x: null, ...member, nickname: names[index], source, sourceKind: 'producer', checkedAt: '2026-09-30' })),
+  works: workIds.map(workId => {
+    const drama = archiveById.get(workId);
+    if (!drama) throw new Error(`Unknown announced CP work: ${id}/${workId}`);
+    return { id: drama.id, title: drama.titleEn, year: drama.year, source: drama.sourceUrl };
+  }),
+  intro: {
+    zh: `${names.join(' 与 ')} 是《${titles}》制作方已公开确认的荧幕搭档。个人资料仅保留已核实的信息。`,
+    en: `${names.join(' and ')} are the screen pairing announced by the producer of ${titles}. Personal details are included only when verified.`,
+    th: `${names.join(' และ ')} เป็นคู่แสดงใน ${titles} ตามประกาศของผู้ผลิต ข้อมูลส่วนตัวแสดงเฉพาะที่ตรวจสอบแล้ว`,
+  },
+}));

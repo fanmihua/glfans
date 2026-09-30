@@ -30,11 +30,11 @@ glfans 是一个正在慢慢挖的泰百小网页。
 
 ### 现在挖到哪了
 
-新增百家饭：51 对 CP 的演员资料、INS/X/微博与超话、作品、音乐影像、双轨时间线和「她们的娃」，与考古档案及播出日历关联。只载入当前 CP 的详情，图片按屏幕尺寸加载；缺项和合作状态保留待核实，不推断私人关系。[资料维护规则](docs/cp-data-maintenance.md)采用到期增量检索：稳定资料不重搜，账号低频、动态项目按周、缺项逐步降频。
+新增百家饭：55 对 CP 的演员资料、INS/X/微博与超话、作品、音乐影像、双轨时间线和「她们的娃」，与考古档案及播出日历关联。只载入当前 CP 的详情，图片按屏幕尺寸加载；缺项和合作状态保留待核实，不推断私人关系。[资料维护规则](docs/cp-data-maintenance.md)采用到期增量检索：稳定资料不重搜，账号低频、动态项目按周、缺项逐步降频。
 
-CP Archive: 51 pairings with actor profiles, social links, works, music, timelines and fan characters. Details load per pairing with responsive images; unknown facts stay unverified. Maintenance searches only due fields, not the whole catalogue.
+CP Archive: 55 pairings with actor profiles, social links, works, music, timelines and fan characters. Details load per pairing with responsive images; unknown facts stay unverified. Maintenance searches only due fields, not the whole catalogue.
 
-รวมทุกคู่: ข้อมูลนักแสดง ช่องทางโซเชียล ผลงาน เพลง ไทม์ไลน์ และตัวละครแฟนด้อมของ 51 คู่ โหลดข้อมูลเฉพาะคู่และรูปตามขนาดหน้าจอ ตรวจเฉพาะข้อมูลที่ถึงรอบและไม่คาดเดาข้อมูลที่ยังไม่ยืนยัน
+รวมทุกคู่: ข้อมูลนักแสดง ช่องทางโซเชียล ผลงาน เพลง ไทม์ไลน์ และตัวละครแฟนด้อมของ 55 คู่ โหลดข้อมูลเฉพาะคู่และรูปตามขนาดหน้าจอ ตรวจเฉพาะข้อมูลที่ถึงรอบและไม่คาดเดาข้อมูลที่ยังไม่ยืนยัน
 
 `PIT STATUS: 首页片头、考古档案、百家饭、坑底文学、REPO、MEME PIT、坑底电台都已接通`
 

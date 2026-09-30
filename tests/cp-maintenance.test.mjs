@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { fingerprint, planReviews, nextReview, recordReviews } from '../scripts/lib/cp-maintenance.mjs';
 import { reviewTargets } from '../scripts/lib/cp-review-targets.mjs';
+import { profileCoverage } from '../src/features/cp/profile-coverage.js';
 const target = (extra={})=>({id:'actor:Example:birthday',value:'2000-01-01',missing:false,policy:'stable',intervalDays:90,checkedAt:'2026-09-10',...extra});
 const stateFor = t=>({version:1,records:{[t.id]:{fingerprint:fingerprint(t.value),lastAttemptAt:'2026-09-10',outcome:t.missing?'missing':'verified',misses:t.missing?1:0}}});
 test('verified stable facts never incur routine searches; explicit correction and changed facts do',()=>{
@@ -38,7 +39,7 @@ test('reviews require evidence; repeated recording is idempotent; conflict/error
 test('inventory deduplicates actors, excludes zodiac searches, and slows concluded CP discovery',()=>{
   const targets=reviewTargets();
   assert.equal(new Set(targets.map(t=>t.id)).size,targets.length);
-  assert.equal(targets.filter(t=>t.field==='fullName').length,101);
+  assert.equal(targets.filter(t=>t.field==='fullName').length,profileCoverage().actorCount);
   assert.equal(targets.filter(t=>t.field==='zodiac').length,0);
   assert.equal(targets.filter(t=>t.policy==='archived-news'&&t.intervalDays===90).length,4);
 });

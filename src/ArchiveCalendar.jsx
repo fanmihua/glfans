@@ -93,7 +93,11 @@ export function ArchiveCalendar({ onClose, returnFocus, initialSeriesIds, scopeL
   const covered = schedule.coverage.some((range) => range.from <= selected && selected <= range.to);
   const format = (date, options) => new Intl.DateTimeFormat(getDateLocale(), { timeZone: 'UTC', ...options }).format(new Date(`${date}T12:00:00Z`));
   const titleFor = (id) => archiveById.has(id) ? seriesName(archiveById.get(id), locale) : sourcesById.get(id)?.name || id;
-  const episodeFor = (event) => event.episode ? (locale === 'zh' ? `第 ${event.episode} 集` : locale === 'th' ? `ตอนที่ ${event.episode}` : `EP. ${String(event.episode).padStart(2, '0')}`) : copy.premiere;
+  const episodeFor = (event) => {
+    if (!event.episode) return copy.premiere;
+    if (event.episodeUnit === 'part' || sourcesById.get(event.seriesId)?.episodeUnit === 'part') return `Part ${event.episode}`;
+    return locale === 'zh' ? `第 ${event.episode} 集` : locale === 'th' ? `ตอนที่ ${event.episode}` : `EP. ${String(event.episode).padStart(2, '0')}`;
+  };
   const timeFor = (event) => event.airsAt ? new Intl.DateTimeFormat(getDateLocale(), { timeZone: zone, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date(event.airsAt)) : eventStatus(event, now) === 'aired' ? copy.timeUnrecorded : copy.timeUnknown;
   const navigateMonth = (direction) => {
     const date = new Date(`${selected.slice(0, 7)}-01T12:00:00Z`);
@@ -113,6 +117,7 @@ export function ArchiveCalendar({ onClose, returnFocus, initialSeriesIds, scopeL
         </div>
       </div>
       {archive?.summary && <p>{t(archive.summary)}</p>}
+      {archive?.airingNote && <p>{t(archive.airingNote)}</p>}
       <a href={event.sourceUrl} target="_blank" rel="noreferrer">{copy.more}<ArrowUpRight size={14} /></a>
       {archive && <a href={`#/archive/${archive.year}/${archive.id}`} onClick={onClose}>{cpText.archive}<ArrowUpRight size={14} /></a>}
       <CpRelatedLinks seriesId={event.seriesId} onNavigate={onClose} />
@@ -184,6 +189,7 @@ export function ArchiveCalendar({ onClose, returnFocus, initialSeriesIds, scopeL
                 </div>
               </div>
               {archive?.summary && <p className="calendar-program-summary">{t(archive.summary)}</p>}
+              {archive?.airingNote && <p className="calendar-program-summary">{t(archive.airingNote)}</p>}
               <div className="calendar-program-links"><a href={event.sourceUrl} target="_blank" rel="noreferrer">{copy.more}<ArrowUpRight size={14} /></a></div>
               {archive && <div className="calendar-program-links"><a href={`#/archive/${archive.year}/${archive.id}`} onClick={onClose}>{cpText.archive}<ArrowUpRight size={14} /></a></div>}
               <CpRelatedLinks seriesId={event.seriesId} onNavigate={onClose} />

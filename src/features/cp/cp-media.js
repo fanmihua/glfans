@@ -1,4 +1,5 @@
-// Editorial selection, verified against publisher credits on 2026-09-10.
+// Original editorial selection was checked on 2026-09-10; additions carry
+// their own review dates rather than implying a fresh review of every item.
 // CP association does not imply that both members sing every song.
 import { cpProfiles } from './cp-data.js';
 import trailers from './cp-trailers.json' with { type: 'json' };
@@ -27,6 +28,16 @@ const album = (id, cpId, title, performers, scope, workId, publisher, date, slug
   ...(id === '1840114672' ? { radioTrackId: 'netease:2757267299' } : {}),
 });
 export const cpMedia = [
+  {
+    ...yt('qmuck4oXWyQ', 'freenbecky', 'DUO ONE Presented by est COLA · Official Preview', ['Freen Sarocha', 'Becky Armstrong'], 'cast', null, 'AMARINTV', 'video'),
+    date: '2026-09-18', checkedAt: '2026-09-30',
+    // The official preview's description credits both artists as commentators.
+    // Use the broadcaster's program artwork; the automatic YouTube frame is
+    // unrelated to the program. This date is the preview's publication date.
+    image: 'assets/cp/media/qmuck4oXWyQ.webp',
+    imageSource: 'https://static.amarintv.com/media/PJVlR0ljpO8FFSDyDM89re6RRRQRtVvrG094ehmdLhmoCTH7naYhSxceApDThDJgk9.jpg',
+    artworkSource: 'https://www.amarintv.com/news/entertain/557547',
+  },
   yt('AUPbHx7J8iQ', 'emibonnie', 'จะรักให้จำ (Your One)', ['Bonnie Pattraphus'], 'solo', 'moonshadow', 'RISER MUSIC'),
   yt('0teLUM61UMY', 'milklove', 'ช็อตฟีล (Shot-Feel)', ['Milk Pansa', 'Love Pattranite'], 'duet', null),
   yt('27klSLsVCR4', 'janjingjing', 'ระยะใกล้รัก (Afraid)', ['Jingjing Yu'], 'solo', 'enemies-with-benefits'),

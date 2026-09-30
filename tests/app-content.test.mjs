@@ -6,6 +6,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { APP_FILE_NAMES, collectAssetPaths, createAppSnapshot, filterCollections, publicCpDetail, sha256, writeAppContent } from '../scripts/lib/app-content.mjs';
 import { archiveDramas } from '../src/data/archive-dramas.js';
+import { cpProfiles } from '../src/features/cp/cp-data.js';
 import { mergeCalendarData } from '../src/features/archive/calendar-data.js';
 import { publicColumns, publicArticleTranslations } from '../scripts/lib/public-columns.mjs';
 
@@ -45,7 +46,7 @@ test('App shares current website series, published REPO articles and schedules w
   assert.deepEqual(snapshot.catalog.quotes, []);
   assert.deepEqual(snapshot.catalog.radio.tracks, []);
   assert.deepEqual(snapshot.catalog.homeLinks.map(item => item.id), ['archive', 'cp', 'column', 'memes', 'about']);
-  assert.equal(snapshot.cpCatalog.profiles.length, 51);
+  assert.deepEqual(snapshot.cpCatalog.profiles.map(profile => profile.id), cpProfiles.map(profile => profile.id));
   for (const profile of snapshot.cpCatalog.profiles) {
     assert.equal(profile.detail.community, null);
     assert.deepEqual(profile.detail.cp.shops, []);

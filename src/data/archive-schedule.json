@@ -71,12 +71,14 @@
     {
       "id": "khom-khlang",
       "name": "Khom Khlang",
-      "network": "YouTube",
+      "network": "WeTV",
       "platforms": [
         "WeTV"
       ],
       "premiereDate": "2026-09-07",
-      "sourceUrl": "https://glspotlight.com/series/khom-khlang"
+      "sourceUrl": "https://www.youtube.com/watch?v=UtfSy3QiCts",
+      "sourceProvider": "official",
+      "checkedAt": "2026-09-30T08:42:35Z"
     },
     {
       "id": "pls-love",
@@ -87,7 +89,9 @@
         "iQIYI"
       ],
       "premiereDate": "2026-09-11",
-      "sourceUrl": "https://glspotlight.com/series/pls-love"
+      "sourceUrl": "https://www.iq.com/play/pls-love-episode-3-11fdtngngfw?lang=en_us",
+      "sourceProvider": "official",
+      "checkedAt": "2026-09-30T08:42:35Z"
     },
     {
       "id": "third-person",
@@ -97,15 +101,21 @@
         "YouTube"
       ],
       "premiereDate": "2026-09-12",
-      "sourceUrl": "https://glspotlight.com/series/third-person"
+      "sourceUrl": "https://www.youtube.com/watch?v=eWVtJtYbZgI",
+      "sourceProvider": "official",
+      "checkedAt": "2026-09-30T08:42:35Z"
     },
     {
       "id": "under-her-rules",
       "name": "Under Her Rules",
-      "network": "",
-      "platforms": [],
-      "premiereDate": "2026-10-17",
-      "sourceUrl": "https://glspotlight.com/series/under-her-rules"
+      "network": "iQIYI",
+      "platforms": [
+        "iQIYI"
+      ],
+      "premiereDate": "2026-11-07",
+      "sourceUrl": "https://x.com/MGIBeyond/status/2103084608183296422",
+      "sourceProvider": "official",
+      "checkedAt": "2026-09-30T08:42:35Z"
     },
     {
       "id": "buy-my-boss",
@@ -198,10 +208,14 @@
     {
       "id": "love-on-hire",
       "name": "Love On Hire",
-      "network": "",
-      "platforms": [],
+      "network": "WeTV",
+      "platforms": [
+        "WeTV"
+      ],
       "premiereDate": "2026-10-22",
-      "sourceUrl": "https://glspotlight.com/series/love-on-hire"
+      "sourceUrl": "https://x.com/LoveOnHire/status/2102020024772764038",
+      "sourceProvider": "official",
+      "checkedAt": "2026-09-30T08:42:35Z"
     },
     {
       "id": "hidden-heart",
@@ -215,9 +229,13 @@
       "id": "built-in-love",
       "name": "Built in Love",
       "network": "GMM25",
-      "platforms": [],
+      "platforms": [
+        "WeTV"
+      ],
       "premiereDate": "2026-10-21",
-      "sourceUrl": "https://glspotlight.com/series/built-in-love"
+      "sourceUrl": "https://x.com/wabisabiTH/status/2102725466373464369",
+      "sourceProvider": "official",
+      "checkedAt": "2026-09-30T08:42:35Z"
     },
     {
       "id": "by-your-side",
@@ -362,6 +380,19 @@
       "platforms": [],
       "premiereDate": null,
       "sourceUrl": "https://glspotlight.com/series/the-dragon"
+    },
+    {
+      "id": "dont-say-no-yet",
+      "name": "Don't say ‘NO’ yet",
+      "network": "YouTube",
+      "platforms": [
+        "YouTube"
+      ],
+      "premiereDate": "2026-09-21",
+      "episodeUnit": "part",
+      "sourceUrl": "https://www.youtube.com/watch?v=WR-HPcdHxlQ",
+      "sourceProvider": "official",
+      "checkedAt": "2026-09-30T08:42:35Z"
     }
   ],
   "events": [
@@ -841,6 +872,19 @@
       "needsReview": false
     },
     {
+      "id": "dont-say-no-yet:part:1",
+      "seriesId": "dont-say-no-yet",
+      "episode": 1,
+      "episodeUnit": "part",
+      "airsAt": "2026-09-21T11:00:00Z",
+      "date": "2026-09-21",
+      "kind": "part",
+      "sourceUrl": "https://www.youtube.com/watch?v=UmOycr2NkFs",
+      "checkedAt": "2026-09-30T08:42:35Z",
+      "needsReview": false,
+      "sourceProvider": "official"
+    },
+    {
       "id": "khom-khlang:ep:3",
       "seriesId": "khom-khlang",
       "episode": 3,
@@ -850,6 +894,19 @@
       "sourceUrl": "https://glspotlight.com/airing",
       "checkedAt": "2026-09-21T03:25:48.010Z",
       "needsReview": false
+    },
+    {
+      "id": "dont-say-no-yet:part:2",
+      "seriesId": "dont-say-no-yet",
+      "episode": 2,
+      "episodeUnit": "part",
+      "airsAt": "2026-09-22T11:00:00Z",
+      "date": "2026-09-22",
+      "kind": "part",
+      "sourceUrl": "https://www.youtube.com/watch?v=gPkOOkIT4qA",
+      "checkedAt": "2026-09-30T08:42:35Z",
+      "needsReview": false,
+      "sourceProvider": "official"
     },
     {
       "id": "moonshadow:ep:7",
@@ -907,6 +964,19 @@
       "needsReview": false
     },
     {
+      "id": "dont-say-no-yet:part:3",
+      "seriesId": "dont-say-no-yet",
+      "episode": 3,
+      "episodeUnit": "part",
+      "airsAt": "2026-09-28T11:00:00Z",
+      "date": "2026-09-28",
+      "kind": "part",
+      "sourceUrl": "https://www.youtube.com/watch?v=sT9f-gLH8zQ",
+      "checkedAt": "2026-09-30T08:42:35Z",
+      "needsReview": false,
+      "sourceProvider": "official"
+    },
+    {
       "id": "khom-khlang:ep:4",
       "seriesId": "khom-khlang",
       "episode": 4,
@@ -916,6 +986,19 @@
       "sourceUrl": "https://glspotlight.com/airing",
       "checkedAt": "2026-09-28T05:27:13.763Z",
       "needsReview": false
+    },
+    {
+      "id": "dont-say-no-yet:part:4",
+      "seriesId": "dont-say-no-yet",
+      "episode": 4,
+      "episodeUnit": "part",
+      "airsAt": "2026-09-29T11:00:00Z",
+      "date": "2026-09-29",
+      "kind": "part",
+      "sourceUrl": "https://www.youtube.com/watch?v=i46czu8IMh0",
+      "checkedAt": "2026-09-30T08:42:35Z",
+      "needsReview": false,
+      "sourceProvider": "official"
     },
     {
       "id": "moonshadow:ep:8",
@@ -1051,17 +1134,6 @@
       "needsReview": false
     },
     {
-      "id": "under-her-rules:premiere",
-      "seriesId": "under-her-rules",
-      "episode": null,
-      "airsAt": null,
-      "date": "2026-10-17",
-      "kind": "premiere",
-      "sourceUrl": "https://x.com/MGIBeyond",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
-      "needsReview": false
-    },
-    {
       "id": "juliet-and-juliet:ep:7",
       "seriesId": "juliet-and-juliet",
       "episode": 7,
@@ -1089,23 +1161,25 @@
       "id": "built-in-love:premiere",
       "seriesId": "built-in-love",
       "episode": null,
-      "airsAt": null,
+      "airsAt": "2026-10-21T13:30:00Z",
       "date": "2026-10-21",
       "kind": "premiere",
-      "sourceUrl": "https://x.com/wabisabiTH",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
-      "needsReview": false
+      "sourceUrl": "https://x.com/wabisabiTH/status/2102725466373464369",
+      "checkedAt": "2026-09-30T08:42:35Z",
+      "needsReview": false,
+      "sourceProvider": "official"
     },
     {
       "id": "love-on-hire:premiere",
       "seriesId": "love-on-hire",
       "episode": null,
-      "airsAt": null,
+      "airsAt": "2026-10-22T13:00:00Z",
       "date": "2026-10-22",
       "kind": "premiere",
-      "sourceUrl": "https://www.youtube.com/watch?v=F1l1mAvSmZo",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
-      "needsReview": false
+      "sourceUrl": "https://x.com/LoveOnHire/status/2102020024772764038",
+      "checkedAt": "2026-09-30T08:42:35Z",
+      "needsReview": false,
+      "sourceProvider": "official"
     },
     {
       "id": "juliet-and-juliet:ep:8",
@@ -1153,6 +1227,18 @@
       "sourceProvider": "tvmaze",
       "checkedAt": "2026-09-28T05:27:13.763Z",
       "needsReview": false
+    },
+    {
+      "id": "under-her-rules:premiere",
+      "seriesId": "under-her-rules",
+      "episode": null,
+      "airsAt": "2026-11-07T13:00:00Z",
+      "date": "2026-11-07",
+      "kind": "premiere",
+      "sourceUrl": "https://x.com/MGIBeyond/status/2103084608183296422",
+      "checkedAt": "2026-09-30T08:42:35Z",
+      "needsReview": false,
+      "sourceProvider": "official"
     },
     {
       "id": "khom-khlang:ep:10",

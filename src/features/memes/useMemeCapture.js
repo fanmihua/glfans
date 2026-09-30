@@ -9,10 +9,12 @@ function preloadMemeAsset(assetPath) {
   return new Promise((resolve) => {
     const image = new Image();
     let settled = false;
+    const timeout = window.setTimeout(() => settle(), 15000);
 
     const settle = async () => {
       if (settled) return;
       settled = true;
+      window.clearTimeout(timeout);
 
       if (image.naturalWidth > 0 && typeof image.decode === "function") {
         try {
@@ -22,7 +24,7 @@ function preloadMemeAsset(assetPath) {
         }
       }
 
-      resolve();
+      resolve(image.naturalWidth > 0);
     };
 
     image.decoding = "async";
@@ -43,6 +45,9 @@ export function useMemeCapture() {
   const [capturedFilms, setCapturedFilms] = useState([]);
   const [targetSlotIndex, setTargetSlotIndex] = useState(0);
   const [archiveMotion, setArchiveMotion] = useState(null);
+  const [captureError, setCaptureError] = useState(false);
+  const mountedRef = useRef(true);
+  const captureBusyRef = useRef(false);
   const timersRef = useRef([]);
   const filmstripRef = useRef(null);
   const printRef = useRef(null);
@@ -53,7 +58,6 @@ export function useMemeCapture() {
 
   const centerMobileSlot = (index, behavior = "smooth") => {
     centeredSlotRef.current = index;
-    if (!window.matchMedia("(max-width: 760px)").matches) return;
     const strip = filmstripRef.current;
     const slot = strip?.querySelectorAll(".meme-film-slot")[index];
     if (!strip || !slot) return;
@@ -89,8 +93,10 @@ export function useMemeCapture() {
   };
 
   useEffect(() => {
+    mountedRef.current = true;
     document.body.classList.add("meme-game-active");
     return () => {
+      mountedRef.current = false;
       clearTimers();
       document.body.classList.remove("meme-game-active");
     };
@@ -132,14 +138,25 @@ export function useMemeCapture() {
     };
   }, []);
 
-  const startCapture = () => {
-    if (phase !== "idle" || isDeckExhausted) return;
+  const startCapture = async () => {
+    if (phase !== "idle" || isDeckExhausted || captureBusyRef.current) return;
 
     clearTimers();
     const capturedMemeIds = new Set(capturedFilms.map((meme) => meme.id));
     const candidates = memeCaptureDeck.filter((meme) => !capturedMemeIds.has(meme.id));
     const sourceMeme = candidates[Math.floor(Math.random() * candidates.length)];
     if (!sourceMeme) return;
+    captureBusyRef.current = true;
+    setCaptureError(false);
+    setPhase("focusing");
+    const loaded = await preloadMemeAsset(sourceMeme.src);
+    if (!mountedRef.current) return;
+    if (!loaded) {
+      captureBusyRef.current = false;
+      setCaptureError(true);
+      setPhase("idle");
+      return;
+    }
     const captureNumber = nextCaptureNumberRef.current;
     const capturedAt = new Date();
     nextCaptureNumberRef.current += 1;
@@ -182,6 +199,7 @@ export function useMemeCapture() {
         setActiveFilmIndex(targetIndex);
         setSelectedMeme(null);
         setArchiveMotion(null);
+        captureBusyRef.current = false;
         setPhase("idle");
       }, archiveDuration));
     };
@@ -199,6 +217,6 @@ export function useMemeCapture() {
   return {
     assetsReady, preparedAssetCount, phase, selectedMeme, activeFilmIndex,
     capturedFilms, targetSlotIndex, archiveMotion, filmstripRef, printRef,
-    filmLandingRef, isDeckExhausted, startCapture,
+    filmLandingRef, isDeckExhausted, startCapture, captureError,
   };
 }

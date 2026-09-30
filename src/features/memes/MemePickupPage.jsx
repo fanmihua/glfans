@@ -9,7 +9,7 @@ export function MemePickupPage() {
   const {
     assetsReady, preparedAssetCount, phase, selectedMeme, activeFilmIndex,
     capturedFilms, targetSlotIndex, archiveMotion, filmstripRef, printRef,
-    filmLandingRef, isDeckExhausted, startCapture,
+    filmLandingRef, isDeckExhausted, startCapture, captureError,
   } = useMemeCapture();
 
   if (!assetsReady) {
@@ -83,7 +83,7 @@ export function MemePickupPage() {
             <button
               className="instant-camera-shutter"
               type="button"
-              aria-label={t(isDeckExhausted ? "5 张表情包已全部收齐" : "按下快门拍一张表情包")}
+              aria-label={isDeckExhausted ? t("{0} 张表情包已全部收齐", [memeCaptureDeck.length]) : t("按下快门拍一张表情包")}
               onClick={startCapture}
               disabled={phase !== "idle" || isDeckExhausted}
             />
@@ -110,7 +110,7 @@ export function MemePickupPage() {
       <div className="meme-filmstrip-shell">
         <div className="meme-filmstrip" ref={filmstripRef}>
           <div className="meme-filmstrip-track">
-            {t(Array.from({ length: 6 }).map((_, index) => {
+            {t(Array.from({ length: Math.max(6, capturedFilms.length + 1) }).map((_, index) => {
               const meme = capturedFilms[index];
               const showCompletionNote = isDeckExhausted && index === memeCaptureDeck.length;
 
@@ -125,7 +125,7 @@ export function MemePickupPage() {
                       className={`meme-film-card is-filled${activeFilmIndex === index ? " is-active" : ""}`}
                       aria-label={t(`第 ${meme.filmId} 张表情包：${meme.title}，拍摄于 ${meme.capturedTime}`)}
                     >
-                      <span className="meme-film-image"><img src={withBase(meme.src)} alt="" /></span>
+                      <span className="meme-film-image"><img src={withBase(meme.src)} alt="" loading="lazy" decoding="async" /></span>
                       <span className="meme-film-number">[{t(meme.filmId)}]</span>
                       <span className="meme-film-card-actions">
                         <a
@@ -140,7 +140,7 @@ export function MemePickupPage() {
                           type="button"
                           onClick={startCapture}
                           disabled={phase !== "idle" || isDeckExhausted}
-                          aria-label={t(isDeckExhausted ? "5 张表情包已全部收齐" : "再拍一张表情包")}
+                          aria-label={isDeckExhausted ? t("{0} 张表情包已全部收齐", [memeCaptureDeck.length]) : t("再拍一张表情包")}
                           title={t(isDeckExhausted ? "今天已经全部收齐" : "再拍一张")}
                         >
                           <ArrowCounterClockwise aria-hidden="true" />
@@ -151,7 +151,7 @@ export function MemePickupPage() {
                   ) : showCompletionNote ? (
                     <span className="meme-film-complete" role="status" aria-live="polite">
                       <strong>{t("胶卷拍空啦")}</strong>
-                      <small>{t("5 张嘴硬证据全到手，")}<br />{t("再按就要拍到真心了。")}</small>
+                      <small>{t("{0} 张嘴硬证据全到手，", [memeCaptureDeck.length])}<br />{t("再按就要拍到真心了。")}</small>
                     </span>
                   ) : (
                     <span className="meme-film-placeholder" aria-hidden="true">
@@ -164,6 +164,7 @@ export function MemePickupPage() {
           </div>
         </div>
       </div>
+      {captureError && <p className="meme-download-notice" role="status">{t("这张表情包暂时没加载出来，请再拍一次。")}</p>}
       <p className="meme-download-notice">{t("表情包仅供粉丝交流使用，相关素材权利归原权利人。")}</p>
     </section>
   );

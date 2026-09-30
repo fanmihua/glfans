@@ -1,5 +1,8 @@
 // Names are identifiers, not prose. Unverified names keep their source spelling.
 export const verifiedSeries = [
+  { aliases: ["Don't say ‘NO’ yet"], en: "Don't say ‘NO’ yet", th: "อย่าพึ่งตอบว่า'ไม่'", source: 'https://www.youtube.com/watch?v=WR-HPcdHxlQ' },
+  { aliases: ['Built in Love'], en: 'Built in Love', th: 'ก่อร่างสร้างเลิฟ', source: 'https://www.youtube.com/watch?v=3fOkgCnjv5M' },
+  { aliases: ['Love On Hire'], en: 'Love On Hire', th: 'รับจ้างเลิกรัก', source: 'https://www.youtube.com/watch?v=F1l1mAvSmZo' },
   { aliases: ['宿敌恋人'], en: 'Enemies With Benefits', th: 'ลัลล์ไม่ชอบไวน์', source: 'https://www.gmm-tv.com/news/4214/' },
   { aliases: ['我们的爱'], en: 'Us', th: 'Us รักของเรา', source: 'https://www.gmm-tv.com/contents/VBYEO/' },
   { aliases: ['设计爱情', '爱情设计'], en: 'Love Design', th: 'รับ(รัก)ออกแบบ', source: 'https://wetv.vip/en/play/8fejxmjkf8gde4x', thaiSource: 'https://wetv.vip/th/play/8fejxmjkf8gde4x' },

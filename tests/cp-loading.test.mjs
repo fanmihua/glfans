@@ -22,7 +22,7 @@ test('archive links and directory do not import biography datasets; CP details l
     assert.doesNotMatch(text,/from ['"].*(?:actor-profiles|actor-socials|member-profiles|cp-data|cp-media|cp-timeline)\.js/);
   }
   const index=JSON.parse(await readFile('src/features/cp/generated/index.json'));
-  assert.equal(index.profiles.length,51);
+  assert.equal(index.profiles.length,cpProfiles.length);
   assert.ok(index.profiles.every(cp=>cp.members.every(m=>!m.birthday&&!m.instagram&&!m.references)));
   assert.match(await readFile('src/features/cp/CpPage.jsx','utf8'),/import\.meta\.glob/);
 });

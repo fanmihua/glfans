@@ -1,3 +1,5 @@
+import importedMemes from '../../data/meme-assets.json' with { type: 'json' };
+
 export const memeCollection = [
   {
     id: "001",
@@ -36,16 +38,16 @@ export const memeCollection = [
     title: "我是个失败的拉拉",
     note: "飞书原版表情包库收录。",
     src: "assets/fan-memes/reaction-failed-lesbian.webp",
-    alt: "戴着纸袋的猫咪表情，配字我是个失败的拉拉",
+    alt: "猫咪拼图表情，配字我是个失败的拉拉",
     downloadName: "glfans-我是个失败的拉拉.webp",
   },
+  ...importedMemes,
 ];
 
 export const memeGameCriticalAssets = [
   "assets/meme-game/meme-camera-three-quarter-empty-v2.webp",
   "assets/repo-handdrawn-heart-pink.webp",
   "assets/repo-handdrawn-underline-pink.webp",
-  ...memeCollection.map((meme) => meme.src),
 ];
 
 export const memeCaptureDeck = memeCollection;

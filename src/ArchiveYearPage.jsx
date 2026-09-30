@@ -193,7 +193,7 @@ export function ArchiveYearPage({ year, eventId, onOpenCalendar }) {
       <small className="archive-year-original-title">{t(selectedEvent.titleEn)}</small>
       <dl className="archive-year-facts">
         <div><dt>{t("播出")}</dt><dd>{t(selectedEvent.weekday)} · {t(selectedEvent.status)}</dd></div>
-        <div><dt>{t("集数")}</dt><dd>{t(selectedEvent.factReview?.fields.includes('episodes') ? '待核实' : selectedEvent.episodes ? `${selectedEvent.episodes} 集` : "待公布")}</dd></div>
+        <div><dt>{t(selectedEvent.episodeUnit === 'part' ? '分段数' : '集数')}</dt><dd>{t(selectedEvent.factReview?.fields.includes('episodes') ? '待核实' : selectedEvent.episodeUnit === 'part' ? `${selectedEvent.parts} 个分段` : selectedEvent.episodes ? `${selectedEvent.episodes} 集` : "待公布")}</dd></div>
         <div><dt>{t("平台")}</dt><dd>{t(selectedEvent.platforms.join(" / ") || selectedEvent.company || "待公布")}</dd></div>
       </dl>
       <div className="archive-year-cast">
@@ -202,6 +202,7 @@ export function ArchiveYearPage({ year, eventId, onOpenCalendar }) {
       </div>
       <span className="archive-year-summary-brush" aria-hidden="true" />
       <p>{t(selectedEvent.summary)}</p>
+      {selectedEvent.airingNote && <p>{t(selectedEvent.airingNote)}</p>}
       <CpRelatedLinks seriesId={selectedEvent.id} />
       <button className="archive-series-calendar" type="button" aria-haspopup="dialog" onClick={event => onOpenCalendar(event, { ids: [selectedEvent.id], label: seriesName(selectedEvent, getLocale()) })}><CalendarBlank size={18} />{t('查看播出日历')}<ArrowRight size={16} /></button>
       <img src={withBase("assets/repo-handdrawn-heart-pink.webp")} alt="" aria-hidden="true" data-page-critical="true" />

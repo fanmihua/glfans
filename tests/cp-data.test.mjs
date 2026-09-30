@@ -4,7 +4,7 @@ import { existsSync } from 'node:fs';
 import { cpProfiles, findCp } from '../src/features/cp/cp-data.js';
 import { archiveDramas } from '../src/data/archive-dramas.js';
 import { memberProfiles, profileForMember, zodiacForBirthday, zodiacLabels } from '../src/features/cp/member-profiles.js';
-import { expandedPairDefinitions } from '../src/features/cp/cp-expanded-data.js';
+import { expandedPairDefinitions, announcedPairDefinitions } from '../src/features/cp/cp-expanded-data.js';
 import { archiveMainCastById } from '../src/data/archive-cast.js';
 import { cpLabel, cpNameRecords, filterCps } from '../src/features/cp/cp-names.js';
 
@@ -26,7 +26,7 @@ test('CP works resolve to real archive entries, portraits exist, and sources are
 
 test('all seven sticker pairs are included and works are not capped at two', () => {
   assert.equal(cpProfiles.filter(cp => cp.image).length, 7);
-  assert.equal(cpProfiles.length, 7 + expandedPairDefinitions.length);
+  assert.equal(cpProfiles.length, 7 + expandedPairDefinitions.length + announcedPairDefinitions.length);
   assert.ok(findCp('janekao'));
   assert.ok(findCp('ginjay'));
   assert.ok(findCp('lingorm').works.length > 2);
@@ -100,11 +100,29 @@ test('Western zodiac uses explicit date boundaries and rejects invalid birth dat
   for (const value of [undefined, '', '2001-02-29', '2000-13-01', 'unknown']) assert.equal(zodiacForBirthday(value), null);
 });
 
-test('all upcoming projects have a real local official preview image', () => {
+test('upcoming projects use real official previews or explicit announcements without fake images', () => {
   for (const cp of cpProfiles) for (const work of cp.upcoming || []) {
+    assert.ok(work.publisher);
+    if (work.sourceKind === 'announcement') {
+      assert.equal(work.image, undefined, work.id);
+      assert.ok(['www.gmm-tv.com', 'x.com'].includes(new URL(work.source).hostname));
+      continue;
+    }
     assert.ok(existsSync(new URL(`../public/${work.image}`, import.meta.url)), work.id);
     assert.equal(new URL(work.imageSource).hostname, 'i.ytimg.com');
-    assert.ok(work.publisher);
     assert.ok(work.width > 0 && work.height > 0);
+  }
+});
+
+test('September official projects belong to the announced screen pairing', () => {
+  const upcoming = { milklove:'ditto', viewmim:'bake-love-feeling', andalookkaew:'remain', tknur:'dangerous-queen-special', jessietungpang:'love-in-bloom', janjingjing:'married-to-my-enemy', friendpalm:'resonance', tanzanook:'yes-maybe-no' };
+  for (const [cpId, workId] of Object.entries(upcoming)) assert.ok(findCp(cpId).upcoming.some(work => work.id === workId), cpId);
+  assert.ok(findCp('ginjay').works.some(work => work.id === 'love-on-hire'));
+  assert.ok(!findCp('enjoyjune').works.some(work => work.id === 'love-on-hire'));
+  assert.deepEqual(findCp('ferinpuifai').works.map(work => work.id), ['dont-say-no-yet']);
+  assert.deepEqual(findCp('pimjipineare').works.map(work => work.id), ['built-in-love']);
+  for (const { id, source } of announcedPairDefinitions) {
+    assert.equal(findCp(id).image, null);
+    assert.ok(findCp(id).members.every(member => member.source === source));
   }
 });

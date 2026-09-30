@@ -5,13 +5,18 @@ import { profileForMember, zodiacForBirthday } from '../src/features/cp/member-p
 import { cpCommunities } from '../src/features/cp/cp-communities.js';
 import { profileCoverage } from '../src/features/cp/profile-coverage.js';
 import { cpCopy } from '../src/features/cp/cp-copy.js';
+import { announcedPairDefinitions } from '../src/features/cp/cp-expanded-data.js';
+const announcedIds = new Set(announcedPairDefinitions.map(cp => cp.id));
 
-test('all 51 pairings share sourced public profiles and Instagram identities for 101 distinct actors', () => {
+test('the original 51 pairings retain sourced identities and new pairings keep unknown facts explicit', () => {
   const stats = profileCoverage();
-  assert.equal(stats.cpCount, 51);
-  assert.equal(stats.actorCount, 101);
+  const original = cpProfiles.filter(cp => !announcedIds.has(cp.id));
+  assert.equal(original.length, 51);
+  assert.equal(new Set(original.flatMap(cp => cp.members.map(member => member.name))).size, 101);
+  assert.equal(stats.cpCount, 51 + announcedIds.size);
+  assert.equal(stats.actorCount, 101 + announcedPairDefinitions.reduce((total, cp) => total + cp.members.length, 0));
   assert.equal(stats.fields.fullName, 101);
-  assert.equal(stats.fields.instagram, 101);
+  assert.equal(stats.fields.instagram, 103);
   assert.ok(stats.fields.birthday >= 100);
   assert.ok(stats.fields.x >= 95);
   assert.ok(stats.fields.weibo >= 60);
@@ -20,7 +25,7 @@ test('all 51 pairings share sourced public profiles and Instagram identities for
     assert.ok(profile.references.length, member.name);
     for (const reference of profile.references) assert.equal(new URL(reference.url).protocol, 'https:');
     if (profile.birthday) assert.ok(zodiacForBirthday(profile.birthday), member.name);
-    assert.match(member.instagram, /^[A-Za-z0-9._]+$/);
+    if (!announcedIds.has(cp.id) || member.instagram) assert.match(member.instagram, /^[A-Za-z0-9._]+$/);
     if (member.x) assert.match(member.x, /^[A-Za-z0-9_]{1,15}$/);
     if (member.weibo) {
       assert.equal(new URL(member.weibo.url).hostname, 'weibo.com');
@@ -28,6 +33,22 @@ test('all 51 pairings share sourced public profiles and Instagram identities for
       assert.ok(member.weibo.sourceKind);
     }
   }
+});
+
+test('new actors have producer sources and no guessed birthdays, names or social accounts', () => {
+  for (const definition of announcedPairDefinitions) for (const member of findCp(definition.id).members) {
+    const profile = profileForMember(member);
+    assert.equal(profile.birthday, null, member.name);
+    assert.equal(profile.heightCm, null, member.name);
+    assert.equal(profile.x, null, member.name);
+    assert.equal(profile.weibo, null, member.name);
+    assert.equal(profile.fullName, null, member.name);
+    assert.ok(profile.references.some(reference => reference.url === definition.source && reference.kind === 'producer'));
+    if (definition.id !== 'ferinpuifai') {
+      assert.equal(profile.instagram, null, member.name);
+    }
+  }
+  assert.deepEqual(findCp('ferinpuifai').members.map(member => member.instagram), ['ferinweerin', 'mikiipu_i']);
 });
 
 test('repeated actors share identities while similar nicknames stay separate', () => {
@@ -63,7 +84,7 @@ test('42 directly researched CP communities remain distinct from personal/offici
 
 test('new profile and community copy is available in all site languages', () => {
   for (const locale of ['zh', 'en', 'th']) {
-    for (const key of ['height','weibo','notVerified','community','communityNote','communityPending','profileNote']) assert.ok(cpCopy[locale][key]);
-    for (const kind of ['agency','artist','media','catalogue','fan-index','organizer']) assert.ok(cpCopy[locale].referenceKinds[kind]);
+    for (const key of ['height','weibo','notVerified','community','communityNote','communityPending','profileNote','officialAnnouncement','openAnnouncement']) assert.ok(cpCopy[locale][key]);
+    for (const kind of ['agency','producer','artist','media','catalogue','fan-index','organizer']) assert.ok(cpCopy[locale].referenceKinds[kind]);
   }
 });

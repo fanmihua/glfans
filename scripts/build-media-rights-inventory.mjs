@@ -5,6 +5,7 @@ import { cpProfiles } from '../src/features/cp/cp-data.js';
 import { cpMedia as cpJournalMedia } from '../src/features/cp/cp-media.js';
 import { cpNotices } from '../src/features/cp/cp-timeline.js';
 import { cpChildren } from '../src/features/cp/cp-children.js';
+import { memeCollection } from '../src/features/memes/meme-data.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const columnData = JSON.parse(await readFile(path.join(root, "src/data/column-data.json"), "utf8"));
@@ -48,19 +49,13 @@ const homeMedia = homePairs.map((pair) => ({
   publicDownload: false,
 }));
 
-const memeFiles = [
-  "reaction-no-serious.webp",
-  "reaction-no-emotion.webp",
-  "reaction-light-relaxed.webp",
-  "reaction-many-lesbians.webp",
-  "reaction-failed-lesbian.webp",
-];
-const memeMedia = memeFiles.map((filename) => ({
-  id: `meme:${filename.replace(/\.webp$/, "")}`,
-  path: `assets/fan-memes/${filename}`,
+const memeMedia = memeCollection.map((meme) => ({
+  id: `meme:${meme.id}`,
+  path: meme.src,
   category: "third-party-meme",
   context: { kind: "meme-pool", slug: "feishu-original" },
   sourceCollection: "飞书原版表情包库",
+  sourceUrl: meme.sourceDocument || 'https://my.feishu.cn/wiki/PhUpwFtESiOYaVkMlwEcsqg4nWf',
   rightsStatus: "source-audit-required",
   publicDownload: false,
 }));

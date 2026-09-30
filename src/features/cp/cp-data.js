@@ -1,9 +1,11 @@
-// Sources were reviewed on 2026-09-10. An empty list means no verified entry,
+// Baseline sources were reviewed on 2026-09-10; September project additions
+// retain their own 2026-09-30 review date. An empty list means no verified entry,
 // not that the artist has no events or brands. Never infer current stock.
-import { expandedCpProfiles } from './cp-expanded-data.js';
+import { expandedCpProfiles, announcedCpProfiles } from './cp-expanded-data.js';
 import { enrichMember } from './member-profiles.js';
 import { cpEventUpdates } from './cp-event-updates.js';
-export const verifiedAt = '2026-09-10';
+import { cpProjectUpdates } from './cp-project-updates.js';
+export const verifiedAt = '2026-09-30';
 const gm = (id) => `https://www.gmm-tv.com/artists/view/${id}/`;
 const person = (name, instagram, x, source) => ({ name, instagram, x, source });
 const work = (id, title, year, source, ensemble = false) => ({ id, title, year, source, ensemble });
@@ -84,13 +86,14 @@ export const cpProfiles = [
   {
     id: 'ginjay', names: ['Gin', 'Jay'], image: 'assets/home/ginjay-card-v1.webp',
     members: [person('Ginny Natnicha', 'ginnynatnicha', 'ginnynatnicha', 'https://x.com/ginnynatnicha'), person('Jayna Angelina', 'aangelinaa.ss', 'j_jayyna', 'https://x.com/j_jayyna')],
-    intro: { zh: 'Ginny 与 Jayna 共同主演《Poisonous Love》，并在已官宣的《Lunar Secret》中再次合作。', en: 'Ginny and Jayna star together in Poisonous Love and reunite in the announced project Lunar Secret.', th: 'Ginny และ Jayna แสดงนำร่วมกันใน Poisonous Love และกลับมาร่วมงานกันในโปรเจกต์ Lunar Secret ที่ประกาศแล้ว' },
-    works: [work('poisonous-love', 'Poisonous Love', '2025', 'https://glspotlight.com/series/poisonous-love')],
+    intro: { zh: 'Ginny 与 Jayna 共同主演《Poisonous Love》和《Love On Hire》，并已官宣《Lunar Secret》。', en: 'Ginny and Jayna star together in Poisonous Love and Love On Hire, with Lunar Secret also announced.', th: 'Ginny และ Jayna แสดงนำร่วมกันใน Poisonous Love และ Love On Hire และมีโปรเจกต์ Lunar Secret ที่ประกาศแล้ว' },
+    works: [work('poisonous-love', 'Poisonous Love', '2025', 'https://glspotlight.com/series/poisonous-love'), work('love-on-hire', 'Love On Hire', '2026', 'https://www.youtube.com/watch?v=F1l1mAvSmZo')],
     upcoming: [preview('lunar-secret', 'Lunar Secret', 'TDY-ZwAtCPI', 'NORTH STAR ENTERTAINMENT')],
     events: [], shops: [],
   },
   ...expandedCpProfiles,
-].map(cp => ({ ...cp, events: cpEventUpdates[cp.id] || cp.events, members: cp.members.map(enrichMember) }));
+  ...announcedCpProfiles,
+].map(cp => ({ ...cp, upcoming: [...(cp.upcoming || []), ...(cpProjectUpdates[cp.id] || [])], events: cpEventUpdates[cp.id] || cp.events, members: cp.members.map(enrichMember) }));
 
 export function findCp(id) { return cpProfiles.find((cp) => cp.id === id); }
 export function cpsForWork(id) { return cpProfiles.filter(cp => cp.works.some(work => work.id === id)); }

@@ -314,5 +314,17 @@ export const archiveMainCastById = {
   "my-boss-i-love-you": [
     "Yoshi Rinrada Thurapan",
     "Diana Flipo"
+  ],
+  "dont-say-no-yet": [
+    "Ferin",
+    "Puifai"
+  ],
+  "built-in-love": [
+    "Pimji",
+    "Pineare"
+  ],
+  "love-on-hire": [
+    "Ginny Natnicha Pratipnatsiri",
+    "Jayna Angelina Stevens"
   ]
 };
