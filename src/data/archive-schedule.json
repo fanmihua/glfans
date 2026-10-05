@@ -1,16 +1,16 @@
 {
   "version": 1,
-  "checkedAt": "2026-09-28T05:27:13.763Z",
+  "checkedAt": "2026-10-05T03:28:10.096Z",
   "source": "GL Spotlight",
   "sourceTimeZone": "Asia/Bangkok",
   "coverage": [
     {
-      "from": "2026-09-28",
-      "to": "2026-10-04"
-    },
-    {
       "from": "2026-10-05",
       "to": "2026-10-11"
+    },
+    {
+      "from": "2026-10-12",
+      "to": "2026-10-18"
     }
   ],
   "series": [
@@ -405,7 +405,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3629727/in-love-forever-1x01-episode-1",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -417,7 +417,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3662836/my-ladys-bodyguard-1x01-episode-1",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -429,7 +429,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3629728/in-love-forever-1x02-episode-2",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -441,7 +441,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3662837/my-ladys-bodyguard-1x02-episode-2",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -453,7 +453,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3629729/in-love-forever-1x03-episode-3",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -465,7 +465,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3662838/my-ladys-bodyguard-1x03-episode-3",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -477,7 +477,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3629730/in-love-forever-1x04-episode-4",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -489,7 +489,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3662860/my-ladys-bodyguard-1x04-episode-4",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -501,7 +501,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3629731/in-love-forever-1x05-episode-5",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -513,7 +513,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3662862/my-ladys-bodyguard-1x05-episode-5",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -525,7 +525,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3629732/in-love-forever-1x06-episode-6",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -537,7 +537,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3662863/my-ladys-bodyguard-1x06-episode-6",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -549,7 +549,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3629733/in-love-forever-1x07-episode-7",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -561,7 +561,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3662865/my-ladys-bodyguard-1x07-episode-7",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -573,7 +573,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3629734/in-love-forever-1x08-episode-8",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -585,7 +585,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3684421/moonshadow-1x01-once-in-a-blue-moon",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -597,7 +597,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3662867/my-ladys-bodyguard-1x08-episode-8",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -609,7 +609,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3629735/in-love-forever-1x09-episode-9",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -621,7 +621,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3684422/moonshadow-1x02-new-moon",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -633,7 +633,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3662868/my-ladys-bodyguard-1x09-episode-9",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -645,7 +645,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3629736/in-love-forever-1x10-episode-10",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -657,7 +657,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3684423/moonshadow-1x03-cant-fight-the-moonlight",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -669,7 +669,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3662870/my-ladys-bodyguard-1x10-episode-10",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -681,7 +681,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3708428/in-love-forever-1x11-episode-11",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -1062,8 +1062,8 @@
       "airsAt": "2026-10-05T13:00:00Z",
       "date": "2026-10-05",
       "kind": "episode",
-      "sourceUrl": "https://glspotlight.com/airing?week=next",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "sourceUrl": "https://glspotlight.com/airing",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -1073,8 +1073,8 @@
       "airsAt": "2026-10-07T13:30:00Z",
       "date": "2026-10-07",
       "kind": "episode",
-      "sourceUrl": "https://glspotlight.com/airing?week=next",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "sourceUrl": "https://glspotlight.com/airing",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -1084,8 +1084,8 @@
       "airsAt": "2026-10-09T13:30:00Z",
       "date": "2026-10-09",
       "kind": "episode",
-      "sourceUrl": "https://glspotlight.com/airing?week=next",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "sourceUrl": "https://glspotlight.com/airing",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -1095,8 +1095,8 @@
       "airsAt": "2026-10-10T13:30:00Z",
       "date": "2026-10-10",
       "kind": "episode",
-      "sourceUrl": "https://glspotlight.com/airing?week=next",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "sourceUrl": "https://glspotlight.com/airing",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -1106,8 +1106,8 @@
       "airsAt": "2026-10-10T15:25:00Z",
       "date": "2026-10-10",
       "kind": "episode",
-      "sourceUrl": "https://glspotlight.com/airing?week=next",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "sourceUrl": "https://glspotlight.com/airing",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -1117,32 +1117,74 @@
       "airsAt": "2026-10-11T15:30:00Z",
       "date": "2026-10-11",
       "kind": "episode",
-      "sourceUrl": "https://glspotlight.com/airing?week=next",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "sourceUrl": "https://glspotlight.com/airing",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
       "id": "khom-khlang:ep:6",
       "seriesId": "khom-khlang",
       "episode": 6,
-      "airsAt": null,
+      "airsAt": "2026-10-12T13:00:00Z",
       "date": "2026-10-12",
       "kind": "episode",
-      "sourceUrl": "https://www.tvmaze.com/episodes/3712585/khom-khlang-1x06-episode-6",
-      "sourceProvider": "tvmaze",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "sourceUrl": "https://glspotlight.com/airing?week=next",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "needsReview": false
+    },
+    {
+      "id": "moonshadow:ep:10",
+      "seriesId": "moonshadow",
+      "episode": 10,
+      "airsAt": "2026-10-14T13:30:00Z",
+      "date": "2026-10-14",
+      "kind": "episode",
+      "sourceUrl": "https://glspotlight.com/airing?week=next",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "needsReview": false
+    },
+    {
+      "id": "pls-love:ep:6",
+      "seriesId": "pls-love",
+      "episode": 6,
+      "airsAt": "2026-10-16T13:30:00Z",
+      "date": "2026-10-16",
+      "kind": "episode",
+      "sourceUrl": "https://glspotlight.com/airing?week=next",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
       "id": "juliet-and-juliet:ep:7",
       "seriesId": "juliet-and-juliet",
       "episode": 7,
-      "airsAt": "2026-10-17T13:30:00.000Z",
+      "airsAt": "2026-10-17T13:30:00Z",
       "date": "2026-10-17",
       "kind": "episode",
-      "sourceUrl": "https://www.tvmaze.com/episodes/3721799/juliet-juliet-1x07-episode-7",
-      "sourceProvider": "tvmaze",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "sourceUrl": "https://glspotlight.com/airing?week=next",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "needsReview": false
+    },
+    {
+      "id": "third-person:ep:6",
+      "seriesId": "third-person",
+      "episode": 6,
+      "airsAt": "2026-10-17T15:25:00Z",
+      "date": "2026-10-17",
+      "kind": "episode",
+      "sourceUrl": "https://glspotlight.com/airing?week=next",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "needsReview": false
+    },
+    {
+      "id": "fairway-of-love:ep:7",
+      "seriesId": "fairway-of-love",
+      "episode": 7,
+      "airsAt": "2026-10-18T15:30:00Z",
+      "date": "2026-10-18",
+      "kind": "episode",
+      "sourceUrl": "https://glspotlight.com/airing?week=next",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -1154,7 +1196,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3712586/khom-khlang-1x07-episode-7",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -1190,7 +1232,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3721800/juliet-juliet-1x08-episode-8",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -1202,18 +1244,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3712587/khom-khlang-1x08-episode-8",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
-      "needsReview": false
-    },
-    {
-      "id": "buy-my-boss:premiere",
-      "seriesId": "buy-my-boss",
-      "episode": null,
-      "airsAt": null,
-      "date": "2026-10-28",
-      "kind": "premiere",
-      "sourceUrl": "https://glspotlight.com/series/buy-my-boss",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -1225,7 +1256,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3712588/khom-khlang-1x09-episode-9",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -1249,7 +1280,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3712589/khom-khlang-1x10-episode-10",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     },
     {
@@ -1260,7 +1291,18 @@
       "date": "2026-11-28",
       "kind": "premiere",
       "sourceUrl": "https://glspotlight.com/series/my-boss-i-love-you",
-      "checkedAt": "2026-09-28T05:27:13.763Z",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "needsReview": false
+    },
+    {
+      "id": "buy-my-boss:premiere",
+      "seriesId": "buy-my-boss",
+      "episode": null,
+      "airsAt": null,
+      "date": "2026-10-28",
+      "kind": "premiere",
+      "sourceUrl": "https://glspotlight.com/series/buy-my-boss",
+      "checkedAt": "2026-10-05T03:28:10.096Z",
       "needsReview": false
     }
   ]
