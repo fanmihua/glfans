@@ -97,7 +97,10 @@ function CpContent({data}) {
       <CpDirectory cp={cp} copy={copy} locale={locale} />
       {!cp ? <section className="cp-not-found"><h2>{copy.notFound}</h2><a href="#/cp">{copy.back}<ArrowRight /></a></section> : <>
         <section className={`cp-identity${cp.image ? '' : ' cp-identity--text'}`} aria-labelledby="cp-name">
-          {cp.image && <div className="cp-portrait"><CpImage key={cp.image} src={cp.image} sizes="(max-width: 760px) calc(100vw - 36px), 48vw" alt={cp.names.join(' & ')} width="1000" height={cp.id === 'emibonnie' || cp.id === 'freenbecky' ? 667 : cp.id === 'janjingjing' ? 914 : 1000} fetchPriority="high" data-page-critical="true" /></div>}
+          {cp.image && <div className={`cp-portrait${cp.portraitFrame ? ' cp-portrait--scrapbook' : ''}`} style={cp.portraitFrame ? { '--portrait-ratio': cp.imageWidth / cp.imageHeight } : undefined}>
+            <CpImage className={cp.portraitFrame ? 'cp-portrait-photo' : undefined} key={cp.image} src={cp.image} sizes="(max-width: 760px) calc(100vw - 36px), 48vw" alt={cpLabel(cp)} width={cp.imageWidth || 1000} height={cp.imageHeight || (cp.id === 'emibonnie' || cp.id === 'freenbecky' ? 667 : cp.id === 'janjingjing' ? 914 : 1000)} fetchPriority="high" data-page-critical="true" />
+            {cp.portraitFrame && <><CpImage className="cp-portrait-frame" src={cp.portraitFrame} alt="" aria-hidden="true" width="1200" height="1200" /><span className="cp-portrait-name" aria-hidden="true">{cpLabel(cp)}</span></>}
+          </div>}
           <div className="cp-bio">
             {notice && <button type="button" className="cp-status-tag" onClick={() => jumpToJournal('cp-conclusion')}>{cpJournalCopy[locale].ended}<ArrowRight size={16} /></button>}
             {cpLabel(cp) !== cp.names.join('') && <p className="cp-pair-name">{cpLabel(cp)}</p>}
@@ -123,16 +126,19 @@ function CpContent({data}) {
         <section className="cp-works" id="cp-works" ref={works} tabIndex={-1} aria-labelledby="cp-works-title">
           <div className="cp-section-heading"><h2 id="cp-works-title">{copy.works}</h2><span>OUR WORKS</span></div>
           <div className="cp-work-grid">{[...cp.works, ...(cp.upcoming || []).map(work => ({ ...work, pending: true }))].map(work => {
-            const media = work.pending ? work : archiveById.get(work.id);
+            const media = work.pending ? work : { ...archiveById.get(work.id), ...work };
             const href = work.pending ? work.source : `#/archive/${work.year}/${work.id}`;
             const linkProps = work.pending ? { target: '_blank', rel: 'noopener noreferrer' } : {};
             const sourceLabel = work.sourceKind === 'announcement' ? copy.openAnnouncement : copy.openPreview;
             const title = localizedWorkTitle(work, locale);
             return <article className={`cp-work${media.image ? '' : ' cp-work--announcement'}`} key={work.id} data-work-id={work.id}>
-              {media.image && <a className="cp-work-poster" href={href} {...linkProps} aria-label={`${title} · ${work.pending ? sourceLabel : copy.viewWork}`} tabIndex={-1}><CpImage src={media.image} sizes="(max-width: 760px) 120px, 168px" alt={work.pending ? `${title} · ${copy.previewImage}` : title} loading="lazy" width={media.width} height={media.height} style={{ objectPosition: media.focus || '50% 32%' }} /></a>}
+              {media.image && <a className="cp-work-poster" href={href} {...linkProps} aria-label={`${title} · ${work.pending ? sourceLabel : copy.viewWork}`} tabIndex={-1}><CpImage src={media.image} sizes="(max-width: 760px) 120px, 168px" alt={work.pending ? `${title} · ${copy.previewImage}` : title} loading="lazy" width={media.width} height={media.height} style={{ objectPosition: media.focus || '50% 32%', objectFit: work.imageFit || 'cover' }} /></a>}
               <div className="cp-work-info"><a className="cp-work-title" href={href} {...linkProps}>{title}<ArrowUpRight size={22} /></a>
                 <p className="cp-work-meta">{work.year}<span>{work.pending ? copy[work.status || 'upcoming'] : copy[work.relationship] || (work.ensemble ? copy.ensemble : copy.pair)}</span></p>
-                {work.roles?.length > 0 && <p className="cp-work-note">{work.roles.join(' / ')}</p>}
+                {work.cast?.length > 0 && <p className="cp-work-note">{work.cast.map(person => `${person.actor} · ${person.role}`).join(' / ')}</p>}
+                {work.storyNote && <p className="cp-work-note">{work.storyNote[locale]}</p>}
+                {!work.cast && work.roles?.length > 0 && <p className="cp-work-note">{work.roles.join(' / ')}</p>}
+                {work.imageCaption && <p className="cp-work-note">{work.imageCaption[locale]}</p>}
                 {work.pending ? <p className="cp-work-note">{work.sourceKind === 'announcement' ? copy.officialAnnouncement : copy.previewImage} · {work.publisher}</p> : null}
                 <div className="cp-work-actions">{work.pending ? <External className="cp-work-action" href={work.source}>{sourceLabel}<ArrowUpRight size={16} /></External> : <>
                   <a className="cp-work-action" href={href}>{copy.archive}<ArrowRight size={16} /></a>
@@ -159,6 +165,7 @@ function CpContent({data}) {
           <p className="cp-source-note">{cpStatusCopy[locale].note} {cpStatusCopy[locale].checked} {statusCheckedAt}</p>
           {collaboration.evidence && <External className="cp-source-link" href={collaboration.evidence.source}>{cpStatusCopy[locale][collaboration.status]} · {collaboration.evidence.title || collaboration.evidence.publisher}<ArrowUpRight size={12} /></External>}
           {cpNameRecords[cp.id] && <External className="cp-source-link" href={cpNameRecords[cp.id].source}>{cpLabel(cp)} · {copy.pairNameSource}<ArrowUpRight size={12} /></External>}
+          {cp.imageSource && <External className="cp-source-link" href={cp.imageSource}>{cpLabel(cp)} · {{zh:'合照来源（资料站）',en:'Photo source (catalogue)',th:'ที่มาภาพคู่ (เว็บไซต์ข้อมูล)'}[locale]} · {cp.imageCheckedAt}<ArrowUpRight size={12} /></External>}
           <p className="cp-source-note">{copy.zodiacNote}</p>
           <p className="cp-source-note">{copy.profileNote}</p>
           <div>{[...cp.members, ...cp.works, ...(cp.upcoming || []), ...cp.events, ...cp.shops].map((item, index) => <External className="cp-source-link" key={index} href={item.source}>{item.name || item.title}<ArrowUpRight size={12} /></External>)}</div>

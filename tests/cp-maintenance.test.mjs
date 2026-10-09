@@ -41,7 +41,7 @@ test('inventory deduplicates actors, excludes zodiac searches, and slows conclud
   assert.equal(new Set(targets.map(t=>t.id)).size,targets.length);
   assert.equal(targets.filter(t=>t.field==='fullName').length,profileCoverage().actorCount);
   assert.equal(targets.filter(t=>t.field==='zodiac').length,0);
-  assert.equal(targets.filter(t=>t.policy==='archived-news'&&t.intervalDays===90).length,4);
+  assert.equal(targets.filter(t=>t.policy==='archived-news'&&t.intervalDays===90).length,5);
 });
 test('weekly research command defaults to due-only planning; bulk catalogue is explicit and cached',async()=>{
   const source=await readFile('scripts/research-cp-profiles.mjs','utf8');

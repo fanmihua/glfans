@@ -55,11 +55,11 @@ for (const original of cpProfiles) {
   const ids = new Set([...cp.works.map(w=>w.id), ...media.map(m=>m.workId), ...timeline.map(t=>t.workId)].filter(Boolean));
   const works = [...ids].map(id=>archive.get(id)).filter(Boolean);
   const child = childForCp(cp.id);
-  const sources = new Set(['assets/glfans-logo-brush.webp','assets/repo-handdrawn-heart-pink.webp',cp.image, ...works.map(w=>w.image), ...(cp.upcoming || []).map(w=>w.image), ...media.map(m=>m.image), ...cp.events.map(e=>e.image), child?.image, child?.video.image].filter(Boolean));
+  const sources = new Set(['assets/glfans-logo-brush.webp','assets/repo-handdrawn-heart-pink.webp',cp.image, cp.portraitFrame, ...cp.works.map(w=>w.image), ...works.map(w=>w.image), ...(cp.upcoming || []).map(w=>w.image), ...media.map(m=>m.image), ...cp.events.map(e=>e.image), child?.image, child?.video.image].filter(Boolean));
   const responsive = Object.fromEntries(await Promise.all([...sources].map(async s=>[s, await imageVariants(s)])));
   const data = {cp, media, timeline, works, child, notice:noticeForCp(cp.id), milestones:personalMilestones[cp.id] || [], collaboration:statusForCp(cp.id), community:cpCommunities[cp.id] || null, responsive};
   await sameWrite(`${target}/${cp.id}.json`, JSON.stringify(data)+'\n');
-  directory.push({id:cp.id, names:cp.names, aliases:cp.aliases || [], members:cp.members.map(m=>({name:m.name})), works:cp.works.map(w=>({id:w.id,title:w.title,titleZh:archive.get(w.id)?.title || '',aliases:workTitleAliases(w)})), upcoming:(cp.upcoming || []).map(w=>({title:w.title})), status:statusForCp(cp.id).status});
+  directory.push({id:cp.id, names:cp.names, aliases:cp.aliases || [], members:cp.members.map(m=>({name:m.name})), works:cp.works.map(w=>({id:w.id,title:w.title,cast:w.cast,titleZh:archive.get(w.id)?.title || '',aliases:workTitleAliases(w)})), upcoming:(cp.upcoming || []).map(w=>({title:w.title})), status:statusForCp(cp.id).status});
 }
 await sameWrite(`${target}/index.json`, JSON.stringify({profiles:directory,verifiedAt,statusCheckedAt,cpStatusCopy,cpChildrenCopy,zodiacLabels})+'\n');
 console.log(`CP content: ${directory.length} lazy detail payloads; ${images.size} responsive source images. Editorial sources unchanged.`);

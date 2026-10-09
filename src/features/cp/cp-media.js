@@ -28,6 +28,7 @@ const album = (id, cpId, title, performers, scope, workId, publisher, date, slug
   ...(id === '1840114672' ? { radioTrackId: 'netease:2757267299' } : {}),
 });
 export const cpMedia = [
+  { ...yt('Kdyph-0nKwc', 'kapookciize', 'ไม่ชอบเลยที่ชอบเธอ (I don’t like that I like you)', ['Kapook Ploynira', 'Ciize Rutricha'], 'duet', 'enemies-with-benefits'), source: 'https://www.gmm-tv.com/contents/VLbpx/', checkedAt: '2026-10-09', image: 'assets/cp/media/Kdyph-0nKwc.webp' },
   {
     ...yt('qmuck4oXWyQ', 'freenbecky', 'DUO ONE Presented by est COLA · Official Preview', ['Freen Sarocha', 'Becky Armstrong'], 'cast', null, 'AMARINTV', 'video'),
     date: '2026-09-18', checkedAt: '2026-09-30',
@@ -64,7 +65,7 @@ export const cpMedia = [
   yt('GcZ6rI98sUs', 'emibonnie', 'The Story of Us รักของเรา [1/4]', ['Emi Thasorn', 'Bonnie Pattraphus'], 'cast', 'us', 'GMMTV OFFICIAL', 'video'),
   yt('feXI6IYWor0', 'emibonnie', 'Moonshadow Special [1/4]', ['Emi Thasorn', 'Bonnie Pattraphus'], 'cast', 'moonshadow', 'GMMTV OFFICIAL', 'video'),
   yt('nJU9vEfR7Go', 'faymay', 'FAYMAY’s Vlog | Huahin', ['Fay Kanyaphat', 'May Yada'], 'cast', null, 'FAYMAY entertainment', 'video'),
-  ...trailers.flatMap(item => cpProfiles.filter(cp => cp.works.some(work => work.id === item.workId)).map(cp => ({
+  ...trailers.flatMap(item => cpProfiles.filter(cp => cp.works.some(work => work.id === item.workId && !['supporting','storyline'].includes(work.relationship))).map(cp => ({
     ...yt(item.id, cp.id, item.title, cp.members.map(member => member.name), 'cast', item.workId, item.publisher, 'video'),
     id: `${item.id}-${cp.id}`, kind: 'trailer', date: item.date,
   }))),

@@ -15,7 +15,7 @@ test('media are scoped to real CPs and works, with official credit and local cov
     assert.ok(item.performers.length && item.publisher && item.source);
     assert.equal(item.performers.length, item.scope === 'solo' ? 1 : 2);
     assert.ok(existsSync(new URL(`../public/${item.image}`, import.meta.url)));
-    assert.ok(['www.youtube.com','music.apple.com'].includes(new URL(item.source).hostname));
+    assert.ok(['www.youtube.com','music.apple.com','www.gmm-tv.com'].includes(new URL(item.source).hostname));
     if (item.date && item.scope === 'solo') assert.ok([0,1].includes(item.memberIndex), item.id);
   }
   assert.deepEqual(mediaForCp('missing'), []);
@@ -54,7 +54,7 @@ test('only explicit official joint-work conclusions enable the ending treatment'
   for (const [id, item] of Object.entries(cpNotices)) {
     assert.ok(findCp(id));
     for (const locale of ['zh','en','th']) assert.ok(item.summary[locale]);
-    assert.deepEqual(item.images.map(image => image.language), ['th','en']);
+    assert.deepEqual([...new Set(item.images.map(image => image.language))], ['th','en']);
     for (const image of item.images) assert.ok(existsSync(new URL(`../public/${image.image}`, import.meta.url)));
   }
   assert.ok(timelineForCp(findCp('graceoaey')).some(event => event.kind === 'sharedWork' && event.workId === 'mate'));

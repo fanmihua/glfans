@@ -60,11 +60,43 @@ test('profile completion preserves unconfirmed fields and producer provenance', 
   const pair = findCp('friendpalm').members.map(profileForMember);
   assert.deepEqual(pair.map(p=>p.heightCm), [173,158]);
   assert.ok(pair.every(p=>p.references.some(r=>r.kind==='agency' && r.url.includes('velcurve.com'))));
-  assert.equal(profileForMember(findCp('musicplaifah').members[0]).x, 'ginaraigoraroii');
+  assert.equal(profileForMember(findCp('musicplaifah').members[1]).x, 'ginaraigoraroii');
   const unverified = profileForMember({name:'Unresearched actor'});
   assert.equal(unverified.birthday, null);
   assert.equal(unverified.heightCm, null);
   assert.equal(unverified.instagram, null);
   assert.equal(unverified.x, null);
   assert.ok(findCp('tiankitty').members.map(profileForMember).every(p=>p.heightCm===null));
+});
+
+
+test('corrected names retain stable routes, correct people and official ended status', async () => {
+  const { cpLabel } = await import('../src/features/cp/cp-names.js');
+  const { noticeForCp } = await import('../src/features/cp/cp-timeline.js');
+  assert.equal(cpLabel(findCp('aomshelly')), 'ShellyPundao');
+  assert.equal(cpLabel(findCp('musicplaifah')), 'PlaifahMiusic');
+  assert.equal(findCp('musicplaifah').members[0].name, 'Plaifah Siraacha');
+  assert.equal(profileForMember(findCp('aomshelly').members[1]).instagram, '_pundao');
+  assert.equal(noticeForCp('aomshelly').date, '2026-10-01');
+  assert.equal(new Set(noticeForCp('aomshelly').images.map(i=>i.image)).size, 4);
+  assert.ok(filterCps(cpProfiles, 'AomShelly', new Map()).some(cp=>cp.id==='aomshelly'));
+});
+
+test('Pluto supporting storyline includes Earn without inventing a three-person CP', () => {
+  const cp = findCp('kapookciize');
+  const work = cp.works.find(w=>w.id==='pluto');
+  assert.equal(cp.members.length, 2);
+  assert.deepEqual(work.cast.map(p=>p.role), ['Pim','Pang','Jan']);
+  assert.equal(work.cast[2].actor, 'Earn Preeyaphat');
+  assert.equal(work.image, null);
+  assert.ok(filterCps(cpProfiles, 'Earn', new Map()).some(result=>result.id===cp.id));
+});
+
+
+test('supporting pairs do not inherit lead-pair trailer artwork as their own media', async () => {
+  const { mediaForCp } = await import('../src/features/cp/cp-media.js');
+  const media = mediaForCp('kapookciize');
+  assert.ok(media.some(item=>item.id==='Kdyph-0nKwc' && item.scope==='duet'));
+  assert.ok(!media.some(item=>item.kind==='trailer'));
+  assert.ok(mediaForCp('namtanfilm').some(item=>item.kind==='trailer' && item.workId==='pluto'));
 });

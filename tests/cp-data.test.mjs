@@ -25,7 +25,8 @@ test('CP works resolve to real archive entries, portraits exist, and sources are
 });
 
 test('all seven sticker pairs are included and works are not capped at two', () => {
-  assert.equal(cpProfiles.filter(cp => cp.image).length, 7);
+  assert.equal(cpProfiles.filter(cp => cp.image && !cp.portraitFrame).length, 7);
+  assert.equal(cpProfiles.filter(cp => cp.portraitFrame).length, 10);
   assert.equal(cpProfiles.length, 65);
   assert.ok(findCp('janekao'));
   assert.ok(findCp('ginjay'));
@@ -49,7 +50,7 @@ test('unknown CP ids do not silently show another pair', () => {
 });
 
 test('existing sourced actor facts remain valid; new unverified facts stay absent', () => {
-  for (const cp of cpProfiles.filter(cp => cp.image)) for (const member of cp.members) {
+  for (const cp of cpProfiles.filter(cp => cp.image && !cp.portraitFrame)) for (const member of cp.members) {
     const profile = memberProfiles[member.instagram];
     assert.ok(profile?.fullName, member.name);
     assert.equal(new URL(profile.source).protocol, 'https:');
@@ -64,7 +65,7 @@ test('expanded pairings resolve both actors in every linked work without guessin
     for (const workId of workIds) for (const name of names) {
       assert.ok(archiveMainCastById[workId].some(actor => actor.startsWith(`${name} `)), `${id}/${workId}/${name}`);
     }
-    assert.equal(cp.image, null);
+    if (cp.image) assert.ok(cp.imageSource && cp.imageOriginalSource); else assert.equal(cp.image, null);
     for (const member of cp.members) {
       assert.ok(member.instagram, member.name);
       assert.ok(profileForMember(member).references.length, member.name);
@@ -122,7 +123,7 @@ test('September official projects belong to the announced screen pairing', () =>
   assert.deepEqual(findCp('ferinpuifai').works.map(work => work.id), ['dont-say-no-yet']);
   assert.deepEqual(findCp('pimjipineare').works.map(work => work.id), ['built-in-love']);
   for (const { id, source } of announcedPairDefinitions) {
-    assert.equal(findCp(id).image, null);
+    if (findCp(id).image) assert.ok(findCp(id).imageSource); else assert.equal(findCp(id).image, null);
     if (id === 'friendpalm') assert.ok(findCp(id).upcoming.some(project => project.id === 'resonance' && project.source === source));
     else assert.ok(findCp(id).members.every(member => member.source === source));
   }

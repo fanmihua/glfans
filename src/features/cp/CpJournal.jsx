@@ -21,8 +21,8 @@ export function CpNotice({ notice, locale }) {
     <h3>{copy.conclusion}</h3><p className="cp-notice-epilogue">{copy.conclusionNote}</p>
     <div className="cp-notice-summary"><span>{copy.noticeSummary} · {notice.publisher}</span><p>{notice.summary[locale]}</p></div>
     <details className="cp-notice-original"><summary><span className="cp-notice-open-label">{copy.openNotice}</span><span className="cp-notice-close-label">{copy.closeNotice}</span><CaretDown size={18} /></summary>
-      <div className="cp-notice-images">{notice.images.map(item => <figure key={item.language}>
-        <figcaption>{item.language === 'th' ? copy.originalTh : copy.originalEn}</figcaption>
+      <div className="cp-notice-images">{notice.images.map(item => <figure key={item.image}>
+        <figcaption>{item.language === 'th' ? copy.originalTh : copy.originalEn}{item.page ? ` · ${item.page}/2` : ''}</figcaption>
         <a href={withBase(item.image)} {...external} aria-label={`${notice.publisher} · ${copy.noticeImage} · ${item.language}`}><img src={withBase(item.image)} alt={`${notice.publisher} · ${copy.noticeImage} · ${item.language}`} loading="lazy" /></a>
       </figure>)}</div>
     </details>

@@ -114,7 +114,7 @@ export const archiveMainCastById = {
     "Fay Kunyaphat Na Nakorn"
   ],
   "roller-coaster": [
-    "Aom Pundao Panyabaramee",
+    "Pundao Punyabaramee",
     "Shelly Phetsai Chanrueang",
     "Neko Naerunchara Lertprasert"
   ],
@@ -165,7 +165,7 @@ export const archiveMainCastById = {
     "Mable Siriwalee Siriwibool"
   ],
   "runaway": [
-    "Music Praewa Suthamphong",
+    "Miusic Praewa Suthamphong",
     "Plaifah Siraacha",
     "Piano Nichapat Numsapanan"
   ],

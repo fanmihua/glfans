@@ -9,6 +9,22 @@ export const personalMilestones = {
   ],
 };
 export const cpNotices = {
+  aomshelly: {
+    id: 'shellypundao-joint-work-concluded', date: '2026-10-01', status: 'jointWorkConcluded',
+    publisher: 'Motion Minds Entertainment', source: 'https://x.com/MotionMindsEntt/status/2105628905092915400', checkedAt: '2026-10-09',
+    summary: {
+      zh: 'Motion Minds Entertainment 公告：自 2026 年 10 月 1 日起，Shelly 与 Pundao 的共同工作活动及合作安排终止。此前已排定的工作将逐项审查，后续安排另行公布。既有共同作品与照片继续作为历史档案保留。',
+      en: 'Motion Minds Entertainment announced the discontinuation of Shelly and Pundao’s joint professional activities effective 1 October 2026. Previously scheduled work will be reviewed individually, with further arrangements to be announced. Their shared work and photographs remain in this archive.',
+      th: 'Motion Minds Entertainment ประกาศยุติการทำงานร่วมกันของ Shelly และ Pundao ตั้งแต่วันที่ 1 ตุลาคม 2026 งานที่กำหนดไว้ก่อนหน้านี้จะพิจารณาเป็นรายกรณีและแจ้งการจัดการต่อไป ผลงานและภาพร่วมกันยังคงเก็บไว้ในแฟ้มนี้',
+    },
+    images: [
+      { language: 'th', page: 1, image: 'assets/cp/notices/shellypundao-2026-10-01-th-1.webp', source: 'https://pbs.twimg.com/media/HTiyU5sbAAAPAeP.jpg' },
+      { language: 'th', page: 2, image: 'assets/cp/notices/shellypundao-2026-10-01-th-2.webp', source: 'https://pbs.twimg.com/media/HTiyU5pacAEYxAG.jpg' },
+      { language: 'en', page: 1, image: 'assets/cp/notices/shellypundao-2026-10-01-en-1.webp', source: 'https://pbs.twimg.com/media/HTiyU5vbwAEmzUv.jpg' },
+      { language: 'en', page: 2, image: 'assets/cp/notices/shellypundao-2026-10-01-en-2.webp', source: 'https://pbs.twimg.com/media/HTiyU5pacAAI2hB.jpg' },
+    ],
+  },
+
   yadatan: {
     id: 'tanyada-joint-work-concluded', date: '2026-06-02', status: 'jointWorkConcluded',
     publisher: 'Channel 3 · Play Park', source: 'https://x.com/PlayparkCH3/status/2061754833351451088', checkedAt: '2026-09-10',

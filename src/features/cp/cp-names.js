@@ -1,6 +1,5 @@
 // Public pairing names are editorial data, not initials generated from actors.
 // Keep stable route IDs and actor records independent from display names.
-import { additionalCpProfiles } from './cp-additional-data.js';
 import { workTitleAliases } from '../../i18n/proper-names.js';
 const directorySource = 'https://glthai.com/couple/';
 const catalogueNames = {
@@ -36,7 +35,19 @@ Object.assign(cpNameRecords, {
   icemarissa: { label: 'IzeZa', aliases: ['IzeMarissa'], source: 'https://www.sotwe.com/gigimsl_?lang=en' },
 });
 
-for (const cp of additionalCpProfiles) if (!cpNameRecords[cp.id]) cpNameRecords[cp.id] = { label: cp.names.join(''), aliases: cp.aliases, source: cp.works[0].source };
+// Pair labels must have their own evidence; cast order does not define a ship name.
+Object.assign(cpNameRecords, {
+  kapookciize: { label: 'KapookCiize', source: 'https://www.gmm-tv.com/contents/VLbpx/' },
+  faygene: { label: 'FayGene', source: directorySource },
+  giftaomsin: { label: 'GiftAomsin', aliases: ['AomsinGift'], source: directorySource },
+  linnpraew: { label: 'LinnPraew', aliases: ['PraewLinn'], source: directorySource },
+  ploypunch: { label: 'PloyPunch', source: directorySource },
+  tiankitty: { label: 'TianKitty', aliases: ['KittyTian'], source: 'https://thaiglweekly.com/' },
+  musicplaifah: { label: 'PlaifahMiusic', aliases: ['MusicPlaifah', 'MiusicPlaifah'], source: 'https://feedforfuture.co/feed-ent/74018/' },
+  aomshelly: { label: 'ShellyPundao', aliases: ['AomShelly', 'PundaoShelly'], source: 'https://x.com/MotionMindsEntt/status/2105628905092915400' },
+  bminemekkhala: { label: 'B Mine · Mekkhala', source: 'https://www.boyslovetalk.com/p/serie-gl-music-story-losing-control' },
+  bminemashii: { label: 'B Mine · Mashii', source: 'https://www.boyslovetalk.com/p/serie-gl-music-story-losing-control' },
+});
 
 export function cpLabel(cp) { return cpNameRecords[cp.id]?.label || cp.names.join(' · '); }
 
@@ -45,6 +56,6 @@ export function filterCps(profiles, query, archiveById) {
   const needle = normalize(query.trim());
   return profiles.filter(cp => [cpLabel(cp), cp.names.join(''), cp.names.slice().reverse().join(''),
     ...(cp.aliases || []), ...(cpNameRecords[cp.id]?.aliases || []), ...cp.members.map(member => member.name),
-    ...[...cp.works, ...(cp.upcoming || [])].flatMap(work => [work.title, archiveById.get(work.id)?.title || '', ...(archiveById.get(work.id)?.aliases || []), ...workTitleAliases(work)]),
+    ...[...cp.works, ...(cp.upcoming || [])].flatMap(work => [work.title, ...(work.cast || []).map(person => `${person.actor} ${person.role}`), archiveById.get(work.id)?.title || '', ...(archiveById.get(work.id)?.aliases || []), ...workTitleAliases(work)]),
   ].some(value => normalize(value).includes(needle)));
 }

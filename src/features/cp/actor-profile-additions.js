@@ -145,7 +145,7 @@ export const actorProfileAdditions = {
     "sourceKind": "catalogue",
     "checkedAt": "2026-10-09"
   },
-  "Music Praewa Suthamphong": {
+  "Miusic Praewa Suthamphong": {
     "id": "music",
     "fullName": "Praewa Suthamphong",
     "birthday": "2001-02-24",
@@ -162,9 +162,10 @@ export const actorProfileAdditions = {
       }
     ]
   },
-  "Aom Pundao Panyabaramee": {
+  "Pundao Punyabaramee": {
     "id": "aom-pundao",
-    "fullName": "Pundao Panyabaramee",
+    "fullName": "Pundao Punyabaramee",
+    "additionalReferences": [{ "url": "https://x.com/MotionMindsEntt/status/2105628905092915400", "kind": "agency" }],
     "birthday": "1999-06-18",
     "heightCm": 168,
     "instagram": "_pundao",
@@ -206,7 +207,7 @@ export const actorProfileAdditions = {
     "sourceKind": "catalogue",
     "checkedAt": "2026-10-09"
   },
-  "Plaifah Chaiyapat Jampasin": {
+  "Plaifah Siraacha": {
     "id": "plaifah",
     "fullName": "Plaifah Siraacha",
     "birthday": "2000-12-28",

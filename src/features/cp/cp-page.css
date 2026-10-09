@@ -212,3 +212,10 @@
   .cp-page:lang(th) .cp-masthead h1 { font-size: clamp(42px,12vw,70px); }
   .cp-page:lang(th) .cp-section-heading h2 { line-height: 1.5; letter-spacing: 0; }
 }
+
+/* Photo pixels and verified names stay independent of the decorative frame. */
+.cp-portrait--scrapbook { position: relative; aspect-ratio: var(--portrait-ratio, 1); width: 100%; max-width: 660px; container-type: inline-size; }
+.cp-portrait--scrapbook .cp-portrait-photo { position: absolute; left: 15.3%; top: 12.6%; width: 72.1%; height: 70%; max-height: none; object-fit: cover; }
+.cp-portrait--scrapbook .cp-portrait-frame { position: absolute; inset: 0; width: 100%; height: 100%; max-height: none; object-fit: fill; pointer-events: none; }
+.cp-portrait-name { position: absolute; left: 43%; top: 81.5%; width: 49%; height: 12%; display: flex; align-items: center; justify-content: center; transform: rotate(-13deg); color: #ff50a2; font-family: 'Roboto Condensed Variable', sans-serif; font-size: clamp(14px, 5.4cqw, 36px); font-weight: 750; font-style: italic; white-space: nowrap; }
+@media (max-width:760px) { .cp-portrait--scrapbook { width: min(100%,360px); margin: auto; } .cp-portrait--scrapbook .cp-portrait-photo, .cp-portrait--scrapbook .cp-portrait-frame { margin: 0; } }
