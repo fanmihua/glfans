@@ -12,7 +12,7 @@ const filmCollections = [
   { slug: "poisonous-love", cover: "assets/column/poisonous-love/overview/01-uksdb8nmjojx.webp", focus: "50% 18%" },
   { slug: "my-secret-words", cover: "assets/column/my-secret-words/overview/01-suakby2xcohn.webp", focus: "50% 38%" },
   { slug: "affair", cover: "assets/column/affair/overview/01-biwwbh7aeo6p.webp", focus: "50% 40%" },
-].filter((collection) => columnData.collections.some((item) => item.slug === collection.slug));
+].filter((collection) => columnData.collections.some((item) => item.slug === collection.slug && !item.externalUrl));
 
 export function RepoFilmStrip({ critical = false }) {
   return (

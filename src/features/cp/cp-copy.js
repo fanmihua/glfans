@@ -1,9 +1,10 @@
 export const cpCopy = {
   zh: {
+    supporting: '副 CP', storyline: '角色感情线', heightCorrectionNote: '身高采用读者纠错，待官方资料确认',
     birthYearPending: '出生年份尚未核实',
     height: '身高', notVerified: '尚未核实', weibo: '微博', community: 'CP 超话', communityNote: '粉丝社区 · 非官方账号', searchCommunity: '搜索 CP 超话', communityPending: '尚未核实直达地址',
     profileNote: '个人资料综合艺人、经纪公司、公开媒体及 GL Spotlight 等资料目录；账号索引仅用于核对本人入口，不代表平台认证。未核实不等于未开通。微博和超话可能需要登录。',
-    referenceKinds: { agency: '经纪公司', producer: '制作方', artist: '艺人公开页面', media: '公开媒体', catalogue: '资料目录', 'fan-index': '粉丝整理索引', organizer: '活动主办方' },
+    referenceKinds: { publisher: '播出平台', 'reader-correction': '读者纠错', agency: '经纪公司', producer: '制作方', artist: '艺人公开页面', media: '公开媒体', catalogue: '资料目录', 'fan-index': '粉丝整理索引', organizer: '活动主办方' },
     officialAnnouncement: '官方公告', openAnnouncement: '查看官方公告',
     switchCp: '切换 CP', allCps: '全部 CP', closeDirectory: '关闭 CP 目录',
     all: '全部', collapse: '收起', expandAll: '展开全部 CP', collapseAll: '收起全部 CP', clearSearch: '清除搜索', pairNameSource: 'CP 名称出处',
@@ -20,10 +21,11 @@ export const cpCopy = {
     notFound: '暂未收录这对 CP', back: '返回百家饭', name: 'CP 档案',
   },
   en: {
+    supporting: 'Supporting pair', storyline: 'Character romance', heightCorrectionNote: 'Height follows a reader correction; official confirmation pending',
     birthYearPending: 'Birth year not verified',
     height: 'Height', notVerified: 'Not verified', weibo: 'Weibo', community: 'CP Super Topic', communityNote: 'Fan community · Not an official account', searchCommunity: 'Search CP Super Topics', communityPending: 'Direct community link not verified',
     profileNote: 'Profiles draw on artists, agencies, public media and catalogues including GL Spotlight. Account indexes help identify personal profiles, not platform verification. Unverified does not mean an account does not exist. Weibo and Super Topics may require login.',
-    referenceKinds: { agency: 'Agency', producer: 'Producer', artist: 'Artist page', media: 'Public media', catalogue: 'Profile catalogue', 'fan-index': 'Fan-curated index', organizer: 'Event organizer' },
+    referenceKinds: { publisher: 'Broadcaster', 'reader-correction': 'Reader correction', agency: 'Agency', producer: 'Producer', artist: 'Artist page', media: 'Public media', catalogue: 'Profile catalogue', 'fan-index': 'Fan-curated index', organizer: 'Event organizer' },
     officialAnnouncement: 'Official announcement', openAnnouncement: 'Read official announcement',
     switchCp: 'Switch CP', allCps: 'All CPs', closeDirectory: 'Close CP directory',
     all: 'All', collapse: 'Less', expandAll: 'Show all CPs', collapseAll: 'Collapse all CPs', clearSearch: 'Clear search', pairNameSource: 'Pairing name reference',
@@ -40,10 +42,11 @@ export const cpCopy = {
     notFound: 'This CP is not in the archive yet', back: 'Back to CP Archive', name: 'CP Archive',
   },
   th: {
+    supporting: 'คู่รอง', storyline: 'ความรักของตัวละคร', heightCorrectionNote: 'ส่วนสูงแก้ไขตามข้อมูลจากผู้อ่าน รอการยืนยันอย่างเป็นทางการ',
     birthYearPending: 'ยังไม่ยืนยันปีเกิด',
     height: 'ส่วนสูง', notVerified: 'ยังไม่ยืนยัน', weibo: 'Weibo', community: 'ซูเปอร์ท็อปปิกของคู่', communityNote: 'ชุมชนแฟนคลับ · ไม่ใช่บัญชีทางการ', searchCommunity: 'ค้นหาซูเปอร์ท็อปปิก', communityPending: 'ยังไม่ยืนยันลิงก์ตรงของชุมชน',
     profileNote: 'ข้อมูลมาจากนักแสดง ต้นสังกัด สื่อสาธารณะ และฐานข้อมูล เช่น GL Spotlight รายการบัญชีใช้ตรวจสอบช่องทางส่วนตัว ไม่ใช่การรับรองจากแพลตฟอร์ม ยังไม่ยืนยันไม่ได้แปลว่าไม่มีบัญชี Weibo และซูเปอร์ท็อปปิกอาจต้องเข้าสู่ระบบ',
-    referenceKinds: { agency: 'ต้นสังกัด', producer: 'ผู้ผลิต', artist: 'หน้านักแสดง', media: 'สื่อสาธารณะ', catalogue: 'ฐานข้อมูลประวัติ', 'fan-index': 'ข้อมูลที่แฟนคลับรวบรวม', organizer: 'ผู้จัดกิจกรรม' },
+    referenceKinds: { publisher: 'แพลตฟอร์มออกอากาศ', 'reader-correction': 'ข้อมูลแก้ไขจากผู้อ่าน', agency: 'ต้นสังกัด', producer: 'ผู้ผลิต', artist: 'หน้านักแสดง', media: 'สื่อสาธารณะ', catalogue: 'ฐานข้อมูลประวัติ', 'fan-index': 'ข้อมูลที่แฟนคลับรวบรวม', organizer: 'ผู้จัดกิจกรรม' },
     officialAnnouncement: 'ประกาศทางการ', openAnnouncement: 'อ่านประกาศทางการ',
     switchCp: 'เปลี่ยนคู่', allCps: 'คู่ทั้งหมด', closeDirectory: 'ปิดรายชื่อคู่',
     all: 'ทั้งหมด', collapse: 'ย่อ', expandAll: 'แสดงทุกคู่', collapseAll: 'ย่อรายชื่อคู่', clearSearch: 'ล้างการค้นหา', pairNameSource: 'ที่มาของชื่อคู่',

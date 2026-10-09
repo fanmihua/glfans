@@ -2,7 +2,7 @@ import { t } from "../../i18n/runtime.js";
 import { getLocale } from '../../i18n/runtime.js';
 import { localizeCast } from '../../i18n/proper-names.js';
 import { Fragment, useMemo } from "react";
-import { ArrowRight, CalendarDots, DotsNine, HeartStraight, NotePencil, Paperclip, TelevisionSimple, UsersThree } from "@phosphor-icons/react";
+import { ArrowRight, ArrowUpRight, CalendarDots, DotsNine, HeartStraight, NotePencil, Paperclip, TelevisionSimple, UsersThree } from "@phosphor-icons/react";
 import columnData from "../../data/column-index.json";
 import { RepoFilmStrip } from "../../RepoFilmStrip.jsx";
 import { withBase } from "../../lib/assets.js";
@@ -23,7 +23,10 @@ function CollectionCard({ collection, index }) {
   return (
     <a
       className={`collection-card collection-card-${index + 1} collection-card-${collection.slug}`}
-      href={`#/column/${collection.slug}`}
+      href={collection.externalUrl || `#/column/${collection.slug}`}
+      target={collection.externalUrl ? '_blank' : undefined}
+      rel={collection.externalUrl ? 'noopener noreferrer' : undefined}
+      aria-label={collection.externalUrl ? `${t(collection.title)} · ${collection.ageRating} · ${collection.externalPlatform} · ${t('前往外部文章（新标签页）')}` : undefined}
       style={{ "--collection-card-focus": coverFocus?.card ?? "50% 50%" }}
     >
       {t(index === 0 && (
@@ -47,8 +50,8 @@ function CollectionCard({ collection, index }) {
       <div className="collection-card-copy">
         <span>{t(`COLLECTION ${String(index + 1).padStart(2, "0")}`)}</span>
         <h2>{t(collection.title)}</h2>
-        <p>{t(visibleArticleCount)}{t(" 篇 Repo / 侧写")}</p>
-        <ArrowRight aria-hidden="true" />
+        <p>{collection.externalUrl ? <>{collection.ageRating} · {collection.externalPlatform}<br />{t('外链阅读')}</> : <>{t(visibleArticleCount)}{t(" 篇 Repo / 侧写")}</>}</p>
+        {collection.externalUrl ? <ArrowUpRight aria-hidden="true" /> : <ArrowRight aria-hidden="true" />}
       </div>
     </a>
   );

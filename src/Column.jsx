@@ -10,7 +10,7 @@ const ArticlePage = lazy(() => import("./features/column/ArticlePage.jsx"));
 
 export function ColumnExperience() {
   const route = useHashRoute();
-  const collection = columnData.collections.find((item) => item.slug === route[1]);
+  const collection = columnData.collections.find((item) => item.slug === route[1] && !item.externalUrl);
   const article = collection?.articles.find((item) => item.slug === route[2] && !item.hidden);
 
   return (

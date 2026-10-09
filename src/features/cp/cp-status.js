@@ -1,11 +1,12 @@
 import { cpProfiles } from './cp-data.js';
 import { noticeForCp } from './cp-timeline.js';
 
-export const statusCheckedAt = '2026-09-30';
+export const statusCheckedAt = '2026-10-09';
 // Explicit editorial evidence, never "all profiles minus ended". Recent shared
 // projects/activity establish the directory category, not an agency contract.
 const recent = (date, source, title, publisher, checkedAt = '2026-09-10') => ({ date, source, title, publisher, checkedAt });
-const reviewed = (date, source, title, publisher) => recent(date, source, title, publisher, statusCheckedAt);
+const reviewed = (date, source, title, publisher) => recent(date, source, title, publisher, '2026-09-30');
+const octReview = (date, source, title, publisher) => recent(date, source, title, publisher, statusCheckedAt);
 const fourElements = reviewed('2026-09-12', 'https://www.thaiticketmajor.com/performance/4-elements-infinite-bonds-fan-meeting.html', '4 Elements Infinite Bonds Fan Meeting', 'North Star Entertainment · ThaiTicketMajor');
 const blush = recent('2026-06-23', 'https://www.youtube.com/watch?v=rkEhavadMn0', 'Blush Blossom Fan Fest 2026 · GMMTV LIVE HOUSE', 'GMMTV OFFICIAL');
 export const activeEvidence = {
@@ -31,6 +32,15 @@ export const activeEvidence = {
   lookmheesonya: reviewed('2026-10-09', 'https://pixelticket.com.br/eventos/32854/lookmhee-sonya-everafter-bloom-in-sao-paulo', 'LOOKMHEE SONYA EVERAFTER: BLOOM IN SÃO PAULO', 'GIG Music · PixelTicket'),
   andalookkaew: reviewed('2026-10-16', 'https://www.ticketmelon.com/th/NDEntertainment/andalookkaewunfiltered', 'ANDA LOOKKAEW UNFILTERED SESSION IN TAIPEI', 'ND Entertainment · Ticketmelon'),
 };
+// Official recent productions; a release is evidence of shared work, not a private relationship.
+const chasing = octReview('2026', 'https://www.youtube.com/watch?v=LTuNFLRnh7U', 'Chasing Love · Official Trailer', 'CHANGE2561');
+Object.assign(activeEvidence, {
+  kapookciize: octReview('2026-09-26', 'https://www.ticketmelon.com/gmmtv/fanday35inVN-AP-Benefit', 'GMMTV FANDAY 35 · Enemies With Benefits cast', 'GMMTV · Ticketmelon'),
+  nilenamwan: chasing, faygene: chasing, giftaomsin: chasing,
+  myyuchanya: octReview('2026', 'https://www.youtube.com/watch?v=HBi2dQGsuJw', 'AI Girl · Official Trailer', 'MeMindY Official'),
+  oombam: octReview('2026-06-12', 'https://www.thaiticketmajor.com/performance/fulfill-final-episode-with-oombam.html', 'Fulfill · Final Episode with OomBam', 'ThaiTicketMajor'),
+  fayeatom: octReview('2026', 'https://www.weibo.com/u/7985880343?tabtype=feed', 'By Your Side · BROKEN (Of) LOVE OST', 'Fabel Entertainment'),
+});
 export function statusForCp(id) {
   const notice = noticeForCp(id);
   if (notice) return { status: 'ended', evidence: notice };

@@ -131,7 +131,8 @@ function CpContent({data}) {
             return <article className={`cp-work${media.image ? '' : ' cp-work--announcement'}`} key={work.id} data-work-id={work.id}>
               {media.image && <a className="cp-work-poster" href={href} {...linkProps} aria-label={`${title} · ${work.pending ? sourceLabel : copy.viewWork}`} tabIndex={-1}><CpImage src={media.image} sizes="(max-width: 760px) 120px, 168px" alt={work.pending ? `${title} · ${copy.previewImage}` : title} loading="lazy" width={media.width} height={media.height} style={{ objectPosition: media.focus || '50% 32%' }} /></a>}
               <div className="cp-work-info"><a className="cp-work-title" href={href} {...linkProps}>{title}<ArrowUpRight size={22} /></a>
-                <p className="cp-work-meta">{work.year}<span>{work.pending ? copy[work.status || 'upcoming'] : work.ensemble ? copy.ensemble : copy.pair}</span></p>
+                <p className="cp-work-meta">{work.year}<span>{work.pending ? copy[work.status || 'upcoming'] : copy[work.relationship] || (work.ensemble ? copy.ensemble : copy.pair)}</span></p>
+                {work.roles?.length > 0 && <p className="cp-work-note">{work.roles.join(' / ')}</p>}
                 {work.pending ? <p className="cp-work-note">{work.sourceKind === 'announcement' ? copy.officialAnnouncement : copy.previewImage} · {work.publisher}</p> : null}
                 <div className="cp-work-actions">{work.pending ? <External className="cp-work-action" href={work.source}>{sourceLabel}<ArrowUpRight size={16} /></External> : <>
                   <a className="cp-work-action" href={href}>{copy.archive}<ArrowRight size={16} /></a>
@@ -152,7 +153,8 @@ function CpContent({data}) {
           </section>}
         </div>}
         <details className="cp-sources" key={cp.id}><summary>{copy.sources}</summary>
-          <p className="cp-source-note">{copy.sourceNote}<span>{copy.checked} {verifiedAt}</span></p>
+          <p className="cp-source-note">{copy.sourceNote}<span>{copy.checked} {cp.checkedAt || verifiedAt}</span></p>
+          {cp.members.filter(member => member.profile.heightCorrection).map(member => <p className="cp-source-note" key={member.name}>{member.name} · {copy.heightCorrectionNote} · {member.profile.heightCorrection.checkedAt}</p>)}
           <p className="cp-source-note">{copy.pairNote}</p>
           <p className="cp-source-note">{cpStatusCopy[locale].note} {cpStatusCopy[locale].checked} {statusCheckedAt}</p>
           {collaboration.evidence && <External className="cp-source-link" href={collaboration.evidence.source}>{cpStatusCopy[locale][collaboration.status]} · {collaboration.evidence.title || collaboration.evidence.publisher}<ArrowUpRight size={12} /></External>}

@@ -2,6 +2,7 @@
 // keep the Chinese source intact and review Thai prose with a fluent reader.
 export const editorial = {
   en: {
+    '外链阅读': 'Read externally', '前往外部文章（新标签页）': 'Open external article (new tab)',
     '爱是向你伸出的手': 'Love Is a Hand Reaching Out to You', 'Wine 视角': 'Wine’s perspective',
     '主观 Repo 07': 'Personal REPO · EP07', '（吐槽向）': '(A little rant)',
     '{0}，统计加载中': '{0}, loading count', '{0}，当前 {1} 次': '{0}, {1} likes', '{0}剧集封面': '{0} series cover',
@@ -62,6 +63,7 @@ export const editorial = {
     '关于 glfans': 'About glfans', '返回 glfans 首页': 'Return to glfans home', '选择 {0}，{1}': 'Select {0}, {1}',
   },
   th: {
+    '外链阅读': 'อ่านบนเว็บไซต์ภายนอก', '前往外部文章（新标签页）': 'เปิดบทความภายนอก (แท็บใหม่)',
     '爱是向你伸出的手': 'ความรักคือมือที่ยื่นไปหาเธอ', 'Wine 视角': 'มุมมองของไวน์',
     '主观 Repo 07': 'REPO จากมุมมองส่วนตัว · EP07', '（吐槽向）': '(ขอบ่นหน่อย)',
     '{0}，统计加载中': '{0} กำลังโหลดจำนวน', '{0}，当前 {1} 次': '{0} ถูกใจ {1} ครั้ง', '{0}剧集封面': 'ภาพปกซีรีส์ {0}',

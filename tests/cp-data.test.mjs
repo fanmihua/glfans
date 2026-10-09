@@ -26,7 +26,7 @@ test('CP works resolve to real archive entries, portraits exist, and sources are
 
 test('all seven sticker pairs are included and works are not capped at two', () => {
   assert.equal(cpProfiles.filter(cp => cp.image).length, 7);
-  assert.equal(cpProfiles.length, 7 + expandedPairDefinitions.length + announcedPairDefinitions.length);
+  assert.equal(cpProfiles.length, 65);
   assert.ok(findCp('janekao'));
   assert.ok(findCp('ginjay'));
   assert.ok(findCp('lingorm').works.length > 2);
@@ -123,6 +123,7 @@ test('September official projects belong to the announced screen pairing', () =>
   assert.deepEqual(findCp('pimjipineare').works.map(work => work.id), ['built-in-love']);
   for (const { id, source } of announcedPairDefinitions) {
     assert.equal(findCp(id).image, null);
-    assert.ok(findCp(id).members.every(member => member.source === source));
+    if (id === 'friendpalm') assert.ok(findCp(id).upcoming.some(project => project.id === 'resonance' && project.source === source));
+    else assert.ok(findCp(id).members.every(member => member.source === source));
   }
 });

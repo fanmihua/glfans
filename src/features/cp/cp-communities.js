@@ -45,7 +45,15 @@ export const communityDefinitions = [
   ["arhoungpamp","ArhoungPam","https://www.sina.cn/news/detail/5222361605081278.html"]
 ];
 
+communityDefinitions.push(
+  ['tanzanook', 'TanZanook', 'https://weibo.com/2/detail/5346076204209033'],
+  ['kapookciize', 'kapookciize', 'https://weibo.com/2/detail/5331865422792229'],
+  ['faygene', 'FayGene', 'https://weibo.com/2/detail/5343780781953081'],
+  ['giftaomsin', 'AomsinGift', 'https://weibo.com/2/detail/5336669227059812'],
+  ['linnpraew', 'LinnPraew', 'https://www.weibo.com/1815343895/Q9QNbBHmx'],
+  ['friendpalm', 'friendpalm', 'https://weibo.com/2/detail/5344251948827441'],
+);
 export const cpCommunities = Object.fromEntries(communityDefinitions.map(([cpId, name, source]) => [cpId, {
-  name, source, kind: 'fan-community', checkedAt: communityCheckedAt,
+  name, source, kind: 'fan-community', checkedAt: ['tanzanook','kapookciize','faygene','giftaomsin','linnpraew','friendpalm'].includes(cpId) ? '2026-10-09' : communityCheckedAt,
   url: `https://huati.weibo.com/k/${encodeURIComponent(name)}`,
 }]));

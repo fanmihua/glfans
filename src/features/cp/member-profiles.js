@@ -40,8 +40,10 @@ export function profileForMember(member) {
   const xConflict = socialNeedsReview.some(item => item.instagram === instagram && item.platform === 'x');
   const weibo = actorWeibo[instagram] || null;
   const references = [
+    catalogue && { url: catalogue.source, kind: catalogue.sourceKind || 'catalogue' },
     !catalogue && member.source && { url: member.source, kind: member.sourceKind || 'producer' },
-    catalogue && { url: catalogue.source, kind: 'catalogue' },
+    ...(catalogue?.additionalReferences || []),
+    catalogue?.heightCorrection && { url: catalogue.heightCorrection.source, kind: 'reader-correction' },
     original && { url: original.source, kind: original.source.includes('gmm-tv.com') ? 'agency' : 'media' },
     agency && { url: agency.source, kind: 'agency' },
     artist && { url: artist.source, kind: 'artist' },

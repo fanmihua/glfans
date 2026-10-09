@@ -73,7 +73,7 @@ for (const work of archiveDramas) {
     image,url:`${origin}${base}${route}/`});
 }
 const {collections}=JSON.parse(await readFile('src/data/column-index.json','utf8'));
-for (const collection of collections) {
+for (const collection of collections.filter(collection => !collection.externalUrl)) {
   const route=`column/${collection.slug}`;
   await emit(route,{title:'glfans · REPO 文专栏',description:`${collection.title}｜${introductions.column}`,
     image,url:`${origin}${base}${route}/`});

@@ -7,9 +7,14 @@ const read = (name) => JSON.parse(readFileSync(new URL(`../src/data/${name}.json
 test("the lightweight REPO index preserves visible collections and their article routes without article bodies", () => {
   const full = read("column-data");
   const index = read("column-index");
-  assert.deepEqual(index.collections, full.collections.filter((collection) => !collection.hidden).map((collection) => ({
+  assert.deepEqual(index.collections.filter(collection => !collection.externalUrl), full.collections.filter((collection) => !collection.hidden).map((collection) => ({
     ...collection,
     articles: collection.articles.map(({ xml, ...article }) => article),
   })));
+  const external = index.collections.find(collection => collection.slug === 'my-secret-words');
+  assert.equal(external.externalUrl, 'https://www.asianfanfics.com/story/view/1773104/my-secret-words');
+  assert.equal(external.ageRating, '18+');
+  assert.deepEqual(external.articles, []);
+  assert.equal(external.summaryXml, undefined);
   assert.ok(JSON.stringify(index).length < JSON.stringify(full).length / 3);
 });

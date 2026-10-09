@@ -5,18 +5,19 @@ import { profileForMember, zodiacForBirthday } from '../src/features/cp/member-p
 import { cpCommunities } from '../src/features/cp/cp-communities.js';
 import { profileCoverage } from '../src/features/cp/profile-coverage.js';
 import { cpCopy } from '../src/features/cp/cp-copy.js';
+import { additionalCpProfiles } from '../src/features/cp/cp-additional-data.js';
 import { announcedPairDefinitions } from '../src/features/cp/cp-expanded-data.js';
 const announcedIds = new Set(announcedPairDefinitions.map(cp => cp.id));
 
 test('the original 51 pairings retain sourced identities and new pairings keep unknown facts explicit', () => {
   const stats = profileCoverage();
-  const original = cpProfiles.filter(cp => !announcedIds.has(cp.id));
+  const original = cpProfiles.filter(cp => !announcedIds.has(cp.id) && !additionalCpProfiles.some(extra => extra.id === cp.id));
   assert.equal(original.length, 51);
   assert.equal(new Set(original.flatMap(cp => cp.members.map(member => member.name))).size, 101);
-  assert.equal(stats.cpCount, 51 + announcedIds.size);
-  assert.equal(stats.actorCount, 101 + announcedPairDefinitions.reduce((total, cp) => total + cp.members.length, 0));
-  assert.equal(stats.fields.fullName, 101);
-  assert.equal(stats.fields.instagram, 103);
+  assert.equal(stats.cpCount, 65);
+  assert.equal(stats.actorCount, 127);
+  assert.equal(stats.fields.fullName, 125);
+  assert.equal(stats.fields.instagram, 125);
   assert.ok(stats.fields.birthday >= 100);
   assert.ok(stats.fields.x >= 95);
   assert.ok(stats.fields.weibo >= 60);
@@ -35,20 +36,18 @@ test('the original 51 pairings retain sourced identities and new pairings keep u
   }
 });
 
-test('new actors have producer sources and no guessed birthdays, names or social accounts', () => {
-  for (const definition of announcedPairDefinitions) for (const member of findCp(definition.id).members) {
+test('newly researched actors retain evidence and unresolved fields stay absent', () => {
+  for (const member of findCp('tanzanook').members) {
     const profile = profileForMember(member);
-    assert.equal(profile.birthday, null, member.name);
-    assert.equal(profile.heightCm, null, member.name);
-    assert.equal(profile.x, null, member.name);
-    assert.equal(profile.weibo, null, member.name);
-    assert.equal(profile.fullName, null, member.name);
-    assert.ok(profile.references.some(reference => reference.url === definition.source && reference.kind === 'producer'));
-    if (definition.id !== 'ferinpuifai') {
-      assert.equal(profile.instagram, null, member.name);
-    }
+    for (const field of ['birthday', 'heightCm', 'x', 'weibo', 'fullName', 'instagram']) assert.equal(profile[field], null, member.name);
+    assert.ok(profile.references.some(reference => reference.kind === 'producer'));
   }
-  assert.deepEqual(findCp('ferinpuifai').members.map(member => member.instagram), ['ferinweerin', 'mikiipu_i']);
+  assert.equal(profileForMember(findCp('friendpalm').members[0]).heightCm, 173);
+  assert.equal(profileForMember(findCp('friendpalm').members[1]).heightCm, 158);
+  assert.equal(profileForMember(findCp('pimjipineare').members[0]).x, 'Pimjirajlr');
+  assert.equal(profileForMember(findCp('pimjipineare').members[1]).heightCm, 160);
+  assert.equal(profileForMember(findCp('ferinpuifai').members[0]).heightCm, null, 'Ferin height sources conflict');
+  assert.equal(profileForMember(findCp('ferinpuifai').members[1]).birthday, '2001-05-09');
 });
 
 test('repeated actors share identities while similar nicknames stay separate', () => {
@@ -63,13 +62,13 @@ test('missing and conflicting data stays explicit rather than fabricating dates 
   assert.equal(mimie.birthday, null);
   assert.equal(mimie.birthdayMonthDay, '04-03');
   assert.equal(mimie.x, 'mimieahc');
-  assert.equal(profileCoverage().birthdayWithMonthDay, 101);
+  assert.equal(profileCoverage().birthdayWithMonthDay, 123);
   assert.equal(profileForMember(findCp('viewmim').members[0]).weibo, null);
   assert.equal(profileForMember(findCp('yoshidiana').members[0]).x, null);
 });
 
-test('42 directly researched CP communities remain distinct from personal/official accounts', () => {
-  assert.equal(Object.keys(cpCommunities).length, 42);
+test('48 directly researched CP communities remain distinct from personal/official accounts', () => {
+  assert.equal(Object.keys(cpCommunities).length, 48);
   for (const [cpId, community] of Object.entries(cpCommunities)) {
     assert.ok(findCp(cpId));
     assert.equal(community.kind, 'fan-community');

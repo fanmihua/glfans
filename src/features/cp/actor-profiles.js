@@ -1,3 +1,4 @@
+import { actorProfileAdditions } from './actor-profile-additions.js';
 // Public profile facts from GL Spotlight's individual actress records, reviewed 2026-09-10.
 // This secondary catalogue is credited as such; agency corroboration is stored separately.
 // Never manufacture a handle from an actor's name, and never replace missing data with zero.
@@ -907,3 +908,37 @@ export const actorProfiles = Object.fromEntries(rows.map(([member,id,fullName,bi
   id,fullName,birthday,heightCm:heightCm?Number(heightCm):null,instagram,x,
   source:`https://glspotlight.com/actresses/${id}`,sourceKind:'catalogue',checkedAt:'2026-09-10',
 }]));
+
+// 2026-10-09 核对 GMMTV 官方艺人主页。
+Object.assign(actorProfiles, {
+  'Kapook Ploynira Hiruntaveesin': { id: 'kapook', fullName: 'Ploynira Hiruntaveesin', birthday: '1994-10-29', heightCm: 167, instagram: 'kapookphat', x: 'KPloynira', source: 'https://www.gmm-tv.com/artists/view/63/', sourceKind: 'agency', checkedAt: '2026-10-09' },
+  'Ciize Rutricha Phapakithi': { id: 'ciize', fullName: 'Rutricha Phapakithi', birthday: '1999-09-23', heightCm: 155, instagram: 'ciizezphr', x: 'Ciize155cm', source: 'https://www.gmm-tv.com/artists/view/24/', sourceKind: 'agency', checkedAt: '2026-10-09' },
+});
+
+Object.assign(actorProfiles, actorProfileAdditions);
+
+// 用户确认采用的读者纠错；尚未找到官方身高资料，保留来源等级。
+for (const [name, heightCm] of [['Jessie Natsiya Prommart', 169], ['Tungpang Pattarawadee Laosa', 167]]) {
+  actorProfiles[name].heightCm = heightCm;
+  actorProfiles[name].heightCorrection = {
+    source: 'https://my.feishu.cn/wiki/XSV5w8MLiizcFjkotq3cK14VnCd',
+    sourceKind: 'reader-correction', checkedAt: '2026-10-09', officialVerified: false,
+  };
+}
+
+// 既有档案的身高补项；保留已核对生日与账号。
+Object.assign(actorProfiles['Bint Sireethorn Leearamwat'], {
+  heightCm: 175, checkedAt: '2026-10-09',
+  additionalReferences: [{ url: 'https://www.sanook.com/campus/1398201/', kind: 'media' }],
+});
+Object.assign(actorProfiles['Puinoon Warangsiri Tanajarusworaphat'], {
+  heightCm: 175, checkedAt: '2026-10-09',
+});
+
+// 身高单项采用官方艺人主页；不把页面年龄倒推成生日。
+for (const [name, heightCm, source] of [
+  ['Myyu Khawisara Singplod', 167, 'https://www.memindy.com/en/artist/กวิสรา-สิงห์ปลอด-มายยู/'],
+  ['Chanya Amarit Duval', 168, 'https://www.memindy.com/en/artist/ชัญญา-อมฤต-ดูวาล์-ชัญญ่า/'],
+]) {
+  Object.assign(actorProfiles[name], { heightCm, checkedAt: '2026-10-09', additionalReferences: [{ url: source, kind: 'agency' }] });
+}

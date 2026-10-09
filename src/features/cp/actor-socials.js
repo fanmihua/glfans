@@ -90,5 +90,19 @@ export const actorXUpdates = Object.fromEntries(xRows.map(([instagram, handle, s
 
 // The first-party X biography links to instagram.com/mimiebhapat and gives April 3.
 // Do not swap it for the uncorroborated handle mentioned by a fan index.
-export const socialNeedsReview = [];
+export const socialNeedsReview = [{ instagram: 'hellokitty_.kt', platform: 'x', candidates: ['nunthaphuck', 'kittynunthaph'], source: 'https://www.sotwe.com/hashtag/KittyNunthaphuck?lang=tr', checkedAt: '2026-10-09', reason: '目录账号与近期公开索引不一致，等待本人或制作方明确指向；不把 TikTok 名称当成 X 账号。' }];
 export const socialResearchNotes = [{ instagram: 'mimiebhapat', platform: 'x', rejectedCandidate: 'mimiebhapat', retainedHandle: 'mimieahc', source: 'https://x.com/mimieahc', checkedAt: socialCheckedAt }];
+
+// 本轮直接账号页或媒体指向的个人账号；粉丝社区另存。
+for (const [instagram, handle, uid, source, sourceKind] of [
+  ['lilly_nicha', 'Lillyladapa', '7984101805', 'https://weibo.com/7984101805/Q3EqeESo0', 'artist'],
+  ['ciizezphr', 'Ciize_张继思', '6482730899', 'https://www.weibo.com/6482730899/', 'artist'],
+  ['shellybenda', 'Shellybenda', '8434320480', 'https://www6.twstalker.com/shellyofcth', 'fan-index'],
+  ['natty_ntm', '创造营亚洲-Natty', null, 'https://www.sanook.com/news/9173838/', 'media'],
+  ['mingkanyas', '创造营亚洲-MINGMING', null, 'https://www.sanook.com/news/9168214/', 'media'],
+]) actorWeibo[instagram] = { handle, uid, source, sourceKind, checkedAt: '2026-10-09', url: uid ? `https://weibo.com/u/${uid}` : `https://weibo.com/n/${encodeURIComponent(handle)}` };
+
+for (const [instagram, handle, source, sourceKind] of [
+  ['ppalm_pr', 'ppalm_pr', 'https://thestandard.co/love-design-series-netflix-2026/', 'media'],
+  ['shiiinpl', 'shiiinpl', 'https://kinobaza.com.ua/persons/mashii-pornthiphat-lertwuthanon', 'catalogue'],
+]) actorXUpdates[instagram] = { handle, source, sourceKind, checkedAt: '2026-10-09' };

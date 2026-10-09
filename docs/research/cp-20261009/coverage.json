@@ -1,0 +1,463 @@
+{
+  "profiles": {
+    "cpCount": 65,
+    "actorCount": 127,
+    "birthdayWithMonthDay": 123,
+    "fields": {
+      "fullName": 125,
+      "birthday": 122,
+      "heightCm": 102,
+      "instagram": 125,
+      "x": 112,
+      "weibo": 71
+    },
+    "communityCount": 48,
+    "missing": [
+      {
+        "name": "View Benyapa Jeenprasom",
+        "fields": [
+          "weibo"
+        ]
+      },
+      {
+        "name": "Mim Rattanawadee Wongthong",
+        "fields": [
+          "weibo"
+        ]
+      },
+      {
+        "name": "Fay Kunyaphat Na Nakorn",
+        "fields": [
+          "weibo"
+        ]
+      },
+      {
+        "name": "May Yada Watcharamusik",
+        "fields": [
+          "weibo"
+        ]
+      },
+      {
+        "name": "B Mine Jiratchaya Komontut",
+        "fields": [
+          "weibo"
+        ]
+      },
+      {
+        "name": "Near Inthira Thammajaroen",
+        "fields": [
+          "weibo"
+        ]
+      },
+      {
+        "name": "Christine Gulasatree Michalsky",
+        "fields": [
+          "x",
+          "weibo"
+        ]
+      },
+      {
+        "name": "Mae Methakarn Anektanasuwan",
+        "fields": [
+          "weibo"
+        ]
+      },
+      {
+        "name": "Namneung Milin Watinthanakit",
+        "fields": [
+          "weibo"
+        ]
+      },
+      {
+        "name": "Noey Kanteera Wadcharathadsanakul",
+        "fields": [
+          "weibo"
+        ]
+      },
+      {
+        "name": "Yada Narilya Gulmongkolpech",
+        "fields": [
+          "weibo"
+        ]
+      },
+      {
+        "name": "Tan Duangkaew Piyaoui",
+        "fields": [
+          "heightCm",
+          "weibo"
+        ]
+      },
+      {
+        "name": "BamBam Niwirin Limkangwalmongkol",
+        "fields": [
+          "heightCm",
+          "weibo"
+        ]
+      },
+      {
+        "name": "Baipor Thitiya Jirapornsilp",
+        "fields": [
+          "heightCm",
+          "weibo"
+        ]
+      },
+      {
+        "name": "Natty Natthamon Jantraviphart",
+        "fields": [
+          "heightCm"
+        ]
+      },
+      {
+        "name": "Yeepun Purichaya Saranark",
+        "fields": [
+          "heightCm"
+        ]
+      },
+      {
+        "name": "Atom Aphichaya Kamnoetsirikun",
+        "fields": [
+          "heightCm"
+        ]
+      },
+      {
+        "name": "Mersedes Siripath Sarakune",
+        "fields": [
+          "heightCm"
+        ]
+      },
+      {
+        "name": "Aoom Thaweeporn Phingchamrat",
+        "fields": [
+          "weibo"
+        ]
+      },
+      {
+        "name": "Meena Rina Chatamonchai",
+        "fields": [
+          "weibo"
+        ]
+      },
+      {
+        "name": "Natt Nattamon Chokejindachai",
+        "fields": [
+          "weibo"
+        ]
+      },
+      {
+        "name": "Pitcha Pitchatorn Santinatornkul",
+        "fields": [
+          "weibo"
+        ]
+      },
+      {
+        "name": "Sprite Itaree Jarupangomon",
+        "fields": [
+          "heightCm",
+          "weibo"
+        ]
+      },
+      {
+        "name": "Piano Pronyanee Pornpishayawasin",
+        "fields": [
+          "heightCm",
+          "x",
+          "weibo"
+        ]
+      },
+      {
+        "name": "Mook Napapach Thitakawin",
+        "fields": [
+          "heightCm",
+          "x",
+          "weibo"
+        ]
+      },
+      {
+        "name": "Pinky Subhisara Suksathan",
+        "fields": [
+          "weibo"
+        ]
+      },
+      {
+        "name": "Mimie Bhapat Ahchariyasripong",
+        "fields": [
+          "heightCm",
+          "weibo"
+        ]
+      },
+      {
+        "name": "Garn Nuttacha Ratchayangkanont",
+        "fields": [
+          "heightCm",
+          "weibo"
+        ]
+      },
+      {
+        "name": "Ing Tanatcha Devahastin",
+        "fields": [
+          "weibo"
+        ]
+      },
+      {
+        "name": "Cartoon Kittaya Lemnopmanee",
+        "fields": [
+          "heightCm",
+          "weibo"
+        ]
+      },
+      {
+        "name": "Nepjune Nutkitta Poonsukwattana",
+        "fields": [
+          "heightCm",
+          "weibo"
+        ]
+      },
+      {
+        "name": "Aom Punyawee Jungcharoen",
+        "fields": [
+          "heightCm",
+          "weibo"
+        ]
+      },
+      {
+        "name": "Yoshi Rinrada Thurapan",
+        "fields": [
+          "x",
+          "weibo"
+        ]
+      },
+      {
+        "name": "Diana Flipo",
+        "fields": [
+          "weibo"
+        ]
+      },
+      {
+        "name": "Nana Sawanya Paisarnpayak",
+        "fields": [
+          "weibo"
+        ]
+      },
+      {
+        "name": "Ice Papichaya Pattaralikitsakul",
+        "fields": [
+          "heightCm",
+          "weibo"
+        ]
+      },
+      {
+        "name": "Marissa Lloyd",
+        "fields": [
+          "heightCm"
+        ]
+      },
+      {
+        "name": "Tan Thanatcha",
+        "fields": [
+          "birthday",
+          "heightCm",
+          "instagram",
+          "x",
+          "weibo"
+        ]
+      },
+      {
+        "name": "Zanook Nadnada",
+        "fields": [
+          "birthday",
+          "heightCm",
+          "instagram",
+          "x",
+          "weibo"
+        ]
+      },
+      {
+        "name": "Ferin",
+        "fields": [
+          "birthday",
+          "heightCm",
+          "x",
+          "weibo"
+        ]
+      },
+      {
+        "name": "Puifai",
+        "fields": [
+          "x",
+          "weibo"
+        ]
+      },
+      {
+        "name": "Pimji",
+        "fields": [
+          "birthday",
+          "heightCm",
+          "weibo"
+        ]
+      },
+      {
+        "name": "Pineare",
+        "fields": [
+          "weibo"
+        ]
+      },
+      {
+        "name": "Kapook Ploynira Hiruntaveesin",
+        "fields": [
+          "weibo"
+        ]
+      },
+      {
+        "name": "Fay Apisara Lertwisettheerakul",
+        "fields": [
+          "weibo"
+        ]
+      },
+      {
+        "name": "Gene Ornalin Leelaburanathanakul",
+        "fields": [
+          "weibo"
+        ]
+      },
+      {
+        "name": "Gift Sirinart Sugandharat",
+        "fields": [
+          "x",
+          "weibo"
+        ]
+      },
+      {
+        "name": "Aomsin Nuttharat Papirom",
+        "fields": [
+          "x",
+          "weibo"
+        ]
+      },
+      {
+        "name": "Linn Mashannoad Suvanamas",
+        "fields": [
+          "weibo"
+        ]
+      },
+      {
+        "name": "Praew Chermawee Suwanpanuchoke",
+        "fields": [
+          "weibo"
+        ]
+      },
+      {
+        "name": "Friend Torfan Taweema",
+        "fields": [
+          "x",
+          "weibo"
+        ]
+      },
+      {
+        "name": "Palm Paramee Luengnaruemitchai",
+        "fields": [
+          "weibo"
+        ]
+      },
+      {
+        "name": "Ploy Peerachada Khunrak",
+        "fields": [
+          "weibo"
+        ]
+      },
+      {
+        "name": "Punch Naphassanan Kalaphan",
+        "fields": [
+          "x",
+          "weibo"
+        ]
+      },
+      {
+        "name": "Tian Atcharee Buakhiao",
+        "fields": [
+          "heightCm",
+          "x",
+          "weibo"
+        ]
+      },
+      {
+        "name": "Kitty Nunthaphuk Aranyakasemsuk",
+        "fields": [
+          "heightCm",
+          "x",
+          "weibo"
+        ]
+      },
+      {
+        "name": "Music Praewa Suthamphong",
+        "fields": [
+          "weibo"
+        ]
+      },
+      {
+        "name": "Plaifah Chaiyapat Jampasin",
+        "fields": [
+          "x",
+          "weibo"
+        ]
+      },
+      {
+        "name": "Aom Pundao Panyabaramee",
+        "fields": [
+          "weibo"
+        ]
+      },
+      {
+        "name": "Mekkhala Naruthai Chatupharungroj",
+        "fields": [
+          "heightCm",
+          "weibo"
+        ]
+      },
+      {
+        "name": "Mashii Pornthiphat Lertwuthanon",
+        "fields": [
+          "heightCm",
+          "weibo"
+        ]
+      }
+    ],
+    "missingCommunities": [
+      "bminenear",
+      "christinemae",
+      "spritepiano",
+      "mookpinky",
+      "mimiegarn",
+      "ingcartoon",
+      "yoshidiana",
+      "tinanana",
+      "icemarissa",
+      "ferinpuifai",
+      "pimjipineare",
+      "ploypunch",
+      "tiankitty",
+      "musicplaifah",
+      "aomshelly",
+      "bminemekkhala",
+      "bminemashii"
+    ],
+    "needsReview": [
+      {
+        "instagram": "hellokitty_.kt",
+        "platform": "x",
+        "candidates": [
+          "nunthaphuck",
+          "kittynunthaph"
+        ],
+        "source": "https://www.sotwe.com/hashtag/KittyNunthaphuck?lang=tr",
+        "checkedAt": "2026-10-09",
+        "reason": "目录账号与近期公开索引不一致，等待本人或制作方明确指向；不把 TikTok 名称当成 X 账号。"
+      }
+    ]
+  },
+  "statuses": {
+    "total": 65,
+    "active": 33,
+    "ended": 4,
+    "unverified": 28
+  }
+}

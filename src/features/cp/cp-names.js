@@ -1,5 +1,6 @@
 // Public pairing names are editorial data, not initials generated from actors.
 // Keep stable route IDs and actor records independent from display names.
+import { additionalCpProfiles } from './cp-additional-data.js';
 import { workTitleAliases } from '../../i18n/proper-names.js';
 const directorySource = 'https://glthai.com/couple/';
 const catalogueNames = {
@@ -34,6 +35,8 @@ Object.assign(cpNameRecords, {
   tinanana: { label: 'TinaNana', source: 'https://tellasgllist.neocities.org/T' },
   icemarissa: { label: 'IzeZa', aliases: ['IzeMarissa'], source: 'https://www.sotwe.com/gigimsl_?lang=en' },
 });
+
+for (const cp of additionalCpProfiles) if (!cpNameRecords[cp.id]) cpNameRecords[cp.id] = { label: cp.names.join(''), aliases: cp.aliases, source: cp.works[0].source };
 
 export function cpLabel(cp) { return cpNameRecords[cp.id]?.label || cp.names.join(' · '); }
 

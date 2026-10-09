@@ -19,7 +19,7 @@
     "research:cp": "node scripts/research-cp-profiles.mjs",
     "plan:cp": "node scripts/plan-cp-maintenance.mjs",
     "stats:cp": "node scripts/report-cp-profiles.mjs",
-    "test:cp": "node --test tests/cp-data.test.mjs tests/cp-journal.test.mjs tests/cp-children-status.test.mjs tests/cp-profiles.test.mjs tests/calendar-scope.test.mjs tests/cp-maintenance.test.mjs tests/cp-loading.test.mjs",
+    "test:cp": "node --test tests/cp-data.test.mjs tests/cp-journal.test.mjs tests/cp-children-status.test.mjs tests/cp-profiles.test.mjs tests/calendar-scope.test.mjs tests/cp-maintenance.test.mjs tests/cp-loading.test.mjs tests/cp-content-update.test.mjs",
     "sync:netease": "node scripts/sync-netease-playlist.mjs",
     "sync:schedule": "node scripts/sync-archive-schedule.mjs",
     "stats:schedule": "node scripts/report-archive-schedule.mjs",
