@@ -1,16 +1,16 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-05T03:28:10.096Z",
+  "checkedAt": "2026-10-12T02:02:09.853Z",
   "source": "GL Spotlight",
   "sourceTimeZone": "Asia/Bangkok",
   "coverage": [
     {
-      "from": "2026-10-05",
-      "to": "2026-10-11"
-    },
-    {
       "from": "2026-10-12",
       "to": "2026-10-18"
+    },
+    {
+      "from": "2026-10-19",
+      "to": "2026-10-25"
     }
   ],
   "series": [
@@ -122,8 +122,8 @@
       "name": "Buy My Boss",
       "network": "",
       "platforms": [],
-      "premiereDate": "2026-10-28",
-      "sourceUrl": "https://glspotlight.com/series/buy-my-boss"
+      "premiereDate": "2026-12-02",
+      "sourceUrl": "https://www.instagram.com/frt.entertainment/p/DeD1H3bnzwE/"
     },
     {
       "id": "my-boss-i-love-you",
@@ -1191,37 +1191,47 @@
       "id": "khom-khlang:ep:7",
       "seriesId": "khom-khlang",
       "episode": 7,
-      "airsAt": null,
+      "airsAt": "2026-10-19T13:00:00Z",
       "date": "2026-10-19",
       "kind": "episode",
-      "sourceUrl": "https://www.tvmaze.com/episodes/3712586/khom-khlang-1x07-episode-7",
-      "sourceProvider": "tvmaze",
-      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "sourceUrl": "https://glspotlight.com/airing?week=next",
+      "checkedAt": "2026-10-12T02:02:09.853Z",
       "needsReview": false
     },
     {
-      "id": "built-in-love:premiere",
+      "id": "built-in-love:ep:1",
       "seriesId": "built-in-love",
-      "episode": null,
+      "episode": 1,
       "airsAt": "2026-10-21T13:30:00Z",
       "date": "2026-10-21",
-      "kind": "premiere",
+      "kind": "episode",
       "sourceUrl": "https://x.com/wabisabiTH/status/2102725466373464369",
       "checkedAt": "2026-09-30T08:42:35Z",
       "needsReview": false,
       "sourceProvider": "official"
     },
     {
-      "id": "love-on-hire:premiere",
+      "id": "love-on-hire:ep:1",
       "seriesId": "love-on-hire",
-      "episode": null,
+      "episode": 1,
       "airsAt": "2026-10-22T13:00:00Z",
       "date": "2026-10-22",
-      "kind": "premiere",
+      "kind": "episode",
       "sourceUrl": "https://x.com/LoveOnHire/status/2102020024772764038",
       "checkedAt": "2026-09-30T08:42:35Z",
       "needsReview": false,
       "sourceProvider": "official"
+    },
+    {
+      "id": "pls-love:ep:7",
+      "seriesId": "pls-love",
+      "episode": 7,
+      "airsAt": "2026-10-23T13:30:00Z",
+      "date": "2026-10-23",
+      "kind": "episode",
+      "sourceUrl": "https://glspotlight.com/airing?week=next",
+      "checkedAt": "2026-10-12T02:02:09.853Z",
+      "needsReview": false
     },
     {
       "id": "juliet-and-juliet:ep:8",
@@ -1233,6 +1243,28 @@
       "sourceUrl": "https://www.tvmaze.com/episodes/3721800/juliet-juliet-1x08-episode-8",
       "sourceProvider": "tvmaze",
       "checkedAt": "2026-10-05T03:28:10.096Z",
+      "needsReview": false
+    },
+    {
+      "id": "third-person:ep:7",
+      "seriesId": "third-person",
+      "episode": 7,
+      "airsAt": "2026-10-24T15:25:00Z",
+      "date": "2026-10-24",
+      "kind": "episode",
+      "sourceUrl": "https://glspotlight.com/airing?week=next",
+      "checkedAt": "2026-10-12T02:02:09.853Z",
+      "needsReview": false
+    },
+    {
+      "id": "fairway-of-love:ep:8",
+      "seriesId": "fairway-of-love",
+      "episode": 8,
+      "airsAt": "2026-10-25T15:30:00Z",
+      "date": "2026-10-25",
+      "kind": "episode",
+      "sourceUrl": "https://glspotlight.com/airing?week=next",
+      "checkedAt": "2026-10-12T02:02:09.853Z",
       "needsReview": false
     },
     {
@@ -1299,11 +1331,12 @@
       "seriesId": "buy-my-boss",
       "episode": null,
       "airsAt": null,
-      "date": "2026-10-28",
+      "date": "2026-12-02",
       "kind": "premiere",
-      "sourceUrl": "https://glspotlight.com/series/buy-my-boss",
-      "checkedAt": "2026-10-05T03:28:10.096Z",
-      "needsReview": false
+      "sourceUrl": "https://www.instagram.com/frt.entertainment/p/DeD1H3bnzwE/",
+      "checkedAt": "2026-10-12T02:02:09.853Z",
+      "needsReview": false,
+      "sourceProvider": "official"
     }
   ]
 }
