@@ -102,3 +102,87 @@ export const cpPortraitUpdates = {
     "imageCheckedAt": "2026-10-09"
   }
 };
+
+// 2026-10-16：指定参考站的真实原照片，保留原尺寸，不生成人物。
+Object.assign(cpPortraitUpdates, {
+  "mewrenee": {
+    "image": "assets/cp/portraits/mewrenee-photo-v1.webp",
+    "imageWidth": 1200,
+    "imageHeight": 800,
+    "portraitFrame": "assets/cp/portraits/scrapbook-frame-v1.webp",
+    "imageSource": "https://glthai.com/couple/",
+    "imageOriginalSource": "https://glthai.com/wp-content/uploads/cp-MewRenee.webp",
+    "imageSourceKind": "catalogue",
+    "imageCheckedAt": "2026-10-16"
+  },
+  "viewjune": {
+    "image": "assets/cp/portraits/viewjune-photo-v1.webp",
+    "imageWidth": 516,
+    "imageHeight": 516,
+    "portraitFrame": "assets/cp/portraits/scrapbook-frame-v1.webp",
+    "imageSource": "https://glthai.com/couple/",
+    "imageOriginalSource": "https://glthai.com/wp-content/uploads/cp-ViewJune.jpg",
+    "imageSourceKind": "catalogue",
+    "imageCheckedAt": "2026-10-16"
+  },
+  "icemarissa": {
+    "image": "assets/cp/portraits/icemarissa-photo-v1.webp",
+    "imageWidth": 1200,
+    "imageHeight": 800,
+    "portraitFrame": "assets/cp/portraits/scrapbook-frame-v1.webp",
+    "imageSource": "https://glthai.com/couple/",
+    "imageOriginalSource": "https://glthai.com/wp-content/uploads/cp-IzeMarissa.webp",
+    "imageSourceKind": "catalogue",
+    "imageCheckedAt": "2026-10-16"
+  },
+  "junemewnich": {
+    "image": "assets/cp/portraits/junemewnich-photo-v1.webp",
+    "imageWidth": 1200,
+    "imageHeight": 800,
+    "portraitFrame": "assets/cp/portraits/scrapbook-frame-v1.webp",
+    "imageSource": "https://glthai.com/couple/",
+    "imageOriginalSource": "https://glthai.com/wp-content/uploads/cp-JuneMewnich-2.webp",
+    "imageSourceKind": "catalogue",
+    "imageCheckedAt": "2026-10-16"
+  },
+  "noonpraewa": {
+    "image": "assets/cp/portraits/noonpraewa-photo-v1.webp",
+    "imageWidth": 900,
+    "imageHeight": 900,
+    "portraitFrame": "assets/cp/portraits/scrapbook-frame-v1.webp",
+    "imageSource": "https://glthai.com/couple/",
+    "imageOriginalSource": "https://glthai.com/wp-content/uploads/cp-NoonPraewa.jpg",
+    "imageSourceKind": "catalogue",
+    "imageCheckedAt": "2026-10-16"
+  },
+  "shumook": {
+    "image": "assets/cp/portraits/shumook-photo-v1.webp",
+    "imageWidth": 1080,
+    "imageHeight": 720,
+    "portraitFrame": "assets/cp/portraits/scrapbook-frame-v1.webp",
+    "imageSource": "https://glthai.com/couple/",
+    "imageOriginalSource": "https://glthai.com/wp-content/uploads/cp-ShuMook-1080-720.webp",
+    "imageSourceKind": "catalogue",
+    "imageCheckedAt": "2026-10-16"
+  },
+  "andalookkaew": {
+    "image": "assets/cp/portraits/andalookkaew-photo-v1.webp",
+    "imageWidth": 1080,
+    "imageHeight": 720,
+    "portraitFrame": "assets/cp/portraits/scrapbook-frame-v1.webp",
+    "imageSource": "https://glthai.com/couple/",
+    "imageOriginalSource": "https://glthai.com/wp-content/uploads/cp-AndaLookkaew-1080-720.webp",
+    "imageSourceKind": "catalogue",
+    "imageCheckedAt": "2026-10-16"
+  },
+  "tubtimfilm": {
+    "image": "assets/cp/portraits/tubtimfilm-photo-v1.webp",
+    "imageWidth": 810,
+    "imageHeight": 540,
+    "portraitFrame": "assets/cp/portraits/scrapbook-frame-v1.webp",
+    "imageSource": "https://glthai.com/couple/",
+    "imageOriginalSource": "https://glthai.com/wp-content/uploads/cp-TubtimFilm-810-540.webp",
+    "imageSourceKind": "catalogue",
+    "imageCheckedAt": "2026-10-16"
+  }
+});

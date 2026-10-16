@@ -1,13 +1,14 @@
 import { readFile, writeFile, rename, mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { archiveDramas } from '../src/data/archive-dramas.js';
-import { historyFromFeed, premiereRecord, applyHistoryCorrections } from './lib/archive-history.mjs';
+import { historyFromFeed, premiereRecord, officialHistoryRecord, applyHistoryCorrections } from './lib/archive-history.mjs';
 
 const root = new URL('../', import.meta.url);
 const read = async (path) => JSON.parse(await readFile(new URL(path, root), 'utf8'));
 const mappings = await read('scripts/lib/archive-history-sources.json');
 const premieres = await read('scripts/lib/archive-history-premieres.json');
 const corrections = await read('scripts/lib/archive-history-corrections.json');
+const officialSources = await read('scripts/lib/archive-history-official.json');
 const cacheIndex = process.argv.indexOf('--cache-dir');
 const cache = cacheIndex < 0 ? null : process.argv[cacheIndex + 1];
 if (cacheIndex >= 0 && !cache) throw new Error('--cache-dir requires a directory of reviewed API responses.');
@@ -34,7 +35,8 @@ for (const mapping of mappings) {
   }
 }
 for (const premiere of premieres) records.push(premiereRecord(byId.get(premiere.seriesId), premiere));
-const data = { version: 1, checkedAt, sourceTimeZone: 'Asia/Bangkok', source: 'TVmaze and GL Spotlight',
+for (const source of officialSources) records.push(officialHistoryRecord(byId.get(source.seriesId), source));
+const data = { version: 1, checkedAt, sourceTimeZone: 'Asia/Bangkok', source: 'TVmaze, GL Spotlight and reviewed official episode pages',
   series: records.map((record) => record.series), events: records.flatMap((record) => record.events).sort((a, b) => a.date.localeCompare(b.date) || a.id.localeCompare(b.id)) };
 if (new Set(data.series.map(({ id }) => id)).size !== data.series.length || new Set(data.events.map(({ id }) => id)).size !== data.events.length) throw new Error('Duplicate history identities.');
 await mkdir(new URL('output/', root), { recursive: true });

@@ -1,5 +1,6 @@
 // Names are identifiers, not prose. Unverified names keep their source spelling.
 export const verifiedSeries = [
+  { id: 'mom-ped-sawan', zh: '深宫幽情', aliases: ['深宫幽情', '月下禁爱', 'Mom Ped Sawan', 'MomPedSawan', 'Mhom Ped Sawan', 'หม่อมเป็ดสวรรค์'], en: 'Mom Ped Sawan', th: 'หม่อมเป็ดสวรรค์', source: 'https://www.thaipbs.or.th/program/MhomPedSawan' },
   { aliases: ["Don't say ‘NO’ yet"], en: "Don't say ‘NO’ yet", th: "อย่าพึ่งตอบว่า'ไม่'", source: 'https://www.youtube.com/watch?v=WR-HPcdHxlQ' },
   { aliases: ['Built in Love'], en: 'Built in Love', th: 'ก่อร่างสร้างเลิฟ', source: 'https://www.youtube.com/watch?v=3fOkgCnjv5M' },
   { id: 'love-on-hire', zh: '分手代理', aliases: ['分手代理', 'Love On Hire'], en: 'Love On Hire', th: 'รับจ้างเลิกรัก', source: 'https://www.youtube.com/watch?v=F1l1mAvSmZo' },

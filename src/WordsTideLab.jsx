@@ -24,6 +24,7 @@ import { useMobileLayout } from "./hooks/useMobileLayout.js";
 import { MobileTideSheet } from "./features/community/MobileTideSheet.jsx";
 import { buildEvidenceLayout } from "./features/community/evidence-layout.js";
 import { buildFrequencyCurve } from "./features/community/frequency-curve.js";
+import { previewCommunityText } from "./features/community/comment-text.js";
 import "./words-tide-lab.css";
 import "./styles/mobile-tide.css";
 
@@ -81,11 +82,13 @@ function readEvidenceOrder(items) {
 
 function EvidenceCard({
   busy,
+  community,
   configured,
   dragOffset,
   item,
   isDragging,
   isExpanded,
+  isMobile,
   liked,
   comments,
   commentsState,
@@ -99,7 +102,11 @@ function EvidenceCard({
   onPointerUp,
   stats,
 }) {
+  const [textExpanded, setTextExpanded] = useState(false);
+  const [tooltipDismissed, setTooltipDismissed] = useState(false);
   const displayText = communityText(item.text);
+  const preview = previewCommunityText(displayText);
+  const isLongText = preview !== displayText;
   const copyLength = Array.from(displayText).length;
   const copySize = copyLength <= 9 ? "short-copy" : copyLength >= 16 ? "long-copy" : "medium-copy";
 
@@ -114,6 +121,9 @@ function EvidenceCard({
       }}
       data-evidence-id={item.id}
       data-evidence-pinned={item.is_pinned ? "true" : "false"}
+      onMouseLeave={() => setTooltipDismissed(false)}
+      onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setTooltipDismissed(false); }}
+      onKeyDown={(event) => { if (event.key === "Escape") setTooltipDismissed(true); }}
     >
       <button
         className="words-repo-card-open"
@@ -125,12 +135,14 @@ function EvidenceCard({
       {t(item.is_pinned ? <span className="words-repo-pinned-label"><PushPin weight="fill" aria-hidden="true" />{t("站主置顶")}</span> : null)}
       <div className="words-repo-quote-copy">
         <Quotes aria-hidden="true" weight="fill" />
-        <blockquote>{displayText}</blockquote>
+        <blockquote id={`quote-text-${item.id}`}>{isMobile && textExpanded ? displayText : preview}</blockquote>
         <footer>
           <strong translate="no">— {item.speaker === '匿名坑底人' ? t(item.speaker) : item.speaker}</strong>
         </footer>
       </div>
+      {isLongText && !isMobile && !tooltipDismissed && <div className="words-repo-full-text" role="tooltip">{displayText}</div>}
       <div className="words-repo-card-actions">
+        {isLongText && isMobile && <button className="community-text-expand words-quote-expand" type="button" aria-expanded={textExpanded} aria-controls={`quote-text-${item.id}`} onClick={() => setTextExpanded((value) => !value)}>{communityText(textExpanded ? "收起" : "展开")}</button>}
         <button
           className={`words-repo-card-like${liked ? " is-liked" : ""}`}
           type="button"
@@ -178,7 +190,7 @@ function EvidenceCard({
             <button type="button" onClick={onCompose}>{t("留一句")}</button>
           </header>
           <div className="words-card-comments-scroll">
-            <CommunityCommentList comments={comments} state={commentsState} />
+            <CommunityCommentList comments={comments} state={commentsState} community={community} />
           </div>
           {t(stats.comments > comments.length ? <small>{t("先显示最近 ")}{t(comments.length)}{t(" 条")}</small> : null)}
         </section>
@@ -366,10 +378,12 @@ function EvidenceCanvas({ community, isMobile, newQuoteId, onCompose }) {
         return (
           <EvidenceCard
             busy={community.busyTargets.has(targetKey)}
+            community={community}
             configured={community.configured}
             item={item}
             isDragging={drag?.cardId === cardId}
             isExpanded={!isMobile && community.activeQuote?.id === item.id}
+            isMobile={isMobile}
             dragOffset={drag?.cardId === cardId ? drag : null}
             key={item.id}
             liked={community.isLiked("quote", item.id)}

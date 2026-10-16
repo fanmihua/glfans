@@ -43,6 +43,30 @@ export function premiereRecord(archive, premiere) {
       sourceUrl: premiere.sourceUrl, sourceProvider: 'glspotlight', checkedAt: premiere.checkedAt, needsReview: false }] };
 }
 
+// Explicit dates copied from a broadcaster's episode index. They remain
+// separate from rolling feeds so refreshes cannot replace them with a cadence.
+export function officialHistoryRecord(archive, source) {
+  if (!archive || archive.id !== source.seriesId || !source.checkedAt
+    || !source.sourceUrl?.startsWith('https://') || !source.sourceProvider
+    || !Array.isArray(source.episodes) || !source.episodes.length) throw new Error('Invalid official history source');
+  const seen = new Set();
+  const events = source.episodes.map((episode) => {
+    if (!Number.isInteger(episode.episode) || episode.episode < 1 || seen.has(episode.episode)
+      || !validDate(episode.date) || !episode.sourceUrl?.startsWith('https://')
+      || (episode.airsAt && (!Number.isFinite(Date.parse(episode.airsAt))
+        || calendarDate(episode.airsAt, source.sourceTimeZone) !== episode.date))) {
+      throw new Error(`Invalid official historical episode: ${source.seriesId}`);
+    }
+    seen.add(episode.episode);
+    return { id: `${source.seriesId}:ep:${episode.episode}`, seriesId: source.seriesId, ...episode,
+      airsAt: episode.airsAt || null, kind: 'episode', sourceProvider: source.sourceProvider,
+      checkedAt: source.checkedAt, needsReview: false };
+  });
+  return { series: { id: archive.id, name: archive.titleEn, network: source.network || '',
+    platforms: archive.platforms || [], premiereDate: events.find((event) => event.episode === 1)?.date || null,
+    sourceUrl: source.sourceUrl }, events };
+}
+
 // Reviewed corrections survive subsequent refreshes. If the upstream source
 // changes to a third date, stop for review instead of silently overwriting it.
 export function applyHistoryCorrections(record, corrections) {

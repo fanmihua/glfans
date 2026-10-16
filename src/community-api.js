@@ -37,6 +37,14 @@ export async function toggleCommunityReaction(targetType, targetId) {
   return { liked: Boolean(result?.liked), likes: Number(result?.likes ?? 0) };
 }
 
+export async function setCommunityCommentReaction(commentId, liked) {
+  const result = await writeCommunity(`/community/comments/${encodeURIComponent(commentId)}/reaction`, {
+    method: "PUT",
+    body: { liked },
+  });
+  return { liked: Boolean(result?.liked), likes: Number(result?.likes ?? 0) };
+}
+
 export async function loadCommunityReactionState() {
   if (!isCommunityConfigured) return [];
   return await getAuthenticatedCommunity("/community/reactions") ?? [];

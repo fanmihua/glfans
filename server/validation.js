@@ -37,12 +37,12 @@ export function nicknameField(value, max = 24) {
   return stringField(value, "nickname", { min: 1, max, fallback: "匿名坑底人" });
 }
 
-export function commentBodyField(value) {
-  return stringField(value, "body", { min: 2, max: 400 });
+export function commentBodyField(value, max = 400) {
+  return stringField(value, "body", { min: 2, max });
 }
 
-export function quoteTextField(value) {
-  return stringField(value, "text", { min: 2, max: 120 });
+export function quoteTextField(value, max = 120) {
+  return stringField(value, "text", { min: 2, max });
 }
 
 export function parseLimit(value, fallback = 20, maximum = 250) {

@@ -5,6 +5,12 @@ import { getLocale } from './runtime.js';
 // their source wording. Originals, authors and interaction records stay intact.
 export const communityCopy = {
   en: {
+    '展开': 'More',
+    '收起': 'Less',
+    '心动没有送达，请重试。': 'Could not save your like. Please try again.',
+    '原话需要 2—80 个字。': 'Quotes need 2–80 characters.',
+    '留言需要 2—80 个字。': 'Comments need 2–80 characters.',
+    ' / LEAVE A COMMENT': ' / LEAVE A COMMENT',
     '这次真的不一样。': 'This time really is different.',
     '两眼一睁就是磕。': 'Eyes open. Back to shipping.',
     '正主虚情热演，粉丝假意上头。': 'The stars perform affection; the fans play along, acting swept away.',
@@ -32,6 +38,12 @@ export const communityCopy = {
     '支持': 'Support', '想你': 'Miss you', '朋友': 'Friends', 'CP': 'CP', '喜欢': 'Love',
   },
   th: {
+    '展开': 'อ่านต่อ',
+    '收起': 'ย่อ',
+    '心动没有送达，请重试。': 'บันทึกถูกใจไม่สำเร็จ ลองอีกครั้ง',
+    '原话需要 2—80 个字。': 'ข้อความต้องมี 2–80 ตัวอักษร',
+    '留言需要 2—80 个字。': 'ความคิดเห็นต้องมี 2–80 ตัวอักษร',
+    ' / LEAVE A COMMENT': ' / แสดงความคิดเห็น',
     '这次真的不一样。': 'ครั้งนี้ไม่เหมือนเดิมจริง ๆ',
     '两眼一睁就是磕。': 'ลืมตาปุ๊บ ก็จิ้นปั๊บ',
     '正主虚情热演，粉丝假意上头。': 'ศิลปินแสดงความหวาน แฟนคลับก็เล่นตาม ทำเป็นอินสุดใจ',

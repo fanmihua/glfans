@@ -24,13 +24,14 @@
 - 带会话 cookie；
 - 请求头 `X-CSRF-Token` 等于最近一次 session/login 响应中的 token。
 
-服务器还按 HMAC 匿名化后的 IP 对新建会话、登录与公开写入做第二层限流，避免清 cookie 绕过身份限流。评论和原话仍保留产品规则：每个身份 10 分钟最多 3 条，同内容 24 小时内不可重复。
+服务器还按 HMAC 匿名化后的 IP 对新建会话、登录与公开写入做第二层限流，避免清 cookie 绕过身份限流。评论和原话仍保留产品规则：每个身份 10 分钟最多 3 条，同内容 24 小时内不可重复。新投稿最多 80 个 Unicode 字符；管理端仍可维护原有较长内容，旧内容读取完整保留。
 
 ## API contract
 
 | 方法 | 路径 | 说明 |
 |---|---|---|
 | `GET` | `/api/health` | API 与数据库健康检查 |
+| `GET/HEAD` | `/api/calendar.ics?lang=zh&series=23-5,gap` | 公开日历订阅，无会话要求；`lang` 支持 `zh/en/th`，不传 `series` 订阅全部 |
 | `POST` | `/api/session` | 创建/续期访客或管理员会话，返回会话绑定的 CSRF token |
 | `GET` | `/api/session` | 读取当前身份，不返回 CSRF token |
 | `GET` | `/api/community/stats` | 按 `page:tide-words` / `quote:q-*` 返回评论、心动、访客、浏览统计 |
@@ -39,6 +40,7 @@
 | `GET` | `/api/community/comments?targetType=quote&targetId=q-01&limit=50` | 指定目标的公开评论 |
 | `POST` | `/api/community/views` | body: `{ targetType, targetId }`；同身份 30 分钟内不重复增加浏览 |
 | `POST` | `/api/community/reactions/toggle` | body: `{ targetType, targetId }`；返回 `{ liked, likes }` |
+| `PUT` | `/api/community/comments/:id/reaction` | body: `{ liked: true/false }`；幂等设置当前访客的评论点赞，返回 `{ liked, likes }` |
 | `POST` | `/api/community/comments` | body: `{ targetType, targetId, nickname, body }` |
 | `POST` | `/api/community/quotes` | body: `{ speaker, text }`；投稿立即公开 |
 | `POST` | `/api/admin/login` | 先建访客 session，再带 CSRF 提交 `{ email, password }` |
@@ -51,6 +53,14 @@
 | `PATCH/DELETE` | `/api/admin/quotes/:id` | 编辑 `text/speaker/cover_path/sort_order/status/is_pinned`，或永久删除及其互动 |
 
 所有 SQL 动态值都通过 prepared query 传入；动态更新列也只来自服务端白名单。管理员权限来自本地 `community_identities.kind/role/is_active`，不依赖 Supabase UUID。
+
+## 日历订阅
+
+`/api/calendar.ics` 成功时直接返回 UTF-8 `text/calendar`，支持 `ETag`、条件请求 `304` 和 `HEAD`，不创建访客会话、不读写数据库。
+
+生产数据默认读取 `/var/www/glfans/current/calendar/subscription.json`；本地或测试可通过进程环境 `GLFANS_CALENDAR_DATA_PATH` 显式指定文件。静态构建生成版本化公开数据，接口每次请求读取当前文件，静态 release 切换后无需重启 API。数据文件缺失、损坏或整个源没有事件时返回 `503` 与 `Retry-After: 300`，恢复文件即可恢复服务。已有剧集暂时没有排期时，针对该剧的订阅正常返回空日历，之后新排期会随订阅更新。
+
+`series` 为逗号分隔的已知剧集 ID，自动去重排序；不传表示全部。空值、未知 ID、重复参数及未知参数均返回 `400`，不会回退订阅全部。日历名称区分全部、单剧与自选数量。事件 UID 由稳定事件 ID 生成，改期保留 UID；仅日期的资料生成全天事件，明确时刻转换为 UTC，不添加未核实的结束时间或提醒。服务提供一小时刷新建议，实际更新频率由日历客户端设置。
 
 ## 从 Supabase 导入
 

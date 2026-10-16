@@ -2,7 +2,7 @@
   "version": 1,
   "checkedAt": "2026-09-04T13:40:30.670Z",
   "sourceTimeZone": "Asia/Bangkok",
-  "source": "TVmaze and GL Spotlight",
+  "source": "TVmaze, GL Spotlight and reviewed official episode pages",
   "series": [
     {
       "id": "gap",
@@ -681,6 +681,16 @@
       ],
       "premiereDate": "2026-05-25",
       "sourceUrl": "https://glspotlight.com/series/falling-for-my-hater"
+    },
+    {
+      "id": "mom-ped-sawan",
+      "name": "Mom Ped Sawan",
+      "network": "Thai PBS",
+      "platforms": [
+        "Thai PBS"
+      ],
+      "premiereDate": "2024-11-17",
+      "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan"
     }
   ],
   "events": [
@@ -2299,6 +2309,18 @@
       "needsReview": false
     },
     {
+      "id": "mom-ped-sawan:ep:1",
+      "seriesId": "mom-ped-sawan",
+      "episode": 1,
+      "date": "2024-11-17",
+      "airsAt": "2024-11-17T13:30:00.000Z",
+      "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/104782",
+      "kind": "episode",
+      "sourceProvider": "Thai PBS",
+      "checkedAt": "2026-10-16T00:43:33.000Z",
+      "needsReview": false
+    },
+    {
       "id": "the-loyal-pin:ep:16",
       "seriesId": "the-loyal-pin",
       "episode": 16,
@@ -2308,6 +2330,30 @@
       "sourceUrl": "https://www.tvmaze.com/episodes/2967557/the-loyal-pin-1x16-episode-16",
       "sourceProvider": "tvmaze",
       "checkedAt": "2026-09-04T13:40:30.670Z",
+      "needsReview": false
+    },
+    {
+      "id": "mom-ped-sawan:ep:2",
+      "seriesId": "mom-ped-sawan",
+      "episode": 2,
+      "date": "2024-11-22",
+      "airsAt": "2024-11-22T13:30:00.000Z",
+      "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/104979",
+      "kind": "episode",
+      "sourceProvider": "Thai PBS",
+      "checkedAt": "2026-10-16T00:43:33.000Z",
+      "needsReview": false
+    },
+    {
+      "id": "mom-ped-sawan:ep:3",
+      "seriesId": "mom-ped-sawan",
+      "episode": 3,
+      "date": "2024-11-23",
+      "airsAt": "2024-11-23T13:30:00.000Z",
+      "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/104980",
+      "kind": "episode",
+      "sourceProvider": "Thai PBS",
+      "checkedAt": "2026-10-16T00:43:33.000Z",
       "needsReview": false
     },
     {
@@ -2335,6 +2381,18 @@
       "needsReview": false
     },
     {
+      "id": "mom-ped-sawan:ep:4",
+      "seriesId": "mom-ped-sawan",
+      "episode": 4,
+      "date": "2024-11-24",
+      "airsAt": "2024-11-24T13:30:00.000Z",
+      "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/104981",
+      "kind": "episode",
+      "sourceProvider": "Thai PBS",
+      "checkedAt": "2026-10-16T00:43:33.000Z",
+      "needsReview": false
+    },
+    {
       "id": "mate:ep:1",
       "seriesId": "mate",
       "episode": 1,
@@ -2344,6 +2402,31 @@
       "sourceUrl": "https://www.tvmaze.com/episodes/3041726/mate-1x01-episode-1",
       "sourceProvider": "tvmaze",
       "checkedAt": "2026-09-04T13:40:30.670Z",
+      "needsReview": false
+    },
+    {
+      "id": "mom-ped-sawan:ep:5",
+      "seriesId": "mom-ped-sawan",
+      "episode": 5,
+      "date": "2024-11-29",
+      "airsAt": null,
+      "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105293",
+      "timeNote": "Official episode metadata says 20:14, differing from the programme schedule of 20:30; preserve the confirmed date only.",
+      "kind": "episode",
+      "sourceProvider": "Thai PBS",
+      "checkedAt": "2026-10-16T00:43:33.000Z",
+      "needsReview": false
+    },
+    {
+      "id": "mom-ped-sawan:ep:6",
+      "seriesId": "mom-ped-sawan",
+      "episode": 6,
+      "date": "2024-11-30",
+      "airsAt": "2024-11-30T13:30:00.000Z",
+      "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105294",
+      "kind": "episode",
+      "sourceProvider": "Thai PBS",
+      "checkedAt": "2026-10-16T00:43:33.000Z",
       "needsReview": false
     },
     {
@@ -2371,6 +2454,18 @@
       "needsReview": false
     },
     {
+      "id": "mom-ped-sawan:ep:7",
+      "seriesId": "mom-ped-sawan",
+      "episode": 7,
+      "date": "2024-12-01",
+      "airsAt": "2024-12-01T13:30:00.000Z",
+      "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105295",
+      "kind": "episode",
+      "sourceProvider": "Thai PBS",
+      "checkedAt": "2026-10-16T00:43:33.000Z",
+      "needsReview": false
+    },
+    {
       "id": "mate:ep:2",
       "seriesId": "mate",
       "episode": 2,
@@ -2380,6 +2475,30 @@
       "sourceUrl": "https://www.tvmaze.com/episodes/3069006/mate-1x02-episode-2",
       "sourceProvider": "tvmaze",
       "checkedAt": "2026-09-04T13:40:30.670Z",
+      "needsReview": false
+    },
+    {
+      "id": "mom-ped-sawan:ep:8",
+      "seriesId": "mom-ped-sawan",
+      "episode": 8,
+      "date": "2024-12-06",
+      "airsAt": "2024-12-06T13:30:00.000Z",
+      "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105392",
+      "kind": "episode",
+      "sourceProvider": "Thai PBS",
+      "checkedAt": "2026-10-16T00:43:33.000Z",
+      "needsReview": false
+    },
+    {
+      "id": "mom-ped-sawan:ep:9",
+      "seriesId": "mom-ped-sawan",
+      "episode": 9,
+      "date": "2024-12-07",
+      "airsAt": "2024-12-07T13:30:00.000Z",
+      "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105393",
+      "kind": "episode",
+      "sourceProvider": "Thai PBS",
+      "checkedAt": "2026-10-16T00:43:33.000Z",
       "needsReview": false
     },
     {
@@ -2407,6 +2526,18 @@
       "needsReview": false
     },
     {
+      "id": "mom-ped-sawan:ep:10",
+      "seriesId": "mom-ped-sawan",
+      "episode": 10,
+      "date": "2024-12-08",
+      "airsAt": "2024-12-08T13:30:00.000Z",
+      "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105394",
+      "kind": "episode",
+      "sourceProvider": "Thai PBS",
+      "checkedAt": "2026-10-16T00:43:33.000Z",
+      "needsReview": false
+    },
+    {
       "id": "mate:ep:3",
       "seriesId": "mate",
       "episode": 3,
@@ -2416,6 +2547,30 @@
       "sourceUrl": "https://www.tvmaze.com/episodes/3069007/mate-1x03-episode-3",
       "sourceProvider": "tvmaze",
       "checkedAt": "2026-09-04T13:40:30.670Z",
+      "needsReview": false
+    },
+    {
+      "id": "mom-ped-sawan:ep:11",
+      "seriesId": "mom-ped-sawan",
+      "episode": 11,
+      "date": "2024-12-13",
+      "airsAt": "2024-12-13T13:30:00.000Z",
+      "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105519",
+      "kind": "episode",
+      "sourceProvider": "Thai PBS",
+      "checkedAt": "2026-10-16T00:43:33.000Z",
+      "needsReview": false
+    },
+    {
+      "id": "mom-ped-sawan:ep:12",
+      "seriesId": "mom-ped-sawan",
+      "episode": 12,
+      "date": "2024-12-14",
+      "airsAt": "2024-12-14T13:30:00.000Z",
+      "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105520",
+      "kind": "episode",
+      "sourceProvider": "Thai PBS",
+      "checkedAt": "2026-10-16T00:43:33.000Z",
       "needsReview": false
     },
     {
@@ -2443,6 +2598,18 @@
       "needsReview": false
     },
     {
+      "id": "mom-ped-sawan:ep:13",
+      "seriesId": "mom-ped-sawan",
+      "episode": 13,
+      "date": "2024-12-15",
+      "airsAt": "2024-12-15T13:30:00.000Z",
+      "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105521",
+      "kind": "episode",
+      "sourceProvider": "Thai PBS",
+      "checkedAt": "2026-10-16T00:43:33.000Z",
+      "needsReview": false
+    },
+    {
       "id": "mate:ep:4",
       "seriesId": "mate",
       "episode": 4,
@@ -2452,6 +2619,30 @@
       "sourceUrl": "https://www.tvmaze.com/episodes/3069008/mate-1x04-episode-4",
       "sourceProvider": "tvmaze",
       "checkedAt": "2026-09-04T13:40:30.670Z",
+      "needsReview": false
+    },
+    {
+      "id": "mom-ped-sawan:ep:14",
+      "seriesId": "mom-ped-sawan",
+      "episode": 14,
+      "date": "2024-12-20",
+      "airsAt": "2024-12-20T13:30:00.000Z",
+      "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105666",
+      "kind": "episode",
+      "sourceProvider": "Thai PBS",
+      "checkedAt": "2026-10-16T00:43:33.000Z",
+      "needsReview": false
+    },
+    {
+      "id": "mom-ped-sawan:ep:15",
+      "seriesId": "mom-ped-sawan",
+      "episode": 15,
+      "date": "2024-12-21",
+      "airsAt": "2024-12-21T13:30:00.000Z",
+      "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105667",
+      "kind": "episode",
+      "sourceProvider": "Thai PBS",
+      "checkedAt": "2026-10-16T00:43:33.000Z",
       "needsReview": false
     },
     {
@@ -2479,6 +2670,18 @@
       "needsReview": false
     },
     {
+      "id": "mom-ped-sawan:ep:16",
+      "seriesId": "mom-ped-sawan",
+      "episode": 16,
+      "date": "2024-12-22",
+      "airsAt": "2024-12-22T13:30:00.000Z",
+      "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105668",
+      "kind": "episode",
+      "sourceProvider": "Thai PBS",
+      "checkedAt": "2026-10-16T00:43:33.000Z",
+      "needsReview": false
+    },
+    {
       "id": "mate:ep:5",
       "seriesId": "mate",
       "episode": 5,
@@ -2503,6 +2706,30 @@
       "needsReview": false
     },
     {
+      "id": "mom-ped-sawan:ep:17",
+      "seriesId": "mom-ped-sawan",
+      "episode": 17,
+      "date": "2024-12-27",
+      "airsAt": "2024-12-27T13:30:00.000Z",
+      "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105775",
+      "kind": "episode",
+      "sourceProvider": "Thai PBS",
+      "checkedAt": "2026-10-16T00:43:33.000Z",
+      "needsReview": false
+    },
+    {
+      "id": "mom-ped-sawan:ep:18",
+      "seriesId": "mom-ped-sawan",
+      "episode": 18,
+      "date": "2024-12-28",
+      "airsAt": "2024-12-28T13:30:00.000Z",
+      "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105776",
+      "kind": "episode",
+      "sourceProvider": "Thai PBS",
+      "checkedAt": "2026-10-16T00:43:33.000Z",
+      "needsReview": false
+    },
+    {
       "id": "pluto:ep:11",
       "seriesId": "pluto",
       "episode": 11,
@@ -2515,6 +2742,18 @@
       "needsReview": false
     },
     {
+      "id": "mom-ped-sawan:ep:19",
+      "seriesId": "mom-ped-sawan",
+      "episode": 19,
+      "date": "2024-12-29",
+      "airsAt": "2024-12-29T13:30:00.000Z",
+      "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105777",
+      "kind": "episode",
+      "sourceProvider": "Thai PBS",
+      "checkedAt": "2026-10-16T00:43:33.000Z",
+      "needsReview": false
+    },
+    {
       "id": "i-am-devil:ep:2",
       "seriesId": "i-am-devil",
       "episode": 2,
@@ -2524,6 +2763,30 @@
       "sourceUrl": "https://www.tvmaze.com/episodes/3108069/i-am-devil-1x02-episode-2",
       "sourceProvider": "tvmaze",
       "checkedAt": "2026-09-04T13:40:30.670Z",
+      "needsReview": false
+    },
+    {
+      "id": "mom-ped-sawan:ep:20",
+      "seriesId": "mom-ped-sawan",
+      "episode": 20,
+      "date": "2025-01-03",
+      "airsAt": "2025-01-03T13:30:00.000Z",
+      "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105884",
+      "kind": "episode",
+      "sourceProvider": "Thai PBS",
+      "checkedAt": "2026-10-16T00:43:33.000Z",
+      "needsReview": false
+    },
+    {
+      "id": "mom-ped-sawan:ep:21",
+      "seriesId": "mom-ped-sawan",
+      "episode": 21,
+      "date": "2025-01-04",
+      "airsAt": "2025-01-04T13:30:00.000Z",
+      "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105885",
+      "kind": "episode",
+      "sourceProvider": "Thai PBS",
+      "checkedAt": "2026-10-16T00:43:33.000Z",
       "needsReview": false
     },
     {
@@ -2551,6 +2814,18 @@
       "needsReview": false
     },
     {
+      "id": "mom-ped-sawan:ep:22",
+      "seriesId": "mom-ped-sawan",
+      "episode": 22,
+      "date": "2025-01-05",
+      "airsAt": "2025-01-05T13:30:00.000Z",
+      "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105886",
+      "kind": "episode",
+      "sourceProvider": "Thai PBS",
+      "checkedAt": "2026-10-16T00:43:33.000Z",
+      "needsReview": false
+    },
+    {
       "id": "mate:ep:6",
       "seriesId": "mate",
       "episode": 6,
@@ -2575,6 +2850,30 @@
       "needsReview": false
     },
     {
+      "id": "mom-ped-sawan:ep:23",
+      "seriesId": "mom-ped-sawan",
+      "episode": 23,
+      "date": "2025-01-10",
+      "airsAt": "2025-01-10T13:30:00.000Z",
+      "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105999",
+      "kind": "episode",
+      "sourceProvider": "Thai PBS",
+      "checkedAt": "2026-10-16T00:43:33.000Z",
+      "needsReview": false
+    },
+    {
+      "id": "mom-ped-sawan:ep:24",
+      "seriesId": "mom-ped-sawan",
+      "episode": 24,
+      "date": "2025-01-11",
+      "airsAt": "2025-01-11T13:30:00.000Z",
+      "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/106000",
+      "kind": "episode",
+      "sourceProvider": "Thai PBS",
+      "checkedAt": "2026-10-16T00:43:33.000Z",
+      "needsReview": false
+    },
+    {
       "id": "petrichor:ep:7",
       "seriesId": "petrichor",
       "episode": 7,
@@ -2584,6 +2883,18 @@
       "sourceUrl": "https://www.tvmaze.com/episodes/3041764/petrichor-1x07-when-it-rains-it-pours",
       "sourceProvider": "tvmaze",
       "checkedAt": "2026-09-04T13:40:30.670Z",
+      "needsReview": false
+    },
+    {
+      "id": "mom-ped-sawan:ep:25",
+      "seriesId": "mom-ped-sawan",
+      "episode": 25,
+      "date": "2025-01-12",
+      "airsAt": "2025-01-12T13:30:00.000Z",
+      "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/106001",
+      "kind": "episode",
+      "sourceProvider": "Thai PBS",
+      "checkedAt": "2026-10-16T00:43:33.000Z",
       "needsReview": false
     },
     {
@@ -2611,6 +2922,30 @@
       "needsReview": false
     },
     {
+      "id": "mom-ped-sawan:ep:26",
+      "seriesId": "mom-ped-sawan",
+      "episode": 26,
+      "date": "2025-01-17",
+      "airsAt": "2025-01-17T13:30:00.000Z",
+      "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/106135",
+      "kind": "episode",
+      "sourceProvider": "Thai PBS",
+      "checkedAt": "2026-10-16T00:43:33.000Z",
+      "needsReview": false
+    },
+    {
+      "id": "mom-ped-sawan:ep:27",
+      "seriesId": "mom-ped-sawan",
+      "episode": 27,
+      "date": "2025-01-18",
+      "airsAt": "2025-01-18T13:30:00.000Z",
+      "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/106136",
+      "kind": "episode",
+      "sourceProvider": "Thai PBS",
+      "checkedAt": "2026-10-16T00:43:33.000Z",
+      "needsReview": false
+    },
+    {
       "id": "petrichor:ep:8",
       "seriesId": "petrichor",
       "episode": 8,
@@ -2635,6 +2970,18 @@
       "needsReview": false
     },
     {
+      "id": "mom-ped-sawan:ep:28",
+      "seriesId": "mom-ped-sawan",
+      "episode": 28,
+      "date": "2025-01-19",
+      "airsAt": "2025-01-19T13:30:00.000Z",
+      "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/106137",
+      "kind": "episode",
+      "sourceProvider": "Thai PBS",
+      "checkedAt": "2026-10-16T00:43:33.000Z",
+      "needsReview": false
+    },
+    {
       "id": "mate:ep:8",
       "seriesId": "mate",
       "episode": 8,
@@ -2656,6 +3003,30 @@
       "sourceUrl": "https://www.tvmaze.com/episodes/3108072/i-am-devil-1x05-episode-5",
       "sourceProvider": "tvmaze",
       "checkedAt": "2026-09-04T13:40:30.670Z",
+      "needsReview": false
+    },
+    {
+      "id": "mom-ped-sawan:ep:29",
+      "seriesId": "mom-ped-sawan",
+      "episode": 29,
+      "date": "2025-01-24",
+      "airsAt": "2025-01-24T13:30:00.000Z",
+      "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/106253",
+      "kind": "episode",
+      "sourceProvider": "Thai PBS",
+      "checkedAt": "2026-10-16T00:43:33.000Z",
+      "needsReview": false
+    },
+    {
+      "id": "mom-ped-sawan:ep:30",
+      "seriesId": "mom-ped-sawan",
+      "episode": 30,
+      "date": "2025-01-25",
+      "airsAt": "2025-01-25T13:30:00.000Z",
+      "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/106254",
+      "kind": "episode",
+      "sourceProvider": "Thai PBS",
+      "checkedAt": "2026-10-16T00:43:33.000Z",
       "needsReview": false
     },
     {

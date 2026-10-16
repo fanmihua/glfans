@@ -106,6 +106,7 @@ production_files=(
   package-lock.json
   server/README.md
   server/app.js
+  server/calendar-subscription.js
   server/config.js
   server/errors.js
   server/index.js

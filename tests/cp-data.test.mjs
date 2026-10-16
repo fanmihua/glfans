@@ -26,8 +26,8 @@ test('CP works resolve to real archive entries, portraits exist, and sources are
 
 test('all seven sticker pairs are included and works are not capped at two', () => {
   assert.equal(cpProfiles.filter(cp => cp.image && !cp.portraitFrame).length, 7);
-  assert.equal(cpProfiles.filter(cp => cp.portraitFrame).length, 10);
-  assert.equal(cpProfiles.length, 65);
+  assert.equal(cpProfiles.filter(cp => cp.portraitFrame).length, 18);
+  assert.equal(cpProfiles.length, 71);
   assert.ok(findCp('janekao'));
   assert.ok(findCp('ginjay'));
   assert.ok(findCp('lingorm').works.length > 2);
@@ -75,7 +75,7 @@ test('expanded pairings resolve both actors in every linked work without guessin
 });
 
 test('CP labels have references and use real shorthand without changing route IDs', () => {
-  const cases = {engfacharlotte:'EngLot',lookmheesonya:'LMSY',mablepangjie:'BleJie',aoommeena:'MeenBabe',atommer:'AtomMer',ormsinfolk:'OrmFolk',tknur:'TKNur',prigkhingthongfah:'PrigkhingFah',mimiegarn:'GarnMie',icemarissa:'IzeZa'};
+  const cases = {engfacharlotte:'EngLot',lookmheesonya:'LMSY',mablepangjie:'BleJie',aoommeena:'MeenBabe',atommer:'AtomMer',ormsinfolk:'OrmFolk',tknur:'TKNur',prigkhingthongfah:'PrigkhingFah',mimiegarn:'GarnMie',icemarissa:'IzeMarissa'};
   for (const [id,label] of Object.entries(cases)) assert.equal(cpLabel(findCp(id)),label);
   for (const cp of cpProfiles) assert.equal(new URL(cpNameRecords[cp.id].source).protocol,'https:');
 });

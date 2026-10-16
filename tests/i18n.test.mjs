@@ -76,7 +76,8 @@ test('Public article prose is covered without changing original XML or media', (
 
 test('Community uses display translations while music and article quotations keep originals', () => {
   assert.match(read('../src/WordsTideLab.jsx'), /const displayText = communityText\(item.text\)/);
-  assert.match(read('../src/TideCommunity.jsx'), /<p>\{communityText\(comment.body\)\}<\/p>/);
+  assert.match(read('../src/TideCommunity.jsx'), /const fullText = communityText\(comment.body\)/);
+  assert.match(read('../src/TideCommunity.jsx'), /const preview = previewCommunityText\(fullText\)/);
   assert.match(read('../src/features/community/MobileTideSheet.jsx'), /<blockquote>\{communityText\(quote.text\)\}/);
   assert.match(read('../src/PitRadioPage.jsx'), /selectedTrack \? selectedTrack\.trackTitle : t\(/);
   assert.match(read('../src/features/column/ArticleDocument.jsx'), /closest\('blockquote, quote'\)/);

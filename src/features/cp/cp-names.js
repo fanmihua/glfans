@@ -20,6 +20,12 @@ const catalogueNames = {
 
 export const cpNameRecords = Object.fromEntries(Object.entries(catalogueNames).map(([id, label]) => [id, { label, source: directorySource }]));
 Object.assign(cpNameRecords, {
+  mewrenee: { label: 'MewRenee', aliases: ['MewRenée', 'ReneeMew'], source: 'https://glthai.com/couple/' },
+  viewjune: { label: 'ViewJune', source: 'https://glthai.com/couple/' },
+  junemewnich: { label: 'JuneMewnich', source: 'https://www.gmm-tv.com/news/3811/' },
+  noonpraewa: { label: 'NoonPraewa', source: 'https://glthai.com/couple/' },
+  shumook: { label: 'ShuMook', aliases: ['MookShu'], source: 'https://glthai.com/couple/' },
+  tubtimfilm: { label: 'TubtimFilm', source: 'https://glthai.com/couple/' },
   friendpalm: { label: 'FriendPalm', source: 'https://www.youtube.com/watch?v=FoVP2y29_Tk' },
   tanzanook: { label: 'TanZanook', source: 'https://www.youtube.com/watch?v=AWnUGoONk_o' },
   ferinpuifai: { label: 'Ferin · Puifai', source: 'https://www.youtube.com/watch?v=WR-HPcdHxlQ' },
@@ -32,7 +38,7 @@ Object.assign(cpNameRecords, {
   nattpitcha: { label: 'NattPitcha', aliases: ['NattPitchat'], source: 'https://yurithai.jp/cast' },
   yoshidiana: { label: 'DianaYoshi', source: 'https://www.herinfocus.com/coming-soon' },
   tinanana: { label: 'TinaNana', source: 'https://tellasgllist.neocities.org/T' },
-  icemarissa: { label: 'IzeZa', aliases: ['IzeMarissa'], source: 'https://www.sotwe.com/gigimsl_?lang=en' },
+  icemarissa: { label: 'IzeMarissa', aliases: ['IzeZa', 'IceMarissa'], source: directorySource },
 });
 
 // Pair labels must have their own evidence; cast order does not define a ship name.

@@ -1,0 +1,82 @@
+[
+  {
+    "id": "mewrenee",
+    "file": "public/assets/cp/portraits/mewrenee-photo-v1.webp",
+    "sourceFile": "output/cp-research-20261016/MewRenee-original.webp",
+    "bytes": 54384,
+    "width": 1200,
+    "height": 800,
+    "sha256": "db8d0af6513307eea9f3f0a10adb2af1c10da47e458517c0278accef2d2ad305",
+    "source": "https://glthai.com/wp-content/uploads/cp-MewRenee.webp"
+  },
+  {
+    "id": "viewjune",
+    "file": "public/assets/cp/portraits/viewjune-photo-v1.webp",
+    "sourceFile": "output/cp-research-20261016/ViewJune-original.jpg",
+    "bytes": 40264,
+    "width": 516,
+    "height": 516,
+    "sha256": "a1ee3d94a164722799b2e1b506c36d9d0f95d7d0c49b229d587a359d00a8589a",
+    "source": "https://glthai.com/wp-content/uploads/cp-ViewJune.jpg"
+  },
+  {
+    "id": "icemarissa",
+    "file": "public/assets/cp/portraits/icemarissa-photo-v1.webp",
+    "sourceFile": "output/cp-research-20261016/IzeMarissa-original.webp",
+    "bytes": 28556,
+    "width": 1200,
+    "height": 800,
+    "sha256": "cb1afe2ef3625f1b0190dcd9c5cba6d3672026530afe70590a128900110f2b68",
+    "source": "https://glthai.com/wp-content/uploads/cp-IzeMarissa.webp"
+  },
+  {
+    "id": "junemewnich",
+    "file": "public/assets/cp/portraits/junemewnich-photo-v1.webp",
+    "sourceFile": "output/cp-research-20261016/JuneMewnich-original.webp",
+    "bytes": 43450,
+    "width": 1200,
+    "height": 800,
+    "sha256": "3514e4ced1bcc7000275cd8fc40c4239afc92e23e85c39fa08034948f0304d80",
+    "source": "https://glthai.com/wp-content/uploads/cp-JuneMewnich-2.webp"
+  },
+  {
+    "id": "noonpraewa",
+    "file": "public/assets/cp/portraits/noonpraewa-photo-v1.webp",
+    "sourceFile": "output/cp-research-20261016/NoonPraewa-original.jpg",
+    "bytes": 137576,
+    "width": 900,
+    "height": 900,
+    "sha256": "4d55c0c26d2bfdc082068cded63eea8a8b59c4b25e935e00d837f720b295f905",
+    "source": "https://glthai.com/wp-content/uploads/cp-NoonPraewa.jpg"
+  },
+  {
+    "id": "shumook",
+    "file": "public/assets/cp/portraits/shumook-photo-v1.webp",
+    "sourceFile": "output/cp-research-20261016/ShuMook-original.webp",
+    "bytes": 46860,
+    "width": 1080,
+    "height": 720,
+    "sha256": "b2bef709462101af639b20624f28f5df3d001fe8e70a87aa561d44c2dfac5cc5",
+    "source": "https://glthai.com/wp-content/uploads/cp-ShuMook-1080-720.webp"
+  },
+  {
+    "id": "andalookkaew",
+    "file": "public/assets/cp/portraits/andalookkaew-photo-v1.webp",
+    "sourceFile": "output/cp-research-20261016/AndaLookkaew-original.webp",
+    "bytes": 83184,
+    "width": 1080,
+    "height": 720,
+    "sha256": "d006bf100ae913e5279379c633a5a38d45c2cd1ed76ba3cc16ba89cf1e06588c",
+    "source": "https://glthai.com/wp-content/uploads/cp-AndaLookkaew-1080-720.webp"
+  },
+  {
+    "id": "tubtimfilm",
+    "file": "public/assets/cp/portraits/tubtimfilm-photo-v1.webp",
+    "sourceFile": "output/cp-research-20261016/TubtimFilm-original.webp",
+    "bytes": 47972,
+    "width": 810,
+    "height": 540,
+    "sha256": "14d6b28a6a860613663c9cbb8400c885e25566534f5874922eb0ca303accc561",
+    "source": "https://glthai.com/wp-content/uploads/cp-TubtimFilm-810-540.webp"
+  }
+]

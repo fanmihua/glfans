@@ -1,0 +1,193 @@
+[
+  {
+    "seriesId": "mom-ped-sawan",
+    "sourceProvider": "Thai PBS",
+    "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan",
+    "checkedAt": "2026-10-16T00:43:33.000Z",
+    "network": "Thai PBS",
+    "sourceTimeZone": "Asia/Bangkok",
+    "episodes": [
+      {
+        "episode": 1,
+        "date": "2024-11-17",
+        "airsAt": "2024-11-17T13:30:00.000Z",
+        "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/104782"
+      },
+      {
+        "episode": 2,
+        "date": "2024-11-22",
+        "airsAt": "2024-11-22T13:30:00.000Z",
+        "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/104979"
+      },
+      {
+        "episode": 3,
+        "date": "2024-11-23",
+        "airsAt": "2024-11-23T13:30:00.000Z",
+        "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/104980"
+      },
+      {
+        "episode": 4,
+        "date": "2024-11-24",
+        "airsAt": "2024-11-24T13:30:00.000Z",
+        "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/104981"
+      },
+      {
+        "episode": 5,
+        "date": "2024-11-29",
+        "airsAt": null,
+        "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105293",
+        "timeNote": "Official episode metadata says 20:14, differing from the programme schedule of 20:30; preserve the confirmed date only."
+      },
+      {
+        "episode": 6,
+        "date": "2024-11-30",
+        "airsAt": "2024-11-30T13:30:00.000Z",
+        "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105294"
+      },
+      {
+        "episode": 7,
+        "date": "2024-12-01",
+        "airsAt": "2024-12-01T13:30:00.000Z",
+        "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105295"
+      },
+      {
+        "episode": 8,
+        "date": "2024-12-06",
+        "airsAt": "2024-12-06T13:30:00.000Z",
+        "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105392"
+      },
+      {
+        "episode": 9,
+        "date": "2024-12-07",
+        "airsAt": "2024-12-07T13:30:00.000Z",
+        "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105393"
+      },
+      {
+        "episode": 10,
+        "date": "2024-12-08",
+        "airsAt": "2024-12-08T13:30:00.000Z",
+        "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105394"
+      },
+      {
+        "episode": 11,
+        "date": "2024-12-13",
+        "airsAt": "2024-12-13T13:30:00.000Z",
+        "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105519"
+      },
+      {
+        "episode": 12,
+        "date": "2024-12-14",
+        "airsAt": "2024-12-14T13:30:00.000Z",
+        "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105520"
+      },
+      {
+        "episode": 13,
+        "date": "2024-12-15",
+        "airsAt": "2024-12-15T13:30:00.000Z",
+        "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105521"
+      },
+      {
+        "episode": 14,
+        "date": "2024-12-20",
+        "airsAt": "2024-12-20T13:30:00.000Z",
+        "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105666"
+      },
+      {
+        "episode": 15,
+        "date": "2024-12-21",
+        "airsAt": "2024-12-21T13:30:00.000Z",
+        "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105667"
+      },
+      {
+        "episode": 16,
+        "date": "2024-12-22",
+        "airsAt": "2024-12-22T13:30:00.000Z",
+        "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105668"
+      },
+      {
+        "episode": 17,
+        "date": "2024-12-27",
+        "airsAt": "2024-12-27T13:30:00.000Z",
+        "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105775"
+      },
+      {
+        "episode": 18,
+        "date": "2024-12-28",
+        "airsAt": "2024-12-28T13:30:00.000Z",
+        "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105776"
+      },
+      {
+        "episode": 19,
+        "date": "2024-12-29",
+        "airsAt": "2024-12-29T13:30:00.000Z",
+        "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105777"
+      },
+      {
+        "episode": 20,
+        "date": "2025-01-03",
+        "airsAt": "2025-01-03T13:30:00.000Z",
+        "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105884"
+      },
+      {
+        "episode": 21,
+        "date": "2025-01-04",
+        "airsAt": "2025-01-04T13:30:00.000Z",
+        "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105885"
+      },
+      {
+        "episode": 22,
+        "date": "2025-01-05",
+        "airsAt": "2025-01-05T13:30:00.000Z",
+        "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105886"
+      },
+      {
+        "episode": 23,
+        "date": "2025-01-10",
+        "airsAt": "2025-01-10T13:30:00.000Z",
+        "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/105999"
+      },
+      {
+        "episode": 24,
+        "date": "2025-01-11",
+        "airsAt": "2025-01-11T13:30:00.000Z",
+        "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/106000"
+      },
+      {
+        "episode": 25,
+        "date": "2025-01-12",
+        "airsAt": "2025-01-12T13:30:00.000Z",
+        "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/106001"
+      },
+      {
+        "episode": 26,
+        "date": "2025-01-17",
+        "airsAt": "2025-01-17T13:30:00.000Z",
+        "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/106135"
+      },
+      {
+        "episode": 27,
+        "date": "2025-01-18",
+        "airsAt": "2025-01-18T13:30:00.000Z",
+        "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/106136"
+      },
+      {
+        "episode": 28,
+        "date": "2025-01-19",
+        "airsAt": "2025-01-19T13:30:00.000Z",
+        "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/106137"
+      },
+      {
+        "episode": 29,
+        "date": "2025-01-24",
+        "airsAt": "2025-01-24T13:30:00.000Z",
+        "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/106253"
+      },
+      {
+        "episode": 30,
+        "date": "2025-01-25",
+        "airsAt": "2025-01-25T13:30:00.000Z",
+        "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan/episodes/106254"
+      }
+    ]
+  }
+]

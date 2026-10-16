@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { X, ArrowUpRight, CaretLeft, CaretRight, CaretDown, CalendarBlank } from '@phosphor-icons/react';
+import { X, ArrowUpRight, CaretLeft, CaretRight, CaretDown, CalendarBlank, DownloadSimple, CalendarPlus } from '@phosphor-icons/react';
 import { getLocale, getDateLocale, t, requireCatalog } from './i18n/runtime.js';
 import { CpRelatedLinks } from './features/cp/CpRelatedLinks.jsx';
 import { cpCopy } from './features/cp/cp-copy.js';
@@ -14,6 +14,8 @@ import history from './data/archive-history.json';
 import { mergeCalendarData } from './features/archive/calendar-data.js';
 import { CalendarPeriodPicker } from './features/archive/CalendarPeriodPicker.jsx';
 import { calendarCopy } from './features/archive/calendar-copy.js';
+import { calendarExportEvents, createCalendarExport } from './features/archive/calendar-export.js';
+import { CalendarSubscription } from './features/archive/CalendarSubscription.jsx';
 import { CalendarFollowControls, CalendarFollowManager } from './features/archive/CalendarFollowing.jsx';
 import { useCalendarFollowing } from './features/archive/useCalendarFollowing.js';
 import { CalendarWeek } from './features/archive/CalendarWeek.jsx';
@@ -23,11 +25,12 @@ import './archive-calendar.css';
 const schedule = mergeCalendarData(history, currentSchedule);
 const archiveById = new Map(archiveDramas.map((item) => [item.id, item]));
 const confirmedSeriesIds = new Set(schedule.events.filter((event) => !event.needsReview).map((event) => event.seriesId));
-const followableSeries = schedule.series.filter((series) => confirmedSeriesIds.has(series.id)).map((series) => {
+const calendarSeries = schedule.series.map((series) => {
   const archive = archiveById.get(series.id);
   return { ...series, year: archive?.year || series.premiereDate?.slice(0, 4),
     searchText: [archive?.title, archive?.titleEn, ...(archive?.aliases || []), ...(archive?.cast || []).map((person) => typeof person === 'string' ? person : Object.values(person).join(' '))].join(' ') };
 });
+const followableSeries = calendarSeries.filter(series => confirmedSeriesIds.has(series.id));
 const sourcesById = new Map(schedule.series.map((item) => [item.id, item]));
 
 export function ArchiveCalendar({ onClose, returnFocus, initialSeriesIds, scopeLabel }) {
@@ -42,11 +45,17 @@ export function ArchiveCalendar({ onClose, returnFocus, initialSeriesIds, scopeL
   const onlyFollowing = !scopeIds && !showAllOverride && following.onlyFollowing;
   const [managingFollowing, setManagingFollowing] = useState(false);
   const [choosingPeriod, setChoosingPeriod] = useState(false);
+  const [subscribing, setSubscribing] = useState(false);
+  const subscriptionButtonRef = useRef(null);
   const [pickerYear, setPickerYear] = useState(new Date().getFullYear());
   const periodRef = useRef(null);
   useLayoutEffect(() => {
-    if (managingFollowing || choosingPeriod) dialogRef.current?.querySelector('.calendar-scroll')?.scrollTo({ top: 0, behavior: 'instant' });
-  }, [managingFollowing, choosingPeriod]);
+    if (managingFollowing || choosingPeriod || subscribing) dialogRef.current?.querySelector('.calendar-scroll')?.scrollTo({ top: 0, behavior: 'instant' });
+  }, [managingFollowing, choosingPeriod, subscribing]);
+  const closeSubscription = () => {
+    setSubscribing(false);
+    requestAnimationFrame(() => subscriptionButtonRef.current?.focus({ preventScroll: true }));
+  };
   const followedIds = useMemo(() => new Set(following.seriesIds), [following.seriesIds]);
   const noFollowedSeries = !followableSeries.some(({ id }) => followedIds.has(id));
   useLayoutEffect(() => {
@@ -86,6 +95,8 @@ export function ArchiveCalendar({ onClose, returnFocus, initialSeriesIds, scopeL
     return result;
   }, [zone, onlyFollowing, followedIds, scopeIds]);
   const monthAvailability = useMemo(() => calendarMonthAvailability(eventsByDate), [eventsByDate]);
+  const exportMonth = selected.slice(0, 7);
+  const exportEvents = useMemo(() => calendarExportEvents(eventsByDate, exportMonth), [eventsByDate, exportMonth]);
   const calendarYears = [...new Set([...archiveDramas.map((item) => Number(item.year)), Number(today.slice(0, 4)), Number(selected.slice(0, 4)),
     ...schedule.events.map((event) => Number(event.date.slice(0, 4)))])].sort((a, b) => a - b);
   const dates = monthDates(selected);
@@ -99,13 +110,37 @@ export function ArchiveCalendar({ onClose, returnFocus, initialSeriesIds, scopeL
     return locale === 'zh' ? `第 ${event.episode} 集` : locale === 'th' ? `ตอนที่ ${event.episode}` : `EP. ${String(event.episode).padStart(2, '0')}`;
   };
   const timeFor = (event) => event.airsAt ? new Intl.DateTimeFormat(getDateLocale(), { timeZone: zone, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date(event.airsAt)) : eventStatus(event, now) === 'aired' ? copy.timeUnrecorded : copy.timeUnknown;
+  const exportScope = scopeIds ? scopeLabel : onlyFollowing ? copy.followingOnly : copy.allSeries;
+  const exportLabel = `${copy.exportMonth} · ${format(selected, { year: 'numeric', month: 'long' })} · ${exportScope} · ${exportEvents.length} ${copy.count}`;
+  const downloadCalendar = () => {
+    if (!exportEvents.length) return;
+    const contents = createCalendarExport(exportEvents, {
+      titleFor, episodeFor, calendarName: `glfans · ${copy.title} · ${exportScope} · ${exportMonth}`,
+      descriptionFor: (event) => {
+        const series = sourcesById.get(event.seriesId);
+        return [copy.notice, !event.airsAt && timeFor(event),
+          (event.network || series?.network) && `${copy.network}: ${event.network || series.network}`,
+          series?.platforms?.length && `${copy.availability}: ${series.platforms.join(' / ')}`,
+          event.sourceUrl && `${copy.source}: ${event.sourceUrl}`].filter(Boolean).join('\n');
+      },
+    });
+    const url = URL.createObjectURL(new Blob([contents], { type: 'text/calendar;charset=utf-8' }));
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `glfans-${exportMonth}-${locale}.ics`;
+    dialogRef.current.appendChild(link);
+    link.click();
+    link.remove();
+    // Keep the object alive long enough for Safari to begin the download.
+    window.setTimeout(() => URL.revokeObjectURL(url), 60000);
+  };
   const navigateMonth = (direction) => {
     const date = new Date(`${selected.slice(0, 7)}-01T12:00:00Z`);
     date.setUTCMonth(date.getUTCMonth() + direction);
     setSelected(date.toISOString().slice(0, 10));
     setChoosingPeriod(false);
   };
-  const provenance = <><p>{copy.notice}</p><p><a href="https://glspotlight.com/airing" target="_blank" rel="noreferrer">{copy.sourceName}</a><a href="https://www.tvmaze.com" target="_blank" rel="noreferrer">TVmaze</a><span>{copy.checked}：{new Intl.DateTimeFormat(getDateLocale(), { timeZone: zone, dateStyle: 'medium', timeStyle: 'short' }).format(new Date(schedule.checkedAt))}</span><span>{copy.historyChecked}：{format(schedule.historyCheckedAt.slice(0, 10), { year: 'numeric', month: 'short', day: 'numeric' })}</span></p>{now - Date.parse(schedule.checkedAt) > 8 * 86400000 && <strong>{copy.stale}</strong>}</>;
+  const provenance = <><p>{copy.notice}</p><p>{copy.exportNote}</p><p><a href="https://glspotlight.com/airing" target="_blank" rel="noreferrer">{copy.sourceName}</a><a href="https://www.tvmaze.com" target="_blank" rel="noreferrer">TVmaze</a><span>{copy.checked}：{new Intl.DateTimeFormat(getDateLocale(), { timeZone: zone, dateStyle: 'medium', timeStyle: 'short' }).format(new Date(schedule.checkedAt))}</span><span>{copy.historyChecked}：{format(schedule.historyCheckedAt.slice(0, 10), { year: 'numeric', month: 'short', day: 'numeric' })}</span></p>{now - Date.parse(schedule.checkedAt) > 8 * 86400000 && <strong>{copy.stale}</strong>}</>;
   const mobileDetails = (event) => {
     const series = sourcesById.get(event.seriesId), archive = archiveById.get(event.seriesId);
     return <>
@@ -140,17 +175,25 @@ export function ArchiveCalendar({ onClose, returnFocus, initialSeriesIds, scopeL
     }}
     weekRange={mobile && !managingFollowing && !choosingPeriod ? `${format(firstDay, { month: 'short', day: 'numeric' })} — ${format(moveDate(firstDay, 6), { month: 'short', day: 'numeric' })}` : null} />;
   return createPortal(<dialog className="calendar-dialog" ref={dialogRef} aria-labelledby="calendar-dialog-title"
-    onCancel={(event) => { event.preventDefault(); onClose(); }} onClick={(event) => { if (event.target === event.currentTarget) onClose(); }}>
+    onCancel={(event) => { event.preventDefault(); if (subscribing) closeSubscription(); else onClose(); }} onClick={(event) => { if (event.target === event.currentTarget) onClose(); }}>
     <div className="calendar-panel">
-      <header className="calendar-dialog-header"><h2 id="calendar-dialog-title" tabIndex={-1} autoFocus>{copy.title}</h2><button className="calendar-close" aria-label={copy.close} onClick={onClose}><X size={20} /></button></header>
-      {mobile && <div className="calendar-content calendar-mobile-navigation">
+      <header className="calendar-dialog-header"><h2 id="calendar-dialog-title" tabIndex={-1} autoFocus>{copy.title}</h2><div className="calendar-header-actions">
+        <button className="calendar-subscribe-trigger" ref={subscriptionButtonRef} type="button" aria-expanded={subscribing} aria-controls="calendar-subscription" onClick={() => {
+          if (subscribing) closeSubscription(); else { setSubscribing(true); setManagingFollowing(false); setChoosingPeriod(false); }
+        }}><CalendarPlus size={18} aria-hidden="true" /><span>{copy.subscribe}</span></button>
+        {!subscribing && <button className="calendar-export" type="button" disabled={!exportEvents.length} aria-label={exportLabel} title={`${exportLabel}\n${copy.exportNote}`} onClick={downloadCalendar}>
+          <DownloadSimple size={18} aria-hidden="true" /><span>{mobile ? copy.exportShort : copy.exportMonth}<small>{exportMonth} · {exportEvents.length}</small></span>
+        </button>}<button className="calendar-close" aria-label={copy.close} onClick={onClose}><X size={20} /></button></div></header>
+      {mobile && !subscribing && <div className="calendar-content calendar-mobile-navigation">
         {toolbar}
         {followControls}
       </div>}
       <div className="calendar-scroll">
     <div className="calendar-content">
-      {!mobile && <>{toolbar}{followControls}</>}
-      {choosingPeriod ? <CalendarPeriodPicker selected={selected} year={pickerYear} years={calendarYears} onYearChange={setPickerYear} copy={copy} format={format} availability={monthAvailability}
+      {!mobile && !subscribing && <>{toolbar}{followControls}</>}
+      {subscribing ? <CalendarSubscription copy={copy} locale={locale} series={calendarSeries} scopeIds={scopeIds ? [...scopeIds] : null} followedIds={following.seriesIds}
+        titleFor={titleFor} imageFor={(id) => archiveById.get(id)?.image} onBack={closeSubscription} />
+        : choosingPeriod ? <CalendarPeriodPicker selected={selected} year={pickerYear} years={calendarYears} onYearChange={setPickerYear} copy={copy} format={format} availability={monthAvailability}
         onSelect={(date) => { setSelected(date); setChoosingPeriod(false); requestAnimationFrame(() => periodRef.current?.focus({ preventScroll: true })); }} />
         : managingFollowing ? <CalendarFollowManager copy={copy} series={followableSeries} seriesIds={following.seriesIds} toggleSeries={following.toggleSeries}
         titleFor={titleFor} imageFor={(id) => archiveById.get(id)?.image} saveFailed={following.saveFailed} />
@@ -197,7 +240,7 @@ export function ArchiveCalendar({ onClose, returnFocus, initialSeriesIds, scopeL
           }) : <div className="calendar-empty"><CalendarBlank size={36} weight="light" /><h3>{onlyFollowing ? copy.noFollowingEntries : covered ? copy.empty : copy.emptyOutside}</h3><p>{onlyFollowing ? copy.followingEmptyNote : copy.emptyNote}</p></div>}
         </section>}
       </div>}
-      {!managingFollowing && !choosingPeriod && (mobile ? <details className="calendar-provenance calendar-provenance-disclosure"><summary>{copy.notes}</summary>{provenance}</details> : <aside className="calendar-provenance">{provenance}</aside>)}
+      {!subscribing && !managingFollowing && !choosingPeriod && (mobile ? <details className="calendar-provenance calendar-provenance-disclosure"><summary>{copy.notes}</summary>{provenance}</details> : <aside className="calendar-provenance">{provenance}</aside>)}
     </div>
       </div>
     </div>

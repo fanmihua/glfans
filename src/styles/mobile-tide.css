@@ -127,18 +127,20 @@
   .words-tide-lab .is-pinned .words-repo-quote-copy footer { margin-top: 8px; padding-right: 96px; }
   .words-tide-lab .words-repo-pinned-label { top: 7px; right: 7px; height: 20px; padding: 0 5px; color: #666; background: transparent; font-size: 9px; }
   .words-tide-lab .words-repo-drag-handle { display: none; }
-  .words-tide-lab .words-repo-card-open { height: auto; bottom: 0; }
+  .words-tide-lab .words-repo-card-open { position: absolute; top: 0; left: 0; right: 0; height: auto; bottom: 0; }
   .words-tide-lab .words-repo-card-actions {
     position: relative;
     top: auto;
     right: auto;
     height: 48px;
+    margin: 0;
     padding: 0 6px 4px;
     border: 0;
     justify-content: flex-end;
     gap: 2px;
   }
   .words-tide-lab .words-repo-card-actions button { min-width: 44px; height: 44px; }
+  .words-tide-lab .words-repo-card-actions .words-quote-expand { margin-right: auto; color: #b01262; }
   /* Share the empty space to the right of the byline, not the text itself. */
   .words-tide-lab .is-pinned .words-repo-card-actions {
     height: 44px;

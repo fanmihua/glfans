@@ -1,4 +1,5 @@
 import { AppError } from "./errors.js";
+import { DEFAULT_CALENDAR_SUBSCRIPTION_PATH } from "./calendar-subscription.js";
 
 function positiveInteger(value, fallback, name) {
   const parsed = value == null || value === "" ? fallback : Number(value);
@@ -53,5 +54,6 @@ export function loadConfig(env = process.env) {
     visitorSessionSeconds: positiveInteger(env.GLFANS_VISITOR_SESSION_SECONDS, 365 * 24 * 60 * 60, "GLFANS_VISITOR_SESSION_SECONDS"),
     adminSessionSeconds: positiveInteger(env.GLFANS_ADMIN_SESSION_SECONDS, 12 * 60 * 60, "GLFANS_ADMIN_SESSION_SECONDS"),
     jsonLimit: "16kb",
+    calendarSubscriptionPath: String(env.GLFANS_CALENDAR_DATA_PATH || DEFAULT_CALENDAR_SUBSCRIPTION_PATH),
   };
 }

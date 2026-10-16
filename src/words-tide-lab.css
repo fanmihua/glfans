@@ -1081,14 +1081,15 @@
   position: relative;
   z-index: 1;
   display: grid;
-  height: var(--card-base-height);
+  height: auto;
+  min-height: var(--card-base-height);
   min-width: 0;
   border: 1px solid rgba(9, 9, 9, .58);
   color: #090909;
   background: var(--tide-paper);
   cursor: pointer;
   grid-template-columns: minmax(0, 1fr) 40%;
-  grid-template-rows: var(--card-base-height);
+  grid-template-rows: minmax(var(--card-base-height), auto);
   isolation: isolate;
   touch-action: auto;
   transform: translate(var(--drag-x), calc(var(--card-y) + var(--drag-y))) rotate(var(--card-tilt));
@@ -1100,7 +1101,7 @@
   z-index: 3;
   height: auto;
   grid-column: auto;
-  grid-template-rows: var(--card-base-height) auto;
+  grid-template-rows: minmax(var(--card-base-height), auto) auto;
 }
 
 .words-repo-quote-card::before {
@@ -1152,7 +1153,7 @@
   border-bottom: 1px solid rgba(9, 9, 9, .58);
   background: var(--tide-paper);
   flex-direction: column;
-  grid-row: 1;
+  grid-area: 1 / 1;
 }
 
 .words-repo-quote-copy > svg {
@@ -1174,6 +1175,7 @@
   letter-spacing: -.035em;
   line-height: 1.32;
   text-wrap: balance;
+  overflow-wrap: anywhere;
   transition: color 220ms ease, transform 260ms cubic-bezier(.2, .75, .18, 1);
 }
 .words-repo-quote-card.no-cover blockquote {
@@ -1183,6 +1185,27 @@
 .words-repo-quote-card.short-copy blockquote { font-size: clamp(22px, 1.7vw, 29px); }
 .words-repo-quote-card.medium-copy blockquote { font-size: clamp(19px, 1.5vw, 25px); }
 .words-repo-quote-card.long-copy blockquote { font-size: clamp(17px, 1.25vw, 22px); line-height: 1.38; }
+
+.words-repo-full-text {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% - 1px);
+  left: -1px;
+  right: -1px;
+  display: none;
+  padding: 16px 18px;
+  border: 1px solid #090909;
+  border-top: 3px solid var(--tide-pink);
+  background: var(--tide-paper);
+  color: #090909;
+  box-shadow: 5px 5px 0 rgba(9, 9, 9, .1);
+  font-size: 15px;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+  user-select: text;
+  cursor: text;
+}
+.words-repo-quote-card:is(:hover, :focus-within) > .words-repo-full-text { display: block; }
 
 .words-repo-quote-copy footer {
   position: absolute;
@@ -1338,14 +1361,14 @@
   .words-board-sorts { width: 100%; overflow-x: auto; padding-bottom: 2px; }
   .words-board-sorts button { flex: 0 0 auto; }
   .words-snap-canvas { --card-column-gap: 16px; padding: 20px 22px 56px; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--card-column-gap) 14px; }
-  .words-repo-quote-card { --card-base-height: 160px; height: var(--card-base-height); grid-template-columns: 1fr; }
+  .words-repo-quote-card { --card-base-height: 160px; height: auto; grid-template-columns: 1fr; }
   .words-repo-quote-card.is-expanded { height: auto; grid-column: auto; }
   .words-repo-drag-handle { opacity: .78; transform: translateY(0) rotate(90deg); }
 }
 
 @media (max-width: 520px) {
   .words-snap-canvas { grid-template-columns: 1fr; }
-  .words-repo-quote-card { --card-base-height: 140px; --card-comments-max-height: 260px; height: var(--card-base-height); }
+  .words-repo-quote-card { --card-base-height: 140px; --card-comments-max-height: 260px; height: auto; }
   .words-repo-quote-card.is-expanded { height: auto; }
 }
 

@@ -112,12 +112,12 @@
 .community-reaction.is-compact svg { width: 16px; height: 16px; }
 
 .words-repo-card-open {
-  position: absolute;
+  position: relative;
   z-index: 4;
-  top: 0;
-  right: 0;
-  left: 0;
-  height: var(--card-base-height);
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
   padding: 0;
   border: 0;
   background: transparent;
@@ -127,10 +127,12 @@
 .words-repo-card-open:focus-visible { outline: 3px solid var(--tide-pink); outline-offset: 5px; }
 
 .words-repo-card-actions {
-  position: absolute;
+  position: relative;
   z-index: 6;
-  right: 18px;
-  top: calc(var(--card-base-height) - 33px);
+  grid-area: 1 / 1;
+  align-self: end;
+  justify-self: end;
+  margin: 0 18px 9px;
   display: flex;
   height: 24px;
   align-items: center;
@@ -241,6 +243,23 @@
   overflow-wrap: anywhere;
 }
 
+.community-comment-body .community-text-full { display: none; }
+.community-comment-body.is-expanded .community-text-preview { display: none; }
+.community-comment-body.is-expanded .community-text-full { display: inline; }
+.community-comment-body:focus-visible { outline: 2px solid var(--tide-pink); outline-offset: 3px; }
+@media (hover: hover) and (min-width: 761px) {
+  .community-comment-body.is-long:is(:hover, :focus) .community-text-preview { display: none; }
+  .community-comment-body.is-long:is(:hover, :focus) .community-text-full { display: inline; }
+}
+.community-comment-actions { display: flex; align-items: center; justify-content: flex-end; gap: 12px; margin-top: 6px; }
+.community-text-expand { min-height: 44px; padding: 0 5px; border: 0; background: transparent; color: #b01262; cursor: pointer; font: inherit; font-size: 12px; font-weight: var(--text-weight-strong); }
+.community-text-expand:focus-visible { outline: 2px solid var(--tide-pink); outline-offset: 2px; }
+.community-comment-actions .community-text-expand { margin-right: auto; }
+.community-comment-actions .community-reaction { height: 44px; min-width: 44px; padding: 0 8px; border: 0; background: transparent; color: #666; }
+.community-comment-actions .community-reaction.is-liked { color: #b01262; }
+.community-comment-actions .community-reaction:hover:not(:disabled) { transform: none; background: rgba(255, 96, 171, .08); }
+.community-comment-list .community-comment-error { color: #a62551; font-size: 11px; }
+
 .community-comments-state {
   display: flex;
   min-height: 92px;
@@ -284,6 +303,8 @@
   font-weight: var(--text-weight-strong);
   letter-spacing: .12em;
 }
+.community-comment-form .community-comment-input-label { display: flex; justify-content: space-between; gap: 12px; }
+.community-character-count { color: #666; font-size: 11px; font-weight: normal; font-variant-numeric: tabular-nums; letter-spacing: 0; }
 
 .community-comment-form input,
 .community-comment-form textarea {

@@ -6,12 +6,13 @@ import {
   loadPublishedCommunityQuotes,
   loadPublishedComments,
   recordCommunityView,
+  setCommunityCommentReaction,
   submitCommunityComment,
   submitCommunityQuote,
   toggleCommunityReaction,
 } from "../../community-api.js";
 import { collectedQuotes, getTideTargetKey, tideWordsPageTarget } from "../../data/tide-words.js";
-import { emptyStats, unknownStats, saveNickname, formatCommunityError, getQuoteCommentsMode, mergeTargetStats } from "./community-state.js";
+import { emptyStats, unknownStats, saveNickname, formatCommunityError, getQuoteCommentsMode, mergeTargetStats, mergeReactionState, mergeCommunityStatsRead, mergeCommunityCommentsRead } from "./community-state.js";
 import { readCommunitySnapshot, rememberCommunitySnapshot } from "./community-snapshot.js";
 
 export function useTideCommunity() {
@@ -29,6 +30,11 @@ export function useTideCommunity() {
   const [quoteCommentsMode, setQuoteCommentsMode] = useState("list");
   const quoteRequestRef = useRef(0);
   const statsFreshRef = useRef(false);
+  const commentReactionRequests = useRef(new Set());
+  const reactionVersion = useRef(0);
+  const reactionVersions = useRef(new Map());
+  const confirmedReactionChanges = useRef(new Map());
+  const [commentReactionErrors, setCommentReactionErrors] = useState({});
 
   const getStats = useCallback((targetType, targetId) => (
     statsLoaded ? statsByTarget[getTideTargetKey(targetType, targetId)] ?? emptyStats : unknownStats
@@ -43,9 +49,10 @@ export function useTideCommunity() {
 
   const refreshStats = useCallback(async () => {
     if (!isCommunityConfigured) return;
+    const readVersion = reactionVersion.current;
     const nextStats = await loadCommunityStats();
     statsFreshRef.current = true;
-    setStatsByTarget(nextStats);
+    setStatsByTarget((current) => mergeCommunityStatsRead(current, nextStats, reactionVersions.current, readVersion));
     setStatsLoaded(true);
   }, []);
 
@@ -62,15 +69,16 @@ export function useTideCommunity() {
 
     // Public totals render as soon as they arrive; anonymous sign-in must not
     // delay them, and a failed identity request must not discard valid reads.
+    const readVersion = reactionVersion.current;
     const statsRequest = loadCommunityStats().then((nextStats) => {
       if (!alive) return;
       statsFreshRef.current = true;
-      setStatsByTarget(nextStats);
+      setStatsByTarget((current) => mergeCommunityStatsRead(current, nextStats, reactionVersions.current, readVersion));
       setStatsLoaded(true);
     });
     const reactionsRequest = loadCommunityReactionState().then((nextLikedTargets) => {
       if (!alive) return;
-      setLikedTargets(new Set(nextLikedTargets));
+      setLikedTargets(mergeReactionState(nextLikedTargets, confirmedReactionChanges.current));
     });
     const quotesRequest = loadPublishedCommunityQuotes().then((nextQuotes) => {
       if (!alive) return;
@@ -129,10 +137,11 @@ export function useTideCommunity() {
 
     const refreshVisibleComments = () => {
       if (document.visibilityState !== "visible") return;
+      const readVersion = reactionVersion.current;
       loadPublishedComments("quote", activeQuote.id, 50)
         .then((comments) => {
           if (!alive) return;
-          setQuoteComments(comments);
+          setQuoteComments((current) => mergeCommunityCommentsRead(current, comments, reactionVersions.current, readVersion));
           setQuoteCommentsState("ready");
         })
         .catch(() => {
@@ -159,6 +168,8 @@ export function useTideCommunity() {
     setBusyTargets((current) => new Set(current).add(key));
     try {
       const result = await toggleCommunityReaction(targetType, targetId);
+      reactionVersions.current.set(key, ++reactionVersion.current);
+      confirmedReactionChanges.current.set(key, result.liked);
       setLikedTargets((current) => {
         const next = new Set(current);
         if (result.liked) next.add(key);
@@ -176,6 +187,34 @@ export function useTideCommunity() {
       });
     }
   }, [busyTargets]);
+
+  const toggleCommentReaction = useCallback(async (commentId) => {
+    if (!isCommunityConfigured || commentReactionRequests.current.has(commentId)) return;
+    const key = getTideTargetKey("comment", commentId);
+    commentReactionRequests.current.add(commentId);
+    setBusyTargets((current) => new Set(current).add(key));
+    setCommentReactionErrors((current) => ({ ...current, [commentId]: "" }));
+    try {
+      const result = await setCommunityCommentReaction(commentId, !likedTargets.has(key));
+      reactionVersions.current.set(key, ++reactionVersion.current);
+      confirmedReactionChanges.current.set(key, result.liked);
+      setLikedTargets((current) => {
+        const next = new Set(current);
+        if (result.liked) next.add(key); else next.delete(key);
+        return next;
+      });
+      setQuoteComments((current) => current.map((comment) => comment.id === commentId ? { ...comment, likes: result.likes } : comment));
+    } catch {
+      setCommentReactionErrors((current) => ({ ...current, [commentId]: "心动没有送达，请重试。" }));
+    } finally {
+      commentReactionRequests.current.delete(commentId);
+      setBusyTargets((current) => {
+        const next = new Set(current);
+        next.delete(key);
+        return next;
+      });
+    }
+  }, [likedTargets]);
 
   const openQuote = useCallback(async (quote, { skipKnownEmpty = false } = {}) => {
     const request = ++quoteRequestRef.current;
@@ -206,9 +245,10 @@ export function useTideCommunity() {
     }
 
     try {
+      const readVersion = reactionVersion.current;
       const comments = await loadPublishedComments("quote", quote.id, 50);
       if (request === quoteRequestRef.current) {
-        setQuoteComments(comments);
+        setQuoteComments((current) => mergeCommunityCommentsRead(current, comments, reactionVersions.current, readVersion));
         setQuoteCommentsState("ready");
         if (skipKnownEmpty && comments.length === 0) setQuoteCommentsMode("empty");
       }
@@ -240,6 +280,7 @@ export function useTideCommunity() {
         body: cleanedBody,
         status: result.status,
         created_at: result.created_at,
+        likes: 0,
       };
       if (targetType === "quote") {
         setQuoteComments((current) => [publishedComment, ...current].slice(0, 50));
@@ -276,6 +317,7 @@ export function useTideCommunity() {
     closeComposer,
     closeQuote,
     composerQuote,
+    commentReactionErrors,
     configured: isCommunityConfigured,
     connectionState,
     statsLoaded,
@@ -292,5 +334,6 @@ export function useTideCommunity() {
     submitComment,
     submitQuote,
     toggleReaction,
+    toggleCommentReaction,
   };
 }

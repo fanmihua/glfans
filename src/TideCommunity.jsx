@@ -9,10 +9,11 @@ import {
   SpinnerGap,
   X,
 } from "@phosphor-icons/react";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { getTideTargetKey, tideWordsPageTarget } from "./data/tide-words.js";
 import { readSavedNickname } from "./features/community/community-state.js";
+import { communityCharacterCount, communityInputLimit, previewCommunityText, limitCommunityText } from "./features/community/comment-text.js";
 import "./tide-community.css";
 
 export { useTideCommunity } from "./features/community/useTideCommunity.js";
@@ -77,7 +78,38 @@ export function TideCommunitySummary({ community, compact = false }) {
   );
 }
 
-export function CommunityCommentList({ comments, state }) {
+function CommunityComment({ comment, community }) {
+  const [expanded, setExpanded] = useState(false);
+  const textId = useId();
+  const fullText = communityText(comment.body);
+  const preview = previewCommunityText(fullText);
+  const isLong = preview !== fullText;
+  return (
+    <li>
+      <header>
+        <strong translate="no">{comment.nickname === '匿名坑底人' ? t(comment.nickname) : comment.nickname}</strong>
+        <time dateTime={comment.created_at}>{new Intl.DateTimeFormat(getDateLocale(), { month: getDateLocale() === 'zh-CN' ? 'numeric' : 'short', day: 'numeric' }).format(new Date(comment.created_at))}</time>
+      </header>
+      <p id={textId} className={`community-comment-body${isLong ? " is-long" : ""}${expanded ? " is-expanded" : ""}`} tabIndex={isLong ? 0 : undefined}>
+        {isLong ? <><span className="community-text-preview">{preview}</span><span className="community-text-full">{fullText}</span></> : fullText}
+      </p>
+      <div className="community-comment-actions">
+        {isLong && <button className="community-text-expand" type="button" aria-expanded={expanded} aria-controls={textId} onClick={() => setExpanded((value) => !value)}>{communityText(expanded ? "收起" : "展开")}</button>}
+        {community && <CommunityReactionButton
+          compact
+          disabled={!community.configured}
+          busy={community.busyTargets.has(getTideTargetKey("comment", comment.id))}
+          liked={community.isLiked("comment", comment.id)}
+          likes={comment.likes ?? 0}
+          onClick={() => community.toggleCommentReaction(comment.id)}
+        />}
+      </div>
+      {community?.commentReactionErrors[comment.id] && <p className="community-comment-error" role="status">{communityText(community.commentReactionErrors[comment.id])}</p>}
+    </li>
+  );
+}
+
+export function CommunityCommentList({ comments, state, community }) {
   if (state === "loading") {
     return <p className="community-comments-state"><SpinnerGap className="is-spinning" aria-hidden="true" />{t(" 正在捞回声")}</p>;
   }
@@ -86,21 +118,15 @@ export function CommunityCommentList({ comments, state }) {
 
   return (
     <ol className="community-comment-list">
-      {comments.map((comment) => (
-        <li key={comment.id}>
-          <header>
-            <strong translate="no">{comment.nickname === '匿名坑底人' ? t(comment.nickname) : comment.nickname}</strong>
-            <time dateTime={comment.created_at}>{new Intl.DateTimeFormat(getDateLocale(), { month: getDateLocale() === 'zh-CN' ? 'numeric' : 'short', day: 'numeric' }).format(new Date(comment.created_at))}</time>
-          </header>
-          <p>{communityText(comment.body)}</p>
-        </li>
-      ))}
+      {comments.map((comment) => <CommunityComment key={comment.id} comment={comment} community={community} />)}
     </ol>
   );
 }
 
-export function CommunityCommentForm({ autoFocusBody = false, bodyMaxLength = 400, configured, footerTarget = null, onSubmit, placeholder, submitLabel = "留下这句" }) {
+export function CommunityCommentForm({ autoFocusBody = false, bodyMaxLength = communityInputLimit, configured, footerTarget = null, onSubmit, placeholder, submitLabel = "留下这句" }) {
   const formId = useId();
+  const counterId = `${formId}-counter`;
+  const composingRef = useRef(false);
   const [nickname, setNickname] = useState(readSavedNickname);
   const [body, setBody] = useState("");
   const [state, setState] = useState("idle");
@@ -108,7 +134,7 @@ export function CommunityCommentForm({ autoFocusBody = false, bodyMaxLength = 40
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!configured || state === "submitting") return;
+    if (!configured || state === "submitting" || composingRef.current || communityCharacterCount(body.trim()) < 2 || communityCharacterCount(body) > bodyMaxLength) return;
     setState("submitting");
     setMessage("");
     const result = await onSubmit({ nickname, body });
@@ -124,8 +150,8 @@ export function CommunityCommentForm({ autoFocusBody = false, bodyMaxLength = 40
 
   const footer = (
     <div className="community-comment-form-footer">
-      <span aria-live="polite">{t(message)}</span>
-      <button type="submit" form={formId} disabled={!configured || state === "submitting" || body.trim().length < 2}>
+      <span aria-live="polite">{communityText(t(message))}</span>
+      <button type="submit" form={formId} disabled={!configured || state === "submitting" || communityCharacterCount(body.trim()) < 2 || communityCharacterCount(body) > bodyMaxLength}>
         {t(state === "submitting" ? <SpinnerGap className="is-spinning" aria-hidden="true" /> : <PaperPlaneTilt weight="bold" aria-hidden="true" />)}
         {t(state === "submitting" ? "正在送出" : submitLabel)}
       </button>
@@ -146,17 +172,19 @@ export function CommunityCommentForm({ autoFocusBody = false, bodyMaxLength = 40
         />
       </label>
       <label>
-        <span>{t("留下回声")}</span>
+        <span className="community-comment-input-label">{t("留下回声")}<small id={counterId} className="community-character-count">{communityCharacterCount(body)}/{bodyMaxLength}</small></span>
         <textarea
           autoFocus={autoFocusBody}
           value={body}
           minLength={2}
-          maxLength={bodyMaxLength}
+          aria-describedby={counterId}
           required
           rows={4}
           placeholder={t(configured ? (placeholder || "说点什么，接梗也行。") : "互动服务配置完成后开放留言。")}
           disabled={!configured}
-          onChange={(event) => setBody(event.target.value)}
+          onChange={(event) => setBody(composingRef.current ? event.target.value : limitCommunityText(event.target.value, bodyMaxLength))}
+          onCompositionStart={() => { composingRef.current = true; }}
+          onCompositionEnd={(event) => { composingRef.current = false; setBody(limitCommunityText(event.currentTarget.value, bodyMaxLength)); }}
         />
       </label>
       {t(footerTarget ? createPortal(footer, footerTarget) : footer)}
@@ -172,7 +200,6 @@ export function TideGuestbook({ community }) {
         <h2 id="tide-guestbook-title">{t("坑底留言板")}</h2>
       </div>
       <CommunityCommentForm
-        bodyMaxLength={120}
         configured={community.configured}
         placeholder={t("写下一句坑底原话。")}
         submitLabel="投到上面"
@@ -217,7 +244,7 @@ export function QuoteCommentModal({ community }) {
     }}>
       <aside className="quote-comment-modal is-composer" role="dialog" aria-modal="true" aria-labelledby="quote-comment-title">
         <header className="quote-comment-modal-header">
-          <span>{t(quoteLabel)}{t(" / LEAVE A REPLY")}</span>
+          <span>{t(quoteLabel)}{communityText(" / LEAVE A COMMENT")}</span>
           <button className="dialog-close-button" type="button" onClick={community.closeComposer} aria-label={t("关闭评论")}>
             <X weight="bold" aria-hidden="true" />
           </button>

@@ -96,13 +96,12 @@ export function MobileTideSheet({ community, guestbook = false, onClose, onPubli
                 aria-label={t("回声列表")}
                 aria-busy={community.quoteCommentsState === "loading"}
               >
-                <CommunityCommentList comments={community.quoteComments} state={community.quoteCommentsState} />
+                <CommunityCommentList comments={community.quoteComments} state={community.quoteCommentsState} community={community} />
               </div>)}
             </>
           )}
           <div ref={formRef} hidden={!guestbook && !isWriting}>
             <CommunityCommentForm
-              bodyMaxLength={guestbook ? 120 : 400}
               configured={community.configured}
               footerTarget={formFooter}
               placeholder={t(guestbook ? "写下一句坑底原话。" : "说点什么，接梗也行。")}

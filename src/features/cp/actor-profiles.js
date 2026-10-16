@@ -1,4 +1,5 @@
 import { actorProfileAdditions } from './actor-profile-additions.js';
+import { oct16ActorProfiles } from './actor-profile-oct16.js';
 // Public profile facts from GL Spotlight's individual actress records, reviewed 2026-09-10.
 // This secondary catalogue is credited as such; agency corroboration is stored separately.
 // Never manufacture a handle from an actor's name, and never replace missing data with zero.
@@ -916,6 +917,7 @@ Object.assign(actorProfiles, {
 });
 
 Object.assign(actorProfiles, actorProfileAdditions);
+Object.assign(actorProfiles, oct16ActorProfiles);
 
 // 用户确认采用的读者纠错；尚未找到官方身高资料，保留来源等级。
 for (const [name, heightCm] of [['Jessie Natsiya Prommart', 169], ['Tungpang Pattarawadee Laosa', 167]]) {

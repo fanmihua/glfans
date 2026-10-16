@@ -2,6 +2,7 @@ import express from "express";
 import { randomUUID } from "node:crypto";
 import { AppError } from "./errors.js";
 import { createWechatSigner } from './wechat-share.js';
+import { createCalendarSubscriptionHandler } from "./calendar-subscription.js";
 import {
   assertCsrf,
   assertTrustedOrigin,
@@ -97,6 +98,7 @@ export function createApp({ store, config }) {
     next();
   });
   app.use(express.json({ limit: config.jsonLimit || "16kb", type: "application/json" }));
+  app.get("/api/calendar.ics", createCalendarSubscriptionHandler({ dataPath: config.calendarSubscriptionPath }));
   const signWechat = createWechatSigner();
   app.get('/api/wechat/jssdk-signature', async (req,res) => {
     res.json(await signWechat(req.query.url));
@@ -251,9 +253,21 @@ export function createApp({ store, config }) {
       targetType,
       targetId,
       nickname: nicknameField(body.nickname),
-      body: commentBodyField(body.body),
+      body: commentBodyField(body.body, 80),
     });
     responseData(res, comment, 201);
+  });
+
+  app.put("/api/community/comments/:id/reaction", async (req, res) => {
+    const session = await guardWrite(req);
+    await guardIpRate(req, "community-comment-reaction", 120, 10 * 60);
+    const body = objectBody(req);
+    const result = await store.setCommentReaction(
+      session.identity_id,
+      idField(req.params.id, "commentId"),
+      booleanField(body.liked, "liked"),
+    );
+    responseData(res, { liked: Boolean(result.liked), likes: Number(result.reaction_count ?? 0) });
   });
 
   app.post("/api/community/quotes", async (req, res) => {
@@ -262,7 +276,7 @@ export function createApp({ store, config }) {
     const body = objectBody(req);
     const quote = await store.submitQuote(session.identity_id, {
       speaker: nicknameField(body.speaker),
-      text: quoteTextField(body.text),
+      text: quoteTextField(body.text, 80),
     });
     responseData(res, quote, 201);
   });

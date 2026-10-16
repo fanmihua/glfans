@@ -349,6 +349,34 @@ export const archiveDramas = [
     "sourceUrl": "https://glspotlight.com/series/pluto"
   },
   {
+    "id": "mom-ped-sawan",
+    "year": "2024",
+    "title": "深宫幽情",
+    "titleEn": "Mom Ped Sawan",
+    "aliases": [
+      "月下禁爱",
+      "MomPedSawan",
+      "Mhom Ped Sawan",
+      "หม่อมเป็ดสวรรค์"
+    ],
+    "startDate": "2024-11-17",
+    "endDate": "2025-01-25",
+    "weekday": "周五、周六、周日",
+    "episodes": 30,
+    "status": "已完结",
+    "company": "Thai PBS",
+    "platforms": [
+      "Thai PBS"
+    ],
+    "summary": "拉玛三世时期，宫廷中的 Khum 与 Sud 相互倾慕，却难以公开心意。两人经历分离、重逢与宫廷规训，在身份和礼法的限制下寻找相守的可能。",
+    "image": "assets/archive/posters/mom-ped-sawan.webp",
+    "width": 720,
+    "height": 1080,
+    "focus": "50% 30%",
+    "sourceUrl": "https://www.thaipbs.or.th/program/MhomPedSawan",
+    "airingNote": "正片 30 集；Thai PBS 的 32 条目录另含开播及收官特别节目。每周五至周日泰国时间 20:30 播出，历史日期以官方逐集页面为准。"
+  },
+  {
     "id": "petrichor",
     "year": "2024",
     "title": "铁锈味的雨滴",

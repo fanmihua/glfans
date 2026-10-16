@@ -86,11 +86,12 @@ export class MysqlCommunityStore {
        LEFT JOIN community_comments c ON c.identity_id = i.id
        LEFT JOIN community_quotes q ON q.submitted_by = i.id
        LEFT JOIN community_reactions r ON r.identity_id = i.id
+       LEFT JOIN community_comment_reactions cr ON cr.identity_id = i.id
        LEFT JOIN community_views v ON v.identity_id = i.id
        WHERE i.kind = 'visitor'
          AND i.created_at < NOW(3) - INTERVAL 30 DAY
          AND s.identity_id IS NULL AND c.identity_id IS NULL AND q.submitted_by IS NULL
-         AND r.identity_id IS NULL AND v.identity_id IS NULL`,
+         AND r.identity_id IS NULL AND cr.identity_id IS NULL AND v.identity_id IS NULL`,
     );
   }
 
@@ -318,11 +319,14 @@ export class MysqlCommunityStore {
 
   async getReactionKeys(identityId) {
     const [rows] = await this.pool.execute(
-      `SELECT target_type, target_id
-       FROM community_reactions
-       WHERE identity_id = ?
+      `SELECT target_type, target_id FROM (
+         SELECT target_type, target_id, created_at FROM community_reactions WHERE identity_id = ?
+         UNION ALL
+         SELECT 'comment' AS target_type, comment_id AS target_id, created_at
+         FROM community_comment_reactions WHERE identity_id = ?
+       ) reactions
        ORDER BY created_at ASC`,
-      [identityId],
+      [identityId, identityId],
     );
     return rows.map((row) => `${row.target_type}:${row.target_id}`);
   }
@@ -330,14 +334,44 @@ export class MysqlCommunityStore {
   async listPublishedComments(targetType, targetId, limit) {
     await assertAvailableTarget(this.pool, targetType, targetId);
     const [rows] = await this.pool.execute(
-      `SELECT ${publicCommentFields}
+      `SELECT ${publicCommentFields},
+         (SELECT COUNT(*) FROM community_comment_reactions r WHERE r.comment_id = community_comments.id) AS likes
        FROM community_comments
        WHERE target_type = ? AND target_id = ? AND status = 'published'
        ORDER BY created_at DESC
        LIMIT ?`,
       [targetType, targetId, limit],
     );
-    return rows;
+    return rows.map((row) => ({ ...row, likes: Number(row.likes) }));
+  }
+
+  async setCommentReaction(identityId, commentId, liked) {
+    return inTransaction(this.pool, async (connection) => {
+      // Lock the parent row so concurrent writes and moderation serialize.
+      const [comments] = await connection.execute(
+        "SELECT target_type, target_id FROM community_comments WHERE id = ? AND status = 'published' FOR UPDATE",
+        [commentId],
+      );
+      if (!comments.length) throw new AppError(404, "comment_unavailable", "这条回声已不可用。");
+      await assertAvailableTarget(connection, comments[0].target_type, comments[0].target_id);
+      if (liked) {
+        await connection.execute(
+          `INSERT INTO community_comment_reactions (comment_id, identity_id) VALUES (?, ?)
+           ON DUPLICATE KEY UPDATE identity_id = VALUES(identity_id)`,
+          [commentId, identityId],
+        );
+      } else {
+        await connection.execute(
+          "DELETE FROM community_comment_reactions WHERE comment_id = ? AND identity_id = ?",
+          [commentId, identityId],
+        );
+      }
+      const [rows] = await connection.execute(
+        "SELECT COUNT(*) AS reaction_count FROM community_comment_reactions WHERE comment_id = ?",
+        [commentId],
+      );
+      return { liked, reaction_count: rows[0].reaction_count };
+    });
   }
 
   async submitComment(identityId, { targetType, targetId, nickname, body }) {

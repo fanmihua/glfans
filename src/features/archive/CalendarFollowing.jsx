@@ -19,13 +19,17 @@ export function CalendarFollowManager({ copy, series, seriesIds, toggleSeries, t
   const [query, setQuery] = useState('');
   const search = query.trim().toLocaleLowerCase();
   const matching = series.filter((item) => [titleFor(item.id), item.name, item.searchText, item.year].filter(Boolean).join(' ').toLocaleLowerCase().includes(search));
-  const years = [...new Set(matching.map((item) => item.year))].sort().reverse();
+  const years = [...new Set(matching.map((item) => item.year))].sort((a, b) => {
+    if (!a) return b ? 1 : 0;
+    if (!b) return -1;
+    return String(b).localeCompare(String(a));
+  });
   return <section className="calendar-follow-manager" id="calendar-follow-manager" aria-label={copy.chooseSeries}>
     <p className="calendar-follow-hint">{copy.followHint}</p>
     <label className="calendar-follow-search"><span className="calendar-sr-only">{copy.searchSeries}</span><input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder={copy.searchSeries} /></label>
     {!matching.length && <p className="calendar-follow-hint" role="status">{copy.noSearchResults}</p>}
-    {years.map((year) => <section className="calendar-follow-year" key={year} aria-label={String(year)}>
-      <h3>{year}</h3>
+    {years.map((year) => <section className="calendar-follow-year" key={year || 'undated'} aria-label={year ? String(year) : copy.tba}>
+      <h3>{year || copy.tba}</h3>
       <div className="calendar-follow-list">
       {matching.filter((item) => item.year === year).map(({ id }) => <label className="calendar-follow-option" key={id}>
         <input type="checkbox" checked={seriesIds.includes(id)} onChange={() => toggleSeries(id)} />

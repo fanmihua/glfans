@@ -7,17 +7,18 @@ import { profileCoverage } from '../src/features/cp/profile-coverage.js';
 import { cpCopy } from '../src/features/cp/cp-copy.js';
 import { additionalCpProfiles } from '../src/features/cp/cp-additional-data.js';
 import { announcedPairDefinitions } from '../src/features/cp/cp-expanded-data.js';
+import { oct16CpProfiles } from '../src/features/cp/cp-oct16-data.js';
 const announcedIds = new Set(announcedPairDefinitions.map(cp => cp.id));
 
 test('the original 51 pairings retain sourced identities and new pairings keep unknown facts explicit', () => {
   const stats = profileCoverage();
-  const original = cpProfiles.filter(cp => !announcedIds.has(cp.id) && !additionalCpProfiles.some(extra => extra.id === cp.id));
+  const original = cpProfiles.filter(cp => !announcedIds.has(cp.id) && !additionalCpProfiles.some(extra => extra.id === cp.id) && !oct16CpProfiles.some(extra => extra.id === cp.id));
   assert.equal(original.length, 51);
   assert.equal(new Set(original.flatMap(cp => cp.members.map(member => member.name))).size, 101);
-  assert.equal(stats.cpCount, 65);
-  assert.equal(stats.actorCount, 127);
-  assert.equal(stats.fields.fullName, 125);
-  assert.equal(stats.fields.instagram, 125);
+  assert.equal(stats.cpCount, 71);
+  assert.equal(stats.actorCount, 137);
+  assert.equal(stats.fields.fullName, 135);
+  assert.equal(stats.fields.instagram, 135);
   assert.ok(stats.fields.birthday >= 100);
   assert.ok(stats.fields.x >= 95);
   assert.ok(stats.fields.weibo >= 60);
@@ -62,7 +63,7 @@ test('missing and conflicting data stays explicit rather than fabricating dates 
   assert.equal(mimie.birthday, null);
   assert.equal(mimie.birthdayMonthDay, '04-03');
   assert.equal(mimie.x, 'mimieahc');
-  assert.equal(profileCoverage().birthdayWithMonthDay, 123);
+  assert.equal(profileCoverage().birthdayWithMonthDay, 130);
   assert.equal(profileForMember(findCp('viewmim').members[0]).weibo, null);
   assert.equal(profileForMember(findCp('yoshidiana').members[0]).x, null);
 });
