@@ -28,9 +28,9 @@ const props = {
   series: [{ id: 'khom-khlang', name: 'Khom Khlang', year: '2026' }, { id: 'pls-love', name: 'Pls Love', year: '2026' }, { id: 'remain', name: 'Remain' }],
   titleFor: id => ({ 'khom-khlang': '镇灵', 'pls-love': 'PLS Love', remain: 'Remain' })[id], imageFor: () => null, onBack: () => {},
 };
-function render(Component, extra = {}) {
+function render(Component, extra = {}, browser = {}) {
   const previous = globalThis.window;
-  globalThis.window = { location: { origin: 'https://glfans.com' } };
+  globalThis.window = { location: { origin: 'https://glfans.com' }, navigator: browser };
   try { return renderToString(createElement(Component, { ...props, ...extra })); }
   finally { if (previous === undefined) delete globalThis.window; else globalThis.window = previous; }
 }
@@ -61,4 +61,52 @@ test('the real scoped component starts with independent custom selections and a 
   assert.ok(html.indexOf('<h3>2026</h3>') < html.indexOf('<h3>待定档</h3>'));
   assert.deepEqual(scopeIds, ['pls-love', 'khom-khlang']);
   assert.deepEqual(followedIds, ['remain']);
+});
+
+test('Apple embedded browsers expose one copy action and preserve the chosen shows in the webcal input', () => {
+  const browsers = [
+    { userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) MicroMessenger/8.0.60' },
+    { userAgent: 'Mozilla/5.0 (iPad; CPU OS 18_0 like Mac OS X) baiduboxapp/13.0' },
+    { userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15) baidubrowser/6.5', platform: 'MacIntel', maxTouchPoints: 5 },
+  ];
+  for (const browser of browsers) for (const locale of ['zh', 'en', 'th']) {
+    for (const scopeIds of [[], ['pls-love', 'khom-khlang']]) {
+      const html = render(CalendarSubscription, { copy: calendarCopy[locale], locale, scopeIds, followedIds: [] }, browser);
+      const actions = html.match(/<div class="calendar-subscription-actions[^\"]*">([\s\S]*?)<\/div>/)?.[1];
+      assert.equal((actions?.match(/<button /g) || []).length, 1);
+      assert.doesNotMatch(actions, /<a /);
+      assert.doesNotMatch(actions, / disabled=/);
+      const url = `webcal://glfans.com/api/calendar.ics?lang=${locale}${scopeIds.length ? '&amp;series=khom-khlang%2Cpls-love' : ''}`;
+      assert.ok(html.includes(`value="${url}"`));
+      const help = html.match(/<div class="calendar-subscription-safari-note" id="calendar-subscription-help">([\s\S]*?)<\/div>/)?.[1];
+      assert.match(help, /Safari/);
+      assert.equal((help.match(/<li>/g) || []).length, 3);
+      assert.match(html, /<details class="calendar-subscription-apple-help">/);
+    }
+  }
+});
+
+test('empty custom selection in Apple embedded browsers disables the single action without an all-show fallback', () => {
+  const html = render(CalendarSubscriptionPanel, { selection: { mode: 'selected', seriesIds: [] }, setSelection: () => {} }, { userAgent: 'iPhone MicroMessenger/8.0.60' });
+  const actions = html.match(/<div class="calendar-subscription-actions[^\"]*">([\s\S]*?)<\/div>/)?.[1];
+  assert.equal((actions?.match(/<button /g) || []).length, 1);
+  assert.match(actions, /disabled=""/);
+  assert.doesNotMatch(html, /(?:href|value)="(?:webcal|https):/);
+});
+
+test('Safari, desktop and Android keep the native Apple link and separate HTTPS copy action', () => {
+  const browsers = [
+    { userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) Version/18.0 Mobile/15E148 Safari/604.1' },
+    { userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15) MicroMessenger/8.0.60', maxTouchPoints: 0 },
+    { userAgent: 'Mozilla/5.0 (Linux; Android 15) MicroMessenger/8.0.60', maxTouchPoints: 5 },
+  ];
+  for (const browser of browsers) {
+    const html = render(CalendarSubscription, { scopeIds: ['khom-khlang'], followedIds: [] }, browser);
+    const actions = html.match(/<div class="calendar-subscription-actions">([\s\S]*?)<\/div>/)?.[1];
+    assert.equal((actions?.match(/<button /g) || []).length, 1);
+    assert.equal((actions?.match(/<a /g) || []).length, 1);
+    assert.match(actions, /href="webcal:\/\/glfans\.com\/api\/calendar\.ics\?lang=zh&amp;series=khom-khlang"/);
+    assert.match(html, /value="https:\/\/glfans\.com\/api\/calendar\.ics\?lang=zh&amp;series=khom-khlang"/);
+    assert.doesNotMatch(html, /calendar-subscription-safari-note/);
+  }
 });

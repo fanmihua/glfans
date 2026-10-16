@@ -5,6 +5,15 @@ export function initialCalendarSubscription(scopeIds, followedIds, availableIds)
   return { mode: seriesIds.length ? 'selected' : 'all', seriesIds };
 }
 
+export function appleSubscriptionBrowser({ userAgent = '', platform = '', maxTouchPoints = 0 } = {}) {
+  const appleMobile = /iPhone|iPad|iPod/i.test(userAgent)
+    || ((/Macintosh/i.test(userAgent) || platform === 'MacIntel') && maxTouchPoints > 1);
+  if (!appleMobile) return null;
+  if (/MicroMessenger/i.test(userAgent)) return 'wechat';
+  if (/baiduboxapp|baidubrowser/i.test(userAgent)) return 'baidu';
+  return null;
+}
+
 export function calendarSubscriptionLinks({ origin, locale, mode, seriesIds = [] }) {
   if (!['zh', 'en', 'th'].includes(locale)) throw new Error('Unsupported calendar language');
   if (!['all', 'selected'].includes(mode)) throw new Error('Unsupported calendar subscription mode');

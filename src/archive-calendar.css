@@ -230,6 +230,16 @@
 .calendar-subscription-actions .calendar-subscription-apple { border-color:#090909; background:#090909; color:#fff; }
 .calendar-subscription-actions .calendar-subscription-copy { background:transparent; color:#090909; }
 .calendar-subscription-actions button:disabled { border-color:#ddd; background:#eaeae5; color:#999; cursor:default; }
+.calendar-subscription-safari-note { margin:10px 0; font-size:12px; line-height:1.7; overflow-wrap:anywhere; }
+.calendar-subscription-safari-note p { margin:0 0 6px; }
+.calendar-subscription-safari-note ol { margin:0; padding-left:20px; }
+.calendar-subscription-safari-note li + li { margin-top:4px; }
+.calendar-subscription-apple-help { margin-top:12px; padding:0 12px; border-left:2px solid var(--pink); font-size:12px; line-height:1.7; overflow-wrap:anywhere; }
+.calendar-subscription-apple-help summary { min-height:44px; padding-block:11px; box-sizing:border-box; color:#a92561; font-weight:600; cursor:pointer; }
+.calendar-subscription-apple-help summary:focus-visible { outline:2px solid #a92561; outline-offset:2px; }
+.calendar-subscription-apple-help p { margin:0 0 8px; }
+.calendar-subscription-apple-help ol { margin:0; padding:0 0 12px 20px; }
+.calendar-subscription-apple-help li + li { margin-top:6px; }
 .calendar-subscription-link { display:grid; gap:6px; margin:16px 0 8px; font-size:11px; color:#666; }
 .calendar-subscription-link input { box-sizing:border-box; width:100%; min-width:0; min-height:44px; padding:9px 10px; border:1px solid #ccc; border-radius:0; background:#fff; color:#333; font:inherit; font-size:12px; }
 .calendar-subscription-link input:disabled { background:transparent; }
@@ -247,6 +257,7 @@
   .calendar-subscription-heading h3 { font-size:17px; }
   .calendar-subscription-intro { margin-top:4px; font-size:12px; }
   .calendar-subscription-actions { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); }
+  .calendar-subscription-actions--embedded { grid-template-columns:minmax(0,1fr); }
   .calendar-subscription-actions a, .calendar-subscription-actions button { padding:10px 8px; font-size:11px; }
   .calendar-subscription-selection .calendar-follow-manager { max-height:250px; }
   .calendar-subscription-link input { font-size:16px; }

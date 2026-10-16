@@ -1,6 +1,6 @@
 # Apple 日历本机订阅验证（2026-10-16）
 
-范围：用户授权在这台 Mac 的 Apple 日历测试持续订阅。所有测试数据位于 `output/apple-calendar-test-20261016/`，不改正式排期；网站订阅按钮和线上 HTTPS feed 尚未实现、发布。
+范围：用户授权在这台 Mac 的 Apple 日历测试持续订阅。下文前半部分记录正式功能发布前的本机验证；该阶段的测试数据位于 `output/apple-calendar-test-20261016/`，不改正式排期。当天正式上线与移动端反馈另记于文末。
 
 ## 测试配置
 
@@ -36,3 +36,23 @@ Apple 日历的已打开搜索结果会保留旧时间或旧条目，即使月�
 5. 客户端按自己的周期拉取，不能承诺即时到达；本机测试结果不代表 iPhone、Google Calendar 或 Outlook 已通过测试。
 
 参考：[Apple 订阅日历](https://support.apple.com/en-am/guide/calendar/icl1022/mac)、[Apple 刷新日历](https://support.apple.com/en-euro/guide/calendar/icl1024/mac)、[RFC 5545 UID](https://www.rfc-editor.org/rfc/rfc5545.html#section-3.8.4.7)、[RFC 5545 DTSTAMP](https://www.rfc-editor.org/rfc/rfc5545.html#section-3.8.7.2)。
+
+## 正式上线后验证与手机反馈
+
+- `f926669` 已将全部剧集 / 自选多剧的订阅面板及 HTTPS feed 发布到 `glfans.com`。网站选择、复制链接、三语、筛选和条件请求通过验证；首次发布证据在 `output/release-20261016/`。
+- Mac 线上验证使用 `https://glfans.com/api/calendar.ics?lang=zh`，名称为“glfans · 全部剧集（线上验证）”，保存在“我的 Mac”，每小时刷新。客户端曾显示陈旧的简介和事件状态，重启后确认 URL 与刷新设置保留，上次成功更新为北京时间 2026-10-16 09:54:07；可见《月影》《PLS Love》《分手代理》等真实排期。没有用生产排期模拟改档，也未实证一次无人操作的线上每小时轮询。
+- 用户最初报告 iPhone 多浏览器没有反应，随后明确：独立 Safari 可以唤起，失败发生在微信、百度内置浏览器。用户也已在同一手机手动添加线上订阅成功，因此当前问题定位为应用内网页的系统跳转环节。无法据此断言所有版本的内置浏览器行为一致。
+- 在本机 Xcode 的 iPhone 13 Pro Max 模拟器（iOS 26.3.1 / 23D8133）打开正式网站，用 Safari 点击 Apple 日历订阅，成功进入原生添加订阅日历界面，预览 654 条排期并完成“glfans · 全部剧集”订阅。
+- 在模拟器 Safari 地址栏输入 `webcal://glfans.com/api/calendar.ics?lang=zh&series=khom-khlang%2Cmoonshadow` 并前往，出现“在日历中打开此页”提示；进入日历后保留完整自选参数，读取为“glfans · 自选 2 部剧”，显示《镇灵》第 7 / 8 集与其他 18 条排期，共 20 条。随后完成测试订阅。该结果验证从 Safari 地址栏进入的路径和自选参数保留，不代表在真实微信或百度中完成了端到端自动化测试。
+- 模拟器证据：`output/playwright/subscription-ios-all-preview.png`、`output/playwright/subscription-ios-selected-preview.png`。测试仅使用真实线上排期，没有改动生产数据；原生日历位置为“我的 iPhone”，未验证 iCloud 同步。
+- 网站适配方案：对可识别的 Apple 移动设备微信 / 百度环境，提供单一复制 Apple 订阅地址按钮及 Safari 操作步骤，复制包含语言和自选范围的 `webcal:` 地址。普通 Safari 保持原生协议链接；自动复制失败时保留可选中的文本输入框。不尝试自动跳转 Safari、强制新窗口或反复唤起。
+- “未打开日历？”折叠帮助保留手动添加路径：日历列表 → 添加日历 → 添加订阅日历 → 粘贴地址。依据 [Apple 官方 iPhone 使用手册](https://support.apple.com/zh-cn/guide/iphone/iph3d1110d4/ios)。直接唤起、Safari 地址栏转入、手动添加三条路径分开记录。
+
+## 新手引导与适配验收
+
+- 日历内容区加入默认收起的“新手引导 · 添加到我的日历”，分为持续订阅与一次性导入。订阅写清全量 / 自选、Safari 系统确认、日历列表勾选、手动 iPhone / Mac 添加；导入写清本月当前筛选、下载文件、Mac 与 Google 电脑端导入及目标日历确认。iPhone 优先引导持续订阅，不宣称“文件”App 可直接导入。
+- 点导出后展开导入说明；只提示“下一步：下载后……”，不把触发下载当作已导入。打开 / 切换引导不会重建订阅组件，CTA 收起引导并聚焦订阅标题。
+- 普通 Safari 保持原生 Apple 链接及 HTTPS 复制；Apple 移动端微信 / 百度 UA 模式显示单一复制按钮与三步 Safari 指引。真实页面内选择《镇灵》和《月影》后复制，再粘贴至搜索框核对，包含两部剧的 webcal URL 完整一致；空自选禁用按钮，切换范围清除过期复制反馈。此处为浏览器 UA 覆盖测试，不冒充真实微信 / 百度应用测试。
+- 实际浏览器验证：中文导出触发下载 `glfans-2026-10-zh (1).ics` 并展开导入页；查看引导再回订阅后《镇灵》选择和 URL 参数保留，焦点回到标题。中英泰 354px 内容宽度及桌面 1073px 检查未见横向溢出，控制台无错误。截图位于 `output/playwright/calendar-guide-*-mobile.png`。
+- `npm run build`、`node --test tests/*.test.mjs`（300 / 300）和 `git diff --check` 通过；项目未配置独立 lint 命令。未修改 API / 数据库或生产排期。
+- 导入步骤参考 [Apple Mac 导入日历](https://support.apple.com/zh-cn/guide/calendar/icl1023/mac)、[Google 电脑端导入日程](https://support.google.com/calendar/answer/37118?hl=zh-Hans)；网页引导内保留按语言指向官方帮助的入口。

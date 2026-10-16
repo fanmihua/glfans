@@ -1,0 +1,28 @@
+.calendar-guide { margin:0 0 8px; border-bottom:1px solid #d5d5ce; color:#090909; }
+.calendar-guide-toggle { display:flex; align-items:center; justify-content:space-between; gap:12px; width:100%; min-height:44px; padding:7px 0; border:0; background:transparent; color:inherit; font:inherit; font-size:14px; line-height:1.6; text-align:left; cursor:pointer; }
+.calendar-guide-toggle>svg { flex-shrink:0; }
+.calendar-guide-toggle[aria-expanded="true"]>svg { transform:rotate(180deg); }
+.calendar-guide-toggle:hover, .calendar-guide-toggle[aria-expanded="true"] { color:#a92561; }
+.calendar-guide-content { max-width:760px; padding:2px 0 14px; font-size:14px; line-height:1.8; overflow-wrap:anywhere; }
+.calendar-guide-content p { margin:10px 0; }
+.calendar-guide-content h4 { margin:16px 0 6px; font-size:14px; font-weight:700; }
+.calendar-guide-modes { display:flex; flex-wrap:wrap; gap:4px 16px; margin:0 0 8px; }
+.calendar-guide-modes>button { min-height:44px; padding:5px 0; border:0; border-bottom:2px solid transparent; background:transparent; color:#666; font:inherit; font-weight:600; line-height:1.6; cursor:pointer; }
+.calendar-guide-modes>button[aria-pressed="true"] { color:#090909; border-bottom-color:var(--pink); }
+.calendar-guide-steps { margin:8px 0 12px; padding-left:22px; list-style:decimal; }
+.calendar-guide-steps>li { padding-left:3px; margin:6px 0; }
+.calendar-guide-steps>li::marker { color:#a92561; font-weight:700; }
+.calendar-guide-note { padding-left:10px; border-left:2px solid var(--pink); color:#555; }
+.calendar-guide-details { margin:4px 0; }
+.calendar-guide-details>summary { width:fit-content; min-height:44px; padding:10px 0; color:#555; cursor:pointer; }
+.calendar-guide-details>summary:hover { color:#a92561; }
+.calendar-guide-subscribe { display:inline-flex; align-items:center; gap:8px; min-height:44px; padding:5px 0; border:0; background:transparent; color:#a92561; font:inherit; font-weight:700; cursor:pointer; }
+.calendar-guide-help { font-size:12px; }
+.calendar-guide-help ul { margin:0; padding-left:20px; list-style:disc; }
+.calendar-guide-help a { display:inline-block; min-height:44px; padding:9px 0; color:#555; text-underline-offset:4px; }
+.calendar-guide :is(button, summary, a):focus-visible { outline:2px solid #a92561; outline-offset:3px; }
+@media(max-width:760px) {
+  .calendar-guide { margin-bottom:6px; }
+  .calendar-guide-content { font-size:14px; }
+  .calendar-guide-modes { gap:4px 14px; }
+}

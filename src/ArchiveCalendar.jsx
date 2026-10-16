@@ -16,6 +16,7 @@ import { CalendarPeriodPicker } from './features/archive/CalendarPeriodPicker.js
 import { calendarCopy } from './features/archive/calendar-copy.js';
 import { calendarExportEvents, createCalendarExport } from './features/archive/calendar-export.js';
 import { CalendarSubscription } from './features/archive/CalendarSubscription.jsx';
+import { CalendarGuide } from './features/archive/CalendarGuide.jsx';
 import { CalendarFollowControls, CalendarFollowManager } from './features/archive/CalendarFollowing.jsx';
 import { useCalendarFollowing } from './features/archive/useCalendarFollowing.js';
 import { CalendarWeek } from './features/archive/CalendarWeek.jsx';
@@ -46,6 +47,8 @@ export function ArchiveCalendar({ onClose, returnFocus, initialSeriesIds, scopeL
   const [managingFollowing, setManagingFollowing] = useState(false);
   const [choosingPeriod, setChoosingPeriod] = useState(false);
   const [subscribing, setSubscribing] = useState(false);
+  const [guideOpen, setGuideOpen] = useState(false);
+  const [guideMode, setGuideMode] = useState('subscribe');
   const subscriptionButtonRef = useRef(null);
   const [pickerYear, setPickerYear] = useState(new Date().getFullYear());
   const periodRef = useRef(null);
@@ -55,6 +58,16 @@ export function ArchiveCalendar({ onClose, returnFocus, initialSeriesIds, scopeL
   const closeSubscription = () => {
     setSubscribing(false);
     requestAnimationFrame(() => subscriptionButtonRef.current?.focus({ preventScroll: true }));
+  };
+  const openSubscriptionFromGuide = () => {
+    setSubscribing(true);
+    setManagingFollowing(false);
+    setChoosingPeriod(false);
+    setGuideOpen(false);
+    requestAnimationFrame(() => {
+      dialogRef.current?.querySelector('.calendar-scroll')?.scrollTo({ top: 0, behavior: 'instant' });
+      dialogRef.current?.querySelector('#calendar-subscription-title')?.focus({ preventScroll: true });
+    });
   };
   const followedIds = useMemo(() => new Set(following.seriesIds), [following.seriesIds]);
   const noFollowedSeries = !followableSeries.some(({ id }) => followedIds.has(id));
@@ -133,6 +146,9 @@ export function ArchiveCalendar({ onClose, returnFocus, initialSeriesIds, scopeL
     link.remove();
     // Keep the object alive long enough for Safari to begin the download.
     window.setTimeout(() => URL.revokeObjectURL(url), 60000);
+    setGuideMode('import');
+    setGuideOpen(true);
+    requestAnimationFrame(() => dialogRef.current?.querySelector('.calendar-scroll')?.scrollTo({ top: 0, behavior: 'instant' }));
   };
   const navigateMonth = (direction) => {
     const date = new Date(`${selected.slice(0, 7)}-01T12:00:00Z`);
@@ -179,7 +195,7 @@ export function ArchiveCalendar({ onClose, returnFocus, initialSeriesIds, scopeL
     <div className="calendar-panel">
       <header className="calendar-dialog-header"><h2 id="calendar-dialog-title" tabIndex={-1} autoFocus>{copy.title}</h2><div className="calendar-header-actions">
         <button className="calendar-subscribe-trigger" ref={subscriptionButtonRef} type="button" aria-expanded={subscribing} aria-controls="calendar-subscription" onClick={() => {
-          if (subscribing) closeSubscription(); else { setSubscribing(true); setManagingFollowing(false); setChoosingPeriod(false); }
+          if (subscribing) closeSubscription(); else { setGuideOpen(false); setSubscribing(true); setManagingFollowing(false); setChoosingPeriod(false); }
         }}><CalendarPlus size={18} aria-hidden="true" /><span>{copy.subscribe}</span></button>
         {!subscribing && <button className="calendar-export" type="button" disabled={!exportEvents.length} aria-label={exportLabel} title={`${exportLabel}\n${copy.exportNote}`} onClick={downloadCalendar}>
           <DownloadSimple size={18} aria-hidden="true" /><span>{mobile ? copy.exportShort : copy.exportMonth}<small>{exportMonth} · {exportEvents.length}</small></span>
@@ -191,6 +207,8 @@ export function ArchiveCalendar({ onClose, returnFocus, initialSeriesIds, scopeL
       <div className="calendar-scroll">
     <div className="calendar-content">
       {!mobile && !subscribing && <>{toolbar}{followControls}</>}
+      <CalendarGuide locale={locale} open={guideOpen} mode={guideMode} onToggle={() => setGuideOpen(value => !value)}
+        onModeChange={setGuideMode} onSubscribe={openSubscriptionFromGuide} />
       {subscribing ? <CalendarSubscription copy={copy} locale={locale} series={calendarSeries} scopeIds={scopeIds ? [...scopeIds] : null} followedIds={following.seriesIds}
         titleFor={titleFor} imageFor={(id) => archiveById.get(id)?.image} onBack={closeSubscription} />
         : choosingPeriod ? <CalendarPeriodPicker selected={selected} year={pickerYear} years={calendarYears} onYearChange={setPickerYear} copy={copy} format={format} availability={monthAvailability}

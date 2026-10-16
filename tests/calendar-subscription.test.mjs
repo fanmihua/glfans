@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { initialCalendarSubscription, calendarSubscriptionLinks } from '../src/features/archive/calendar-subscription.js';
+import { initialCalendarSubscription, calendarSubscriptionLinks, appleSubscriptionBrowser } from '../src/features/archive/calendar-subscription.js';
 import { calendarCopy } from '../src/features/archive/calendar-copy.js';
 
 test('all-show subscriptions have no series or month parameter and retain each supported language', () => {
@@ -62,4 +62,34 @@ test('unsafe values and unsupported locale or protocol cannot produce a subscrip
 test('all subscription labels and explanations exist in Chinese, English and Thai', () => {
   const keys = Object.keys(calendarCopy.zh).filter(key => key === 'subscribe' || key.startsWith('subscription'));
   for (const locale of ['zh', 'en', 'th']) for (const key of keys) assert.ok(calendarCopy[locale][key]?.trim(), `${locale}.${key}`);
+});
+
+test('only known embedded browsers on Apple mobile devices use the Safari handoff', () => {
+  for (const device of ['iPhone', 'iPad', 'iPod']) {
+    assert.equal(appleSubscriptionBrowser({ userAgent: `Mozilla/5.0 (${device}; CPU OS 18_0 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148 MicroMessenger/8.0.60` }), 'wechat');
+    for (const token of ['baiduboxapp/13.0', 'baidubrowser/6.5']) {
+      assert.equal(appleSubscriptionBrowser({ userAgent: `Mozilla/5.0 (${device}; CPU OS 18_0 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148 ${token}` }), 'baidu');
+    }
+  }
+});
+
+test('touch iPads with desktop identification are supported without redirecting desktop Macs', () => {
+  const userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15) AppleWebKit/605.1.15 MicroMessenger/8.0.60';
+  assert.equal(appleSubscriptionBrowser({ userAgent, platform: 'MacIntel', maxTouchPoints: 5 }), 'wechat');
+  assert.equal(appleSubscriptionBrowser({ userAgent: 'AppleWebKit/605.1.15 baiduboxapp/13.0', platform: 'MacIntel', maxTouchPoints: 5 }), 'baidu');
+  assert.equal(appleSubscriptionBrowser({ userAgent, platform: 'MacIntel', maxTouchPoints: 0 }), null);
+});
+
+test('Safari, other iOS browsers, Android embedded browsers and missing detection data retain normal links', () => {
+  const normalBrowsers = [
+    { userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) Version/18.0 Mobile/15E148 Safari/604.1' },
+    { userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) CriOS/130.0 Mobile/15E148 Safari/604.1' },
+    { userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15) Version/18.0 Safari/605.1.15', platform: 'MacIntel', maxTouchPoints: 5 },
+    { userAgent: 'Mozilla/5.0 (Linux; Android 15) Chrome/130.0 Mobile Safari/537.36 MicroMessenger/8.0.60', maxTouchPoints: 5 },
+    { userAgent: 'Mozilla/5.0 (Linux; Android 15) Mobile baiduboxapp/13.0', maxTouchPoints: 5 },
+    { userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) baidubrowser/6.5', maxTouchPoints: 10 },
+    {},
+  ];
+  for (const browser of normalBrowsers) assert.equal(appleSubscriptionBrowser(browser), null);
+  assert.equal(appleSubscriptionBrowser(), null);
 });
