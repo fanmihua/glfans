@@ -2,7 +2,18 @@ export const calendarGuideCopy = {
   zh: {
     toggle: '新手引导 · 添加到我的日历', modes: '添加日历的方式',
     subscribe: '持续订阅（推荐）', import: '一次性导入',
-    subscribeIntro: '想跟上新增与改期，选择持续订阅。',
+    subscribeIntro: '订阅会持续更新；导入只保存这一次。',
+    subscribeCards: [
+      { title: '选好剧集', body: '点顶部「订阅」，选全部剧集或自己选。' },
+      { title: '打开日历', body: '用 Safari 点「Apple 日历订阅」。' },
+      { title: '确认订阅', body: '核对预览并确认，再勾选 glfans。' },
+    ],
+    importCards: [
+      { title: '选月份', body: '在日历选择月份与全部 / 关注范围。' },
+      { title: '下载文件', body: '点「导出」，保存 .ics 文件。' },
+      { title: '导入日历', body: 'Mac：文件 → 导入；Google：设置 → 导入和导出。' },
+    ],
+    moreHelp: '更多帮助', embeddedShort: '微信 / 百度：复制订阅地址，到 Safari 粘贴打开。', importShortHint: '导入不会自动更新；iPhone 推荐使用订阅。',
     subscribeSteps: [
       '点日历顶部的「订阅」。',
       '选「全部剧集」或「自己选」；自己选至少勾选一部剧。',
@@ -52,7 +63,18 @@ export const calendarGuideCopy = {
   en: {
     toggle: 'Getting started · Add to my calendar', modes: 'Ways to add a calendar',
     subscribe: 'Subscribe (recommended)', import: 'Import once',
-    subscribeIntro: 'Subscribe to receive new listings and schedule changes.',
+    subscribeIntro: 'Subscriptions keep updating; an import saves this one snapshot.',
+    subscribeCards: [
+      { title: 'Choose shows', body: 'Tap Subscribe, then choose all shows or your own selection.' },
+      { title: 'Open Calendar', body: 'In Safari, tap Subscribe in Apple Calendar.' },
+      { title: 'Confirm', body: 'Check the preview, confirm, then check glfans in your calendar list.' },
+    ],
+    importCards: [
+      { title: 'Choose a month', body: 'Select the month and All / Following in the calendar.' },
+      { title: 'Download the file', body: 'Tap Export and save the .ics file.' },
+      { title: 'Import to Calendar', body: 'Mac: File → Import. Google: Settings → Import & export.' },
+    ],
+    moreHelp: 'More help', embeddedShort: 'WeChat / Baidu: copy the subscription URL and open it in Safari.', importShortHint: 'Imports do not update. On iPhone, subscribing is recommended.',
     subscribeSteps: [
       'Choose “Subscribe” at the top of this calendar.',
       'Choose “All shows” or “Choose shows”. Select at least one show for a custom subscription.',
@@ -102,7 +124,18 @@ export const calendarGuideCopy = {
   th: {
     toggle: 'คู่มือเริ่มต้น · เพิ่มในปฏิทินของฉัน', modes: 'วิธีเพิ่มปฏิทิน',
     subscribe: 'ติดตามต่อเนื่อง (แนะนำ)', import: 'นำเข้าครั้งเดียว',
-    subscribeIntro: 'ติดตามปฏิทินเพื่อรับตารางใหม่และการเปลี่ยนเวลาออกอากาศ',
+    subscribeIntro: 'การติดตามจะอัปเดตต่อเนื่อง ส่วนการนำเข้าจะบันทึกเฉพาะครั้งนี้',
+    subscribeCards: [
+      { title: 'เลือกซีรีส์', body: 'กดติดตามด้านบน แล้วเลือกทุกเรื่องหรือเลือกเอง' },
+      { title: 'เปิดปฏิทิน', body: 'เปิดใน Safari แล้วกดติดตามใน Apple Calendar' },
+      { title: 'ยืนยันการติดตาม', body: 'ตรวจสอบตัวอย่าง ยืนยัน แล้วทำเครื่องหมายเลือก glfans' },
+    ],
+    importCards: [
+      { title: 'เลือกเดือน', body: 'เลือกเดือนและทุกเรื่อง / ที่ติดตามในปฏิทิน' },
+      { title: 'ดาวน์โหลดไฟล์', body: 'กดส่งออก แล้วบันทึกไฟล์ .ics' },
+      { title: 'นำเข้าปฏิทิน', body: 'เลือกไฟล์และปฏิทินปลายทางใน Mac หรือ Google Calendar' },
+    ],
+    moreHelp: 'ความช่วยเหลือเพิ่มเติม', embeddedShort: 'WeChat / Baidu: คัดลอกลิงก์แล้ววางเปิดใน Safari', importShortHint: 'ไฟล์ที่นำเข้าจะไม่อัปเดต บน iPhone แนะนำให้ติดตาม',
     subscribeSteps: [
       'กด “ติดตาม” ที่ด้านบนของปฏิทินนี้',
       'เลือก “ทุกเรื่อง” หรือ “เลือกเอง” โดยเลือกอย่างน้อยหนึ่งเรื่องสำหรับการติดตามแบบเลือกเอง',
@@ -152,11 +185,12 @@ export const calendarGuideCopy = {
 };
 
 export function calendarGuideHelp(locale) {
+  locale = ['zh', 'en', 'th'].includes(locale) ? locale : 'en';
   const appleLocale = { zh: 'zh-cn', en: 'en-us', th: 'th-th' }[locale] || 'en-us';
   const googleLocale = locale === 'zh' ? 'zh-Hans' : locale;
   return {
     appleIphone: `https://support.apple.com/${appleLocale}/guide/iphone/iph3d1110d4/ios`,
-    appleMacSubscribe: `https://support.apple.com/${appleLocale}/guide/calendar/icl1022/mac`,
+    appleMacSubscribe: `https://support.apple.com/${appleLocale}/102301`,
     appleMacImport: `https://support.apple.com/${appleLocale}/guide/calendar/icl1023/mac`,
     googleHelp: `https://support.google.com/calendar/answer/37118?hl=${googleLocale}`,
   };

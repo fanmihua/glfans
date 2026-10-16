@@ -56,3 +56,7 @@ Apple 日历的已打开搜索结果会保留旧时间或旧条目，即使月�
 - 实际浏览器验证：中文导出触发下载 `glfans-2026-10-zh (1).ics` 并展开导入页；查看引导再回订阅后《镇灵》选择和 URL 参数保留，焦点回到标题。中英泰 354px 内容宽度及桌面 1073px 检查未见横向溢出，控制台无错误。截图位于 `output/playwright/calendar-guide-*-mobile.png`。
 - `npm run build`、`node --test tests/*.test.mjs`（300 / 300）和 `git diff --check` 通过；项目未配置独立 lint 命令。未修改 API / 数据库或生产排期。
 - 导入步骤参考 [Apple Mac 导入日历](https://support.apple.com/zh-cn/guide/calendar/icl1023/mac)、[Google 电脑端导入日程](https://support.google.com/calendar/answer/37118?hl=zh-Hans)；网页引导内保留按语言指向官方帮助的入口。
+
+## 三步图解精简
+
+用户否定初版长文引导后，主区缩为每种方式 3 步，每步短标题与一句说明。订阅使用实际网页选剧、iOS Safari 打开确认、已订阅列表截图；导入使用现有 Phosphor 图标。详细规则、Mac / Google 导入和手动添加方法、官方帮助统一默认折叠到“更多帮助”。图片只按需加载，WebP 合计约 132 KiB，未变更订阅参数、导出范围或引导状态逻辑。网页操作图按中英泰提供对应版本，iOS 系统图保留实测中文界面。原始截图保存在 `output/playwright/`。第一版长文只曾本地提交，未推送、未部署。
