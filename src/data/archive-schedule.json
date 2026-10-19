@@ -1,16 +1,16 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-12T02:02:09.853Z",
+  "checkedAt": "2026-10-19T02:05:28.670Z",
   "source": "GL Spotlight",
   "sourceTimeZone": "Asia/Bangkok",
   "coverage": [
     {
-      "from": "2026-10-12",
-      "to": "2026-10-18"
-    },
-    {
       "from": "2026-10-19",
       "to": "2026-10-25"
+    },
+    {
+      "from": "2026-10-26",
+      "to": "2026-11-01"
     }
   ],
   "series": [
@@ -330,8 +330,10 @@
       "name": "Love Bound",
       "network": "",
       "platforms": [],
-      "premiereDate": null,
-      "sourceUrl": "https://glspotlight.com/series/love-bound"
+      "premiereDate": "2026-11-08",
+      "sourceUrl": "https://x.com/LoveBoundOFC/status/2110363544713880035",
+      "sourceProvider": "official",
+      "checkedAt": "2026-10-19T02:05:28.670Z"
     },
     {
       "id": "ditto",
@@ -1271,12 +1273,44 @@
       "id": "khom-khlang:ep:8",
       "seriesId": "khom-khlang",
       "episode": 8,
-      "airsAt": null,
+      "airsAt": "2026-10-26T13:00:00Z",
       "date": "2026-10-26",
       "kind": "episode",
-      "sourceUrl": "https://www.tvmaze.com/episodes/3712587/khom-khlang-1x08-episode-8",
-      "sourceProvider": "tvmaze",
-      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "sourceUrl": "https://glspotlight.com/airing?week=next",
+      "checkedAt": "2026-10-19T02:05:28.670Z",
+      "needsReview": false
+    },
+    {
+      "id": "built-in-love:ep:2",
+      "seriesId": "built-in-love",
+      "episode": 2,
+      "airsAt": "2026-10-28T13:30:00Z",
+      "date": "2026-10-28",
+      "kind": "episode",
+      "sourceUrl": "https://glspotlight.com/airing?week=next",
+      "checkedAt": "2026-10-19T02:05:28.670Z",
+      "needsReview": false
+    },
+    {
+      "id": "pls-love:ep:8",
+      "seriesId": "pls-love",
+      "episode": 8,
+      "airsAt": "2026-10-30T13:30:00Z",
+      "date": "2026-10-30",
+      "kind": "episode",
+      "sourceUrl": "https://glspotlight.com/airing?week=next",
+      "checkedAt": "2026-10-19T02:05:28.670Z",
+      "needsReview": false
+    },
+    {
+      "id": "third-person:ep:8",
+      "seriesId": "third-person",
+      "episode": 8,
+      "airsAt": "2026-10-31T15:25:00Z",
+      "date": "2026-10-31",
+      "kind": "episode",
+      "sourceUrl": "https://glspotlight.com/airing?week=next",
+      "checkedAt": "2026-10-19T02:05:28.670Z",
       "needsReview": false
     },
     {
@@ -1300,6 +1334,18 @@
       "kind": "premiere",
       "sourceUrl": "https://x.com/MGIBeyond/status/2103084608183296422",
       "checkedAt": "2026-09-30T08:42:35Z",
+      "needsReview": false,
+      "sourceProvider": "official"
+    },
+    {
+      "id": "love-bound:premiere",
+      "seriesId": "love-bound",
+      "episode": null,
+      "airsAt": null,
+      "date": "2026-11-08",
+      "kind": "premiere",
+      "sourceUrl": "https://x.com/LoveBoundOFC/status/2110363544713880035",
+      "checkedAt": "2026-10-19T02:05:28.670Z",
       "needsReview": false,
       "sourceProvider": "official"
     },
