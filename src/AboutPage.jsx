@@ -2,22 +2,14 @@ import { t } from "./i18n/runtime.js";
 import { getLocale } from './i18n/runtime.js';
 import { withBase } from "./lib/assets.js";
 import { useState } from "react";
+import { PlayCircle } from "@phosphor-icons/react";
 import { RepoFilmStrip } from "./RepoFilmStrip.jsx";
 import { SiteHeader } from "./SiteHeader.jsx";
 import { RightsNotice } from "./RightsNotice.jsx";
 import { RIGHTS_FEEDBACK_URL, RIGHTS_SHORT_NOTICE } from "./rights.js";
+import { aboutLetter } from "./features/about/about-letter.js";
 import "./about-page.css";
 
-
-function ParticipationCopy() {
-  if (getLocale() !== 'zh') return t('参与完整说明');
-  return (
-    <>
-      <span className="about-welcome-sentence">{t("如果你也想分享你的文字、图文、表情包或")}<span className="about-welcome-phrase">{t("宝藏资源，")}</span></span><br />
-      <span className="about-welcome-sentence"><span className="about-welcome-phrase">{t("欢迎联系我们，")}</span>{t("一起把这份热爱攒得更大、")}<span className="about-welcome-phrase">{t("更久一点。")}</span></span>
-    </>
-  );
-}
 
 function HanddrawnHeart({ className = "" }) {
   return (
@@ -32,11 +24,30 @@ function HanddrawnHeart({ className = "" }) {
   );
 }
 
+function LetterParagraph({ text, highlights = [] }) {
+  const parts = [];
+  let cursor = 0;
+  for (const highlight of highlights) {
+    const start = text.indexOf(highlight.text, cursor);
+    if (start < 0) continue;
+    parts.push(text.slice(cursor, start));
+    parts.push(
+      <mark key={start} className={`about-letter-emphasis about-letter-emphasis--${highlight.style}`}>
+        {highlight.text}
+      </mark>
+    );
+    cursor = start + highlight.text.length;
+  }
+  parts.push(text.slice(cursor));
+  return <p>{parts}</p>;
+}
+
 export function AboutPage({ defaultRightsOpen = false }) {
   const [rightsOpen, setRightsOpen] = useState(defaultRightsOpen);
+  const letter = aboutLetter[getLocale()] || aboutLetter.zh;
 
   return (
-    <main className="about-shell">
+    <main className="about-shell about-letter-page">
       <SiteHeader activePath="about" />
 
       <section className="about-stage" aria-labelledby="about-title">
@@ -60,27 +71,28 @@ export function AboutPage({ defaultRightsOpen = false }) {
             decoding="async"
             data-page-critical="true"
           />
-          <strong className="about-pullquote">{t("这次真的不一样。")}</strong>
-          <img
-            className="about-loop-arrow"
-            src={withBase("assets/about/annotation-loop-arrow-v1.webp")}
-            alt=""
-            aria-hidden="true"
-            data-page-critical="true"
-          />
-          <p className="about-margin-note">{t("because love")}<br />{t("is real.")}</p>
-          <HanddrawnHeart className="about-heart about-heart-margin" />
+          <a
+            className="about-pullquote"
+            href="https://163cn.tv/bi2MN1IJ"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${t("这次真的不一样。")} ${letter.mvLinkLabel}`}
+            title={letter.mvLinkLabel}
+          >
+            <span>{t("这次真的不一样。")}</span>
+            <PlayCircle className="about-pullquote-play" weight="fill" aria-hidden="true" />
+          </a>
         </div>
 
-        <div className="about-copy">
-          <div className="about-copy-text">
-            <p>{t("这是一个自嘲式泰百粉丝磕糖网站，记录泰百 CP 的入坑欣喜、 磕糖的上头、塌房的心酸，以及自嘲的嘴硬。二创是因为真的热爱， 也时刻提醒自己保留一点“良好心态”——")}<strong>{t("【不磕 RPS】【都是侄女，放心磕】")}</strong>。
-            </p>
-            <p className="about-participation"><ParticipationCopy /></p>
+        <article className="about-letter" aria-labelledby="about-letter-title">
+          <h2 id="about-letter-title">{letter.title}</h2>
+          <div className="about-letter-body">
+            {letter.paragraphs.map((paragraph, index) => (
+              <LetterParagraph key={index} text={paragraph} highlights={letter.highlights[index]} />
+            ))}
           </div>
-          <p className="about-top-note">{t("we pit, we write,")}<br />{t("we love.")}</p>
-          <HanddrawnHeart className="about-heart about-heart-top" />
-        </div>
+          <p className="about-letter-signature" translate="no">{letter.signature}</p>
+        </article>
 
         <section className="about-makers" aria-labelledby="about-makers-title">
           <header className="about-makers-heading">
@@ -92,30 +104,18 @@ export function AboutPage({ defaultRightsOpen = false }) {
           <div className="about-maker-grid">
             <article className="about-maker">
               <strong>{t("Conceal")}</strong>
-              <span>{t("Content")}</span>
-              <p>{t("写字的，收藏心动与情绪。")}<br />{t("让爱有迹可循。")}</p>
+              <span>{t("Content & UX")}</span>
+              <p>{letter.concealDescription}</p>
             </article>
             <span className="about-maker-divider" aria-hidden="true">/</span>
             <article className="about-maker about-maker-design">
               <strong translate="no">范米花儿</strong>
               <span>{t("Design & Dev")}</span>
-              <p>{t("做页面的，搭建与维护这个小窝。")}<br />{t("让热爱有处安放。")}</p>
+              <p>{t("做页面的，搭建与维护这个小窝。")}</p>
             </article>
           </div>
 
-          <p className="about-maker-note">{t("for us,")}<br /><span>{t("for GL.")}</span>
-            <img src={withBase("assets/repo-handdrawn-underline-pink.webp")} alt="" aria-hidden="true" decoding="async" />
-          </p>
         </section>
-
-        <aside className="about-welcome" aria-label={t("欢迎与参与说明")}>
-          <strong>{getLocale() === 'zh' ? <>欢迎入坑，磕得<span>开心</span>最重要！</> : t('欢迎完整说明')}</strong>
-          <i aria-hidden="true" />
-          <p>
-            <ParticipationCopy />
-          </p>
-          <HanddrawnHeart className="about-heart about-heart-welcome" />
-        </aside>
 
         <details
           className="about-rights"

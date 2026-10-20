@@ -216,6 +216,24 @@
 /* Photo pixels and verified names stay independent of the decorative frame. */
 .cp-portrait--scrapbook { position: relative; aspect-ratio: var(--portrait-ratio, 1); width: 100%; max-width: 660px; container-type: inline-size; }
 .cp-portrait--scrapbook .cp-portrait-photo { position: absolute; left: 15.3%; top: 12.6%; width: 72.1%; height: 70%; max-height: none; object-fit: cover; }
-.cp-portrait--scrapbook .cp-portrait-frame { position: absolute; inset: 0; width: 100%; height: 100%; max-height: none; object-fit: fill; pointer-events: none; }
+.cp-portrait--scrapbook .cp-portrait-frame { position: absolute; inset: 0; width: 100%; height: 100%; max-height: none; object-fit: contain; pointer-events: none; }
 .cp-portrait-name { position: absolute; left: 43%; top: 81.5%; width: 49%; height: 12%; display: flex; align-items: center; justify-content: center; transform: rotate(-13deg); color: #ff50a2; font-family: 'Roboto Condensed Variable', sans-serif; font-size: clamp(14px, 5.4cqw, 36px); font-weight: 750; font-style: italic; white-space: nowrap; }
+.cp-portrait--landscape .cp-portrait-photo { left: 11.2%; top: 17.6%; width: 81%; height: 58.9%; transform: rotate(7.2deg); }
+.cp-portrait--landscape .cp-portrait-name { left: 55.3%; top: 72.3%; width: 42%; height: 13.8%; transform: rotate(-13deg); font-size: clamp(13px, 4.8cqw, 32px); }
 @media (max-width:760px) { .cp-portrait--scrapbook { width: min(100%,360px); margin: auto; } .cp-portrait--scrapbook .cp-portrait-photo, .cp-portrait--scrapbook .cp-portrait-frame { margin: 0; } }
+
+/* Keep navigation hints quiet until their individual control is active. */
+.cp-member-socials > a > svg:last-child,
+.cp-community-link > a > svg:last-child,
+.cp-primary > svg,
+.cp-bio > .cp-calendar-link > svg:last-child { opacity: 0; transition: opacity 140ms ease; }
+.cp-member-socials > a:is(:hover,:focus-visible) > svg:last-child,
+.cp-community-link > a:is(:hover,:focus-visible) > svg:last-child,
+.cp-primary:is(:hover,:focus-visible) > svg,
+.cp-bio > .cp-calendar-link:is(:hover,:focus-visible) > svg:last-child { opacity: 1; }
+.cp-member-socials > a:is(:hover,:focus-visible) > span,
+.cp-community-link > a:is(:hover,:focus-visible) > span,
+.cp-bio > .cp-calendar-link:is(:hover,:focus-visible) { text-decoration: underline; text-underline-offset: 4px; }
+
+.cp-portrait-name--signature { padding: 0 5%; box-sizing: border-box; }
+.cp-portrait-name--signature img { width: 100%; height: 100%; max-height: none; margin: 0; object-fit: contain; }

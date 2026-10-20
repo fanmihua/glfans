@@ -52,7 +52,9 @@ test('October real photos retain attribution, original dimensions and per-image 
     assert.equal(cp.imageWidth, record.width);
     assert.equal(cp.imageHeight, record.height);
     assert.equal(cp.imageCheckedAt, '2026-10-16');
-    assert.equal(cp.portraitFrame, 'assets/cp/portraits/scrapbook-frame-v1.webp');
+    const landscape = record.width > record.height;
+    assert.equal(cp.portraitTemplate, landscape ? 'landscape' : 'portrait');
+    assert.equal(cp.portraitFrame, landscape ? 'assets/cp/portraits/scrapbook-landscape-frame-v1.webp' : 'assets/cp/portraits/scrapbook-frame-v1.webp');
     assert.equal(readFileSync(file).toString('ascii', 8, 12), 'WEBP');
   }
 });

@@ -26,7 +26,8 @@ test('CP works resolve to real archive entries, portraits exist, and sources are
 
 test('all seven sticker pairs are included and works are not capped at two', () => {
   assert.equal(cpProfiles.filter(cp => cp.image && !cp.portraitFrame).length, 7);
-  assert.equal(cpProfiles.filter(cp => cp.portraitFrame).length, 18);
+  assert.equal(cpProfiles.filter(cp => cp.portraitFrame).length, 56);
+  assert.ok(cpProfiles.filter(cp => cp.portraitFrame).every(cp => cp.image && cp.portraitSignature));
   assert.equal(cpProfiles.length, 71);
   assert.ok(findCp('janekao'));
   assert.ok(findCp('ginjay'));

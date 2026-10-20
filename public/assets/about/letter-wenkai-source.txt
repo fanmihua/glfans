@@ -1,0 +1,17 @@
+GLFans about-letter web font subset
+
+Source: LXGW WenKai Regular, https://github.com/lxgw/LxgwWenKai
+Downloaded: 2026-10-20
+Source URL: https://raw.githubusercontent.com/lxgw/LxgwWenKai/main/fonts/TTF/LXGWWenKai-Regular.ttf
+Source Git blob: 7f8f031dc5c6c5ba1913d93c36d4667c1e311cea
+Source SHA-256: 2d73eea94ad808999d90c0000c239a84a33b09d4bc6ab6c5b8bbf1eda8a7fc8b
+License: SIL OFL 1.1; see letter-wenkai-OFL.txt.
+
+Web-only WOFF2 subset. Glyph outlines are unchanged. Includes the Chinese
+paragraphs and signature in src/features/about/about-letter.js, plus printable
+ASCII. Emoji uses the browser's emoji fallback. This is not a desktop font.
+
+Generated with fontTools 4.67.0 / pyftsubset and Brotli:
+pyftsubset LXGWWenKai-Regular.ttf --text-file=letter-text.txt --flavor=woff2 --output-file=letter-wenkai-v1.woff2 --name-IDs='*' --name-languages='*' --name-legacy --layout-features='*'
+
+Regenerate the subset when the Chinese letter or signature changes.

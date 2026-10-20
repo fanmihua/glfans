@@ -394,7 +394,23 @@
 
 .quote-comment-modal.is-composer {
   max-height: min(560px, calc(100svh - 64px));
-  grid-template-rows: auto auto auto;
+  max-height: min(560px, calc(100dvh - 64px));
+  grid-template-rows: auto minmax(0, 1fr);
+}
+
+.quote-comment-composer-scroll {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(9, 9, 9, .35) transparent;
+}
+
+.quote-comment-composer-scroll::-webkit-scrollbar { width: 8px; }
+.quote-comment-composer-scroll::-webkit-scrollbar-thumb {
+  border: 2px solid var(--tide-paper, #f7f7f4);
+  border-radius: 4px;
+  background: rgba(9, 9, 9, .35);
 }
 
 .quote-comment-modal-header {
@@ -429,6 +445,7 @@
 
 .quote-comment-featured blockquote {
   margin: 0;
+  overflow-wrap: anywhere;
   font-family: var(--headline);
   font-size: clamp(25px, 2.4vw, 34px);
   font-weight: var(--text-weight-strong);
@@ -470,7 +487,8 @@
   overscroll-behavior: contain;
 }
 
-.quote-comment-modal > .community-comment-form {
+.quote-comment-modal > .community-comment-form,
+.quote-comment-composer-scroll > .community-comment-form {
   margin: 0;
   padding: 18px 22px 17px;
   border: 0;
@@ -478,8 +496,10 @@
   background: rgba(255, 92, 168, .035);
   box-shadow: none;
 }
-.quote-comment-modal > .community-comment-form::before { display: none; }
-.quote-comment-modal > .community-comment-form textarea { min-height: 66px; }
+.quote-comment-modal > .community-comment-form::before,
+.quote-comment-composer-scroll > .community-comment-form::before { display: none; }
+.quote-comment-modal > .community-comment-form textarea,
+.quote-comment-composer-scroll > .community-comment-form textarea { min-height: 66px; }
 
 .is-spinning { animation: community-spin 900ms linear infinite; }
 
@@ -552,3 +572,36 @@
   .quote-comment-modal { animation: none; transition: none; }
   .is-spinning { animation: none; }
 }
+
+/* Writing needs a compact reminder of the quote, with a stable submit action. */
+.quote-comment-modal.is-composer {
+  width: min(540px, calc(100vw - 36px));
+  max-height: calc(100dvh - 48px);
+  grid-template-rows: auto minmax(0, 1fr) auto;
+}
+.quote-comment-modal.is-composer .quote-comment-modal-header { min-height: 60px; padding: 0 24px; }
+.quote-comment-modal-header h2 { margin: 0; font-size: 20px; font-weight: 700; letter-spacing: 0; }
+.quote-comment-modal.is-composer .quote-comment-composer-scroll { padding: 20px 24px 0; }
+.quote-composer-context { padding: 0 0 14px; border-bottom: 1px solid #deded8; }
+.quote-composer-context blockquote {
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3;
+  overflow: hidden; margin: 0; color: #444; font-family: inherit;
+  font-size: 15px; font-weight: 400; line-height: 1.65; letter-spacing: 0; overflow-wrap: anywhere;
+}
+.quote-composer-context blockquote.is-expanded { display: block; -webkit-line-clamp: unset; }
+.quote-composer-context-meta { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 8px; }
+.quote-composer-context-meta small { color: #777; font-size: 12px; }
+.quote-composer-context-meta button { padding: 4px 0; border: 0; background: transparent; color: #b51665; font: inherit; font-size: 12px; cursor: pointer; flex-shrink: 0; }
+.quote-composer-context-meta button:hover { text-decoration: underline; }
+.quote-comment-modal.is-composer .community-comment-form { padding: 16px 0 0; background: transparent; gap: 16px; }
+.quote-comment-modal.is-composer .community-nickname-field,
+.mobile-tide-sheet.is-writing .community-nickname-field { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+.quote-comment-modal.is-composer .community-comment-form label > span { font-size: 12px; letter-spacing: 0; }
+.quote-comment-modal.is-composer .community-comment-form input { min-width: 0; height: 40px; font-size: 15px; }
+.quote-comment-modal.is-composer .community-comment-form textarea { box-sizing: border-box; height: 100px; min-height: 100px; resize: none; font-size: 15px; }
+.quote-comment-composer-actions { padding: 18px 24px 24px; background: var(--tide-paper); }
+.quote-comment-composer-actions .community-comment-form-footer { flex-direction: row; align-items: center; }
+.quote-comment-composer-actions .community-comment-form-footer > span:empty { display: none; }
+.quote-comment-composer-actions button { margin-left: auto; min-height: 44px; width: auto; font-size: 14px; }
+.mobile-tide-sheet.is-writing .quote-composer-context { margin-bottom: 12px; }
+.mobile-tide-sheet.is-writing .quote-composer-context blockquote { margin: 0; padding: 0; background: transparent; font-size: 15px; font-weight: 400; line-height: 1.65; }

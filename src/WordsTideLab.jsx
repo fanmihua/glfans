@@ -135,14 +135,16 @@ function EvidenceCard({
       {t(item.is_pinned ? <span className="words-repo-pinned-label"><PushPin weight="fill" aria-hidden="true" />{t("站主置顶")}</span> : null)}
       <div className="words-repo-quote-copy">
         <Quotes aria-hidden="true" weight="fill" />
-        <blockquote id={`quote-text-${item.id}`}>{isMobile && textExpanded ? displayText : preview}</blockquote>
+        <blockquote id={`quote-text-${item.id}`}>
+          {isMobile && textExpanded ? displayText : preview}
+          {isLongText && isMobile && <button className="community-text-expand words-quote-expand" type="button" aria-expanded={textExpanded} aria-controls={`quote-text-${item.id}`} onClick={() => setTextExpanded((value) => !value)}>{communityText(textExpanded ? "收起" : "展开")}</button>}
+        </blockquote>
         <footer>
           <strong translate="no">— {item.speaker === '匿名坑底人' ? t(item.speaker) : item.speaker}</strong>
         </footer>
       </div>
       {isLongText && !isMobile && !tooltipDismissed && <div className="words-repo-full-text" role="tooltip">{displayText}</div>}
       <div className="words-repo-card-actions">
-        {isLongText && isMobile && <button className="community-text-expand words-quote-expand" type="button" aria-expanded={textExpanded} aria-controls={`quote-text-${item.id}`} onClick={() => setTextExpanded((value) => !value)}>{communityText(textExpanded ? "收起" : "展开")}</button>}
         <button
           className={`words-repo-card-like${liked ? " is-liked" : ""}`}
           type="button"

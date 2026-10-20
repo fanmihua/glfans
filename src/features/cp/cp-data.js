@@ -1,4 +1,5 @@
 import { cpPortraitUpdates } from './cp-portrait-updates.js';
+import { relatedCpsForWork } from './cp-work-order.js';
 import { additionalCpProfiles, addSharedWorks } from './cp-additional-data.js';
 import { oct16CpProfiles, addOct16SharedWorks } from './cp-oct16-data.js';
 // Baseline sources were reviewed on 2026-09-10; September project additions
@@ -101,4 +102,4 @@ export const cpProfiles = [
 ].map(addSharedWorks).map(addOct16SharedWorks).map(cp => ({ ...cp, ...cpPortraitUpdates[cp.id], works: cp.works.map(work => work.relationship === 'supporting' && cpPortraitUpdates[cp.id] ? { ...work, image: cpPortraitUpdates[cp.id].image, imageFit: 'contain', imageCaption: {zh:'演员合照',en:'Cast portrait',th:'ภาพนักแสดง'} } : work), upcoming: [...(cp.upcoming || []), ...(cpProjectUpdates[cp.id] || [])], events: cpEventUpdates[cp.id] || cp.events, members: cp.members.map(enrichMember) }));
 
 export function findCp(id) { return cpProfiles.find((cp) => cp.id === id); }
-export function cpsForWork(id) { return cpProfiles.filter(cp => cp.works.some(work => work.id === id)); }
+export function cpsForWork(id) { return relatedCpsForWork(cpProfiles, id); }

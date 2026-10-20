@@ -220,7 +220,7 @@ export function HomePage() {
         <nav className="pit-welcome-links" aria-label={t("选择坑底栏目")}>
           <div className="pit-welcome-index-label" aria-hidden="true">
             <strong>{t("坑底索引")}</strong>
-            <span>{t("CONTENTS / 06")}</span>
+            <span>CONTENTS / {String(welcomeLinks.length).padStart(2, "0")}</span>
           </div>
           {t(welcomeLinks.map((item, index) => (
             <a href={item.href} key={item.href}>

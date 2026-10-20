@@ -41,8 +41,8 @@ html:not(:lang(zh)) .pit-eyes-scene h2 { max-width: 80vw; line-height: 1.15; let
 html:not(:lang(zh)) .pit-eyes-scene h2 strong { font-size: .9em; line-height: 1.2; }
 html:not(:lang(zh)) .pit-eyes-scene .eyes-title-top { letter-spacing: -.025em; }
 html:not(:lang(zh)) .pit-welcome-scene h2 { max-width: 82vw; line-height: 1.15; letter-spacing: -.045em; }
-html:not(:lang(zh)) .pit-welcome-scene h2 span { font-size: clamp(42px, 5.2vw, 88px); }
-html:not(:lang(zh)) .pit-welcome-scene h2 strong { font-size: clamp(56px, 7vw, 122px); }
+html:not(:lang(zh)) .pit-welcome-scene h2 span { font-size: clamp(42px, 6.2vw, 104px); }
+html:not(:lang(zh)) .pit-welcome-scene h2 strong { font-size: clamp(72px, 10.5vw, 176px); }
 html:not(:lang(zh)) .welcome-route-stop { max-width: 190px; white-space: normal; text-align: center; }
 html:not(:lang(zh)) .pit-welcome-links strong { font-size: clamp(14px, 1.4vw, 21px); line-height: 1.4; }
 html:not(:lang(zh)) .pit-home-meta { line-height: 1.5; white-space: normal; }
@@ -139,8 +139,10 @@ html:not(:lang(zh)) .meme-game-tagline { max-width: 100%; white-space: normal; l
   html:not(:lang(zh)) .pit-home-meta { max-width: calc(100vw - 36px); font-size: 10px; }
   html:not(:lang(zh)) .pit-eyes-scene h2 { width: calc(100% - 40px); max-width: none; font-size: clamp(40px, 11vw, 66px); }
   html:not(:lang(zh)) .pit-welcome-scene h2 { max-width: calc(100% - 32px); line-height: 1.2; }
-  html:not(:lang(zh)) .pit-welcome-scene h2 span { font-size: clamp(30px, 8vw, 46px); }
-  html:not(:lang(zh)) .pit-welcome-scene h2 strong { font-size: clamp(40px, 11vw, 62px); }
+  html:not(:lang(zh)) .pit-welcome-scene h2 span { font-size: clamp(38px, 13vw, 76px); }
+  html:not(:lang(zh)) .pit-welcome-scene h2 strong { font-size: clamp(70px, 24vw, 136px); }
+  html:lang(th) .pit-welcome-scene h2 span { font-size: clamp(42px, 15vw, 82px); }
+  html:lang(th) .pit-welcome-scene h2 strong { font-size: clamp(78px, 28vw, 148px); }
   html:not(:lang(zh)) .pit-welcome-links strong { font-size: 13px; line-height: 1.5; }
   html:not(:lang(zh)) .column-index-hero .column-index-title h1 { font-size: clamp(64px, 19vw, 92px); }
   html:not(:lang(zh)) .column-index-title h1 > em { font-size: .48em; }
@@ -192,6 +194,15 @@ html:lang(th) .app-shell :is(h1, h2, h3) :is(span, i, b, strong, em) {
 html:not(:lang(zh)) .pit-eyes-scene .eyes-title-top { font-size: 1em; white-space: normal; }
 html:not(:lang(zh)) .pit-eyes-scene h2 strong { margin-left: 0; }
 html:not(:lang(zh)) .pit-welcome-scene h2 i { font-size: 1em; }
+/* Keep the two welcome lines bold and compact, with room for Thai marks. */
+html:not(:lang(zh)) .app-shell .pit-welcome-scene h2 { line-height: 1.05; }
+html:not(:lang(zh)) .app-shell .pit-welcome-scene h2 :is(span, strong) { white-space: nowrap; line-height: 1.05; }
+html:lang(th) .app-shell .pit-welcome-scene h2 :is(span, strong) { line-height: 1.2; }
+@media (min-width: 761px) {
+  html:not(:lang(zh)) .welcome-proof {
+    top: max(43%, calc(13% + clamp(42px, 6.2vw, 104px) * 1.2 + clamp(72px, 10.5vw, 176px) * 1.2 + 20px));
+  }
+}
 html:not(:lang(zh)) .collection-collage + .article-index .article-index-heading h2 {
   font-size: clamp(32px, 5vw, 72px);
   line-height: 1.4;

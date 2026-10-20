@@ -1150,19 +1150,18 @@
   bottom: 4.8%;
   left: 25%;
   display: grid;
-  grid-template-columns: minmax(116px, 0.42fr) repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   grid-template-rows: repeat(2, minmax(82px, auto));
   gap: 0;
 }
 
 .pit-welcome-index-label {
   display: flex;
-  grid-row: 1 / span 2;
   align-items: flex-start;
   flex-direction: column;
   justify-content: center;
   gap: 8px;
-  padding: 17px 18px 15px 0;
+  padding: 14px 18px 12px;
   border-top: 1.5px solid #090909;
 }
 
@@ -1187,7 +1186,7 @@
   position: relative;
   min-height: 82px;
   padding: 14px 18px 12px;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
   gap: 13px;
   border-top: 1.5px solid #090909;
@@ -1205,6 +1204,8 @@
   letter-spacing: 0.02em;
   line-height: 1;
 }
+
+.pit-welcome-links a:nth-of-type(4) { border-left: 0; }
 
 .pit-welcome-links a strong {
   align-self: center;
@@ -1236,6 +1237,14 @@
 .pit-welcome-links a:focus-visible svg {
   color: var(--pink);
   animation: welcome-arrow-nudge 460ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@media (min-width: 761px) and (max-width: 1000px) {
+  .pit-welcome-index-label { padding-inline: 10px; }
+  .pit-welcome-links a { padding-inline: 10px; gap: 7px; }
+  .pit-welcome-links a span,
+  .pit-welcome-links a strong { font-size: 14px; }
+  .pit-welcome-links a svg { width: 16px; height: 16px; }
 }
 
 .pit-journey-replay {
@@ -1428,26 +1437,26 @@
   .welcome-route-stops { display: none; }
   .pit-welcome-links {
     right: 22px;
-    bottom: max(48px, calc(40px + env(safe-area-inset-bottom)));
+    bottom: max(64px, calc(56px + env(safe-area-inset-bottom)));
     left: 22px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: auto repeat(3, minmax(48px, auto));
+    grid-template-rows: repeat(4, minmax(48px, auto));
   }
   .pit-welcome-index-label {
     grid-row: auto;
-    grid-column: 1 / -1;
-    align-items: center;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 12px;
-    min-height: 38px;
-    padding: 7px 0 6px;
+    grid-column: auto;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    min-height: 48px;
+    padding: 7px 9px;
     border-top-width: 1px;
   }
   .pit-welcome-index-label strong { font-size: 14px; }
   .pit-welcome-index-label span { font-size: 8px; }
   .pit-welcome-links a { min-height: 48px; padding: 7px 9px; gap: 8px; border-top: 1px solid #090909; border-left: 1px solid #090909; }
-  .pit-welcome-links a:nth-of-type(odd) { border-left: 0; }
+  .pit-welcome-links a:nth-of-type(even) { border-left: 0; }
   .pit-welcome-links a:nth-last-of-type(-n + 2) { border-bottom: 1px solid #090909; }
   .pit-welcome-links a span { font-size: 14px; }
   .pit-welcome-links a strong { font-size: 14px; }

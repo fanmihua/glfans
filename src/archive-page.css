@@ -143,6 +143,10 @@
   gap: 12px;
 }
 
+@media (min-width: 761px) {
+  .archive-actions { top: 12px; }
+}
+
 .archive-masthead .archive-calendar-entry { position: relative; z-index: 2; margin: 0; }
 
 .archive-title-doodles { position: absolute; z-index: 4; inset: 0; pointer-events: none; }

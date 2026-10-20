@@ -1,5 +1,7 @@
+import { cpPortraitCompletion } from './cp-portrait-completion.js';
+import { cpPortraitSignatures } from './cp-portrait-signatures.js';
 // Real photographs remain separate from AI-generated, empty decoration.
-// Names are rendered as text from cpLabel; no face or lettering generation.
+// Real photographs stay unchanged; optional generated lettering is a separate transparent asset.
 export const cpPortraitUpdates = {
   "kapookciize": {
     "image": "assets/cp/portraits/kapookciize-photo-v1.webp",
@@ -32,6 +34,9 @@ export const cpPortraitUpdates = {
     "imageCheckedAt": "2026-10-09"
   },
   "milklove": {
+    "portraitSignature": "assets/cp/portraits/milklove-signature-v1.webp",
+    "portraitSignatureWidth": 800,
+    "portraitSignatureHeight": 239,
     "image": "assets/cp/portraits/milklove-photo-v1.webp",
     "imageWidth": 570,
     "imageHeight": 575,
@@ -186,3 +191,20 @@ Object.assign(cpPortraitUpdates, {
     "imageCheckedAt": "2026-10-16"
   }
 });
+
+Object.assign(cpPortraitUpdates, cpPortraitCompletion);
+for (const [id, signature] of Object.entries(cpPortraitSignatures)) {
+  if (cpPortraitUpdates[id]?.image) Object.assign(cpPortraitUpdates[id], signature);
+}
+
+// Match the two approved collage templates without stretching any decoration.
+// Original photo dimensions and attribution stay unchanged; only the empty frame differs.
+for (const portrait of Object.values(cpPortraitUpdates)) {
+  const landscape = portrait.imageWidth > portrait.imageHeight;
+  Object.assign(portrait, {
+    portraitTemplate: landscape ? 'landscape' : 'portrait',
+    portraitFrame: landscape ? 'assets/cp/portraits/scrapbook-landscape-frame-v1.webp' : 'assets/cp/portraits/scrapbook-frame-v1.webp',
+    portraitFrameWidth: 1200,
+    portraitFrameHeight: landscape ? 927 : 1200,
+  });
+}

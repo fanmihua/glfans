@@ -1,4 +1,4 @@
-import { ArrowRight, CalendarBlank, CalendarCheck, CaretDown, DownloadSimple } from '@phosphor-icons/react';
+import { CalendarBlank, CalendarCheck, DownloadSimple } from '@phosphor-icons/react';
 import { withBase } from '../../lib/assets.js';
 import { calendarGuideCopy, calendarGuideHelp } from './calendar-guide-copy.js';
 import './calendar-guide.css';
@@ -7,22 +7,29 @@ const Steps = ({ items }) => <ol className="calendar-guide-steps">{items.map((it
 const subscriptionImages = ['choose-zh', 'open-ios', 'added-ios'];
 const importIcons = [CalendarBlank, DownloadSimple, CalendarCheck];
 
-// Keep the guide beside the subscription panel so reading it preserves choices.
-export function CalendarGuide({ locale, open, mode, onToggle, onModeChange, onSubscribe }) {
+export function CalendarGuide({ locale, mode, onModeChange }) {
   const copy = calendarGuideCopy[locale] || calendarGuideCopy.zh;
   const help = calendarGuideHelp(locale);
   const importing = mode === 'import';
   const cards = importing ? copy.importCards : copy.subscribeCards;
-  return <section className={`calendar-guide${open ? ' is-open' : ''}`}>
-    <button type="button" className="calendar-guide-toggle" aria-expanded={open} aria-controls="calendar-guide-content" onClick={onToggle}>
-      <span>{copy.toggle}</span><CaretDown size={15} aria-hidden="true" />
-    </button>
-    {open && <div className="calendar-guide-content" id="calendar-guide-content">
-      <div className="calendar-guide-modes" role="group" aria-label={copy.modes}>
-        <button type="button" aria-pressed={!importing} onClick={() => onModeChange('subscribe')}>{copy.subscribe}</button>
-        <button type="button" aria-pressed={importing} onClick={() => onModeChange('import')}>{copy.import}</button>
+  const helpKeys = importing ? ['appleMacImport', 'googleHelp'] : ['appleIphone', 'appleMacSubscribe'];
+  const selectMode = (next) => onModeChange(next);
+  const handleTabKey = (event) => {
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+    event.preventDefault();
+    const next = event.key === 'Home' ? 'subscribe' : event.key === 'End' ? 'import' : importing ? 'subscribe' : 'import';
+    selectMode(next);
+    event.currentTarget.parentElement.querySelector(`#calendar-guide-tab-${next}`)?.focus();
+  };
+  return <section className="calendar-guide" aria-label={copy.title}>
+    <div className="calendar-guide-topline">
+      <div className="calendar-guide-modes" role="tablist" aria-label={copy.modes}>
+        <button type="button" role="tab" id="calendar-guide-tab-subscribe" aria-selected={!importing} aria-controls="calendar-guide-content" tabIndex={importing ? -1 : 0} onKeyDown={handleTabKey} onClick={() => selectMode('subscribe')}>{copy.subscribe}</button>
+        <button type="button" role="tab" id="calendar-guide-tab-import" aria-selected={importing} aria-controls="calendar-guide-content" tabIndex={importing ? 0 : -1} onKeyDown={handleTabKey} onClick={() => selectMode('import')}>{copy.import}</button>
       </div>
       <p className="calendar-guide-intro">{copy.subscribeIntro}</p>
+    </div>
+    <div className="calendar-guide-content" id="calendar-guide-content" role="tabpanel" aria-labelledby={`calendar-guide-tab-${importing ? 'import' : 'subscribe'}`}>
       <ol className="calendar-guide-cards" role="list">
         {cards.map((card, index) => {
           const Icon = importIcons[index];
@@ -34,25 +41,22 @@ export function CalendarGuide({ locale, open, mode, onToggle, onModeChange, onSu
           </li>;
         })}
       </ol>
-      <p className="calendar-guide-note">{importing ? copy.importShortHint : copy.embeddedShort}</p>
-      <div className="calendar-guide-footer">
-        <button type="button" className="calendar-guide-subscribe" onClick={onSubscribe}>{copy.chooseSubscription}<ArrowRight size={16} aria-hidden="true" /></button>
-        <details className="calendar-guide-details calendar-guide-more"><summary>{copy.moreHelp}</summary>
-          {importing ? <>
-            <p>{copy.exportScope}</p>
-            <h4>{copy.macImport}</h4><Steps items={copy.macImportSteps} />
-            <h4>{copy.googleImport}</h4><Steps items={copy.googleImportSteps} />
-            <p>{copy.iphoneImport}</p><p>{copy.downloadNote}</p>
-          </> : <>
-            <p>{copy.subscribeScope}</p><p>{copy.independent}</p>
-            <h4>{copy.iphone}</h4><Steps items={copy.iphoneSteps} />
-            <h4>{copy.mac}</h4><Steps items={copy.macSteps} />
-          </>}
-          <div className="calendar-guide-help"><h4>{copy.help}</h4>
-            <ul>{Object.entries(help).map(([key, href]) => <li key={key}><a href={href} target="_blank" rel="noreferrer">{copy[key]}</a></li>)}</ul>
-          </div>
-        </details>
-      </div>
-    </div>}
+      <details key={mode} className="calendar-guide-details calendar-guide-more">
+        <summary>{copy.moreHelp}</summary>
+        <p className="calendar-guide-note">{importing ? copy.importShortHint : copy.embeddedShort}</p>
+        {importing ? <>
+          <p>{copy.exportScope}</p>
+          <h4>{copy.macImport}</h4><Steps items={copy.macImportSteps} />
+          <h4>{copy.googleImport}</h4><Steps items={copy.googleImportSteps} />
+          <p>{copy.iphoneImport}</p><p>{copy.downloadNote}</p>
+        </> : <>
+          <h4>{copy.iphone}</h4><Steps items={copy.iphoneSteps} />
+          <h4>{copy.mac}</h4><Steps items={copy.macSteps} />
+        </>}
+        <div className="calendar-guide-help"><h4>{copy.help}</h4>
+          <ul>{helpKeys.map((key) => <li key={key}><a href={help[key]} target="_blank" rel="noreferrer">{copy[key]}</a></li>)}</ul>
+        </div>
+      </details>
+    </div>
   </section>;
 }

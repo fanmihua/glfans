@@ -3,7 +3,7 @@ import { communityText } from '../../i18n/community-copy.js';
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ArrowLeft, PencilSimpleLine, X } from "@phosphor-icons/react";
 import { createPortal } from "react-dom";
-import { CommunityCommentForm, CommunityCommentList } from "../../TideCommunity.jsx";
+import { CommunityCommentForm, CommunityCommentList, QuoteComposerContext } from "../../TideCommunity.jsx";
 
 export function MobileTideSheet({ community, guestbook = false, onClose, onPublished }) {
   const dialogRef = useRef(null);
@@ -88,7 +88,7 @@ export function MobileTideSheet({ community, guestbook = false, onClose, onPubli
         <div className="mobile-tide-sheet-scroll" ref={scrollRef} tabIndex={!guestbook && !isWriting ? 0 : undefined}>
           {!guestbook && quote && (
             <>
-              <blockquote>{communityText(quote.text)}<cite translate="no">— {quote.speaker === '匿名坑底人' ? t(quote.speaker) : quote.speaker}</cite></blockquote>
+              {isWriting ? <QuoteComposerContext key={quote.id} quote={quote} /> : <blockquote>{communityText(quote.text)}<cite translate="no">— {quote.speaker === '匿名坑底人' ? t(quote.speaker) : quote.speaker}</cite></blockquote>}
               {t(showComments && <div
                 className="mobile-tide-sheet-comments"
                 hidden={isWriting}

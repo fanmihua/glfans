@@ -5,6 +5,9 @@ import { getLocale } from './runtime.js';
 // their source wording. Originals, authors and interaction records stay intact.
 export const communityCopy = {
   en: {
+    '写回声': 'Write a reply',
+    '展开原话': 'Read full quote',
+    '收起原话': 'Collapse quote',
     '展开': 'More',
     '收起': 'Less',
     '心动没有送达，请重试。': 'Could not save your like. Please try again.',
@@ -38,6 +41,9 @@ export const communityCopy = {
     '支持': 'Support', '想你': 'Miss you', '朋友': 'Friends', 'CP': 'CP', '喜欢': 'Love',
   },
   th: {
+    '写回声': 'เขียนตอบกลับ',
+    '展开原话': 'อ่านข้อความเต็ม',
+    '收起原话': 'ย่อข้อความ',
     '展开': 'อ่านต่อ',
     '收起': 'ย่อ',
     '心动没有送达，请重试。': 'บันทึกถูกใจไม่สำเร็จ ลองอีกครั้ง',

@@ -140,7 +140,13 @@
     gap: 2px;
   }
   .words-tide-lab .words-repo-card-actions button { min-width: 44px; height: 44px; }
-  .words-tide-lab .words-repo-card-actions .words-quote-expand { margin-right: auto; color: #b01262; }
+  .words-tide-lab .words-repo-quote-copy { z-index: 5; pointer-events: none; }
+  .words-tide-lab .words-repo-quote-copy .words-quote-expand {
+    position: relative; display: inline; min-height: 0; margin-left: 4px; padding: 0;
+    color: #b01262; font-size: 12px; line-height: inherit; vertical-align: baseline;
+    white-space: nowrap; pointer-events: auto;
+  }
+  .words-quote-expand::after { content: ''; position: absolute; left: 0; top: 50%; width: 100%; min-width: 44px; height: 44px; transform: translateY(-50%); }
   /* Share the empty space to the right of the byline, not the text itself. */
   .words-tide-lab .is-pinned .words-repo-card-actions {
     height: 44px;

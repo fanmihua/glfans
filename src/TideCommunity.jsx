@@ -9,7 +9,7 @@ import {
   SpinnerGap,
   X,
 } from "@phosphor-icons/react";
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { getTideTargetKey, tideWordsPageTarget } from "./data/tide-words.js";
 import { readSavedNickname } from "./features/community/community-state.js";
@@ -160,7 +160,7 @@ export function CommunityCommentForm({ autoFocusBody = false, bodyMaxLength = co
 
   return (
     <form id={formId} className="community-comment-form" onSubmit={handleSubmit}>
-      <label>
+      <label className="community-nickname-field">
         <span>{t("怎么称呼你")}</span>
         <input
           type="text"
@@ -217,8 +217,34 @@ export function TideGuestbook({ community }) {
   );
 }
 
+export function QuoteComposerContext({ quote }) {
+  const textId = useId();
+  const textRef = useRef(null);
+  const [expanded, setExpanded] = useState(false);
+  const [canExpand, setCanExpand] = useState(false);
+  const text = communityText(quote.text);
+  useLayoutEffect(() => {
+    if (expanded) return;
+    const element = textRef.current;
+    const measure = () => setCanExpand(element.scrollHeight > element.clientHeight + 1);
+    measure();
+    const observer = typeof ResizeObserver === 'function' ? new ResizeObserver(measure) : null;
+    observer?.observe(element);
+    window.addEventListener('resize', measure);
+    return () => { observer?.disconnect(); window.removeEventListener('resize', measure); };
+  }, [text, expanded]);
+  return <section className="quote-composer-context">
+    <blockquote id={textId} ref={textRef} className={expanded ? 'is-expanded' : ''}>{text}</blockquote>
+    <div className="quote-composer-context-meta">
+      <small translate="no">— {quote.speaker === '匿名坑底人' ? t(quote.speaker) : quote.speaker}</small>
+      {(canExpand || expanded) && <button type="button" aria-expanded={expanded} aria-controls={textId} onClick={() => setExpanded(!expanded)}>{communityText(expanded ? '收起原话' : '展开原话')}</button>}
+    </div>
+  </section>;
+}
+
 export function QuoteCommentModal({ community }) {
   const composerQuote = community.composerQuote;
+  const [formFooter, setFormFooter] = useState(null);
 
   useEffect(() => {
     if (!composerQuote) return undefined;
@@ -236,7 +262,6 @@ export function QuoteCommentModal({ community }) {
   }, [composerQuote, community.closeComposer]);
 
   if (!composerQuote) return null;
-  const quoteLabel = /^q-\d+$/i.test(composerQuote.id) ? composerQuote.id.toUpperCase() : "NEW VOICE";
 
   return createPortal(
     <div className="quote-comment-layer" role="presentation" onMouseDown={(event) => {
@@ -244,29 +269,31 @@ export function QuoteCommentModal({ community }) {
     }}>
       <aside className="quote-comment-modal is-composer" role="dialog" aria-modal="true" aria-labelledby="quote-comment-title">
         <header className="quote-comment-modal-header">
-          <span>{t(quoteLabel)}{communityText(" / LEAVE A COMMENT")}</span>
+          <h2 id="quote-comment-title">{communityText('写回声')}</h2>
           <button className="dialog-close-button" type="button" onClick={community.closeComposer} aria-label={t("关闭评论")}>
             <X weight="bold" aria-hidden="true" />
           </button>
         </header>
-        <div className="quote-comment-featured">
-          <blockquote id="quote-comment-title">{communityText(composerQuote.text)}</blockquote>
-          <small translate="no">— {composerQuote.speaker === '匿名坑底人' ? t(composerQuote.speaker) : composerQuote.speaker}</small>
+        <div className="quote-comment-composer-scroll">
+          <QuoteComposerContext key={composerQuote.id} quote={composerQuote} />
+          <CommunityCommentForm
+            autoFocusBody
+            footerTarget={formFooter}
+            submitLabel="留下回声"
+            configured={community.configured}
+            onSubmit={async ({ nickname, body }) => {
+              const result = await community.submitComment({
+                targetType: "quote",
+                targetId: composerQuote.id,
+                nickname,
+                body,
+              });
+              if (result.ok) community.closeComposer();
+              return result;
+            }}
+          />
         </div>
-        <CommunityCommentForm
-          autoFocusBody
-          configured={community.configured}
-          onSubmit={async ({ nickname, body }) => {
-            const result = await community.submitComment({
-              targetType: "quote",
-              targetId: composerQuote.id,
-              nickname,
-              body,
-            });
-            if (result.ok) community.closeComposer();
-            return result;
-          }}
-        />
+        <footer className="quote-comment-composer-actions" ref={setFormFooter} />
       </aside>
     </div>,
     document.body,

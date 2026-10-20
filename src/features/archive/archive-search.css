@@ -85,4 +85,11 @@
 
 @media (max-width: 760px) {
   .archive-search { width: 100%; }
+  .archive-search input {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .archive-search input::-webkit-search-decoration,
+  .archive-search input::-webkit-search-results-button,
+  .archive-search input::-webkit-search-results-decoration { display: none; }
 }

@@ -97,9 +97,9 @@ function CpContent({data}) {
       <CpDirectory cp={cp} copy={copy} locale={locale} />
       {!cp ? <section className="cp-not-found"><h2>{copy.notFound}</h2><a href="#/cp">{copy.back}<ArrowRight /></a></section> : <>
         <section className={`cp-identity${cp.image ? '' : ' cp-identity--text'}`} aria-labelledby="cp-name">
-          {cp.image && <div className={`cp-portrait${cp.portraitFrame ? ' cp-portrait--scrapbook' : ''}`} style={cp.portraitFrame ? { '--portrait-ratio': cp.imageWidth / cp.imageHeight } : undefined}>
+          {cp.image && <div className={`cp-portrait${cp.portraitFrame ? ` cp-portrait--scrapbook cp-portrait--${cp.portraitTemplate}` : ''}`} style={cp.portraitFrame ? { '--portrait-ratio': `${cp.portraitFrameWidth} / ${cp.portraitFrameHeight}` } : undefined}>
             <CpImage className={cp.portraitFrame ? 'cp-portrait-photo' : undefined} key={cp.image} src={cp.image} sizes="(max-width: 760px) calc(100vw - 36px), 48vw" alt={cpLabel(cp)} width={cp.imageWidth || 1000} height={cp.imageHeight || (cp.id === 'emibonnie' || cp.id === 'freenbecky' ? 667 : cp.id === 'janjingjing' ? 914 : 1000)} fetchPriority="high" data-page-critical="true" />
-            {cp.portraitFrame && <><CpImage className="cp-portrait-frame" src={cp.portraitFrame} alt="" aria-hidden="true" width="1200" height="1200" /><span className="cp-portrait-name" aria-hidden="true">{cpLabel(cp)}</span></>}
+            {cp.portraitFrame && <><CpImage className="cp-portrait-frame" src={cp.portraitFrame} alt="" aria-hidden="true" width={cp.portraitFrameWidth} height={cp.portraitFrameHeight} /><span className={`cp-portrait-name${cp.portraitSignature ? ' cp-portrait-name--signature' : ''}`} aria-hidden="true">{cp.portraitSignature ? <CpImage src={cp.portraitSignature} alt="" width={cp.portraitSignatureWidth} height={cp.portraitSignatureHeight} sizes="(max-width: 760px) 176px, 300px" /> : cpLabel(cp)}</span></>}
           </div>}
           <div className="cp-bio">
             {notice && <button type="button" className="cp-status-tag" onClick={() => jumpToJournal('cp-conclusion')}>{cpJournalCopy[locale].ended}<ArrowRight size={16} /></button>}

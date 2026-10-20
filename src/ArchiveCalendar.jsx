@@ -1,8 +1,10 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { X, ArrowUpRight, CaretLeft, CaretRight, CaretDown, CalendarBlank, DownloadSimple, CalendarPlus } from '@phosphor-icons/react';
+import { X, ArrowUpRight, CaretLeft, CaretRight, CaretDown, CalendarBlank, DownloadSimple, CalendarPlus, Lightbulb } from '@phosphor-icons/react';
 import { getLocale, getDateLocale, t, requireCatalog } from './i18n/runtime.js';
 import { CpRelatedLinks } from './features/cp/CpRelatedLinks.jsx';
+import { cpsForWork } from './features/cp/cp-runtime-data.js';
+import { cpLabel } from './features/cp/cp-names.js';
 import { cpCopy } from './features/cp/cp-copy.js';
 import { scopeStartDate } from './features/archive/calendar-scope.js';
 import { seriesName } from './i18n/proper-names.js';
@@ -17,6 +19,7 @@ import { calendarCopy } from './features/archive/calendar-copy.js';
 import { calendarExportEvents, createCalendarExport } from './features/archive/calendar-export.js';
 import { CalendarSubscription } from './features/archive/CalendarSubscription.jsx';
 import { CalendarGuide } from './features/archive/CalendarGuide.jsx';
+import { calendarGuideCopy } from './features/archive/calendar-guide-copy.js';
 import { CalendarFollowControls, CalendarFollowManager } from './features/archive/CalendarFollowing.jsx';
 import { useCalendarFollowing } from './features/archive/useCalendarFollowing.js';
 import { CalendarWeek } from './features/archive/CalendarWeek.jsx';
@@ -29,7 +32,7 @@ const confirmedSeriesIds = new Set(schedule.events.filter((event) => !event.need
 const calendarSeries = schedule.series.map((series) => {
   const archive = archiveById.get(series.id);
   return { ...series, year: archive?.year || series.premiereDate?.slice(0, 4),
-    searchText: [archive?.title, archive?.titleEn, ...(archive?.aliases || []), ...(archive?.cast || []).map((person) => typeof person === 'string' ? person : Object.values(person).join(' '))].join(' ') };
+    searchText: [...cpsForWork(series.id).map(cp => `${cpLabel(cp)} ${(cp.aliases || []).join(' ')}`), archive?.title, archive?.titleEn, ...(archive?.aliases || []), ...(archive?.cast || []).map((person) => typeof person === 'string' ? person : Object.values(person).join(' '))].join(' ') };
 });
 const followableSeries = calendarSeries.filter(series => confirmedSeriesIds.has(series.id));
 const sourcesById = new Map(schedule.series.map((item) => [item.id, item]));
@@ -38,6 +41,7 @@ export function ArchiveCalendar({ onClose, returnFocus, initialSeriesIds, scopeL
   requireCatalog('archive');
   const locale = getLocale(), copy = calendarCopy[locale];
   const cpText = cpCopy[locale];
+  const guideCopy = calendarGuideCopy[locale];
   const [scopeIds, setScopeIds] = useState(() => initialSeriesIds?.length ? new Set(initialSeriesIds) : null);
   const [showAllOverride, setShowAllOverride] = useState(false);
   const mobile = useMobileLayout();
@@ -46,31 +50,40 @@ export function ArchiveCalendar({ onClose, returnFocus, initialSeriesIds, scopeL
   const onlyFollowing = !scopeIds && !showAllOverride && following.onlyFollowing;
   const [managingFollowing, setManagingFollowing] = useState(false);
   const [choosingPeriod, setChoosingPeriod] = useState(false);
-  const [subscribing, setSubscribing] = useState(false);
-  const [guideOpen, setGuideOpen] = useState(false);
+  const [view, setView] = useState('calendar');
+  const [subscriptionStarted, setSubscriptionStarted] = useState(false);
   const [guideMode, setGuideMode] = useState('subscribe');
-  const subscriptionButtonRef = useRef(null);
+  const subscriptionButtonRef = useRef(null), guideButtonRef = useRef(null);
+  const viewScroll = useRef({ calendar: 0, subscription: 0, guide: 0 });
+  const previousView = useRef('calendar');
   const [pickerYear, setPickerYear] = useState(new Date().getFullYear());
   const periodRef = useRef(null);
-  useLayoutEffect(() => {
-    if (managingFollowing || choosingPeriod || subscribing) dialogRef.current?.querySelector('.calendar-scroll')?.scrollTo({ top: 0, behavior: 'instant' });
-  }, [managingFollowing, choosingPeriod, subscribing]);
-  const closeSubscription = () => {
-    setSubscribing(false);
-    requestAnimationFrame(() => subscriptionButtonRef.current?.focus({ preventScroll: true }));
+  const navigateView = (next) => {
+    viewScroll.current[view] = dialogRef.current?.querySelector('.calendar-scroll')?.scrollTop || 0;
+    if (next !== 'calendar') setSubscriptionStarted(true);
+    setView(next);
   };
-  const openSubscriptionFromGuide = () => {
-    setSubscribing(true);
+  useLayoutEffect(() => {
+    const previous = previousView.current;
+    if (previous === view) return;
+    dialogRef.current?.querySelector('.calendar-scroll')?.scrollTo({ top: viewScroll.current[view], behavior: 'instant' });
+    const target = view === 'calendar' ? subscriptionButtonRef.current
+      : view === 'subscription' && previous === 'guide' ? guideButtonRef.current
+      : dialogRef.current?.querySelector('#calendar-dialog-title');
+    target?.focus({ preventScroll: true });
+    previousView.current = view;
+  }, [view]);
+  useLayoutEffect(() => {
+    if (managingFollowing || choosingPeriod) dialogRef.current?.querySelector('.calendar-scroll')?.scrollTo({ top: 0, behavior: 'instant' });
+  }, [managingFollowing, choosingPeriod]);
+  const openSubscription = () => {
     setManagingFollowing(false);
     setChoosingPeriod(false);
-    setGuideOpen(false);
-    requestAnimationFrame(() => {
-      dialogRef.current?.querySelector('.calendar-scroll')?.scrollTo({ top: 0, behavior: 'instant' });
-      dialogRef.current?.querySelector('#calendar-subscription-title')?.focus({ preventScroll: true });
-    });
+    navigateView('subscription');
   };
   const followedIds = useMemo(() => new Set(following.seriesIds), [following.seriesIds]);
   const noFollowedSeries = !followableSeries.some(({ id }) => followedIds.has(id));
+  const showingFollowingEmpty = onlyFollowing && noFollowedSeries && !managingFollowing && !choosingPeriod;
   useLayoutEffect(() => {
     const dialog = dialogRef.current;
     const focus = returnFocus || document.activeElement;
@@ -147,8 +160,8 @@ export function ArchiveCalendar({ onClose, returnFocus, initialSeriesIds, scopeL
     // Keep the object alive long enough for Safari to begin the download.
     window.setTimeout(() => URL.revokeObjectURL(url), 60000);
     setGuideMode('import');
-    setGuideOpen(true);
-    requestAnimationFrame(() => dialogRef.current?.querySelector('.calendar-scroll')?.scrollTo({ top: 0, behavior: 'instant' }));
+    viewScroll.current.guide = 0;
+    navigateView('guide');
   };
   const navigateMonth = (direction) => {
     const date = new Date(`${selected.slice(0, 7)}-01T12:00:00Z`);
@@ -156,7 +169,7 @@ export function ArchiveCalendar({ onClose, returnFocus, initialSeriesIds, scopeL
     setSelected(date.toISOString().slice(0, 10));
     setChoosingPeriod(false);
   };
-  const provenance = <><p>{copy.notice}</p><p>{copy.exportNote}</p><p><a href="https://glspotlight.com/airing" target="_blank" rel="noreferrer">{copy.sourceName}</a><a href="https://www.tvmaze.com" target="_blank" rel="noreferrer">TVmaze</a><span>{copy.checked}：{new Intl.DateTimeFormat(getDateLocale(), { timeZone: zone, dateStyle: 'medium', timeStyle: 'short' }).format(new Date(schedule.checkedAt))}</span><span>{copy.historyChecked}：{format(schedule.historyCheckedAt.slice(0, 10), { year: 'numeric', month: 'short', day: 'numeric' })}</span></p>{now - Date.parse(schedule.checkedAt) > 8 * 86400000 && <strong>{copy.stale}</strong>}</>;
+  const provenance = <p>{copy.checked}：{new Intl.DateTimeFormat(getDateLocale(), { timeZone: zone, dateStyle: 'medium' }).format(new Date(schedule.checkedAt))}</p>;
   const mobileDetails = (event) => {
     const series = sourcesById.get(event.seriesId), archive = archiveById.get(event.seriesId);
     return <>
@@ -169,53 +182,71 @@ export function ArchiveCalendar({ onClose, returnFocus, initialSeriesIds, scopeL
       </div>
       {archive?.summary && <p>{t(archive.summary)}</p>}
       {archive?.airingNote && <p>{t(archive.airingNote)}</p>}
-      <a href={event.sourceUrl} target="_blank" rel="noreferrer">{copy.more}<ArrowUpRight size={14} /></a>
-      {archive && <a href={`#/archive/${archive.year}/${archive.id}`} onClick={onClose}>{cpText.archive}<ArrowUpRight size={14} /></a>}
-      <CpRelatedLinks seriesId={event.seriesId} onNavigate={onClose} />
+      <div className="calendar-detail-links">
+        <a href={event.sourceUrl} target="_blank" rel="noreferrer">{copy.more}<ArrowUpRight size={14} /></a>
+        {archive && <a href={`#/archive/${archive.year}/${archive.id}`} onClick={onClose}>{cpText.archive}<ArrowUpRight size={14} /></a>}
+        <CpRelatedLinks seriesId={event.seriesId} onNavigate={onClose} />
+      </div>
     </>;
   };
+  const periodTitle = <h2><button className="calendar-period-title" ref={periodRef} aria-label={`${format(selected, { year: 'numeric', month: 'long' })} · ${copy.chooseMonth}`} aria-expanded={choosingPeriod} onClick={() => {
+          setPickerYear(Number(selected.slice(0, 4))); setChoosingPeriod((value) => !value); setManagingFollowing(false);
+        }}>{format(selected, { year: 'numeric', month: mobile && locale !== 'zh' ? 'short' : 'long' })}<CaretDown size={12} aria-hidden="true" /></button></h2>;
   const toolbar = (
     <div className="calendar-toolbar">
-        <div className="calendar-period"><button onClick={() => navigateMonth(-1)} aria-label={copy.previous}><CaretLeft size={20} /></button><h2><button className="calendar-period-title" ref={periodRef} aria-label={`${format(selected, { year: 'numeric', month: 'long' })} · ${copy.chooseMonth}`} aria-expanded={choosingPeriod} onClick={() => {
-          setPickerYear(Number(selected.slice(0, 4))); setChoosingPeriod((value) => !value); setManagingFollowing(false);
-        }}>{format(selected, { year: 'numeric', month: mobile && locale !== 'zh' ? 'short' : 'long' })}<CaretDown size={12} aria-hidden="true" /></button></h2><button onClick={() => navigateMonth(1)} aria-label={copy.next}><CaretRight size={20} /></button><button className="calendar-today" onClick={() => { setSelected(today); setChoosingPeriod(false); }}>{copy.today}</button></div>
+        <div className="calendar-period">
+          {!mobile && periodTitle}
+          <button onClick={() => navigateMonth(-1)} aria-label={copy.previous}><CaretLeft size={20} /></button>
+          {mobile && periodTitle}
+          <button onClick={() => navigateMonth(1)} aria-label={copy.next}><CaretRight size={20} /></button>
+          <button className="calendar-today" onClick={() => { setSelected(today); setChoosingPeriod(false); }}>{copy.today}</button>
+        </div>
         {locale === 'en' && <span className="calendar-timezone-note">Thailand time · UTC+7</span>}
       </div>
   );
   const firstDay = weekStart(selected);
   const followControls = scopeIds ? <div className="calendar-scope"><span>{cpText.scope} · {scopeLabel}</span><button type="button" onClick={() => { setScopeIds(null); setShowAllOverride(true); }}>{cpText.allSeries}</button>{mobile && <small>{format(firstDay, { month: 'short', day: 'numeric' })} — {format(moveDate(firstDay, 6), { month: 'short', day: 'numeric' })}</small>}</div> : <CalendarFollowControls copy={copy} onlyFollowing={onlyFollowing} setOnlyFollowing={value => { setShowAllOverride(false); following.setOnlyFollowing(value); }}
-    managing={managingFollowing} onManage={() => {
+    managing={managingFollowing} showManage={!showingFollowingEmpty} onManage={() => {
       setChoosingPeriod(false);
       if (managingFollowing) { setShowAllOverride(false); following.setOnlyFollowing(true); }
       setManagingFollowing((value) => !value);
     }}
     weekRange={mobile && !managingFollowing && !choosingPeriod ? `${format(firstDay, { month: 'short', day: 'numeric' })} — ${format(moveDate(firstDay, 6), { month: 'short', day: 'numeric' })}` : null} />;
   return createPortal(<dialog className="calendar-dialog" ref={dialogRef} aria-labelledby="calendar-dialog-title"
-    onCancel={(event) => { event.preventDefault(); if (subscribing) closeSubscription(); else onClose(); }} onClick={(event) => { if (event.target === event.currentTarget) onClose(); }}>
-    <div className="calendar-panel">
-      <header className="calendar-dialog-header"><h2 id="calendar-dialog-title" tabIndex={-1} autoFocus>{copy.title}</h2><div className="calendar-header-actions">
-        <button className="calendar-subscribe-trigger" ref={subscriptionButtonRef} type="button" aria-expanded={subscribing} aria-controls="calendar-subscription" onClick={() => {
-          if (subscribing) closeSubscription(); else { setGuideOpen(false); setSubscribing(true); setManagingFollowing(false); setChoosingPeriod(false); }
-        }}><CalendarPlus size={18} aria-hidden="true" /><span>{copy.subscribe}</span></button>
-        {!subscribing && <button className="calendar-export" type="button" disabled={!exportEvents.length} aria-label={exportLabel} title={`${exportLabel}\n${copy.exportNote}`} onClick={downloadCalendar}>
-          <DownloadSimple size={18} aria-hidden="true" /><span>{mobile ? copy.exportShort : copy.exportMonth}<small>{exportMonth} · {exportEvents.length}</small></span>
-        </button>}<button className="calendar-close" aria-label={copy.close} onClick={onClose}><X size={20} /></button></div></header>
-      {mobile && !subscribing && <div className="calendar-content calendar-mobile-navigation">
+    onCancel={(event) => { event.preventDefault(); onClose(); }} onClick={(event) => { if (event.target === event.currentTarget) onClose(); }}>
+    <div className={`calendar-panel calendar-panel--${view}`}>
+      <header className="calendar-dialog-header"><div className="calendar-header-title">
+        {view !== 'calendar' && <button className="calendar-header-back" type="button" aria-label={view === 'guide' ? copy.guideBack : copy.subscriptionBack} onClick={() => navigateView(view === 'guide' ? 'subscription' : 'calendar')}><CaretLeft size={20} aria-hidden="true" /></button>}
+        <h2 id="calendar-dialog-title" tabIndex={-1} autoFocus>{view === 'calendar' ? copy.title : view === 'subscription' ? copy.subscriptionTitle : guideCopy.title}</h2>
+      </div><div className="calendar-header-actions">
+        {view === 'calendar' && <>
+          <button className="calendar-subscribe-trigger" ref={subscriptionButtonRef} type="button" aria-controls="calendar-subscription" onClick={openSubscription}><CalendarPlus size={18} aria-hidden="true" /><span>{copy.subscribe}</span></button>
+          <button className="calendar-export" type="button" disabled={!exportEvents.length} aria-label={exportLabel} title={`${exportLabel}\n${copy.exportNote}`} onClick={downloadCalendar}>
+            <DownloadSimple size={18} aria-hidden="true" /><span>{mobile ? copy.exportShort : copy.exportMonth}</span>
+          </button>
+        </>}
+        {view === 'subscription' && <button className="calendar-guide-trigger" ref={guideButtonRef} type="button" onClick={() => navigateView('guide')}><Lightbulb size={18} aria-hidden="true" /><span>{guideCopy.title}</span></button>}
+        <button className="calendar-close" aria-label={copy.close} onClick={onClose}><X size={20} /></button></div></header>
+      {view === 'calendar' && <div className={`calendar-content calendar-navigation${mobile ? ' calendar-mobile-navigation' : ' calendar-desktop-navigation'}`}>
         {toolbar}
         {followControls}
       </div>}
       <div className="calendar-scroll">
     <div className="calendar-content">
-      {!mobile && !subscribing && <>{toolbar}{followControls}</>}
-      <CalendarGuide locale={locale} open={guideOpen} mode={guideMode} onToggle={() => setGuideOpen(value => !value)}
-        onModeChange={setGuideMode} onSubscribe={openSubscriptionFromGuide} />
-      {subscribing ? <CalendarSubscription copy={copy} locale={locale} series={calendarSeries} scopeIds={scopeIds ? [...scopeIds] : null} followedIds={following.seriesIds}
-        titleFor={titleFor} imageFor={(id) => archiveById.get(id)?.image} onBack={closeSubscription} />
-        : choosingPeriod ? <CalendarPeriodPicker selected={selected} year={pickerYear} years={calendarYears} onYearChange={setPickerYear} copy={copy} format={format} availability={monthAvailability}
+      {subscriptionStarted && <div hidden={view !== 'subscription'}><CalendarSubscription copy={copy} locale={locale} series={calendarSeries} scopeIds={scopeIds ? [...scopeIds] : null} followedIds={following.seriesIds}
+        titleFor={titleFor} imageFor={(id) => archiveById.get(id)?.image} /></div>}
+      {view === 'guide' && <CalendarGuide locale={locale} mode={guideMode} mobile={mobile} onModeChange={setGuideMode} />}
+      <div hidden={view !== 'calendar'}>
+      {choosingPeriod ? <CalendarPeriodPicker selected={selected} year={pickerYear} years={calendarYears} onYearChange={setPickerYear} copy={copy} format={format} availability={monthAvailability}
         onSelect={(date) => { setSelected(date); setChoosingPeriod(false); requestAnimationFrame(() => periodRef.current?.focus({ preventScroll: true })); }} />
         : managingFollowing ? <CalendarFollowManager copy={copy} series={followableSeries} seriesIds={following.seriesIds} toggleSeries={following.toggleSeries}
         titleFor={titleFor} imageFor={(id) => archiveById.get(id)?.image} saveFailed={following.saveFailed} />
-        : onlyFollowing && noFollowedSeries ? <div className="calendar-follow-empty" role="status"><p>{copy.noFollowing}</p><button type="button" onClick={() => setManagingFollowing(true)}>{copy.chooseSeries}</button></div>
+        : showingFollowingEmpty ? <section className="calendar-follow-empty" aria-labelledby="calendar-follow-empty-title">
+          <img src={withBase('assets/calendar/following-empty-v1.webp')} width="480" height="384" alt="" />
+          <h3 id="calendar-follow-empty-title">{copy.noFollowingTitle}</h3>
+          <p>{copy.noFollowing}</p>
+          <button type="button" aria-controls="calendar-follow-manager" onClick={() => setManagingFollowing(true)}>{copy.noFollowingAction}<ArrowUpRight size={16} aria-hidden="true" /></button>
+        </section>
         : <div className="calendar-layout">
         {mobile ? <CalendarWeek selected={selected} onSelect={setSelected} today={today} eventsByDate={eventsByDate}
           copy={onlyFollowing ? { ...copy, noEntries: copy.noFollowingEntries } : copy} titleFor={titleFor} episodeFor={episodeFor} timeFor={timeFor} renderDetails={mobileDetails} /> : <section className="calendar-grid" aria-label={copy.selectDate}>
@@ -251,16 +282,19 @@ export function ArchiveCalendar({ onClose, returnFocus, initialSeriesIds, scopeL
               </div>
               {archive?.summary && <p className="calendar-program-summary">{t(archive.summary)}</p>}
               {archive?.airingNote && <p className="calendar-program-summary">{t(archive.airingNote)}</p>}
-              <div className="calendar-program-links"><a href={event.sourceUrl} target="_blank" rel="noreferrer">{copy.more}<ArrowUpRight size={14} /></a></div>
-              {archive && <div className="calendar-program-links"><a href={`#/archive/${archive.year}/${archive.id}`} onClick={onClose}>{cpText.archive}<ArrowUpRight size={14} /></a></div>}
-              <CpRelatedLinks seriesId={event.seriesId} onNavigate={onClose} />
+              <div className="calendar-detail-links">
+                <a href={event.sourceUrl} target="_blank" rel="noreferrer">{copy.more}<ArrowUpRight size={14} /></a>
+                {archive && <a href={`#/archive/${archive.year}/${archive.id}`} onClick={onClose}>{cpText.archive}<ArrowUpRight size={14} /></a>}
+                <CpRelatedLinks seriesId={event.seriesId} onNavigate={onClose} />
+              </div>
             </article>;
           }) : <div className="calendar-empty"><CalendarBlank size={36} weight="light" /><h3>{onlyFollowing ? copy.noFollowingEntries : covered ? copy.empty : copy.emptyOutside}</h3><p>{onlyFollowing ? copy.followingEmptyNote : copy.emptyNote}</p></div>}
         </section>}
       </div>}
-      {!subscribing && !managingFollowing && !choosingPeriod && (mobile ? <details className="calendar-provenance calendar-provenance-disclosure"><summary>{copy.notes}</summary>{provenance}</details> : <aside className="calendar-provenance">{provenance}</aside>)}
+      {!managingFollowing && !choosingPeriod && <aside className="calendar-provenance">{provenance}</aside>}
     </div>
       </div>
+    </div>
     </div>
   </dialog>, document.body);
 }

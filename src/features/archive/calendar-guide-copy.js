@@ -1,19 +1,20 @@
 export const calendarGuideCopy = {
   zh: {
+    title: '订阅引导',
     toggle: '新手引导 · 添加到我的日历', modes: '添加日历的方式',
-    subscribe: '持续订阅（推荐）', import: '一次性导入',
-    subscribeIntro: '订阅会持续更新；导入只保存这一次。',
+    subscribe: '订阅（推荐）', import: '导入',
+    subscribeIntro: '订阅会持续更新；导入只保存一次',
     subscribeCards: [
-      { title: '选好剧集', body: '点顶部「订阅」，选全部剧集或自己选。' },
+      { title: '选好剧集', body: '选择全部剧集，或只选喜欢的。' },
       { title: '打开日历', body: '用 Safari 点「Apple 日历订阅」。' },
-      { title: '确认订阅', body: '核对预览并确认，再勾选 glfans。' },
+      { title: '确认订阅', body: '确认添加，在日历中勾选 glfans。' },
     ],
     importCards: [
-      { title: '选月份', body: '在日历选择月份与全部 / 关注范围。' },
+      { title: '选月份', body: '选择月份和要导出的剧集。' },
       { title: '下载文件', body: '点「导出」，保存 .ics 文件。' },
-      { title: '导入日历', body: 'Mac：文件 → 导入；Google：设置 → 导入和导出。' },
+      { title: '导入日历', body: '在 Mac 或 Google 日历中导入文件。' },
     ],
-    moreHelp: '更多帮助', embeddedShort: '微信 / 百度：复制订阅地址，到 Safari 粘贴打开。', importShortHint: '导入不会自动更新；iPhone 推荐使用订阅。',
+    moreHelp: '遇到问题？', embeddedShort: '微信 / 百度：复制订阅地址，到 Safari 粘贴打开。', importShortHint: '导入不会自动更新；iPhone 推荐使用订阅。',
     subscribeSteps: [
       '点日历顶部的「订阅」。',
       '选「全部剧集」或「自己选」；自己选至少勾选一部剧。',
@@ -21,8 +22,8 @@ export const calendarGuideCopy = {
       '允许系统打开日历，查找或预览后核对名称与剧集，再按提示点「订阅」或「完成」。',
       '回到日历列表，勾选 glfans，让排期显示在你的日历中。',
     ],
-    subscribeScope: '全部剧集跨月持续更新，未来新收录的剧也会加入；自己选只更新已选剧，不会自动增加未选剧。',
-    independent: '网站关注与系统订阅各自独立。更换选剧后，请用新链接替换旧订阅；更新速度由日历刷新设置决定。',
+    subscribeScope: '全部剧集跨月持续更新，未来新收录的剧也会加入。',
+    independent: '更换选剧后，请用新链接替换旧订阅。',
     embedded: '在微信、百度中打开？先复制「Apple 订阅地址」，再到 Safari 地址栏粘贴并前往；也可以按下面的步骤手动添加。',
     manual: '手动添加：iPhone / Mac', iphone: 'iPhone', mac: 'Mac',
     iphoneSteps: [
@@ -61,20 +62,21 @@ export const calendarGuideCopy = {
     appleMacImport: 'Apple：Mac 导入日历', googleHelp: 'Google：电脑端导入日程',
   },
   en: {
+    title: 'Subscription guide',
     toggle: 'Getting started · Add to my calendar', modes: 'Ways to add a calendar',
-    subscribe: 'Subscribe (recommended)', import: 'Import once',
+    subscribe: 'Subscribe (recommended)', import: 'Import',
     subscribeIntro: 'Subscriptions keep updating; an import saves this one snapshot.',
     subscribeCards: [
-      { title: 'Choose shows', body: 'Tap Subscribe, then choose all shows or your own selection.' },
+      { title: 'Choose shows', body: 'Choose all shows or just your favorites.' },
       { title: 'Open Calendar', body: 'In Safari, tap Subscribe in Apple Calendar.' },
-      { title: 'Confirm', body: 'Check the preview, confirm, then check glfans in your calendar list.' },
+      { title: 'Confirm', body: 'Confirm, then check glfans in your calendar list.' },
     ],
     importCards: [
       { title: 'Choose a month', body: 'Select the month and All / Following in the calendar.' },
       { title: 'Download the file', body: 'Tap Export and save the .ics file.' },
-      { title: 'Import to Calendar', body: 'Mac: File → Import. Google: Settings → Import & export.' },
+      { title: 'Import to Calendar', body: 'Import the file into Mac or Google Calendar.' },
     ],
-    moreHelp: 'More help', embeddedShort: 'WeChat / Baidu: copy the subscription URL and open it in Safari.', importShortHint: 'Imports do not update. On iPhone, subscribing is recommended.',
+    moreHelp: 'Having trouble?', embeddedShort: 'WeChat / Baidu: copy the subscription URL and open it in Safari.', importShortHint: 'Imports do not update. On iPhone, subscribing is recommended.',
     subscribeSteps: [
       'Choose “Subscribe” at the top of this calendar.',
       'Choose “All shows” or “Choose shows”. Select at least one show for a custom subscription.',
@@ -82,8 +84,8 @@ export const calendarGuideCopy = {
       'Allow Calendar to open. Look up or preview the calendar, check its name and shows, then choose Subscribe or Done when prompted.',
       'In your calendar list, check glfans to display its listings.',
     ],
-    subscribeScope: 'All shows includes schedules across months and shows added in the future. A custom subscription updates your chosen shows; unselected shows are not added automatically.',
-    independent: 'Website follows and your calendar subscription are separate. Replace the old subscription with a new link when changing shows. Your calendar controls refresh timing.',
+    subscribeScope: 'All shows includes schedules across months and shows added in the future.',
+    independent: 'Replace the old subscription with a new link when changing shows.',
     embedded: 'Opened in WeChat or Baidu? Copy the Apple subscription address, paste it into Safari’s address bar and go. You can also add it manually below.',
     manual: 'Add manually: iPhone / Mac', iphone: 'iPhone', mac: 'Mac',
     iphoneSteps: [
@@ -122,11 +124,12 @@ export const calendarGuideCopy = {
     appleMacImport: 'Apple: Import on Mac', googleHelp: 'Google: Import on a computer',
   },
   th: {
+    title: 'คู่มือการติดตาม',
     toggle: 'คู่มือเริ่มต้น · เพิ่มในปฏิทินของฉัน', modes: 'วิธีเพิ่มปฏิทิน',
-    subscribe: 'ติดตามต่อเนื่อง (แนะนำ)', import: 'นำเข้าครั้งเดียว',
+    subscribe: 'ติดตาม (แนะนำ)', import: 'นำเข้า',
     subscribeIntro: 'การติดตามจะอัปเดตต่อเนื่อง ส่วนการนำเข้าจะบันทึกเฉพาะครั้งนี้',
     subscribeCards: [
-      { title: 'เลือกซีรีส์', body: 'กดติดตามด้านบน แล้วเลือกทุกเรื่องหรือเลือกเอง' },
+      { title: 'เลือกซีรีส์', body: 'เลือกทุกเรื่องหรือเฉพาะเรื่องที่ชอบ' },
       { title: 'เปิดปฏิทิน', body: 'เปิดใน Safari แล้วกดติดตามใน Apple Calendar' },
       { title: 'ยืนยันการติดตาม', body: 'ตรวจสอบตัวอย่าง ยืนยัน แล้วทำเครื่องหมายเลือก glfans' },
     ],
@@ -135,7 +138,7 @@ export const calendarGuideCopy = {
       { title: 'ดาวน์โหลดไฟล์', body: 'กดส่งออก แล้วบันทึกไฟล์ .ics' },
       { title: 'นำเข้าปฏิทิน', body: 'เลือกไฟล์และปฏิทินปลายทางใน Mac หรือ Google Calendar' },
     ],
-    moreHelp: 'ความช่วยเหลือเพิ่มเติม', embeddedShort: 'WeChat / Baidu: คัดลอกลิงก์แล้ววางเปิดใน Safari', importShortHint: 'ไฟล์ที่นำเข้าจะไม่อัปเดต บน iPhone แนะนำให้ติดตาม',
+    moreHelp: 'พบปัญหา?', embeddedShort: 'WeChat / Baidu: คัดลอกลิงก์แล้ววางเปิดใน Safari', importShortHint: 'ไฟล์ที่นำเข้าจะไม่อัปเดต บน iPhone แนะนำให้ติดตาม',
     subscribeSteps: [
       'กด “ติดตาม” ที่ด้านบนของปฏิทินนี้',
       'เลือก “ทุกเรื่อง” หรือ “เลือกเอง” โดยเลือกอย่างน้อยหนึ่งเรื่องสำหรับการติดตามแบบเลือกเอง',
@@ -143,8 +146,8 @@ export const calendarGuideCopy = {
       'อนุญาตให้เปิดแอปปฏิทิน ค้นหาหรือดูตัวอย่าง ตรวจสอบชื่อและซีรีส์ แล้วกดติดตามหรือเสร็จสิ้นตามที่ระบบแสดง',
       'กลับไปที่รายการปฏิทิน แล้วทำเครื่องหมายเลือก glfans เพื่อแสดงตาราง',
     ],
-    subscribeScope: 'ทุกเรื่องจะอัปเดตตารางข้ามเดือนและรวมซีรีส์ที่เพิ่มใหม่ในอนาคต ส่วนการเลือกเองจะอัปเดตเฉพาะเรื่องที่เลือก โดยไม่เพิ่มเรื่องอื่นให้อัตโนมัติ',
-    independent: 'รายการที่ติดตามบนเว็บไซต์แยกจากการติดตามในแอปปฏิทิน เมื่อเปลี่ยนซีรีส์ให้แทนที่การติดตามเดิมด้วยลิงก์ใหม่ ความถี่ในการอัปเดตขึ้นอยู่กับการรีเฟรชของแอปปฏิทิน',
+    subscribeScope: 'ทุกเรื่องจะอัปเดตตารางข้ามเดือนและรวมซีรีส์ที่เพิ่มใหม่ในอนาคต',
+    independent: 'เมื่อเปลี่ยนซีรีส์ให้แทนที่การติดตามเดิมด้วยลิงก์ใหม่',
     embedded: 'เปิดจาก WeChat หรือ Baidu อยู่ใช่ไหม? คัดลอกที่อยู่สำหรับ Apple แล้ววางในแถบที่อยู่ของ Safari และกดไป หรือเพิ่มด้วยตนเองตามขั้นตอนด้านล่าง',
     manual: 'เพิ่มด้วยตนเอง: iPhone / Mac', iphone: 'iPhone', mac: 'Mac',
     iphoneSteps: [
