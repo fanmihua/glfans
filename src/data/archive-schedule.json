@@ -1,16 +1,16 @@
 {
   "version": 1,
-  "checkedAt": "2026-10-19T02:05:28.670Z",
+  "checkedAt": "2026-10-26T01:58:58.272Z",
   "source": "GL Spotlight",
   "sourceTimeZone": "Asia/Bangkok",
   "coverage": [
     {
-      "from": "2026-10-19",
-      "to": "2026-10-25"
-    },
-    {
       "from": "2026-10-26",
       "to": "2026-11-01"
+    },
+    {
+      "from": "2026-11-02",
+      "to": "2026-11-08"
     }
   ],
   "series": [
@@ -152,10 +152,14 @@
     {
       "id": "oxytoxin",
       "name": "Oxytoxin",
-      "network": "",
-      "platforms": [],
-      "premiereDate": null,
-      "sourceUrl": "https://glspotlight.com/series/oxytoxin"
+      "network": "GMM25",
+      "platforms": [
+        "Netflix"
+      ],
+      "premiereDate": "2026-11-07",
+      "sourceUrl": "https://www.gmm-tv.com/contents/8j6dE/",
+      "sourceProvider": "official",
+      "checkedAt": "2026-10-26T01:58:58.272Z"
     },
     {
       "id": "her",
@@ -313,9 +317,13 @@
       "id": "love-me-to-hurt-me",
       "name": "Love Me to Hurt Me",
       "network": "Channel 3",
-      "platforms": [],
-      "premiereDate": null,
-      "sourceUrl": "https://glspotlight.com/series/love-me-to-hurt-me"
+      "platforms": [
+        "3Plus"
+      ],
+      "premiereDate": "2026-11-06",
+      "sourceUrl": "https://x.com/TanYuyu_CH3/status/2114522401757376807",
+      "sourceProvider": "official",
+      "checkedAt": "2026-10-26T01:58:58.272Z"
     },
     {
       "id": "the-hidden-blood",
@@ -331,9 +339,9 @@
       "network": "",
       "platforms": [],
       "premiereDate": "2026-11-08",
-      "sourceUrl": "https://x.com/LoveBoundOFC/status/2110363544713880035",
+      "sourceUrl": "https://x.com/LoveBoundOFC/status/2114356881150079278",
       "sourceProvider": "official",
-      "checkedAt": "2026-10-19T02:05:28.670Z"
+      "checkedAt": "2026-10-26T01:58:58.272Z"
     },
     {
       "id": "ditto",
@@ -1292,6 +1300,18 @@
       "needsReview": false
     },
     {
+      "id": "love-on-hire:ep:3",
+      "seriesId": "love-on-hire",
+      "episode": 3,
+      "airsAt": "2026-10-29T13:00:00Z",
+      "date": "2026-10-29",
+      "kind": "episode",
+      "sourceUrl": "https://x.com/LoveOnHire",
+      "checkedAt": "2026-10-26T01:58:58.272Z",
+      "needsReview": false,
+      "sourceProvider": "official"
+    },
+    {
       "id": "pls-love:ep:8",
       "seriesId": "pls-love",
       "episode": 8,
@@ -1317,35 +1337,93 @@
       "id": "khom-khlang:ep:9",
       "seriesId": "khom-khlang",
       "episode": 9,
-      "airsAt": null,
+      "airsAt": "2026-11-02T13:00:00Z",
       "date": "2026-11-02",
       "kind": "episode",
-      "sourceUrl": "https://www.tvmaze.com/episodes/3712588/khom-khlang-1x09-episode-9",
-      "sourceProvider": "tvmaze",
-      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "sourceUrl": "https://glspotlight.com/airing?week=next",
+      "checkedAt": "2026-10-26T01:58:58.272Z",
       "needsReview": false
     },
     {
-      "id": "under-her-rules:premiere",
+      "id": "built-in-love:ep:3",
+      "seriesId": "built-in-love",
+      "episode": 3,
+      "airsAt": "2026-11-04T13:30:00Z",
+      "date": "2026-11-04",
+      "kind": "episode",
+      "sourceUrl": "https://x.com/wabisabiTH/status/2102725466373464369",
+      "checkedAt": "2026-10-26T01:58:58.272Z",
+      "needsReview": false,
+      "sourceProvider": "official"
+    },
+    {
+      "id": "love-on-hire:ep:4",
+      "seriesId": "love-on-hire",
+      "episode": 4,
+      "airsAt": "2026-11-05T13:00:00Z",
+      "date": "2026-11-05",
+      "kind": "episode",
+      "sourceUrl": "https://x.com/LoveOnHire",
+      "checkedAt": "2026-10-26T01:58:58.272Z",
+      "needsReview": false,
+      "sourceProvider": "official"
+    },
+    {
+      "id": "love-me-to-hurt-me:ep:1",
+      "seriesId": "love-me-to-hurt-me",
+      "episode": 1,
+      "airsAt": "2026-11-06T13:30:00Z",
+      "date": "2026-11-06",
+      "kind": "episode",
+      "sourceUrl": "https://x.com/TanYuyu_CH3/status/2114522401757376807",
+      "checkedAt": "2026-10-26T01:58:58.272Z",
+      "needsReview": false,
+      "sourceProvider": "official"
+    },
+    {
+      "id": "under-her-rules:ep:1",
       "seriesId": "under-her-rules",
-      "episode": null,
+      "episode": 1,
       "airsAt": "2026-11-07T13:00:00Z",
       "date": "2026-11-07",
-      "kind": "premiere",
+      "kind": "episode",
       "sourceUrl": "https://x.com/MGIBeyond/status/2103084608183296422",
       "checkedAt": "2026-09-30T08:42:35Z",
       "needsReview": false,
       "sourceProvider": "official"
     },
     {
-      "id": "love-bound:premiere",
+      "id": "oxytoxin:ep:1",
+      "seriesId": "oxytoxin",
+      "episode": 1,
+      "airsAt": "2026-11-07T14:30:00Z",
+      "date": "2026-11-07",
+      "kind": "episode",
+      "sourceUrl": "https://www.gmm-tv.com/contents/8j6dE/",
+      "checkedAt": "2026-10-26T01:58:58.272Z",
+      "needsReview": false,
+      "sourceProvider": "official"
+    },
+    {
+      "id": "third-person:ep:9",
+      "seriesId": "third-person",
+      "episode": 9,
+      "airsAt": "2026-11-07T15:25:00Z",
+      "date": "2026-11-07",
+      "kind": "episode",
+      "sourceUrl": "https://glspotlight.com/airing?week=next",
+      "checkedAt": "2026-10-26T01:58:58.272Z",
+      "needsReview": false
+    },
+    {
+      "id": "love-bound:ep:1",
       "seriesId": "love-bound",
-      "episode": null,
-      "airsAt": null,
+      "episode": 1,
+      "airsAt": "2026-11-08T15:30:00Z",
       "date": "2026-11-08",
-      "kind": "premiere",
-      "sourceUrl": "https://x.com/LoveBoundOFC/status/2110363544713880035",
-      "checkedAt": "2026-10-19T02:05:28.670Z",
+      "kind": "episode",
+      "sourceUrl": "https://x.com/LoveBoundOFC/status/2114356881150079278",
+      "checkedAt": "2026-10-26T01:58:58.272Z",
       "needsReview": false,
       "sourceProvider": "official"
     },
