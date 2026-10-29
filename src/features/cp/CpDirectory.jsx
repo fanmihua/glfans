@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { CaretDown, MagnifyingGlass, X } from '@phosphor-icons/react';
+import { CaretDown } from '@phosphor-icons/react';
+import { SearchField } from '../../components/SearchField.jsx';
 import { useMobileLayout } from '../../hooks/useMobileLayout.js';
 import { cpProfiles } from './cp-runtime-data.js';
 import { cpLabel, filterCps } from './cp-names.js';
@@ -46,10 +47,7 @@ export function CpDirectory({ cp, copy, locale }) {
     setExpanded(false); setSearch('');
     toggle.current?.focus({ preventScroll: true });
   };
-  const searchBox = <div className="cp-search"><MagnifyingGlass size={18} aria-hidden="true" />
-    <input ref={input} type="search" value={search} onChange={event => setSearch(event.target.value)} placeholder={copy.search} aria-label={copy.search} />
-    {search && <button type="button" aria-label={copy.clearSearch} onClick={() => { setSearch(''); input.current?.focus(); }}><X size={16} /></button>}
-  </div>;
+  const searchBox = <SearchField className="cp-search" inputRef={input} value={search} onChange={setSearch} label={copy.search} clearLabel={copy.clearSearch} />;
   const allList = <nav id="cp-all-list" className="cp-all-grid" aria-label={copy.expandAll}>
     {visibleCps.map(item => <a key={item.id} href={`#/cp/${item.id}`} aria-current={cp?.id === item.id ? 'page' : undefined} onClick={select}><strong>{cpLabel(item)}</strong><span>{item.names.join(' / ')}</span><small className={`cp-directory-state cp-directory-state--${statusForCp(item.id).status}`}>{cpStatusCopy[locale][statusForCp(item.id).status]}</small></a>)}
     {!visibleCps.length && <p className="cp-search-empty" role="status">{copy.noResults}</p>}

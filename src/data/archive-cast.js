@@ -329,3 +329,23 @@ export const archiveMainCastById = {
     "Jayna Angelina Stevens"
   ]
 };
+
+// Character mappings are separate from the existing cast order. Actor names
+// remain the shared identity keys used by CP profiles. Thai roles were checked
+// against the broadcaster's guide on 2026-10-29.
+export const archiveCharacterCastById = {
+  shades: [
+    ['Opal Kulwipa Ngamsukkasemsri', 'Amy', 'เอมี่'],
+    ['Mint Benjanee Watcharavasoontara', 'Sophie', 'โซฟี'],
+    ['Puyfai Tharathip Baisaeng', 'Jane', 'เจน'],
+    ['Ploy Jhutamas Pakonworrawong', 'Nano', 'นาโน'],
+    ['Niky Warinrat Yolprasong', 'Belle', 'เบลล์'],
+    ['England Ladamanee Rattanapornvareesakul', 'Earn', 'เอิร์น'],
+    ['Shu Nunnicha Saehuang', 'Mink', 'มิ้ง'],
+    ['Mook Worranit Thawornwong', 'Nalin', 'นลิน'],
+  ].map(([actor, role, roleTh]) => ({
+    actor, role, roleTh,
+    source: 'https://entertainment.trueid.net/detail/xAJ1J6NyYe9O',
+    sourceKind: 'publisher', checkedAt: '2026-10-29',
+  })),
+};

@@ -8,17 +8,18 @@ import { cpCopy } from '../src/features/cp/cp-copy.js';
 import { additionalCpProfiles } from '../src/features/cp/cp-additional-data.js';
 import { announcedPairDefinitions } from '../src/features/cp/cp-expanded-data.js';
 import { oct16CpProfiles } from '../src/features/cp/cp-oct16-data.js';
+import { shadesCpProfiles } from '../src/features/cp/cp-shades-data.js';
 const announcedIds = new Set(announcedPairDefinitions.map(cp => cp.id));
 
 test('the original 51 pairings retain sourced identities and new pairings keep unknown facts explicit', () => {
   const stats = profileCoverage();
-  const original = cpProfiles.filter(cp => !announcedIds.has(cp.id) && !additionalCpProfiles.some(extra => extra.id === cp.id) && !oct16CpProfiles.some(extra => extra.id === cp.id));
+  const original = cpProfiles.filter(cp => !announcedIds.has(cp.id) && !additionalCpProfiles.some(extra => extra.id === cp.id) && !oct16CpProfiles.some(extra => extra.id === cp.id) && !shadesCpProfiles.some(extra => extra.id === cp.id));
   assert.equal(original.length, 51);
   assert.equal(new Set(original.flatMap(cp => cp.members.map(member => member.name))).size, 101);
-  assert.equal(stats.cpCount, 71);
-  assert.equal(stats.actorCount, 137);
-  assert.equal(stats.fields.fullName, 135);
-  assert.equal(stats.fields.instagram, 135);
+  assert.equal(stats.cpCount, 74);
+  assert.equal(stats.actorCount, 143);
+  assert.equal(stats.fields.fullName, 141);
+  assert.equal(stats.fields.instagram, 141);
   assert.ok(stats.fields.birthday >= 100);
   assert.ok(stats.fields.x >= 95);
   assert.ok(stats.fields.weibo >= 60);

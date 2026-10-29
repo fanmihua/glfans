@@ -20,6 +20,9 @@ const catalogueNames = {
 
 export const cpNameRecords = Object.fromEntries(Object.entries(catalogueNames).map(([id, label]) => [id, { label, source: directorySource }]));
 Object.assign(cpNameRecords, {
+  opalmint: { label: 'OpalMint', source: 'https://x.com/frt_ent/status/2114703123172163659' },
+  puyfaiploy: { label: 'PuyfaiPloy', source: 'https://x.com/frt_ent/status/2115307107067003217' },
+  nikyengland: { label: 'NikyEngland', source: 'https://x.com/frt_ent/status/2115428666519806425' },
   mewrenee: { label: 'MewRenee', aliases: ['MewRenée', 'ReneeMew'], source: 'https://glthai.com/couple/' },
   viewjune: { label: 'ViewJune', source: 'https://glthai.com/couple/' },
   junemewnich: { label: 'JuneMewnich', source: 'https://www.gmm-tv.com/news/3811/' },

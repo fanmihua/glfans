@@ -28,7 +28,7 @@ test('all seven sticker pairs are included and works are not capped at two', () 
   assert.equal(cpProfiles.filter(cp => cp.image && !cp.portraitFrame).length, 7);
   assert.equal(cpProfiles.filter(cp => cp.portraitFrame).length, 56);
   assert.ok(cpProfiles.filter(cp => cp.portraitFrame).every(cp => cp.image && cp.portraitSignature));
-  assert.equal(cpProfiles.length, 71);
+  assert.equal(cpProfiles.length, 74);
   assert.ok(findCp('janekao'));
   assert.ok(findCp('ginjay'));
   assert.ok(findCp('lingorm').works.length > 2);

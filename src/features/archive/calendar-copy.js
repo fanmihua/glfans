@@ -1,5 +1,6 @@
 export const calendarCopy = {
   zh: {
+    clearSearch: '清除搜索',
     subscriptionScopeTitle: '选择订阅范围', subscriptionAddTitle: '添加到日历', subscriptionViewLink: '查看订阅链接',
     back: '返回', guideBack: '返回订阅日历', subscriptionSearch: '搜索 CP / 演员 / 年份',
     subscribe: '订阅', subscriptionTitle: '订阅日历', subscriptionBack: '返回日历', subscriptionScope: '订阅范围', subscriptionAll: '全部剧集', subscriptionSelected: '自己选剧',
@@ -19,6 +20,7 @@ export const calendarCopy = {
     close: '关闭播出日历', title: '播出日历', subtitle: '今天，等哪一集？', intro: '按日期找剧，把下一次心动留在日历上。', reel: '年度胶卷', today: '今天', previous: '上个月', next: '下个月', zone: '显示时区', shanghai: '北京时间', bangkok: '泰国时间', day: '当日排期', upcomingNote: '已经有消息，等一个正式的见面日期。', source: '排期来源', checked: '最近核对', notice: '按公布排期展示播出状态，各平台上线时间以播放页面为准。', stale: '本周排期尚未更新，近期安排可能变化。', empty: '当天暂未收录播出安排', emptyOutside: '这一天尚未收录逐集排期', emptyNote: '没有记录不代表当天没有剧播出。', upcoming: '待播', aired: '已播出', airingToday: '今日播出', review: '排期待核实', timeUnknown: '时间待公布', premiere: '首播', details: '剧集档案', more: '查看来源', network: '排期渠道', availability: '相关平台', count: '条排期', range: '逐集排期覆盖', sourceName: 'GL Spotlight · 非官方整理', selectDate: '选择日期', tba: '待定档', unit: '部', weekdays: ['一','二','三','四','五','六','日'],
   },
   en: {
+    clearSearch: 'Clear search',
     subscriptionScopeTitle: 'Choose what to follow', subscriptionAddTitle: 'Add to your calendar', subscriptionViewLink: 'View subscription link',
     back: 'Back', guideBack: 'Back to subscription', subscriptionSearch: 'Search CP / cast / year',
     subscribe: 'Subscribe', subscriptionTitle: 'Subscribe to calendar', subscriptionBack: 'Back to calendar', subscriptionScope: 'Subscription scope', subscriptionAll: 'All shows', subscriptionSelected: 'Choose shows',
@@ -38,6 +40,7 @@ export const calendarCopy = {
     close: 'Close airing calendar', title: 'Airing calendar', subtitle: 'What are we waiting for today?', intro: 'Find a series by date. Make room for the next episode.', reel: 'Year archive', today: 'Today', previous: 'Previous month', next: 'Next month', zone: 'Display time zone', shanghai: 'China time', bangkok: 'Thailand time', day: 'Daily schedule', upcomingNote: 'On our radar, waiting for a premiere date.', source: 'Schedule source', checked: 'Last checked', notice: 'Broadcast status follows the published schedule. Streaming availability depends on the platform.', stale: 'This week’s schedule has not been updated. Recent plans may have changed.', empty: 'No broadcasts listed for this day', emptyOutside: 'Episode schedules are not yet collected for this date', emptyNote: 'No listing does not mean nothing is airing.', upcoming: 'Upcoming', aired: 'Aired', airingToday: 'Airs today', review: 'Needs verification', timeUnknown: 'Time TBA', premiere: 'Premiere', details: 'Series archive', more: 'View source', network: 'Schedule channel', availability: 'Related platforms', count: 'scheduled', range: 'Episode coverage', sourceName: 'GL Spotlight · unofficial listings', selectDate: 'Choose a date', tba: 'Date TBA', unit: 'series', weekdays: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
   },
   th: {
+    clearSearch: 'ล้างการค้นหา',
     subscriptionScopeTitle: 'เลือกขอบเขตการติดตาม', subscriptionAddTitle: 'เพิ่มลงในปฏิทิน', subscriptionViewLink: 'ดูลิงก์ติดตามปฏิทิน',
     back: 'กลับ', guideBack: 'กลับไปหน้าติดตามปฏิทิน', subscriptionSearch: 'ค้นหา CP / นักแสดง / ปี',
     subscribe: 'ติดตาม', subscriptionTitle: 'ติดตามปฏิทิน', subscriptionBack: 'กลับไปปฏิทิน', subscriptionScope: 'ขอบเขตการติดตาม', subscriptionAll: 'ทุกเรื่อง', subscriptionSelected: 'เลือกเอง',

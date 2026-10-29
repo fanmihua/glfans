@@ -2,6 +2,7 @@ import { cpPortraitUpdates } from './cp-portrait-updates.js';
 import { relatedCpsForWork } from './cp-work-order.js';
 import { additionalCpProfiles, addSharedWorks } from './cp-additional-data.js';
 import { oct16CpProfiles, addOct16SharedWorks } from './cp-oct16-data.js';
+import { shadesCpProfiles, completeShadesRelationship } from './cp-shades-data.js';
 // Baseline sources were reviewed on 2026-09-10; September project additions
 // retain their own 2026-09-30 review date. An empty list means no verified entry,
 // not that the artist has no events or brands. Never infer current stock.
@@ -99,7 +100,8 @@ export const cpProfiles = [
   ...announcedCpProfiles.filter(cp => !additionalCpProfiles.some(extra => extra.id === cp.id)),
   ...additionalCpProfiles,
   ...oct16CpProfiles,
-].map(addSharedWorks).map(addOct16SharedWorks).map(cp => ({ ...cp, ...cpPortraitUpdates[cp.id], works: cp.works.map(work => work.relationship === 'supporting' && cpPortraitUpdates[cp.id] ? { ...work, image: cpPortraitUpdates[cp.id].image, imageFit: 'contain', imageCaption: {zh:'演员合照',en:'Cast portrait',th:'ภาพนักแสดง'} } : work), upcoming: [...(cp.upcoming || []), ...(cpProjectUpdates[cp.id] || [])], events: cpEventUpdates[cp.id] || cp.events, members: cp.members.map(enrichMember) }));
+  ...shadesCpProfiles,
+].map(addSharedWorks).map(addOct16SharedWorks).map(completeShadesRelationship).map(cp => ({ ...cp, ...cpPortraitUpdates[cp.id], works: cp.works.map(work => work.relationship === 'supporting' && cpPortraitUpdates[cp.id] ? { ...work, image: cpPortraitUpdates[cp.id].image, imageFit: 'contain', imageCaption: {zh:'演员合照',en:'Cast portrait',th:'ภาพนักแสดง'} } : work), upcoming: [...(cp.upcoming || []), ...(cpProjectUpdates[cp.id] || [])], events: cpEventUpdates[cp.id] || cp.events, members: cp.members.map(enrichMember) }));
 
 export function findCp(id) { return cpProfiles.find((cp) => cp.id === id); }
 export function cpsForWork(id) { return relatedCpsForWork(cpProfiles, id); }

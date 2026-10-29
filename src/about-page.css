@@ -128,7 +128,21 @@
   border-image: url("/assets/about/letter-paper-v1.webp") 232 352 120 100 fill / 92.8px 140.8px 48px 40px / 0 stretch;
   pointer-events: none;
 }
-.about-letter h2 { margin: 0 0 22px; font-size: clamp(21px, 1.7vw, 25px); font-weight: 760; letter-spacing: .04em; line-height: 1.5; }
+.about-letter-badge {
+  position: absolute;
+  z-index: 1;
+  top: -64px;
+  right: -27px;
+  display: block;
+  width: clamp(144px, 25%, 200px);
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+  transform: rotate(9.07deg);
+  pointer-events: none;
+  user-select: none;
+}
+.about-letter h2 { margin: 0 0 22px; padding-inline-end: 120px; font-size: clamp(21px, 1.7vw, 25px); font-weight: 760; letter-spacing: .04em; line-height: 1.5; }
 .about-letter-body { font-family: "Songti SC", "STSong", "SimSun", serif; }
 html:lang(zh) .about-letter-body,
 html:lang(zh) .about-letter-signature { font-family: "GLFans Letter WenKai", "Kaiti SC", "KaiTi", serif; }
@@ -260,6 +274,7 @@ html:lang(th) .about-letter h2 { letter-spacing: 0; }
   .about-pullquote { font-size: clamp(28px, 5vw, 36px); }
   .about-heart-title { top: 106px; left: -12px; }
   .about-letter { margin-top: 22px; margin-bottom: 16px; padding: 62px 40px 40px; }
+  .about-letter-badge { top: -58px; right: -8px; width: clamp(136px, 25%, 184px); }
   .about-makers { padding: 12px 0 0; }
   .about-maker-grid { max-width: 560px; gap: 22px; }
   .about-maker > strong { font-size: 32px; }
@@ -280,7 +295,8 @@ html:lang(th) .about-letter h2 { letter-spacing: 0; }
   .about-heart-title { top: 83px; left: -10px; width: 27px; height: 27px; }
   .about-letter { margin: 18px -10px 14px; padding: 54px 24px 34px; }
   .about-letter::before { border-width: 51.04px 77.44px 26.4px 22px; border-image-width: 51.04px 77.44px 26.4px 22px; }
-  .about-letter h2 { margin-bottom: 20px; font-size: 21px; letter-spacing: .02em; }
+  .about-letter-badge { top: -44px; right: 2px; width: clamp(92px, 25%, 112px); }
+  .about-letter h2 { margin-bottom: 20px; padding-inline-end: 0; font-size: 21px; letter-spacing: .02em; }
   .about-letter-body p { font-size: 15px; line-height: 1.8; }
   .about-letter-body p + p { margin-top: 18px; }
   .about-letter-signature { margin-top: 22px; font-size: 13px; }

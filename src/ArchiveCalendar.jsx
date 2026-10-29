@@ -31,7 +31,7 @@ const archiveById = new Map(archiveDramas.map((item) => [item.id, item]));
 const confirmedSeriesIds = new Set(schedule.events.filter((event) => !event.needsReview).map((event) => event.seriesId));
 const calendarSeries = schedule.series.map((series) => {
   const archive = archiveById.get(series.id);
-  return { ...series, year: archive?.year || series.premiereDate?.slice(0, 4),
+  return { ...series, year: archive?.year || series.premiereDate?.slice(0, 4), startDate: archive?.startDate || series.premiereDate,
     searchText: [...cpsForWork(series.id).map(cp => `${cpLabel(cp)} ${(cp.aliases || []).join(' ')}`), archive?.title, archive?.titleEn, ...(archive?.aliases || []), ...(archive?.cast || []).map((person) => typeof person === 'string' ? person : Object.values(person).join(' '))].join(' ') };
 });
 const followableSeries = calendarSeries.filter(series => confirmedSeriesIds.has(series.id));
@@ -159,9 +159,6 @@ export function ArchiveCalendar({ onClose, returnFocus, initialSeriesIds, scopeL
     link.remove();
     // Keep the object alive long enough for Safari to begin the download.
     window.setTimeout(() => URL.revokeObjectURL(url), 60000);
-    setGuideMode('import');
-    viewScroll.current.guide = 0;
-    navigateView('guide');
   };
   const navigateMonth = (direction) => {
     const date = new Date(`${selected.slice(0, 7)}-01T12:00:00Z`);

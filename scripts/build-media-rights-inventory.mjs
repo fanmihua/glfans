@@ -49,6 +49,24 @@ const homeMedia = homePairs.map((pair) => ({
   publicDownload: false,
 }));
 
+export const aboutMedia = [{
+  id: 'about:gl-badge-about1',
+  path: 'assets/about/about1-gl-badge-7fe2179805130efd.webp',
+  category: 'site-brand-decoration',
+  context: { kind: 'about', slug: 'about1-badge', title: '《关于1》GL徽章' },
+  sourcePlatform: 'Figma',
+  sourceUrl: 'https://www.figma.com/design/k7IDvpJwJ1zkvpiEug1LlX/?node-id=27-111',
+  sourceFrame: '27:163',
+  sourceNode: '27:111',
+  sourceSha256: 'c0f0522abd11443c6ff8daa618f392eb5c6fd38dbe9ebb5409364b8ee0335301',
+  sha256: '7fe2179805130efd5e0d154654705db84d2fbcd7eb51ec5978d7e33cac8c6e5b',
+  width: 768, height: 768, bytes: 43850, hasAlpha: true,
+  rightsStatus: 'user-authorized-design',
+  useBasis: 'user-selected-figma-brand-decoration',
+  publicDownload: false,
+  checkedAt: '2026-10-29',
+}];
+
 const memeMedia = memeCollection.map((meme) => ({
   id: `meme:${meme.id}`,
   path: meme.src,
@@ -93,14 +111,15 @@ const childImages = Object.entries(cpChildren).flatMap(([cpId, child]) => [child
   sourceImageUrl: item.imageSource, rightsHolder: item.publisher,
   rightsStatus: 'source-audit-required', useBasis: 'editorial-reference-with-official-source', publicDownload: false,
 })));
-const assets = [...homeMedia, ...dedupedArticleMedia, ...memeMedia, ...radioMedia, ...cpMedia, ...cpJournalImages, ...childImages];
-const inventory = {
+const assets = [...homeMedia, ...dedupedArticleMedia, ...memeMedia, ...radioMedia, ...cpMedia, ...cpJournalImages, ...childImages, ...aboutMedia];
+export const inventory = {
   policyVersion: "2026-09-02",
   generatedAt: new Date().toISOString(),
   feedbackUrl: "https://github.com/fanmihua/glfans/issues/new?template=rights-feedback.yml",
   statusDefinitions: {
     "source-audit-required": "公开前仍需核对原始来源、权利主体与使用边界；默认关闭下载。",
     "external-stream-only": "仅调用平台提供的外部音频地址并保留歌曲页面入口；不得下载、转存或自行托管。",
+    "user-authorized-design": "用户已明确选择并授权用于本站的设计装饰；不自动开放下载或第三方复用。",
   },
   summary: {
     total: assets.length,
@@ -109,9 +128,12 @@ const inventory = {
     memes: memeMedia.length,
     radioTracks: radioMedia.length,
     cpImages: cpMedia.length + cpJournalImages.length + childImages.length,
+    aboutImages: aboutMedia.length,
   },
   assets,
 };
 
-await writeFile(path.join(root, "docs/media-rights-inventory.json"), `${JSON.stringify(inventory, null, 2)}\n`, "utf8");
-console.log(`rights inventory: ${inventory.summary.total} assets`);
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  await writeFile(path.join(root, "docs/media-rights-inventory.json"), `${JSON.stringify(inventory, null, 2)}\n`, "utf8");
+  console.log(`rights inventory: ${inventory.summary.total} assets`);
+}

@@ -85,6 +85,16 @@ export function AboutPage({ defaultRightsOpen = false }) {
         </div>
 
         <article className="about-letter" aria-labelledby="about-letter-title">
+          <img
+            className="about-letter-badge"
+            src={withBase("assets/about/about1-gl-badge-7fe2179805130efd.webp")}
+            alt=""
+            aria-hidden="true"
+            width="768"
+            height="768"
+            decoding="async"
+            data-page-critical="true"
+          />
           <h2 id="about-letter-title">{letter.title}</h2>
           <div className="about-letter-body">
             {letter.paragraphs.map((paragraph, index) => (
