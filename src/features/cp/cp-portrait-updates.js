@@ -192,7 +192,8 @@ Object.assign(cpPortraitUpdates, {
   }
 });
 
-Object.assign(cpPortraitUpdates, cpPortraitCompletion);
+import { gmmtvNextPortraits } from './cp-gmmtv-next-portraits.js';
+Object.assign(cpPortraitUpdates, cpPortraitCompletion, gmmtvNextPortraits);
 for (const [id, signature] of Object.entries(cpPortraitSignatures)) {
   if (cpPortraitUpdates[id]?.image) Object.assign(cpPortraitUpdates[id], signature);
 }

@@ -906,6 +906,8 @@ const rows = [
     "gigimsl_"
   ]
 ];
+import { gmmtvNextActorProfiles } from './actor-profile-gmmtv-next.js';
+
 export const actorProfiles = Object.fromEntries(rows.map(([member,id,fullName,birthday,heightCm,instagram,x])=>[member,{
   id,fullName,birthday,heightCm:heightCm?Number(heightCm):null,instagram,x,
   source:`https://glspotlight.com/actresses/${id}`,sourceKind:'catalogue',checkedAt:'2026-09-10',
@@ -920,6 +922,7 @@ Object.assign(actorProfiles, {
 Object.assign(actorProfiles, actorProfileAdditions);
 Object.assign(actorProfiles, oct16ActorProfiles);
 Object.assign(actorProfiles, shadesActorProfiles);
+Object.assign(actorProfiles, gmmtvNextActorProfiles);
 
 // 用户确认采用的读者纠错；尚未找到官方身高资料，保留来源等级。
 for (const [name, heightCm] of [['Jessie Natsiya Prommart', 169], ['Tungpang Pattarawadee Laosa', 167]]) {

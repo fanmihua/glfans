@@ -167,6 +167,8 @@
   .cp-display, .cp-display--janjingjing { font-size: clamp(49px,13.5vw,84px); line-height: 1.1; letter-spacing: -.065em; margin-bottom: 12px; }
   .cp-display span { display: inline; }
   .cp-display span + span { margin-left: 8px; }
+  .cp-display--tonkhawwaifha, .cp-display--jaoyingmewnich { display: flex; flex-wrap: wrap; gap: 0 8px; font-size: clamp(40px,11.8vw,74px); }
+  .cp-display--tonkhawwaifha span + span, .cp-display--jaoyingmewnich span + span { margin-left: 0; }
   .cp-identity--text { padding: 26px 0 14px; }
   .cp-identity--text .cp-display { gap: 4px 10px; font-size: clamp(38px,11vw,68px); }
   .cp-identity--text .cp-display span + span { margin-left: 0; }

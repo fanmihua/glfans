@@ -58,6 +58,34 @@ Object.assign(cpNameRecords, {
   bminemashii: { label: 'B Mine · Mashii', source: 'https://www.boyslovetalk.com/p/serie-gl-music-story-losing-control' },
 });
 
+// Names approved with the official duo-photo references on 2026-11-04.
+Object.assign(cpNameRecords, {
+  "nychaprim": {
+    "label": "NychaPrim",
+    "source": "https://x.com/SafetyflirtTH/status/2117605719260504511"
+  },
+  "sangtacare": {
+    "label": "Sangt–Acare",
+    "source": "https://x.com/BMLStoriesGMMTV/status/2117600248713634150"
+  },
+  "yoghurtpang": {
+    "label": "Yoghurt–Pang",
+    "source": "https://x.com/BMLStoriesGMMTV/status/2117600333165981874"
+  },
+  "pahnfond": {
+    "label": "PahnFond",
+    "source": "https://x.com/KissMe_Stranger/status/2117573999903531338"
+  },
+  "tonkhawwaifha": {
+    "label": "TonkhawWaifha",
+    "source": "https://x.com/AboveHerClass/status/2117563344844710250"
+  },
+  "jaoyingmewnich": {
+    "label": "JaoyingMewnich",
+    "source": "https://x.com/LovesEchoes_/status/2117568178360565779"
+  }
+});
+
 export function cpLabel(cp) { return cpNameRecords[cp.id]?.label || cp.names.join(' · '); }
 
 export function filterCps(profiles, query, archiveById) {
@@ -65,6 +93,6 @@ export function filterCps(profiles, query, archiveById) {
   const needle = normalize(query.trim());
   return profiles.filter(cp => [cpLabel(cp), cp.names.join(''), cp.names.slice().reverse().join(''),
     ...(cp.aliases || []), ...(cpNameRecords[cp.id]?.aliases || []), ...cp.members.map(member => member.name),
-    ...[...cp.works, ...(cp.upcoming || [])].flatMap(work => [work.title, ...(work.cast || []).map(person => `${person.actor} ${person.role}`), archiveById.get(work.id)?.title || '', ...(archiveById.get(work.id)?.aliases || []), ...workTitleAliases(work)]),
+    ...[...cp.works, ...(cp.upcoming || [])].flatMap(work => [work.title, work.chapter || '', ...(work.cast || []).map(person => `${person.actor} ${person.role}`), archiveById.get(work.id)?.title || '', ...(archiveById.get(work.id)?.aliases || []), ...workTitleAliases(work)]),
   ].some(value => normalize(value).includes(needle)));
 }

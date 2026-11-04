@@ -1,12 +1,13 @@
+import { gmmtvNextProjects } from '../../data/gmmtv-next-projects.js';
 import { cpProfiles } from './cp-data.js';
 import { noticeForCp } from './cp-timeline.js';
 
-export const statusCheckedAt = '2026-10-09';
+export const statusCheckedAt = '2026-11-04';
 // Explicit editorial evidence, never "all profiles minus ended". Recent shared
 // projects/activity establish the directory category, not an agency contract.
 const recent = (date, source, title, publisher, checkedAt = '2026-09-10') => ({ date, source, title, publisher, checkedAt });
 const reviewed = (date, source, title, publisher) => recent(date, source, title, publisher, '2026-09-30');
-const octReview = (date, source, title, publisher) => recent(date, source, title, publisher, statusCheckedAt);
+const octReview = (date, source, title, publisher) => recent(date, source, title, publisher, '2026-10-09');
 const fourElements = reviewed('2026-09-12', 'https://www.thaiticketmajor.com/performance/4-elements-infinite-bonds-fan-meeting.html', '4 Elements Infinite Bonds Fan Meeting', 'North Star Entertainment · ThaiTicketMajor');
 const blush = recent('2026-06-23', 'https://www.youtube.com/watch?v=rkEhavadMn0', 'Blush Blossom Fan Fest 2026 · GMMTV LIVE HOUSE', 'GMMTV OFFICIAL');
 export const activeEvidence = {
@@ -41,6 +42,10 @@ Object.assign(activeEvidence, {
   oombam: octReview('2026-06-12', 'https://www.thaiticketmajor.com/performance/fulfill-final-episode-with-oombam.html', 'Fulfill · Final Episode with OomBam', 'ThaiTicketMajor'),
   fayeatom: octReview('2026', 'https://www.weibo.com/u/7985880343?tabtype=feed', 'By Your Side · BROKEN (Of) LOVE OST', 'Fabel Entertainment'),
 });
+for (const project of gmmtvNextProjects) for (const id of project.cpIds) {
+  activeEvidence[id] = recent(project.announcedAt, project.posterSource, `${project.title} · GMMTV NEXT`, 'GMMTV', project.checkedAt);
+}
+
 export function statusForCp(id) {
   const notice = noticeForCp(id);
   if (notice) return { status: 'ended', evidence: notice };

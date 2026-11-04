@@ -1,0 +1,62 @@
+[
+  {
+    "id": "nychaprim",
+    "input": "output/imagegen/gmmtv-next/nychaprim-signature-v1.png",
+    "output": "assets/cp/gmmtv-next/nychaprim-signature-v1.webp",
+    "width": 800,
+    "height": 222,
+    "bytes": 54092,
+    "generator": "image_gen built-in",
+    "checkedAt": "2026-11-04"
+  },
+  {
+    "id": "sangtacare",
+    "input": "output/imagegen/gmmtv-next/sangtacare-signature-v1.png",
+    "output": "assets/cp/gmmtv-next/sangtacare-signature-v1.webp",
+    "width": 800,
+    "height": 206,
+    "bytes": 58488,
+    "generator": "image_gen built-in",
+    "checkedAt": "2026-11-04"
+  },
+  {
+    "id": "yoghurtpang",
+    "input": "output/imagegen/gmmtv-next/yoghurtpang-signature-v1.png",
+    "output": "assets/cp/gmmtv-next/yoghurtpang-signature-v1.webp",
+    "width": 800,
+    "height": 191,
+    "bytes": 56864,
+    "generator": "image_gen built-in",
+    "checkedAt": "2026-11-04"
+  },
+  {
+    "id": "pahnfond",
+    "input": "output/imagegen/gmmtv-next/pahnfond-signature-v1.png",
+    "output": "assets/cp/gmmtv-next/pahnfond-signature-v1.webp",
+    "width": 800,
+    "height": 231,
+    "bytes": 61632,
+    "generator": "image_gen built-in",
+    "checkedAt": "2026-11-04"
+  },
+  {
+    "id": "tonkhawwaifha",
+    "input": "output/imagegen/gmmtv-next/tonkhawwaifha-signature-v1.png",
+    "output": "assets/cp/gmmtv-next/tonkhawwaifha-signature-v1.webp",
+    "width": 800,
+    "height": 176,
+    "bytes": 57038,
+    "generator": "image_gen built-in",
+    "checkedAt": "2026-11-04"
+  },
+  {
+    "id": "jaoyingmewnich",
+    "input": "output/imagegen/gmmtv-next/jaoyingmewnich-signature-v1.png",
+    "output": "assets/cp/gmmtv-next/jaoyingmewnich-signature-v1.webp",
+    "width": 800,
+    "height": 189,
+    "bytes": 54638,
+    "generator": "image_gen built-in",
+    "checkedAt": "2026-11-04"
+  }
+]

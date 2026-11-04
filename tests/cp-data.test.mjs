@@ -26,9 +26,9 @@ test('CP works resolve to real archive entries, portraits exist, and sources are
 
 test('all seven sticker pairs are included and works are not capped at two', () => {
   assert.equal(cpProfiles.filter(cp => cp.image && !cp.portraitFrame).length, 7);
-  assert.equal(cpProfiles.filter(cp => cp.portraitFrame).length, 56);
+  assert.equal(cpProfiles.filter(cp => cp.portraitFrame).length, 62);
   assert.ok(cpProfiles.filter(cp => cp.portraitFrame).every(cp => cp.image && cp.portraitSignature));
-  assert.equal(cpProfiles.length, 74);
+  assert.equal(cpProfiles.length, 80);
   assert.ok(findCp('janekao'));
   assert.ok(findCp('ginjay'));
   assert.ok(findCp('lingorm').works.length > 2);
@@ -111,7 +111,7 @@ test('upcoming projects use real official previews or explicit announcements wit
       continue;
     }
     assert.ok(existsSync(new URL(`../public/${work.image}`, import.meta.url)), work.id);
-    assert.equal(new URL(work.imageSource).hostname, 'i.ytimg.com');
+    assert.equal(new URL(work.imageSource).hostname, work.imageKind === 'poster' ? 'pbs.twimg.com' : 'i.ytimg.com');
     assert.ok(work.width > 0 && work.height > 0);
   }
 });

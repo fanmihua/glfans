@@ -9,6 +9,7 @@ import { withBase } from '../../lib/assets.js';
 import { cpProfiles, verifiedAt, cpStatusCopy, statusCheckedAt, zodiacLabels } from './cp-runtime-data.js';
 import { cpCopy } from './cp-copy.js';
 import { cpLabel, cpNameRecords } from './cp-names.js';
+import { CpRelatedLinks } from './CpRelatedLinks.jsx';
 import { CpDirectory } from './CpDirectory.jsx';
 import { CpChildren } from './CpChildren.jsx';
 import { CpTimeline, CpMediaSection, jumpToJournal } from './CpJournal.jsx';
@@ -131,15 +132,17 @@ function CpContent({data}) {
             const linkProps = work.pending ? { target: '_blank', rel: 'noopener noreferrer' } : {};
             const sourceLabel = work.sourceKind === 'announcement' ? copy.openAnnouncement : copy.openPreview;
             const title = localizedWorkTitle(work, locale);
+            const imageLabel = work.imageKind === 'poster' ? copy.officialPoster : copy.previewImage;
             return <article className={`cp-work${media.image ? '' : ' cp-work--announcement'}`} key={work.id} data-work-id={work.id}>
-              {media.image && <a className="cp-work-poster" href={href} {...linkProps} aria-label={`${title} · ${work.pending ? sourceLabel : copy.viewWork}`} tabIndex={-1}><CpImage src={media.image} sizes="(max-width: 760px) 120px, 168px" alt={work.pending ? `${title} · ${copy.previewImage}` : title} loading="lazy" width={media.width} height={media.height} style={{ objectPosition: media.focus || '50% 32%', objectFit: work.imageFit || 'cover' }} /></a>}
+              {media.image && <a className="cp-work-poster" href={href} {...linkProps} aria-label={`${title} · ${work.pending ? sourceLabel : copy.viewWork}`} tabIndex={-1}><CpImage src={media.image} sizes="(max-width: 760px) 120px, 168px" alt={work.pending ? `${title} · ${imageLabel}` : title} loading="lazy" width={media.width} height={media.height} style={{ objectPosition: media.focus || '50% 32%', objectFit: work.imageFit || 'cover' }} /></a>}
               <div className="cp-work-info"><a className="cp-work-title" href={href} {...linkProps}>{title}<ArrowUpRight size={22} /></a>
                 <p className="cp-work-meta">{work.year}<span>{work.pending ? copy[work.status || 'upcoming'] : copy[work.relationship] || (work.ensemble ? copy.ensemble : copy.pair)}</span></p>
                 {work.cast?.length > 0 && <p className="cp-work-note">{work.cast.map(person => `${person.actor} · ${person.role}`).join(' / ')}</p>}
+                {work.pending && work.ensemble && <CpRelatedLinks seriesId={work.id} />}
                 {work.storyNote && <p className="cp-work-note">{work.storyNote[locale]}</p>}
                 {!work.cast && work.roles?.length > 0 && <p className="cp-work-note">{work.roles.join(' / ')}</p>}
                 {work.imageCaption && <p className="cp-work-note">{work.imageCaption[locale]}</p>}
-                {work.pending ? <p className="cp-work-note">{work.sourceKind === 'announcement' ? copy.officialAnnouncement : copy.previewImage} · {work.publisher}</p> : null}
+                {work.pending ? <p className="cp-work-note">{work.sourceKind === 'announcement' ? copy.officialAnnouncement : imageLabel} · {work.publisher}</p> : null}
                 <div className="cp-work-actions">{work.pending ? <External className="cp-work-action" href={work.source}>{sourceLabel}<ArrowUpRight size={16} /></External> : <>
                   <a className="cp-work-action" href={href}>{copy.archive}<ArrowRight size={16} /></a>
                   <button type="button" className="cp-calendar-link" aria-haspopup="dialog" onClick={event => openCalendar(event, [work], title)}><CalendarBlank size={18} />{copy.calendar}</button>
@@ -165,10 +168,11 @@ function CpContent({data}) {
           <p className="cp-source-note">{cpStatusCopy[locale].note} {cpStatusCopy[locale].checked} {statusCheckedAt}</p>
           {collaboration.evidence && <External className="cp-source-link" href={collaboration.evidence.source}>{cpStatusCopy[locale][collaboration.status]} · {collaboration.evidence.title || collaboration.evidence.publisher}<ArrowUpRight size={12} /></External>}
           {cpNameRecords[cp.id] && <External className="cp-source-link" href={cpNameRecords[cp.id].source}>{cpLabel(cp)} · {copy.pairNameSource}<ArrowUpRight size={12} /></External>}
-          {cp.imageSource && <External className="cp-source-link" href={cp.imageSource}>{cpLabel(cp)} · {{zh:'合照来源（资料站）',en:'Photo source (catalogue)',th:'ที่มาภาพคู่ (เว็บไซต์ข้อมูล)'}[locale]} · {cp.imageCheckedAt}<ArrowUpRight size={12} /></External>}
+          {cp.imageSource && <External className="cp-source-link" href={cp.imageSource}>{cpLabel(cp)} · {cp.imageSourceKind === 'producer' ? {zh:'合照来源（官方）',en:'Photo source (official)',th:'ที่มาภาพคู่ (ทางการ)'}[locale] : {zh:'合照来源（资料站）',en:'Photo source (catalogue)',th:'ที่มาภาพคู่ (เว็บไซต์ข้อมูล)'}[locale]} · {cp.imageCheckedAt}<ArrowUpRight size={12} /></External>}
           <p className="cp-source-note">{copy.zodiacNote}</p>
           <p className="cp-source-note">{copy.profileNote}</p>
           <div>{[...cp.members, ...cp.works, ...(cp.upcoming || []), ...cp.events, ...cp.shops].map((item, index) => <External className="cp-source-link" key={index} href={item.source}>{item.name || item.title}<ArrowUpRight size={12} /></External>)}</div>
+          <div>{(cp.upcoming || []).filter(work => work.posterSource).map(work => <External className="cp-source-link" key={`poster-${work.id}`} href={work.posterSource}>{localizedWorkTitle(work, locale)} · {copy.officialPoster} · {work.checkedAt}<ArrowUpRight size={12} /></External>)}</div>
           <div>{cp.members.flatMap(member => member.profile.references.map(reference => <External className="cp-source-link" key={`${member.name}-${reference.url}`} href={reference.url}>{member.name} · {copy.referenceKinds[reference.kind]}<ArrowUpRight size={12} /></External>))}</div>
           {community && <External className="cp-source-link" href={community.source}>{community.name} · {copy.communityNote}<ArrowUpRight size={12} /></External>}
           <div>{[...media, ...milestones].map(item => <External className="cp-source-link" key={item.id} href={item.source}>{item.title}<ArrowUpRight size={12} /></External>)}</div>

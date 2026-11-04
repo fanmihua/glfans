@@ -1,5 +1,6 @@
 export const cpCopy = {
   zh: {
+    officialPoster: '官方海报',
     supporting: '副 CP', storyline: '角色感情线', heightCorrectionNote: '身高采用读者纠错，待官方资料确认',
     birthYearPending: '出生年份尚未核实',
     height: '身高', notVerified: '尚未核实', weibo: '微博', community: 'CP 超话', communityNote: '粉丝社区 · 非官方账号', searchCommunity: '搜索 CP 超话', communityPending: '尚未核实直达地址',
@@ -21,6 +22,7 @@ export const cpCopy = {
     notFound: '暂未收录这对 CP', back: '返回百家饭', name: 'CP 档案',
   },
   en: {
+    officialPoster: 'Official poster',
     supporting: 'Supporting pair', storyline: 'Character romance', heightCorrectionNote: 'Height follows a reader correction; official confirmation pending',
     birthYearPending: 'Birth year not verified',
     height: 'Height', notVerified: 'Not verified', weibo: 'Weibo', community: 'CP Super Topic', communityNote: 'Fan community · Not an official account', searchCommunity: 'Search CP Super Topics', communityPending: 'Direct community link not verified',
@@ -42,6 +44,7 @@ export const cpCopy = {
     notFound: 'This CP is not in the archive yet', back: 'Back to CP Archive', name: 'CP Archive',
   },
   th: {
+    officialPoster: 'โปสเตอร์ทางการ',
     supporting: 'คู่รอง', storyline: 'ความรักของตัวละคร', heightCorrectionNote: 'ส่วนสูงแก้ไขตามข้อมูลจากผู้อ่าน รอการยืนยันอย่างเป็นทางการ',
     birthYearPending: 'ยังไม่ยืนยันปีเกิด',
     height: 'ส่วนสูง', notVerified: 'ยังไม่ยืนยัน', weibo: 'Weibo', community: 'ซูเปอร์ท็อปปิกของคู่', communityNote: 'ชุมชนแฟนคลับ · ไม่ใช่บัญชีทางการ', searchCommunity: 'ค้นหาซูเปอร์ท็อปปิก', communityPending: 'ยังไม่ยืนยันลิงก์ตรงของชุมชน',

@@ -9,17 +9,18 @@ import { additionalCpProfiles } from '../src/features/cp/cp-additional-data.js';
 import { announcedPairDefinitions } from '../src/features/cp/cp-expanded-data.js';
 import { oct16CpProfiles } from '../src/features/cp/cp-oct16-data.js';
 import { shadesCpProfiles } from '../src/features/cp/cp-shades-data.js';
+import { gmmtvNextCpProfiles } from '../src/features/cp/cp-gmmtv-next-data.js';
 const announcedIds = new Set(announcedPairDefinitions.map(cp => cp.id));
 
 test('the original 51 pairings retain sourced identities and new pairings keep unknown facts explicit', () => {
   const stats = profileCoverage();
-  const original = cpProfiles.filter(cp => !announcedIds.has(cp.id) && !additionalCpProfiles.some(extra => extra.id === cp.id) && !oct16CpProfiles.some(extra => extra.id === cp.id) && !shadesCpProfiles.some(extra => extra.id === cp.id));
+  const original = cpProfiles.filter(cp => !announcedIds.has(cp.id) && !additionalCpProfiles.some(extra => extra.id === cp.id) && !oct16CpProfiles.some(extra => extra.id === cp.id) && !shadesCpProfiles.some(extra => extra.id === cp.id) && !gmmtvNextCpProfiles.some(extra => extra.id === cp.id));
   assert.equal(original.length, 51);
   assert.equal(new Set(original.flatMap(cp => cp.members.map(member => member.name))).size, 101);
-  assert.equal(stats.cpCount, 74);
-  assert.equal(stats.actorCount, 143);
-  assert.equal(stats.fields.fullName, 141);
-  assert.equal(stats.fields.instagram, 141);
+  assert.equal(stats.cpCount, 80);
+  assert.equal(stats.actorCount, 154);
+  assert.equal(stats.fields.fullName, 152);
+  assert.equal(stats.fields.instagram, 152);
   assert.ok(stats.fields.birthday >= 100);
   assert.ok(stats.fields.x >= 95);
   assert.ok(stats.fields.weibo >= 60);
@@ -64,7 +65,7 @@ test('missing and conflicting data stays explicit rather than fabricating dates 
   assert.equal(mimie.birthday, null);
   assert.equal(mimie.birthdayMonthDay, '04-03');
   assert.equal(mimie.x, 'mimieahc');
-  assert.equal(profileCoverage().birthdayWithMonthDay, 130);
+  assert.equal(profileCoverage().birthdayWithMonthDay, 141);
   assert.equal(profileForMember(findCp('viewmim').members[0]).weibo, null);
   assert.equal(profileForMember(findCp('yoshidiana').members[0]).x, null);
 });

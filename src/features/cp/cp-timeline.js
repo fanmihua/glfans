@@ -92,6 +92,6 @@ export function timelineForCp(cp, media = []) {
   // Year-only events stay in their own year; their order does not claim a day.
   milestones.sort((a, b) => a.date.localeCompare(b.date));
   return [...milestones, ...(cp.upcoming || []).map(work => ({
-    ...work, id: `pending-${work.id}`, date: null, lane: 'joint', kind: 'pendingWork',
+    ...work, id: `pending-${work.id}`, workId: work.id, date: null, lane: 'joint', kind: 'pendingWork',
   }))];
 }

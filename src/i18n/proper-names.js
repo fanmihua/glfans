@@ -1,5 +1,98 @@
 // Names are identifiers, not prose. Unverified names keep their source spelling.
 export const verifiedSeries = [
+  ...[
+  {
+    "id": "lost-in-your-eyes",
+    "en": "Lost in Your Eyes",
+    "th": "คนเดียวในสายตา",
+    "aliases": [
+      "Lost in Your Eyes",
+      "คนเดียวในสายตา"
+    ],
+    "source": "https://x.com/GMMTV/status/2117593885014986925"
+  },
+  {
+    "id": "cherish",
+    "en": "Cherish",
+    "th": "วันที่ฟ้ามีเฌอ",
+    "aliases": [
+      "Cherish",
+      "วันที่ฟ้ามีเฌอ"
+    ],
+    "source": "https://x.com/GMMTV/status/2117580109616136530"
+  },
+  {
+    "id": "beyond-you",
+    "en": "Beyond You",
+    "th": "เพียงคุณที่อยู่เหนือกว่า",
+    "aliases": [
+      "Beyond You",
+      "เพียงคุณที่อยู่เหนือกว่า"
+    ],
+    "source": "https://x.com/GMMTV/status/2117558164141060209"
+  },
+  {
+    "id": "my-beautiful-enemy",
+    "en": "My Beautiful Enemy",
+    "th": "ที่ร้ายที่รัก",
+    "aliases": [
+      "My Beautiful Enemy",
+      "ที่ร้ายที่รัก"
+    ],
+    "source": "https://x.com/GMMTV/status/2117588668521312631"
+  },
+  {
+    "id": "kiss-me-stranger",
+    "en": "Kiss Me, Stranger",
+    "th": "เธอแปลกหน้า",
+    "aliases": [
+      "Kiss Me, Stranger",
+      "เธอแปลกหน้า"
+    ],
+    "source": "https://x.com/GMMTV/status/2117573219259744760"
+  },
+  {
+    "id": "above-her-class",
+    "en": "Above Her Class",
+    "th": "ขอให้รักลงจอดอย่างปลอดภัย",
+    "aliases": [
+      "Above Her Class",
+      "ขอให้รักลงจอดอย่างปลอดภัย"
+    ],
+    "source": "https://x.com/GMMTV/status/2117562604315111773"
+  },
+  {
+    "id": "loves-echoes",
+    "en": "Love’s Echoes",
+    "th": "ให้รักกังวานในใจ",
+    "aliases": [
+      "Love’s Echoes",
+      "ให้รักกังวานในใจ",
+      "Love's Echoes"
+    ],
+    "source": "https://x.com/GMMTV/status/2117567602805633118"
+  },
+  {
+    "id": "be-mine",
+    "en": "Be Mine",
+    "th": "รักนี้เป็นของเธอ",
+    "aliases": [
+      "Be Mine",
+      "รักนี้เป็นของเธอ"
+    ],
+    "source": "https://x.com/GMMTV/status/2117599852255481916"
+  },
+  {
+    "id": "safety-flirt",
+    "en": "Safety Flirt",
+    "th": "ห้ามเข้าใกล้ หัวใจกำลังทำงาน",
+    "aliases": [
+      "Safety Flirt",
+      "ห้ามเข้าใกล้ หัวใจกำลังทำงาน"
+    ],
+    "source": "https://x.com/GMMTV/status/2117605041528025557"
+  }
+],
   { id: 'mom-ped-sawan', zh: '深宫幽情', aliases: ['深宫幽情', '月下禁爱', 'Mom Ped Sawan', 'MomPedSawan', 'Mhom Ped Sawan', 'หม่อมเป็ดสวรรค์'], en: 'Mom Ped Sawan', th: 'หม่อมเป็ดสวรรค์', source: 'https://www.thaipbs.or.th/program/MhomPedSawan' },
   { aliases: ["Don't say ‘NO’ yet"], en: "Don't say ‘NO’ yet", th: "อย่าพึ่งตอบว่า'ไม่'", source: 'https://www.youtube.com/watch?v=WR-HPcdHxlQ' },
   { aliases: ['Built in Love'], en: 'Built in Love', th: 'ก่อร่างสร้างเลิฟ', source: 'https://www.youtube.com/watch?v=3fOkgCnjv5M' },
