@@ -55,6 +55,7 @@ export function AboutPage({ defaultRightsOpen = false }) {
 
         <div className="about-title-cluster">
           <HanddrawnHeart className="about-heart about-heart-title" />
+          <img className="about-title-badge" src={withBase("assets/about/about1-gl-badge-7fe2179805130efd.webp")} alt="" aria-hidden="true" width="768" height="768" decoding="async" />
           <h1 id="about-title" aria-label={t("关于这个坑")}>
             <span className="about-title-top" aria-hidden="true">
               {getLocale() === 'zh' ? <><i>关</i><i>于</i></> : <i>{getLocale() === 'en' ? 'About' : 'เกี่ยวกับ'}</i>}
