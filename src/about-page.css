@@ -7,6 +7,7 @@
 }
 
 .about-shell {
+  --about-badge-size: 200px;
   overflow-x: clip;
   color: var(--plum);
   background: var(--paper);
@@ -40,6 +41,16 @@
 }
 
 .about-title-cluster { grid-area: title; position: relative; min-width: 0; padding: 22px 0 0 16px; }
+.about-title-badge { display: none; }
+.about-badge-trigger { margin: 0; padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.about-badge-trigger img { display: block; width: 100%; height: auto; pointer-events: none; user-select: none; -webkit-user-drag: none; transition: none; }
+.about-badge-trigger:focus-visible { outline: 3px solid var(--pink); outline-offset: -18px; }
+@media (any-hover: hover) {
+  .about-badge-trigger:hover img { transform: scale(1.1); }
+}
+@media (any-hover: hover) and (prefers-reduced-motion: no-preference) {
+  .about-badge-trigger img { transition: transform 200ms ease-out; }
+}
 .about-title-cluster h1 {
   position: relative;
   display: flex;
@@ -116,7 +127,7 @@
   isolation: isolate;
   min-width: 0;
   margin: 14px 0 18px;
-  padding: 66px clamp(36px, 4vw, 60px) 42px;
+  padding: 80px calc(clamp(36px, 4vw, 60px) + 10px) 64px;
 }
 .about-letter::before {
   content: "";
@@ -134,12 +145,10 @@
   top: -64px;
   right: -27px;
   display: block;
-  width: clamp(144px, 25%, 200px);
+  width: var(--about-badge-size);
   height: auto;
   aspect-ratio: 1;
-  object-fit: contain;
   transform: rotate(9.07deg);
-  pointer-events: none;
   user-select: none;
 }
 .about-letter h2 { margin: 0 0 22px; padding-inline-end: 120px; font-size: clamp(21px, 1.7vw, 25px); font-weight: 760; letter-spacing: .04em; line-height: 1.5; }
@@ -252,20 +261,7 @@ html:lang(th) .about-letter-body { font-family: "Noto Sans Thai Variable", sans-
 html:lang(th) .about-letter-body p { font-size: 15px; line-height: 1.8; }
 html:lang(th) .about-letter h2 { letter-spacing: 0; }
 
-@media (max-width: 1100px) and (min-width: 901px) {
-  .about-stage { grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr); column-gap: 28px; padding-right: 28px; padding-left: 28px; }
-  .about-title-cluster { padding-left: 5px; }
-  .about-title-cluster h1 { font-size: 78px; }
-  .about-pullquote { font-size: 27px; padding: 13px 16px; }
-  .about-letter { padding-right: 36px; padding-left: 36px; }
-  .about-maker-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-  .about-maker-divider { display: none; }
-  .about-maker > strong { font-size: 26px; }
-  .about-makers { padding-left: 5px; }
-  .about-rights summary { grid-template-columns: 110px minmax(170px, .5fr) minmax(180px, 1fr) auto; gap: 14px; }
-}
-
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   .about-stage { max-width: 740px; padding: 102px 28px 30px; grid-template-columns: minmax(0, 1fr); grid-template-areas: "title" "letter" "makers" "rights"; grid-template-rows: repeat(4, auto); gap: 36px; }
   .about-ghost-word { top: 116px; left: 18px; font-size: 29vw; }
   .about-title-cluster { width: min(470px, 100%); padding: 0 12px; }
@@ -273,8 +269,8 @@ html:lang(th) .about-letter h2 { letter-spacing: 0; }
   .about-title-underline { width: min(420px, 95%); }
   .about-pullquote { font-size: clamp(28px, 5vw, 36px); }
   .about-heart-title { top: 106px; left: -12px; }
-  .about-letter { margin-top: 22px; margin-bottom: 16px; padding: 62px 40px 40px; }
-  .about-letter-badge { top: -58px; right: -8px; width: clamp(136px, 25%, 184px); }
+  .about-letter { margin-top: 22px; margin-bottom: 16px; padding: 76px 60px 62px; }
+  .about-letter-badge { top: -80px; right: -8px; }
   .about-makers { padding: 12px 0 0; }
   .about-maker-grid { max-width: 560px; gap: 22px; }
   .about-maker > strong { font-size: 32px; }
@@ -289,13 +285,14 @@ html:lang(th) .about-letter h2 { letter-spacing: 0; }
   .about-stage { padding: 86px 20px 24px; gap: 30px; }
   .about-ghost-word { top: 100px; }
   .about-title-cluster { width: 100%; padding: 0 8px; }
-  .about-title-cluster h1 { font-size: clamp(62px, 17.8vw, 88px); }
+  .about-title-cluster h1 { min-height: 144px; font-size: clamp(44px, 15vw, 88px); }
   .about-title-underline { width: 82%; height: 25px; margin-top: -6px; }
   .about-pullquote { margin-top: 11px; padding: 12px 17px 14px; font-size: clamp(23px, 6.4vw, 30px); }
   .about-heart-title { top: 83px; left: -10px; width: 27px; height: 27px; }
-  .about-letter { margin: 18px -10px 14px; padding: 54px 24px 34px; }
+  .about-letter { margin: -6px -10px 14px; padding: 68px 44px 56px; }
   .about-letter::before { border-width: 51.04px 77.44px 26.4px 22px; border-image-width: 51.04px 77.44px 26.4px 22px; }
-  .about-letter-badge { top: -44px; right: 2px; width: clamp(92px, 25%, 112px); }
+  .about-letter-badge { display: none; }
+  .about-title-badge { display: block; position: absolute; z-index: 1; top: -36px; right: -30px; width: var(--about-badge-size); height: auto; transform: rotate(9.07deg); }
   .about-letter h2 { margin-bottom: 20px; padding-inline-end: 0; font-size: 21px; letter-spacing: .02em; }
   .about-letter-body p { font-size: 15px; line-height: 1.8; }
   .about-letter-body p + p { margin-top: 18px; }
@@ -315,8 +312,13 @@ html:lang(th) .about-letter h2 { letter-spacing: 0; }
   .about-rights-copyright { grid-column: 1; }
   .about-shell .repo-film-strip { height: 64px; padding-top: 7px; padding-bottom: 7px; }
   .about-shell .repo-film-frames { height: 50px; grid-template-columns: repeat(6, calc((100% - 18px) / 4)); gap: 6px; }
-  html:not(:lang(zh)) .about-letter-page .about-title-cluster h1 { font-size: clamp(47px, 13vw, 67px); line-height: 1.22; }
+  html:not(:lang(zh)) .about-letter-page .about-title-cluster h1 { max-width: calc(100% - 120px); font-size: clamp(36px, 10vw, 52px); line-height: 1.22; }
   html:not(:lang(zh)) .about-letter-page .about-pullquote { font-size: clamp(20px, 5.2vw, 25px); }
   html:lang(th) .about-letter h2 { font-size: 21px; }
   html:lang(th) .about-letter-body p { font-size: 15px; }
+}
+
+@media (width < 390px) {
+  .about-shell { --about-badge-size: max(100px, calc(200vw - 580px)); }
+  .about-title-badge { right: -20px; }
 }

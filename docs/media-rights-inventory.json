@@ -8,10 +8,10 @@
     "user-authorized-design": "用户已明确选择并授权用于本站的设计装饰；不自动开放下载或第三方复用。"
   },
   "summary": {
-    "total": 348,
+    "total": 407,
     "home": 7,
     "articleImages": 135,
-    "memes": 65,
+    "memes": 124,
     "radioTracks": 12,
     "cpImages": 128,
     "aboutImages": 1
@@ -2968,6 +2968,832 @@
       },
       "sourceCollection": "飞书原版表情包库",
       "sourceUrl": "https://my.feishu.cn/wiki/PhUpwFtESiOYaVkMlwEcsqg4nWf",
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-a1bdc622e1c1",
+      "path": "assets/fan-memes/33531a009a845d71eec315c5.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "B99373F0-9914-4840-9B5A-6181C9417062.PNG",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-58b34e83f04f",
+      "path": "assets/fan-memes/8ee8e005ddf137d21a71108a.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_7278.jpg",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-7e02850eebf8",
+      "path": "assets/fan-memes/0ccf48e52163da409fb3b801.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_7280.jpg",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-d9762c50a594",
+      "path": "assets/fan-memes/ebb7b5cc6f0afdfaa503210a.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_7281.jpg",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-71b78287dcc3",
+      "path": "assets/fan-memes/12f7498202d9e1ebc78ea481.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_7759.JPG",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-cdbd58b4bf7d",
+      "path": "assets/fan-memes/92342a97273c079ebe24d870.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_7826.JPG",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-f1d1b3855bf2",
+      "path": "assets/fan-memes/3de1d560bac539c266a9852a.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_7828.jpg",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-b071a8135656",
+      "path": "assets/fan-memes/f9d6522cea1e4b323e47d9bc.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_7864.jpg",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-42da4c8d76df",
+      "path": "assets/fan-memes/8c4cbd7f1bd29b218793686f.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_7908.JPG",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-219c750afc6a",
+      "path": "assets/fan-memes/1f785542b0b11f8025c8466f.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_7909.JPG",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-619c4bbb2477",
+      "path": "assets/fan-memes/e3bbde0eb47db5ab93756e6d.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_7910.JPG",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-907da8e83880",
+      "path": "assets/fan-memes/e99fd10382ef036680b15afb.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_7911.JPG",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-dba29d93a4f1",
+      "path": "assets/fan-memes/35287b7322a9c3ba60d73df8.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_7912.JPG",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-336c84942ae1",
+      "path": "assets/fan-memes/b4bd029e7d0e40efc9250f95.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_7913.JPG",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-2329c0aa0724",
+      "path": "assets/fan-memes/5838e18a8e1033cbf446bfd5.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_7914.JPG",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-e6c3ac44954e",
+      "path": "assets/fan-memes/dabb618f602d34a1953b5d06.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_7915.JPG",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-2b44d03ced46",
+      "path": "assets/fan-memes/7d1c78ef5761c82e8afaffa4.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_7916.JPG",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-0e3bda4a321e",
+      "path": "assets/fan-memes/541e60d375c0e1d7a9d48065.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_7917.JPG",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-ee06b7786eaa",
+      "path": "assets/fan-memes/6187d9e32e75cbd87654cccd.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_7918.JPG",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-18e34e0b1a8f",
+      "path": "assets/fan-memes/64dc6286d76e03c26cabb1fd.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_7919.JPG",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-80e5d88d5f7e",
+      "path": "assets/fan-memes/b0ea5ed8143fe2c69822b004.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_7920.JPG",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-4f6f0a1e27ff",
+      "path": "assets/fan-memes/446e353be6084fa8d4ed9b02.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_7921.JPG",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-38e567b804fd",
+      "path": "assets/fan-memes/ec00c1b51eedf7ba4d906789.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_7961.jpg",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-37b42c67b31f",
+      "path": "assets/fan-memes/20c6b8b70528889a80211066.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_7968.JPG",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-11b3dbf6c4c3",
+      "path": "assets/fan-memes/a89078f8bc32bdaa67e33cad.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_7970.JPG",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-e29de3d3046c",
+      "path": "assets/fan-memes/445000a00155840a40ed2406.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_7972.JPG",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-f73412d7c8af",
+      "path": "assets/fan-memes/0ab2c7b509eaabd42947c40b.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_7974.JPG",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-1cd61fd827fb",
+      "path": "assets/fan-memes/78d459f5c06a2450ef309436.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_7975.JPG",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-43af905a6ccf",
+      "path": "assets/fan-memes/541fcb0a143e3e1efbbc844e.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_7977.JPG",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-ea103199b2fb",
+      "path": "assets/fan-memes/73a6587933d4a42f1db60e93.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_7982.JPG",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-0788437464ab",
+      "path": "assets/fan-memes/1ea58338a720337585b38adf.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_7983.JPG",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-637381e01219",
+      "path": "assets/fan-memes/b77d7f9489cedde667a5d50f.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_7984.JPG",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-a901399d5eab",
+      "path": "assets/fan-memes/aa442e017ae78bedf3d39e21.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_8015.jpg",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-a79295c73ca3",
+      "path": "assets/fan-memes/53788fae5357a29db3ed1362.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_8016.jpg",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-c1cbfab211b9",
+      "path": "assets/fan-memes/dfaf57828054496c5bf9d55b.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_8017.jpg",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-ccc18ac9b0f5",
+      "path": "assets/fan-memes/c30f294445d535fcd24adcd2.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_8018.jpg",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-73c3f09ae119",
+      "path": "assets/fan-memes/440acc2c9f0970dc0025274b.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_8019.jpg",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-152a949fb27c",
+      "path": "assets/fan-memes/42df31ce926eec71019267a4.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_8020.jpg",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-3da51aa2ac6b",
+      "path": "assets/fan-memes/25775ccd45d29418ec667d6d.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_8021.jpg",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-b6f3508ff07b",
+      "path": "assets/fan-memes/6f23f4c13faae0c5c71cc385.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_8022.jpg",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-7efce29e6e3a",
+      "path": "assets/fan-memes/cf2b9c28fbcf01c4d785495d.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_8023.jpg",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-cd525939cbbb",
+      "path": "assets/fan-memes/79a9522ed82449f07ee1cf98.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_8025.jpg",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-e2e2a38e19ba",
+      "path": "assets/fan-memes/7d388a8039540efb40152adf.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_8026.jpg",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-7fc6775de06e",
+      "path": "assets/fan-memes/242d00a2dea37215dfb7327f.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_8027.jpg",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-6abf4310348c",
+      "path": "assets/fan-memes/ca10d3a42acec4617cd915b7.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_8028.jpg",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-12a7073e5126",
+      "path": "assets/fan-memes/555ce199a07dc85eb0e5d8d1.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_8029.jpg",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-ffa773bfcac7",
+      "path": "assets/fan-memes/540f03f053e48925a6f8b27e.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_8030.jpg",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-5a1baff29503",
+      "path": "assets/fan-memes/5879c5f5448a7b08de4e5dfb.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_8031.jpg",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-5ca7ec9c87c5",
+      "path": "assets/fan-memes/4a63182e46e932c61f4b8d55.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_8032.jpg",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-6a7b4f87e287",
+      "path": "assets/fan-memes/6d02e8fcea156e0cc04a4424.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_8033.jpg",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-8b2ceebee0c7",
+      "path": "assets/fan-memes/91ec79b1a9b1586a3a92280b.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_8034.jpg",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-7b73a5b7e41a",
+      "path": "assets/fan-memes/f87bee9214d395399cf971f4.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_8035.jpg",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-40a40b83e4f9",
+      "path": "assets/fan-memes/00be5059e868db45f1191b70.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_8036.jpg",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-2305421b234d",
+      "path": "assets/fan-memes/4e715f2017c1355ca96ecf3f.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_8037.jpg",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-2dc5904e6a04",
+      "path": "assets/fan-memes/03dfd93ac02c0973b3de604f.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_8038.jpg",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-4a5d7533baff",
+      "path": "assets/fan-memes/88db6898776da767f30afc56.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_8039.jpg",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-c592f165461c",
+      "path": "assets/fan-memes/bdd0ef8c3c76c568cad14daa.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_8040.jpg",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-d67b00269a51",
+      "path": "assets/fan-memes/f816893faf98b67d473a7f9a.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_8041.jpg",
+      "sourceUrl": null,
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:local-48c6e5cfd5e6",
+      "path": "assets/fan-memes/2ad9e10592004a9fbd380f2d.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "user-supplied"
+      },
+      "sourceCollection": "11月新增（用户提供）",
+      "sourceName": "IMG_8042.jpg",
+      "sourceUrl": null,
       "rightsStatus": "source-audit-required",
       "publicDownload": false
     },

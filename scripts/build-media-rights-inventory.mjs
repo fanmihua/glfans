@@ -71,9 +71,10 @@ const memeMedia = memeCollection.map((meme) => ({
   id: `meme:${meme.id}`,
   path: meme.src,
   category: "third-party-meme",
-  context: { kind: "meme-pool", slug: "feishu-original" },
-  sourceCollection: "飞书原版表情包库",
-  sourceUrl: meme.sourceDocument || 'https://my.feishu.cn/wiki/PhUpwFtESiOYaVkMlwEcsqg4nWf',
+  context: { kind: "meme-pool", slug: meme.sourceCollection ? "user-supplied" : "feishu-original" },
+  sourceCollection: meme.sourceCollection || "飞书原版表情包库",
+  ...(meme.sourceName ? { sourceName: meme.sourceName } : {}),
+  sourceUrl: meme.sourceDocument || (meme.sourceCollection ? null : 'https://my.feishu.cn/wiki/PhUpwFtESiOYaVkMlwEcsqg4nWf'),
   rightsStatus: "source-audit-required",
   publicDownload: false,
 }));

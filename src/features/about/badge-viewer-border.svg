@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1" preserveAspectRatio="none">
+  <defs>
+    <!-- Figma 54:156 and 54:161 use the same gradient in normalized bounds. -->
+    <linearGradient id="stroke" x1="0" y1="0" x2="0.77237065" y2="1.14256793">
+      <stop offset="0" stop-color="#F3E5D5"/>
+      <stop offset="0.4375" stop-color="#6A5A49"/>
+      <stop offset="0.67307693" stop-color="#D1AE87"/>
+      <stop offset="1" stop-color="#EEDCBB"/>
+    </linearGradient>
+  </defs>
+  <rect width="1" height="1" fill="url(#stroke)"/>
+</svg>

@@ -5,6 +5,34 @@ import { memeGameCriticalAssets, memeCaptureDeck } from "./meme-data.js";
 
 let memeGameAssetsPrimed = false;
 
+function pickUncapturedMeme(capturedFilms) {
+  const capturedMemeIds = new Set(capturedFilms.map((meme) => meme.id));
+  const candidates = memeCaptureDeck.filter((meme) => !capturedMemeIds.has(meme.id));
+  return candidates[Math.floor(Math.random() * candidates.length)];
+}
+
+function createFilm(sourceMeme, captureNumber) {
+  const capturedAt = new Date();
+  return {
+    ...sourceMeme,
+    filmId: String(captureNumber).padStart(2, "0"),
+    capturedAt: capturedAt.toISOString(),
+    capturedTime: [capturedAt.getHours(), capturedAt.getMinutes(), capturedAt.getSeconds()]
+      .map((part) => String(part).padStart(2, "0"))
+      .join(":"),
+  };
+}
+
+function createInitialFilms() {
+  const films = [];
+  while (films.length < 2) {
+    const meme = pickUncapturedMeme(films);
+    if (!meme) break;
+    films.push(createFilm(meme, films.length + 1));
+  }
+  return films;
+}
+
 function preloadMemeAsset(assetPath) {
   return new Promise((resolve) => {
     const image = new Image();
@@ -42,7 +70,7 @@ export function useMemeCapture() {
   const [phase, setPhase] = useState("idle");
   const [selectedMeme, setSelectedMeme] = useState(null);
   const [activeFilmIndex, setActiveFilmIndex] = useState(-1);
-  const [capturedFilms, setCapturedFilms] = useState([]);
+  const [capturedFilms, setCapturedFilms] = useState(createInitialFilms);
   const [targetSlotIndex, setTargetSlotIndex] = useState(0);
   const [archiveMotion, setArchiveMotion] = useState(null);
   const [captureError, setCaptureError] = useState(false);
@@ -52,7 +80,6 @@ export function useMemeCapture() {
   const filmstripRef = useRef(null);
   const printRef = useRef(null);
   const filmLandingRef = useRef(null);
-  const nextCaptureNumberRef = useRef(1);
   const centeredSlotRef = useRef(0);
   const isDeckExhausted = capturedFilms.length >= memeCaptureDeck.length;
 
@@ -142,9 +169,7 @@ export function useMemeCapture() {
     if (phase !== "idle" || isDeckExhausted || captureBusyRef.current) return;
 
     clearTimers();
-    const capturedMemeIds = new Set(capturedFilms.map((meme) => meme.id));
-    const candidates = memeCaptureDeck.filter((meme) => !capturedMemeIds.has(meme.id));
-    const sourceMeme = candidates[Math.floor(Math.random() * candidates.length)];
+    const sourceMeme = pickUncapturedMeme(capturedFilms);
     if (!sourceMeme) return;
     captureBusyRef.current = true;
     setCaptureError(false);
@@ -157,19 +182,8 @@ export function useMemeCapture() {
       setPhase("idle");
       return;
     }
-    const captureNumber = nextCaptureNumberRef.current;
-    const capturedAt = new Date();
-    nextCaptureNumberRef.current += 1;
-    const nextMeme = {
-      ...sourceMeme,
-      captureId: `${sourceMeme.id}-${captureNumber}`,
-      filmId: String(captureNumber).padStart(2, "0"),
-      capturedAt: capturedAt.toISOString(),
-      capturedTime: [capturedAt.getHours(), capturedAt.getMinutes(), capturedAt.getSeconds()]
-        .map((part) => String(part).padStart(2, "0"))
-        .join(":"),
-    };
     const targetIndex = capturedFilms.length;
+    const nextMeme = createFilm(sourceMeme, targetIndex + 1);
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     centerMobileSlot(targetIndex);
     const focusAt = reduceMotion ? 20 : 260;

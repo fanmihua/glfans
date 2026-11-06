@@ -125,7 +125,7 @@ export function MemePickupPage() {
                       className={`meme-film-card is-filled${activeFilmIndex === index ? " is-active" : ""}`}
                       aria-label={t(`第 ${meme.filmId} 张表情包：${meme.title}，拍摄于 ${meme.capturedTime}`)}
                     >
-                      <span className="meme-film-image"><img src={withBase(meme.src)} alt="" loading="lazy" decoding="async" /></span>
+                      <span className="meme-film-image"><img src={withBase(meme.src)} alt="" decoding="async" /></span>
                       <span className="meme-film-number">[{t(meme.filmId)}]</span>
                       <span className="meme-film-card-actions">
                         <a

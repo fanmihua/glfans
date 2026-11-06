@@ -5,6 +5,7 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { promisify } from 'node:util';
 import { execFile } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 import { buildCalendarSubscriptionData } from '../scripts/build-calendar-subscription.mjs';
 import { archiveDramas } from '../src/data/archive-dramas.js';
 import { mergeCalendarData } from '../src/features/archive/calendar-data.js';
@@ -132,8 +133,8 @@ test('two CLI generations produce identical bytes and build writes the file afte
   const script = new URL('../scripts/build-calendar-subscription.mjs', import.meta.url);
   const first = path.join(directory, 'first');
   const second = path.join(directory, 'second');
-  await runFile(process.execPath, [script.pathname, first]);
-  await runFile(process.execPath, [script.pathname, second]);
+  await runFile(process.execPath, [fileURLToPath(script), first]);
+  await runFile(process.execPath, [fileURLToPath(script), second]);
   const [a, b] = await Promise.all([first, second].map(output => readFile(path.join(output, 'calendar/subscription.json'), 'utf8')));
   assert.equal(a, b);
   assert.equal(JSON.parse(a).version, 1);
