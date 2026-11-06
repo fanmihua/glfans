@@ -34,7 +34,7 @@ test('archive search requires two continuous English letters but accepts one Chi
   const cpLabels = archiveSearchResults('ja', archiveDramas, cpProfiles, 20)
     .filter(result => result.kind === 'cp')
     .map(result => result.label);
-  assert.deepEqual(cpLabels, ['GinJay', 'JaneKao', 'JanJingjing']);
+  assert.deepEqual(cpLabels, ['GinJay', 'JaneKao', 'JanJingjing', 'JaoyingMewnich']);
   assert.ok(!cpLabels.includes('NattyYeepun'));
 });
 
