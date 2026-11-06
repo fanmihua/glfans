@@ -10,6 +10,32 @@ async function open(page, locale = 'zh') {
   await expect(panel(page)).toHaveAttribute('data-state', 'ready');
 }
 
+test('badge hover scales with either motion preference and stays static on touch', async ({ page, isMobile }) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('/?lang=zh#/about');
+  const badge = trigger(page);
+  const image = badge.locator('img');
+  await badge.hover();
+  if (isMobile) {
+    await expect(image).toHaveCSS('transform', 'none');
+    return;
+  }
+
+  const enlarged = 'matrix(1.1, 0, 0, 1.1, 0, 0)';
+  await expect(image).toHaveCSS('transition-property', 'transform');
+  await expect(image).toHaveCSS('transform', enlarged);
+  await page.mouse.move(0, 0);
+  await expect(image).toHaveCSS('transform', 'none');
+
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await expect(image).toHaveCSS('transition-property', 'none');
+  await badge.hover();
+  await expect(image).toHaveCSS('transform', enlarged);
+  await expect(panel(page)).toHaveCount(0);
+  await page.mouse.move(0, 0);
+  await expect(image).toHaveCSS('transform', 'none');
+});
+
 test('loads 3D only after activation, stays still, and can be reopened without duplicate viewers', async ({ page }) => {
   const resources = [];
   page.on('request', request => resources.push(request.url()));
