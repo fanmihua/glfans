@@ -1,0 +1,47 @@
+export const badgeCopy = {
+  zh: {
+    open: '查看徽章 3D 效果', title: 'GL 徽章', close: '关闭徽章查看器',
+    model: 'GL 徽章的三维模型，可旋转查看正反面和边缘。',
+    zoomIn: '放大', zoomOut: '缩小', reset: '恢复正面与初始大小',
+    hint: '拖拽旋转 · 滚轮或双指缩放', loading: '正在加载徽章', retry: '重新加载',
+    failed: '徽章暂时没有加载成功，你可以重试。',
+    timeout: '加载时间有些长，请检查网络后重试。',
+    unsupported: '当前浏览器暂时无法显示 3D，先看看这枚徽章的图片吧。',
+    a11y: {
+      front: '正面', back: '背面', left: '左侧', right: '右侧',
+      'upper-front': '正面上方', 'upper-back': '背面上方', 'upper-left': '左侧上方', 'upper-right': '右侧上方',
+      'lower-front': '正面下方', 'lower-back': '背面下方', 'lower-left': '左侧下方', 'lower-right': '右侧下方',
+      'interaction-prompt': '使用鼠标、单指拖拽或方向键旋转；使用滚轮、双指捏合或加减键缩放。',
+    },
+  },
+  en: {
+    open: 'Explore the badge in 3D', title: 'GL badge', close: 'Close badge viewer',
+    model: 'A 3D GL badge. Rotate to explore the front, back and edges.',
+    zoomIn: 'Zoom in', zoomOut: 'Zoom out', reset: 'Reset to the front and original size',
+    hint: 'Drag to rotate · Scroll or pinch to zoom', loading: 'Loading badge', retry: 'Try again',
+    failed: 'The badge could not be loaded. Please try again.',
+    timeout: 'Loading is taking a while. Check your connection and try again.',
+    unsupported: 'This browser cannot display 3D right now. Here is a picture of the badge instead.',
+    a11y: {
+      front: 'Front', back: 'Back', left: 'Left', right: 'Right',
+      'upper-front': 'Upper front', 'upper-back': 'Upper back', 'upper-left': 'Upper left', 'upper-right': 'Upper right',
+      'lower-front': 'Lower front', 'lower-back': 'Lower back', 'lower-left': 'Lower left', 'lower-right': 'Lower right',
+      'interaction-prompt': 'Drag with a mouse or one finger, or use arrow keys to rotate. Scroll, pinch, or use plus and minus to zoom.',
+    },
+  },
+  th: {
+    open: 'ชมเข็มกลัดแบบ 3 มิติ', title: 'เข็มกลัด GL', close: 'ปิดหน้าชมเข็มกลัด',
+    model: 'โมเดลเข็มกลัด GL แบบ 3 มิติ หมุนเพื่อชมด้านหน้า ด้านหลัง และขอบ',
+    zoomIn: 'ขยาย', zoomOut: 'ย่อ', reset: 'กลับสู่ด้านหน้าและขนาดเริ่มต้น',
+    hint: 'ลากเพื่อหมุน · เลื่อนหรือใช้สองนิ้วเพื่อย่อขยาย', loading: 'กำลังโหลดเข็มกลัด', retry: 'ลองอีกครั้ง',
+    failed: 'โหลดเข็มกลัดไม่สำเร็จ โปรดลองอีกครั้ง',
+    timeout: 'ใช้เวลาโหลดนานกว่าปกติ โปรดตรวจสอบอินเทอร์เน็ตแล้วลองอีกครั้ง',
+    unsupported: 'เบราว์เซอร์นี้ยังแสดงผล 3 มิติไม่ได้ ชมภาพเข็มกลัดก่อนได้นะ',
+    a11y: {
+      front: 'ด้านหน้า', back: 'ด้านหลัง', left: 'ด้านซ้าย', right: 'ด้านขวา',
+      'upper-front': 'ด้านหน้าส่วนบน', 'upper-back': 'ด้านหลังส่วนบน', 'upper-left': 'ด้านซ้ายส่วนบน', 'upper-right': 'ด้านขวาส่วนบน',
+      'lower-front': 'ด้านหน้าส่วนล่าง', 'lower-back': 'ด้านหลังส่วนล่าง', 'lower-left': 'ด้านซ้ายส่วนล่าง', 'lower-right': 'ด้านขวาส่วนล่าง',
+      'interaction-prompt': 'ลากเมาส์หรือนิ้วเดียว หรือใช้ปุ่มลูกศรเพื่อหมุน เลื่อน ใช้สองนิ้ว หรือปุ่มบวกและลบเพื่อย่อขยาย',
+    },
+  },
+};

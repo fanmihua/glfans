@@ -1,13 +1,15 @@
 import { t } from "./i18n/runtime.js";
 import { getLocale } from './i18n/runtime.js';
 import { withBase } from "./lib/assets.js";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { PlayCircle } from "@phosphor-icons/react";
 import { RepoFilmStrip } from "./RepoFilmStrip.jsx";
 import { SiteHeader } from "./SiteHeader.jsx";
 import { RightsNotice } from "./RightsNotice.jsx";
 import { RIGHTS_FEEDBACK_URL, RIGHTS_SHORT_NOTICE } from "./rights.js";
 import { aboutLetter } from "./features/about/about-letter.js";
+import { badgeCopy } from './features/about/badge-copy.js';
+import { BadgeViewerDialog } from './features/about/BadgeViewerDialog.jsx';
 import "./about-page.css";
 
 
@@ -44,7 +46,15 @@ function LetterParagraph({ text, highlights = [] }) {
 
 export function AboutPage({ defaultRightsOpen = false }) {
   const [rightsOpen, setRightsOpen] = useState(defaultRightsOpen);
+  const [badgeOpen, setBadgeOpen] = useState(false);
+  const badgeTriggerRef = useRef(null);
   const letter = aboutLetter[getLocale()] || aboutLetter.zh;
+  const badge = badgeCopy[getLocale()] || badgeCopy.zh;
+  const badgePoster = withBase("assets/about/about1-gl-badge-7fe2179805130efd.webp");
+  const openBadge = event => {
+    badgeTriggerRef.current = event.currentTarget;
+    setBadgeOpen(true);
+  };
 
   return (
     <main className="about-shell about-letter-page">
@@ -55,7 +65,10 @@ export function AboutPage({ defaultRightsOpen = false }) {
 
         <div className="about-title-cluster">
           <HanddrawnHeart className="about-heart about-heart-title" />
-          <img className="about-title-badge" src={withBase("assets/about/about1-gl-badge-7fe2179805130efd.webp")} alt="" aria-hidden="true" width="768" height="768" decoding="async" />
+          <button className="about-badge-trigger about-title-badge" type="button" onClick={openBadge}
+            aria-label={badge.open} title={badge.open} aria-haspopup="dialog" aria-expanded={badgeOpen} aria-controls="about-badge-viewer">
+            <img src={badgePoster} alt="" aria-hidden="true" width="768" height="768" decoding="async" />
+          </button>
           <h1 id="about-title" aria-label={t("关于这个坑")}>
             <span className="about-title-top" aria-hidden="true">
               {getLocale() === 'zh' ? <><i>关</i><i>于</i></> : <i>{getLocale() === 'en' ? 'About' : 'เกี่ยวกับ'}</i>}
@@ -86,16 +99,10 @@ export function AboutPage({ defaultRightsOpen = false }) {
         </div>
 
         <article className="about-letter" aria-labelledby="about-letter-title">
-          <img
-            className="about-letter-badge"
-            src={withBase("assets/about/about1-gl-badge-7fe2179805130efd.webp")}
-            alt=""
-            aria-hidden="true"
-            width="768"
-            height="768"
-            decoding="async"
-            data-page-critical="true"
-          />
+          <button className="about-badge-trigger about-letter-badge" type="button" onClick={openBadge}
+            aria-label={badge.open} title={badge.open} aria-haspopup="dialog" aria-expanded={badgeOpen} aria-controls="about-badge-viewer">
+            <img src={badgePoster} alt="" aria-hidden="true" width="768" height="768" decoding="async" data-page-critical="true" />
+          </button>
           <h2 id="about-letter-title">{letter.title}</h2>
           <div className="about-letter-body">
             {letter.paragraphs.map((paragraph, index) => (
@@ -164,6 +171,10 @@ export function AboutPage({ defaultRightsOpen = false }) {
 
       <RepoFilmStrip />
       <RightsNotice className="about-mobile-rights" />
+      {badgeOpen && <BadgeViewerDialog
+        modelUrl={withBase('assets/about/gl-badge-3d-52a81fb23d35b8d6.glb')}
+        posterUrl={badgePoster} copy={badge} onClose={() => setBadgeOpen(false)} returnFocusRef={badgeTriggerRef}
+      />}
     </main>
   );
 }

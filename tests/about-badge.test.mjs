@@ -28,11 +28,14 @@ test('the about badge is the selected About1 Figma asset with a local, source-li
   assert.equal(createHash('sha256').update(bytes).digest('hex'), badge.sha256);
   const source = await readFile(new URL('../src/AboutPage.jsx', import.meta.url), 'utf8');
   assert.ok(source.includes(`withBase("${badge.path}")`));
-  const markup = source.match(/<img\s+className="about-letter-badge"[\s\S]*?\/>/g);
-  assert.equal(markup?.length, 1);
-  assert.match(markup[0], /alt=""/);
-  assert.match(markup[0], /aria-hidden="true"/);
-  assert.doesNotMatch(markup[0], /onClick|tabIndex|role="button"/);
+  const triggers = source.match(/<button className="about-badge-trigger about-(?:letter|title)-badge"[\s\S]*?<\/button>/g);
+  assert.equal(triggers?.length, 2, 'desktop and mobile use the selected image as accessible dialog triggers');
+  for (const markup of triggers) {
+    assert.match(markup, /onClick=\{openBadge\}/);
+    assert.match(markup, /aria-label=\{badge\.open\}/);
+    assert.match(markup, /aria-haspopup="dialog"/);
+    assert.match(markup, /<img src=\{badgePoster\} alt="" aria-hidden="true"/);
+  }
 });
 
 test('the compressed square badge decodes with transparent edges and stays within the image budget', async () => {

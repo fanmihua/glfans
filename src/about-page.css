@@ -42,6 +42,13 @@
 
 .about-title-cluster { grid-area: title; position: relative; min-width: 0; padding: 22px 0 0 16px; }
 .about-title-badge { display: none; }
+.about-badge-trigger { margin: 0; padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.about-badge-trigger img { display: block; width: 100%; height: auto; pointer-events: none; user-select: none; -webkit-user-drag: none; }
+.about-badge-trigger:focus-visible { outline: 3px solid var(--pink); outline-offset: -18px; }
+@media (any-hover: hover) and (prefers-reduced-motion: no-preference) {
+  .about-badge-trigger img { transition: transform 200ms ease-out; }
+  .about-badge-trigger:hover img { transform: scale(1.2); }
+}
 .about-title-cluster h1 {
   position: relative;
   display: flex;
@@ -139,9 +146,7 @@
   width: var(--about-badge-size);
   height: auto;
   aspect-ratio: 1;
-  object-fit: contain;
   transform: rotate(9.07deg);
-  pointer-events: none;
   user-select: none;
 }
 .about-letter h2 { margin: 0 0 22px; padding-inline-end: 120px; font-size: clamp(21px, 1.7vw, 25px); font-weight: 760; letter-spacing: .04em; line-height: 1.5; }
@@ -285,7 +290,7 @@ html:lang(th) .about-letter h2 { letter-spacing: 0; }
   .about-letter { margin: -6px -10px 14px; padding: 68px 44px 56px; }
   .about-letter::before { border-width: 51.04px 77.44px 26.4px 22px; border-image-width: 51.04px 77.44px 26.4px 22px; }
   .about-letter-badge { display: none; }
-  .about-title-badge { display: block; position: absolute; top: -36px; right: -30px; width: var(--about-badge-size); height: auto; transform: rotate(9.07deg); pointer-events: none; }
+  .about-title-badge { display: block; position: absolute; z-index: 1; top: -36px; right: -30px; width: var(--about-badge-size); height: auto; transform: rotate(9.07deg); }
   .about-letter h2 { margin-bottom: 20px; padding-inline-end: 0; font-size: 21px; letter-spacing: .02em; }
   .about-letter-body p { font-size: 15px; line-height: 1.8; }
   .about-letter-body p + p { margin-top: 18px; }
