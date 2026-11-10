@@ -2,6 +2,7 @@
 // replace premiere/screening/VIP dates with a different distribution window.
 // Original values remain in archive-dramas.js for the next evidence review.
 export const archiveFactReviews = {
+  'third-person': { fields: ['endDate'], reason: 'November 14 and 21 listings conflict. The November 21 cinema event does not confirm the TV broadcast date.' },
   blank: { fields: ['endDate'], reason: 'Finale catalogues disagree between April 6 and April 7.' },
   'i-am-devil': { fields: ['endDate', 'episodes'], reason: 'Original web run and later recut TV version must be distinguished.' },
   'somewhere-somehow': { fields: ['endDate'], reason: 'October 26 final screening versus October 31 regular distribution.' },

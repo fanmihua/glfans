@@ -73,6 +73,60 @@
       ],
       "premiereDate": "2026-09-12",
       "sourceUrl": "https://www.youtube.com/watch?v=eWVtJtYbZgI"
+    },
+    {
+      "id": "love-me-to-hurt-me",
+      "name": "Love Me to Hurt Me",
+      "network": "Channel 3",
+      "platforms": [
+        "3Plus",
+        "iQIYI"
+      ],
+      "premiereDate": "2026-11-06",
+      "sourceUrl": "https://ch3plus.com/special/dramascoop/7071",
+      "checkedAt": "2026-11-10T11:56:00Z"
+    },
+    {
+      "id": "oxytoxin",
+      "name": "Oxytoxin",
+      "network": "GMM25",
+      "platforms": [
+        "Netflix"
+      ],
+      "premiereDate": "2026-11-07",
+      "sourceUrl": "https://www.gmm-tv.com/contents/8j6dE/",
+      "checkedAt": "2026-11-10T11:56:00Z"
+    },
+    {
+      "id": "love-bound",
+      "name": "Love Bound",
+      "network": "Channel 9",
+      "platforms": [
+        "iQIYI"
+      ],
+      "premiereDate": "2026-11-08",
+      "sourceUrl": "https://x.com/KongthupsPdc/status/2118307143250305204",
+      "checkedAt": "2026-11-10T11:56:00Z"
+    },
+    {
+      "id": "my-boss-i-love-you",
+      "name": "My Boss, I Love You",
+      "network": "Channel 3HD",
+      "platforms": [],
+      "premiereDate": "2026-11-28",
+      "sourceUrl": "https://www.youtube.com/watch?v=uXpZBnvfVj8",
+      "checkedAt": "2026-11-10T11:56:00Z"
+    },
+    {
+      "id": "buy-my-boss",
+      "name": "Buy My Boss",
+      "network": "YouTube",
+      "platforms": [
+        "YouTube"
+      ],
+      "premiereDate": "2026-12-02",
+      "sourceUrl": "https://www.instagram.com/frt.entertainment/p/DeD1H3bnzwE/",
+      "checkedAt": "2026-11-10T11:56:00Z"
     }
   ],
   "events": [
@@ -161,6 +215,138 @@
       "kind": "part",
       "sourceUrl": "https://www.youtube.com/watch?v=i46czu8IMh0",
       "checkedAt": "2026-09-30T08:42:35Z",
+      "needsReview": false,
+      "sourceProvider": "official"
+    },
+    {
+      "id": "my-boss-i-love-you:premiere",
+      "seriesId": "my-boss-i-love-you",
+      "episode": null,
+      "airsAt": "2026-11-28T15:30:00Z",
+      "date": "2026-11-28",
+      "kind": "premiere",
+      "sourceUrl": "https://www.youtube.com/watch?v=uXpZBnvfVj8",
+      "checkedAt": "2026-11-10T11:56:00Z",
+      "needsReview": false,
+      "sourceProvider": "official"
+    },
+    {
+      "id": "buy-my-boss:premiere",
+      "seriesId": "buy-my-boss",
+      "episode": null,
+      "airsAt": null,
+      "date": "2026-12-02",
+      "kind": "premiere",
+      "sourceUrl": "https://www.instagram.com/frt.entertainment/p/DeD1H3bnzwE/",
+      "checkedAt": "2026-11-10T11:56:00Z",
+      "needsReview": false,
+      "sourceProvider": "official"
+    },
+    {
+      "id": "love-bound:ep:1",
+      "seriesId": "love-bound",
+      "episode": 1,
+      "airsAt": "2026-11-08T15:30:00Z",
+      "date": "2026-11-08",
+      "kind": "episode",
+      "sourceUrl": "https://x.com/KongthupsPdc/status/2119729070518804880",
+      "checkedAt": "2026-11-10T11:56:00Z",
+      "needsReview": false,
+      "sourceProvider": "official"
+    },
+    {
+      "id": "love-bound:ep:2",
+      "seriesId": "love-bound",
+      "episode": 2,
+      "airsAt": "2026-11-15T15:30:00Z",
+      "date": "2026-11-15",
+      "kind": "episode",
+      "sourceUrl": "https://x.com/KongthupsPdc/status/2119729070518804880",
+      "checkedAt": "2026-11-10T11:56:00Z",
+      "needsReview": false,
+      "sourceProvider": "official"
+    },
+    {
+      "id": "love-bound:ep:3",
+      "seriesId": "love-bound",
+      "episode": 3,
+      "airsAt": "2026-11-22T15:30:00Z",
+      "date": "2026-11-22",
+      "kind": "episode",
+      "sourceUrl": "https://x.com/KongthupsPdc/status/2119729070518804880",
+      "checkedAt": "2026-11-10T11:56:00Z",
+      "needsReview": false,
+      "sourceProvider": "official"
+    },
+    {
+      "id": "love-bound:ep:4",
+      "seriesId": "love-bound",
+      "episode": 4,
+      "airsAt": "2026-11-29T15:30:00Z",
+      "date": "2026-11-29",
+      "kind": "episode",
+      "sourceUrl": "https://x.com/KongthupsPdc/status/2119729070518804880",
+      "checkedAt": "2026-11-10T11:56:00Z",
+      "needsReview": false,
+      "sourceProvider": "official"
+    },
+    {
+      "id": "love-bound:ep:5",
+      "seriesId": "love-bound",
+      "episode": 5,
+      "airsAt": "2026-12-06T15:30:00Z",
+      "date": "2026-12-06",
+      "kind": "episode",
+      "sourceUrl": "https://x.com/KongthupsPdc/status/2119729070518804880",
+      "checkedAt": "2026-11-10T11:56:00Z",
+      "needsReview": false,
+      "sourceProvider": "official"
+    },
+    {
+      "id": "love-bound:ep:6",
+      "seriesId": "love-bound",
+      "episode": 6,
+      "airsAt": "2026-12-13T15:30:00Z",
+      "date": "2026-12-13",
+      "kind": "episode",
+      "sourceUrl": "https://x.com/KongthupsPdc/status/2119729070518804880",
+      "checkedAt": "2026-11-10T11:56:00Z",
+      "needsReview": false,
+      "sourceProvider": "official"
+    },
+    {
+      "id": "love-bound:ep:7",
+      "seriesId": "love-bound",
+      "episode": 7,
+      "airsAt": "2026-12-20T15:30:00Z",
+      "date": "2026-12-20",
+      "kind": "episode",
+      "sourceUrl": "https://x.com/KongthupsPdc/status/2119729070518804880",
+      "checkedAt": "2026-11-10T11:56:00Z",
+      "needsReview": false,
+      "sourceProvider": "official"
+    },
+    {
+      "id": "love-bound:ep:8",
+      "seriesId": "love-bound",
+      "episode": 8,
+      "airsAt": "2026-12-27T15:30:00Z",
+      "date": "2026-12-27",
+      "kind": "episode",
+      "sourceUrl": "https://x.com/KongthupsPdc/status/2119729070518804880",
+      "checkedAt": "2026-11-10T11:56:00Z",
+      "needsReview": false,
+      "sourceProvider": "official"
+    },
+    {
+      "id": "khom-khlang:ep:10",
+      "seriesId": "khom-khlang",
+      "episode": 10,
+      "airsAt": "2026-11-09T13:00:00Z",
+      "date": "2026-11-09",
+      "kind": "episode",
+      "sourceUrl": "https://x.com/Khomkhlang_STH/status/2119793732056908116",
+      "checkedAt": "2026-11-10T11:56:00Z",
       "needsReview": false,
       "sourceProvider": "official"
     }

@@ -1,5 +1,12 @@
 // Names are identifiers, not prose. Unverified names keep their source spelling.
 export const verifiedSeries = [
+  {"id": "love-above-the-clouds", "en": "Love Above the Clouds", "th": "ลวงรักเกมเหนือเมฆ", "aliases": ["Love Above the Clouds", "ลวงรักเกมเหนือเมฆ"], "source": "https://www.youtube.com/watch?v=bw9TWxqpDqk"},
+  {"id": "sweet-bond", "en": "Sweet Bond", "th": "พันธะหวาน", "aliases": ["Sweet Bond", "พันธะหวาน"], "source": "https://x.com/iQIYI_Thailand/status/2118629499063640137"},
+  {"id": "starlight-girls", "en": "Starlight Girls", "th": "Starlight Girls", "aliases": ["Starlight Girls"], "source": "https://www.youtube.com/watch?v=fm6Vdcvu8Yw"},
+  {"id": "the-editors-midlife-love", "en": "The Editor’s Midlife Love", "th": "บรรณาธิการ (รัก)", "aliases": ["The Editor’s Midlife Love", "บรรณาธิการ (รัก)"], "source": "https://x.com/iQIYI_Thailand/status/2118302846986924136"},
+  { id: 'love-me-to-hurt-me', zh: '爱恨交织', en: 'Love Me to Hurt Me', th: 'รัก = ร้าย', aliases: ['爱恨交织', 'Love Me to Hurt Me', 'รัก = ร้าย'], source: 'https://ch3plus.com/special/dramascoop/7071' },
+  { id: 'oxytoxin', zh: '校园荷尔蒙', en: 'Oxytoxin', th: 'จุนใจไอดาว', aliases: ['校园荷尔蒙', 'Oxytoxin', 'จุนใจไอดาว'], source: 'https://www.gmm-tv.com/contents/8j6dE/' },
+  { id: 'love-bound', zh: '爱的烙印', en: 'Love Bound', th: 'รักนี้ตีตรา', aliases: ['爱的烙印', 'Love Bound', 'รักนี้ตีตรา'], source: 'https://www.iq.com/album/love-bound-2026-24t2h7s82i5?lang=en_us' },
   ...[
   {
     "id": "lost-in-your-eyes",

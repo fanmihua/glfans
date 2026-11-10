@@ -3,6 +3,11 @@ import { dateInZone } from './archive-schedule.mjs';
 // Verified identities: Thai series, premiere dates and overlapping episode dates
 // were checked against the existing calendar before pinning these IDs.
 export const episodeSources = [
+  { seriesId: 'love-me-to-hurt-me', id: 95481, name: 'Love Me to Hurt Me' },
+  { seriesId: 'oxytoxin', id: 88616, name: 'Oxytoxin' },
+  { seriesId: 'under-her-rules', id: 89169, name: 'Under her rules' },
+  { seriesId: 'built-in-love', id: 90145, name: 'Built in Love' },
+  { seriesId: 'love-on-hire', id: 94865, name: 'Love on Hire' },
   { seriesId: 'moonshadow', id: 88620, name: 'Moonshadow' },
   { seriesId: 'my-lady-s-bodyguard', id: 92940, name: "My Lady's Bodyguard" },
   { seriesId: 'in-love-forever', id: 90253, name: 'In Love Forever' },

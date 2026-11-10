@@ -18,7 +18,7 @@ export function applyOfficialScheduleOverrides(data, overrides) {
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(item.id) || !/^https:\/\//.test(item.sourceUrl || '')) {
       throw new Error('Invalid official series override.');
     }
-    series.set(item.id, { ...series.get(item.id), ...item, sourceProvider: 'official', checkedAt: overrides.checkedAt });
+    series.set(item.id, { ...series.get(item.id), ...item, sourceProvider: 'official', checkedAt: item.checkedAt || overrides.checkedAt });
   }
   for (const [id, event] of events) {
     if (series.get(event.seriesId)?.episodeUnit !== 'part' || !event.episode) continue;

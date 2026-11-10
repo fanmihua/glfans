@@ -1,7 +1,7 @@
 import { archiveMainCastById } from "./archive-cast.js";
 import { archiveFactReviews } from './archive-fact-reviews.js';
 
-export const archiveYearList = ["2022", "2023", "2024", "2025", "2026"];
+export const archiveYearList = ["2022", "2023", "2024", "2025", "2026", "2027"];
 
 export const archiveDramas = [
   {
@@ -1486,10 +1486,10 @@ export const archiveDramas = [
     "title": "朱丽叶与朱丽叶",
     "titleEn": "Juliet & Juliet",
     "startDate": "2026-09-05",
-    "endDate": "",
+    "endDate": "2026-10-24",
     "weekday": "周六",
-    "episodes": 10,
-    "status": "待播",
+    "episodes": 8,
+    "status": "已完结",
     "company": "One 31",
     "platforms": [
       "GagaOOLala",
@@ -1500,7 +1500,7 @@ export const archiveDramas = [
     "width": 800,
     "height": 1200,
     "focus": "50% 32%",
-    "sourceUrl": "https://glspotlight.com/series/juliet-and-juliet"
+    "sourceUrl": "https://www.gagaoolala.com/en/videos/8942/juliet-and-juliet-2026-e08"
   },
   {
     "id": "fairway-of-love",
@@ -1511,7 +1511,7 @@ export const archiveDramas = [
     "endDate": "2026-10-25",
     "weekday": "周日",
     "episodes": 8,
-    "status": "待播",
+    "status": "已完结",
     "company": "Mojo Muse Management",
     "platforms": [
       "WeTV"
@@ -1521,7 +1521,7 @@ export const archiveDramas = [
     "width": 800,
     "height": 1200,
     "focus": "50% 32%",
-    "sourceUrl": "https://glspotlight.com/series/fairway-of-love"
+    "sourceUrl": "https://wetv.vip/en/play/ry6xp1egi7y2f8m-Fairway_of_Love"
   },
   {
     "id": "khom-khlang",
@@ -1530,10 +1530,10 @@ export const archiveDramas = [
     "aliases": ["女警与萨满"],
     "titleEn": "Khom Khlang",
     "startDate": "2026-09-07",
-    "endDate": "",
+    "endDate": "2026-11-09",
     "weekday": "周一",
     "episodes": 10,
-    "status": "播出中",
+    "status": "已完结",
     "company": "Star Hunter Entertainment",
     "platforms": [
       "WeTV"
@@ -1555,7 +1555,7 @@ export const archiveDramas = [
     "endDate": "2026-10-30",
     "weekday": "周五",
     "episodes": 8,
-    "status": "播出中",
+    "status": "已完结",
     "company": "Channel 3",
     "platforms": [
       "Channel 3",
@@ -1567,7 +1567,7 @@ export const archiveDramas = [
     "width": 800,
     "height": 1200,
     "focus": "50% 32%",
-    "sourceUrl": "https://glspotlight.com/series/pls-love"
+    "sourceUrl": "https://www.iq.com/play/pls-love-episode-8-wlq6rdgpjs?lang=en_us"
   },
   {
     "id": "third-person",
@@ -1626,7 +1626,7 @@ export const archiveDramas = [
     "endDate": "",
     "weekday": "周三",
     "episodes": 0,
-    "status": "待播",
+    "status": "播出中",
     "company": "Studio Wabi Sabi",
     "platforms": [
       "GMM25",
@@ -1650,7 +1650,7 @@ export const archiveDramas = [
     "endDate": "",
     "weekday": "周四",
     "episodes": 0,
-    "status": "待播",
+    "status": "播出中",
     "company": "NorthStar Entertainment / COPY A BANGKOK",
     "platforms": [
       "WeTV"
@@ -1665,25 +1665,31 @@ export const archiveDramas = [
     "airingNote": "10 月 22 日起，每周四泰国时间 20:00 于 WeTV 独家上线 UNCUT 版。"
   },
   {
-    "id": "buy-my-boss",
+    "id": "love-me-to-hurt-me",
     "year": "2026",
-    "title": "爱情买卖",
-    "titleEn": "Buy My Boss",
-    "startDate": "2026-10-28",
-    "endDate": "",
-    "weekday": "周三",
-    "episodes": 0,
-    "status": "待播",
-    "company": "FRT Entertainment",
-    "platforms": [
-      "YouTube"
+    "title": "爱恨交织",
+    "titleEn": "Love Me to Hurt Me",
+    "aliases": [
+      "รัก = ร้าย"
     ],
-    "summary": "破产又失恋的应届生 Manfan 雇人陪伴自己，入职后才发现对方正是新老板 Issara。",
-    "image": "assets/archive/posters/buy-my-boss.webp",
-    "width": 800,
-    "height": 1200,
-    "focus": "50% 32%",
-    "sourceUrl": "https://glspotlight.com/series/buy-my-boss"
+    "startDate": "2026-11-06",
+    "endDate": "",
+    "weekday": "周五",
+    "episodes": 8,
+    "status": "播出中",
+    "company": "Channel 3",
+    "platforms": [
+      "Channel 3",
+      "3Plus",
+      "iQIYI"
+    ],
+    "summary": "珠宝店老板 Song 再次遇见当年不告而别的前女友 Oh。她打算让 Oh 尝尝自己受过的伤，却在重逢后重新动了心。",
+    "image": "assets/archive/posters/love-me-to-hurt-me.webp",
+    "width": 900,
+    "height": 1125,
+    "focus": "50% 34%",
+    "sourceUrl": "https://ch3plus.com/special/dramascoop/7071",
+    "imageSourceUrl": "https://assets.ch3plus.com/gallery/activity/2026/10/2610161721200.jpg"
   },
   {
     "id": "under-her-rules",
@@ -1694,7 +1700,7 @@ export const archiveDramas = [
     "endDate": "",
     "weekday": "周六",
     "episodes": 8,
-    "status": "待播",
+    "status": "播出中",
     "company": "MGI Beyond",
     "platforms": [
       "iQIYI"
@@ -1708,6 +1714,59 @@ export const archiveDramas = [
     "airingNote": "每周六泰国时间 20:00 于 iQIYI 播出；首播已由 10 月 17 日改为 11 月 7 日。"
   },
   {
+    "id": "oxytoxin",
+    "year": "2026",
+    "title": "校园荷尔蒙",
+    "titleEn": "Oxytoxin",
+    "aliases": [
+      "จุนใจไอดาว"
+    ],
+    "startDate": "2026-11-07",
+    "endDate": "",
+    "weekday": "周六",
+    "episodes": 0,
+    "status": "播出中",
+    "company": "GMMTV",
+    "platforms": [
+      "GMM25",
+      "Netflix"
+    ],
+    "summary": "在一所精英女校，Aidao 把受欺负的奖学金生 Junjai 拉进自己的小团体。两人走得越近，身边人竭力掩藏的秘密也越难守住。",
+    "image": "assets/archive/posters/oxytoxin.webp",
+    "width": 427,
+    "height": 640,
+    "focus": "50% 34%",
+    "sourceUrl": "https://www.gmm-tv.com/contents/8j6dE/",
+    "imageSourceUrl": "https://www.gmm-tv.com/cms/upload_file/news/other/4504/images/01.jpg"
+  },
+  {
+    "id": "love-bound",
+    "year": "2026",
+    "title": "爱的烙印",
+    "titleEn": "Love Bound",
+    "aliases": [
+      "รักนี้ตีตรา"
+    ],
+    "startDate": "2026-11-08",
+    "endDate": "2026-12-27",
+    "weekday": "周日",
+    "episodes": 8,
+    "status": "播出中",
+    "company": "Kongthup’s Production",
+    "platforms": [
+      "Channel 9",
+      "iQIYI"
+    ],
+    "summary": "经历数次背叛后，Whisky 与 Pim 相爱并结婚。旧友的介入让 Whisky 再度陷入猜疑，两人的婚姻也走到十字路口。",
+    "image": "assets/archive/posters/love-bound.webp",
+    "width": 900,
+    "height": 1125,
+    "focus": "50% 34%",
+    "sourceUrl": "https://www.iq.com/album/love-bound-2026-24t2h7s82i5?lang=en_us",
+    "airingNote": "制作方公布的电视排期共 8 集，爱奇艺页面标注 10 集。此处按电视排期收录。",
+    "imageSourceUrl": "https://pbs.twimg.com/media/HWW5n_faAAAro96.jpg?name=orig"
+  },
+  {
     "id": "my-boss-i-love-you",
     "year": "2026",
     "title": "我爱上司",
@@ -1718,13 +1777,140 @@ export const archiveDramas = [
     "episodes": 0,
     "status": "待播",
     "company": "S Class Entertainment",
-    "platforms": [],
+    "platforms": [
+      "Channel 3HD"
+    ],
     "summary": "公司老板 Chama 对新入职会计 Nilmookda 一见钟情，匿名送花示好，却被对方误以为遭到跟踪。",
     "image": "assets/archive/posters/my-boss-i-love-you.webp",
     "width": 800,
     "height": 1200,
     "focus": "50% 32%",
-    "sourceUrl": "https://glspotlight.com/series/my-boss-i-love-you"
+    "sourceUrl": "https://www.youtube.com/watch?v=uXpZBnvfVj8"
+  },
+  {
+    "id": "buy-my-boss",
+    "year": "2026",
+    "title": "爱情买卖",
+    "titleEn": "Buy My Boss",
+    "startDate": "2026-12-02",
+    "endDate": "",
+    "weekday": "周三",
+    "episodes": 0,
+    "status": "待播",
+    "company": "FRT Entertainment",
+    "platforms": [
+      "YouTube"
+    ],
+    "summary": "破产又失恋的应届生 Manfan 雇人陪伴自己，入职后才发现对方正是新老板 Issara。",
+    "image": "assets/archive/posters/buy-my-boss.webp",
+    "width": 800,
+    "height": 1200,
+    "focus": "50% 32%",
+    "sourceUrl": "https://www.instagram.com/frt.entertainment/p/DeD1H3bnzwE/"
+  },
+  {
+    "id": "love-above-the-clouds",
+    "year": "2027",
+    "title": "Love Above the Clouds",
+    "titleEn": "Love Above the Clouds",
+    "aliases": [
+      "ลวงรักเกมเหนือเมฆ"
+    ],
+    "startDate": "",
+    "endDate": "",
+    "releaseWindow": "预计 2027 年 2 月",
+    "releaseWindowSource": "https://www.matichon.co.th/entertainment/news_5785130",
+    "weekday": "",
+    "episodes": 0,
+    "status": "待播",
+    "company": "Century UU Thailand",
+    "platforms": [],
+    "summary": "卧底 Rin 潜入一家网络安全公司，调查涉嫌犯罪的总裁。越接近目标，她越难把感情排除在任务之外。",
+    "image": "assets/archive/posters/love-above-the-clouds.webp",
+    "width": 1000,
+    "height": 563,
+    "focus": "50% 35%",
+    "sourceUrl": "https://www.youtube.com/watch?v=bw9TWxqpDqk",
+    "imageSourceUrl": "https://i.ytimg.com/vi/bw9TWxqpDqk/maxresdefault.jpg"
+  },
+  {
+    "id": "sweet-bond",
+    "year": "2027",
+    "title": "Sweet Bond",
+    "titleEn": "Sweet Bond",
+    "aliases": [
+      "พันธะหวาน"
+    ],
+    "startDate": "",
+    "endDate": "",
+    "releaseWindow": "预计 2027 年",
+    "releaseWindowSource": "https://x.com/mimudotp/status/2118399414146666581",
+    "weekday": "",
+    "episodes": 0,
+    "status": "待播",
+    "company": "North Star Entertainment",
+    "platforms": [
+      "iQIYI"
+    ],
+    "summary": "Saeng Nuea 刚拒绝女医生 Prin 的求婚，就在一场车祸中害她失去视力。照顾 Prin 的日子里，原本不愿安定下来的她渐渐动了心。",
+    "image": "assets/archive/posters/sweet-bond.webp",
+    "width": 900,
+    "height": 1200,
+    "focus": "50% 35%",
+    "sourceUrl": "https://x.com/iQIYI_Thailand/status/2118629499063640137",
+    "imageSourceUrl": "https://pbs.twimg.com/media/HWbePxlagAAj1lx.jpg?name=orig"
+  },
+  {
+    "id": "starlight-girls",
+    "year": "2027",
+    "title": "Starlight Girls",
+    "titleEn": "Starlight Girls",
+    "aliases": [
+      "Starlight Girls"
+    ],
+    "startDate": "",
+    "endDate": "",
+    "releaseWindow": "预计 2027 年",
+    "releaseWindowSource": "https://www.thepeople.co/event/information/57711",
+    "weekday": "",
+    "episodes": 0,
+    "status": "待播",
+    "company": "Persona Entertainment × BDLMD Entertainment",
+    "platforms": [],
+    "summary": "六名女练习生争取五个出道名额。在练习室里，她们既要面对彼此间的竞争，也渐渐有了想要守护的人。",
+    "image": "assets/archive/posters/starlight-girls.webp",
+    "width": 884,
+    "height": 1250,
+    "focus": "50% 35%",
+    "sourceUrl": "https://www.youtube.com/watch?v=fm6Vdcvu8Yw",
+    "imageSourceUrl": "https://static.wixstatic.com/media/474cbf_657e27bd6ff94e4fb3882cb4d77fac7c~mv2.jpg/v1/fill/w_1076,h_1522,al_c,q_85/474cbf_657e27bd6ff94e4fb3882cb4d77fac7c~mv2.jpg"
+  },
+  {
+    "id": "the-editors-midlife-love",
+    "year": "2027",
+    "title": "The Editor’s Midlife Love",
+    "titleEn": "The Editor’s Midlife Love",
+    "aliases": [
+      "บรรณาธิการ (รัก)"
+    ],
+    "startDate": "",
+    "endDate": "",
+    "releaseWindow": "预计 2027 年",
+    "releaseWindowSource": "https://www.komchadluek.net/entertainment/drama-series/625308",
+    "weekday": "",
+    "episodes": 0,
+    "status": "待播",
+    "company": "COPY A BANGKOK",
+    "platforms": [
+      "iQIYI"
+    ],
+    "summary": "为了养家，四十多岁的泰语老师 Pla 接了一份编辑工作。与她搭档的作家 Por 已许久写不出作品，两人的相遇让 Por 重新提起笔。",
+    "image": "assets/archive/posters/the-editors-midlife-love.webp",
+    "width": 960,
+    "height": 1200,
+    "focus": "50% 35%",
+    "sourceUrl": "https://x.com/iQIYI_Thailand/status/2118302846986924136",
+    "imageSourceUrl": "https://pbs.twimg.com/media/HWW5NdtaAAApgse.jpg?name=orig"
   }
 ].map((drama) => ({
   ...drama,
@@ -1746,4 +1932,5 @@ export const archiveRepresentativeIds = {
   "2024": "the-secret-of-us",
   "2025": "us",
   "2026": "in-love-forever",
+  "2027": "sweet-bond",
 };

@@ -10,9 +10,13 @@ const history = await read('../src/data/archive-history.json');
 const current = await read('../src/data/archive-schedule.json');
 const all = mergeCalendarData(history, current);
 
-test('all archive titles have a verified calendar entry, with unique series and event identities', () => {
+test('dated archive titles have a verified calendar entry, with unique series and event identities', () => {
   const ids = new Set(all.events.filter((event) => !event.needsReview).map((event) => event.seriesId));
-  assert.deepEqual(archiveDramas.filter(({ id }) => !ids.has(id)).map(({ id }) => id), []);
+  assert.deepEqual(archiveDramas.filter(({ id, startDate }) => startDate && !ids.has(id)).map(({ id }) => id), []);
+  for (const work of archiveDramas.filter(work => !work.startDate)) {
+    assert.ok(work.releaseWindow && work.releaseWindowSource.startsWith('https://'), work.id);
+    assert.ok(!all.events.some(event => event.seriesId === work.id), work.id);
+  }
   assert.equal(new Set(all.series.map(({ id }) => id)).size, all.series.length);
   assert.equal(new Set(all.events.map(({ id }) => id)).size, all.events.length);
   for (const event of all.events) {

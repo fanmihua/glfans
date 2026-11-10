@@ -156,7 +156,7 @@ export const gmmtvNextCpProfiles = [
       "en": "Tonkhaw and Waifha share the screen in Above Her Class. Explore their official duo portrait, public profiles and announced work.",
       "th": "Tonkhaw และ Waifha ร่วมแสดงใน ขอให้รักลงจอดอย่างปลอดภัย หน้านี้รวบรวมภาพคู่ทางการ ประวัติสาธารณะ และผลงานที่ประกาศแล้ว"
     },
-    "works": [],
+    "works": [{ "id": "oxytoxin", "title": "校园荷尔蒙", "year": "2026", "source": "https://www.gmm-tv.com/contents/8j6dE/", "ensemble": true }],
     "events": [],
     "shops": [],
     "checkedAt": "2026-11-04"

@@ -98,7 +98,12 @@ export function assembleSchedule(weeks, upcoming, previous = null, checkedAt = n
   for (const event of previous?.events || []) {
     const latest = events.get(event.id);
     if (latest) {
-      if (latest.date !== event.date || latest.airsAt !== event.airsAt) changes.changed.push({ id: event.id, before: event.airsAt || event.date, after: latest.airsAt || latest.date });
+      const sameSlot = latest.date === event.date && (latest.airsAt === event.airsAt
+        || (latest.airsAt && event.airsAt && Date.parse(latest.airsAt) === Date.parse(event.airsAt)));
+      if (!sameSlot) changes.changed.push({ id: event.id, before: event.airsAt || event.date, after: latest.airsAt || latest.date });
+      else if (event.sourceProvider === 'official' && !event.needsReview) {
+        events.set(event.id, { ...latest, sourceProvider: 'official', sourceUrl: event.sourceUrl, checkedAt: event.checkedAt });
+      }
       continue;
     }
     if (event.kind === 'premiere' && events.has(`${event.seriesId}:ep:1`)) continue;

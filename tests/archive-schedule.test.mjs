@@ -22,6 +22,15 @@ test('date-only premieres are not fabricated midnight episode records; premiere 
   assert.equal(eventDate(data.events[1], 'Asia/Shanghai'), '2026-10-17');
   assert.equal(eventStatus(data.events[1], Date.parse('2027-01-01')), 'aired');
 });
+test('an unchanged rolling listing retains the verified official source and its verification date', () => {
+  const { data } = assembleSchedule(fixture(), upcoming, null, checkedAt);
+  const official = { ...data.events[0], sourceProvider: 'official', sourceUrl: 'https://example.com/producer', checkedAt,
+    airsAt: new Date(data.events[0].airsAt).toISOString() };
+  const refresh = assembleSchedule(fixture(), upcoming, { ...data, events: [official] }, '2026-09-05T12:00:00Z');
+  assert.equal(refresh.data.events[0].sourceUrl, official.sourceUrl);
+  assert.equal(refresh.data.events[0].checkedAt, checkedAt);
+  assert.deepEqual(refresh.changes.changed, []);
+});
 test('cross-midnight broadcasts use the selected time zone and transition at the scheduled instant', () => {
   const event = { airsAt: '2026-09-04T16:30:00Z' };
   assert.equal(calendarDate(event.airsAt, 'Asia/Bangkok'), '2026-09-04');

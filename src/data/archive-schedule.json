@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checkedAt": "2026-11-09T04:23:54.684Z",
+  "checkedAt": "2026-11-10T12:16:41.234Z",
   "source": "GL Spotlight",
   "sourceTimeZone": "Asia/Bangkok",
   "coverage": [
@@ -120,18 +120,24 @@
     {
       "id": "buy-my-boss",
       "name": "Buy My Boss",
-      "network": "",
-      "platforms": [],
+      "network": "YouTube",
+      "platforms": [
+        "YouTube"
+      ],
       "premiereDate": "2026-12-02",
-      "sourceUrl": "https://www.instagram.com/frt.entertainment/p/DeD1H3bnzwE/"
+      "sourceUrl": "https://www.instagram.com/frt.entertainment/p/DeD1H3bnzwE/",
+      "checkedAt": "2026-11-10T11:56:00Z",
+      "sourceProvider": "official"
     },
     {
       "id": "my-boss-i-love-you",
       "name": "My Boss, I Love You",
-      "network": "Channel 3",
+      "network": "Channel 3HD",
       "platforms": [],
       "premiereDate": "2026-11-28",
-      "sourceUrl": "https://glspotlight.com/series/my-boss-i-love-you"
+      "sourceUrl": "https://www.youtube.com/watch?v=uXpZBnvfVj8",
+      "checkedAt": "2026-11-10T11:56:00Z",
+      "sourceProvider": "official"
     },
     {
       "id": "wish-upon-a-star",
@@ -158,8 +164,8 @@
       ],
       "premiereDate": "2026-11-07",
       "sourceUrl": "https://www.gmm-tv.com/contents/8j6dE/",
-      "sourceProvider": "official",
-      "checkedAt": "2026-10-26T01:58:58.272Z"
+      "checkedAt": "2026-11-10T11:56:00Z",
+      "sourceProvider": "official"
     },
     {
       "id": "her",
@@ -318,12 +324,13 @@
       "name": "Love Me to Hurt Me",
       "network": "Channel 3",
       "platforms": [
-        "3Plus"
+        "3Plus",
+        "iQIYI"
       ],
       "premiereDate": "2026-11-06",
-      "sourceUrl": "https://x.com/TanYuyu_CH3/status/2114522401757376807",
-      "sourceProvider": "official",
-      "checkedAt": "2026-10-26T01:58:58.272Z"
+      "sourceUrl": "https://ch3plus.com/special/dramascoop/7071",
+      "checkedAt": "2026-11-10T11:56:00Z",
+      "sourceProvider": "official"
     },
     {
       "id": "the-hidden-blood",
@@ -336,12 +343,14 @@
     {
       "id": "love-bound",
       "name": "Love Bound",
-      "network": "",
-      "platforms": [],
+      "network": "Channel 9",
+      "platforms": [
+        "iQIYI"
+      ],
       "premiereDate": "2026-11-08",
-      "sourceUrl": "https://x.com/LoveBoundOFC/status/2114356881150079278",
-      "sourceProvider": "official",
-      "checkedAt": "2026-10-26T01:58:58.272Z"
+      "sourceUrl": "https://x.com/KongthupsPdc/status/2118307143250305204",
+      "checkedAt": "2026-11-10T11:56:00Z",
+      "sourceProvider": "official"
     },
     {
       "id": "ditto",
@@ -369,7 +378,7 @@
     },
     {
       "id": "yes-maybe-no",
-      "name": "Yes Maybe No",
+      "name": "YES Maybe NO",
       "network": "",
       "platforms": [],
       "premiereDate": null,
@@ -403,6 +412,102 @@
       "sourceUrl": "https://www.youtube.com/watch?v=WR-HPcdHxlQ",
       "sourceProvider": "official",
       "checkedAt": "2026-09-30T08:42:35Z"
+    },
+    {
+      "id": "be-my-baby",
+      "name": "Be Mine",
+      "network": "GMM25",
+      "platforms": [],
+      "premiereDate": null,
+      "sourceUrl": "https://glspotlight.com/series/be-my-baby"
+    },
+    {
+      "id": "my-beautiful-enemy",
+      "name": "My Beautiful Enemy",
+      "network": "GMM25",
+      "platforms": [],
+      "premiereDate": null,
+      "sourceUrl": "https://glspotlight.com/series/my-beautiful-enemy"
+    },
+    {
+      "id": "the-editors-midlife-love",
+      "name": "The Editor’s Midlife Love",
+      "network": "",
+      "platforms": [],
+      "premiereDate": null,
+      "sourceUrl": "https://glspotlight.com/series/the-editors-midlife-love"
+    },
+    {
+      "id": "above-her-class",
+      "name": "Above Her Class",
+      "network": "GMM25",
+      "platforms": [],
+      "premiereDate": null,
+      "sourceUrl": "https://glspotlight.com/series/above-her-class"
+    },
+    {
+      "id": "love-in-the-fast-lane",
+      "name": "Love in the Fast Lane",
+      "network": "iQYI",
+      "platforms": [],
+      "premiereDate": null,
+      "sourceUrl": "https://glspotlight.com/series/love-in-the-fast-lane"
+    },
+    {
+      "id": "kiss-me-stranger",
+      "name": "Kiss Me, Stranger",
+      "network": "GMM25",
+      "platforms": [],
+      "premiereDate": null,
+      "sourceUrl": "https://glspotlight.com/series/kiss-me-stranger"
+    },
+    {
+      "id": "sweet-bond",
+      "name": "Sweet Bond",
+      "network": "",
+      "platforms": [],
+      "premiereDate": null,
+      "sourceUrl": "https://glspotlight.com/series/sweet-bond"
+    },
+    {
+      "id": "safety-flirt",
+      "name": "Safety Flirt",
+      "network": "GMM25",
+      "platforms": [],
+      "premiereDate": null,
+      "sourceUrl": "https://glspotlight.com/series/safety-flirt"
+    },
+    {
+      "id": "lost-in-your-eyes",
+      "name": "Lost in Your Eyes",
+      "network": "",
+      "platforms": [],
+      "premiereDate": null,
+      "sourceUrl": "https://glspotlight.com/series/lost-in-your-eyes"
+    },
+    {
+      "id": "married-to-my-enemy",
+      "name": "Married to My Enemy",
+      "network": "",
+      "platforms": [],
+      "premiereDate": null,
+      "sourceUrl": "https://glspotlight.com/series/married-to-my-enemy"
+    },
+    {
+      "id": "cherish",
+      "name": "Cherish",
+      "network": "GMM25",
+      "platforms": [],
+      "premiereDate": null,
+      "sourceUrl": "https://glspotlight.com/series/cherish"
+    },
+    {
+      "id": "beyond-you",
+      "name": "Beyond You",
+      "network": "GMM25",
+      "platforms": [],
+      "premiereDate": null,
+      "sourceUrl": "https://glspotlight.com/series/beyond-you"
     }
   ],
   "events": [
@@ -415,7 +520,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3629727/in-love-forever-1x01-episode-1",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
       "needsReview": false
     },
     {
@@ -427,7 +532,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3662836/my-ladys-bodyguard-1x01-episode-1",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
       "needsReview": false
     },
     {
@@ -439,7 +544,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3629728/in-love-forever-1x02-episode-2",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
       "needsReview": false
     },
     {
@@ -451,7 +556,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3662837/my-ladys-bodyguard-1x02-episode-2",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
       "needsReview": false
     },
     {
@@ -463,7 +568,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3629729/in-love-forever-1x03-episode-3",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
       "needsReview": false
     },
     {
@@ -475,7 +580,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3662838/my-ladys-bodyguard-1x03-episode-3",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
       "needsReview": false
     },
     {
@@ -487,7 +592,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3629730/in-love-forever-1x04-episode-4",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
       "needsReview": false
     },
     {
@@ -499,7 +604,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3662860/my-ladys-bodyguard-1x04-episode-4",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
       "needsReview": false
     },
     {
@@ -511,7 +616,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3629731/in-love-forever-1x05-episode-5",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
       "needsReview": false
     },
     {
@@ -523,7 +628,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3662862/my-ladys-bodyguard-1x05-episode-5",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
       "needsReview": false
     },
     {
@@ -535,7 +640,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3629732/in-love-forever-1x06-episode-6",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
       "needsReview": false
     },
     {
@@ -547,7 +652,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3662863/my-ladys-bodyguard-1x06-episode-6",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
       "needsReview": false
     },
     {
@@ -559,7 +664,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3629733/in-love-forever-1x07-episode-7",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
       "needsReview": false
     },
     {
@@ -571,7 +676,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3662865/my-ladys-bodyguard-1x07-episode-7",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
       "needsReview": false
     },
     {
@@ -583,7 +688,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3629734/in-love-forever-1x08-episode-8",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
       "needsReview": false
     },
     {
@@ -595,7 +700,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3684421/moonshadow-1x01-once-in-a-blue-moon",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
       "needsReview": false
     },
     {
@@ -607,7 +712,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3662867/my-ladys-bodyguard-1x08-episode-8",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
       "needsReview": false
     },
     {
@@ -619,7 +724,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3629735/in-love-forever-1x09-episode-9",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
       "needsReview": false
     },
     {
@@ -631,7 +736,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3684422/moonshadow-1x02-new-moon",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
       "needsReview": false
     },
     {
@@ -643,7 +748,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3662868/my-ladys-bodyguard-1x09-episode-9",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
       "needsReview": false
     },
     {
@@ -655,7 +760,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3629736/in-love-forever-1x10-episode-10",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
       "needsReview": false
     },
     {
@@ -667,7 +772,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3684423/moonshadow-1x03-cant-fight-the-moonlight",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
       "needsReview": false
     },
     {
@@ -679,7 +784,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3662870/my-ladys-bodyguard-1x10-episode-10",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
       "needsReview": false
     },
     {
@@ -691,7 +796,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3708428/in-love-forever-1x11-episode-11",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
       "needsReview": false
     },
     {
@@ -1221,6 +1326,18 @@
       "sourceProvider": "official"
     },
     {
+      "id": "love-on-hire:ep:2",
+      "seriesId": "love-on-hire",
+      "episode": 2,
+      "airsAt": null,
+      "date": "2026-10-22",
+      "kind": "episode",
+      "sourceUrl": "https://www.tvmaze.com/episodes/3780793/love-on-hire-1x02-episode-2",
+      "sourceProvider": "tvmaze",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
+      "needsReview": false
+    },
+    {
       "id": "love-on-hire:ep:1",
       "seriesId": "love-on-hire",
       "episode": 1,
@@ -1252,7 +1369,7 @@
       "kind": "episode",
       "sourceUrl": "https://www.tvmaze.com/episodes/3721800/juliet-juliet-1x08-episode-8",
       "sourceProvider": "tvmaze",
-      "checkedAt": "2026-10-05T03:28:10.096Z",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
       "needsReview": false
     },
     {
@@ -1422,8 +1539,8 @@
       "airsAt": "2026-11-08T15:30:00Z",
       "date": "2026-11-08",
       "kind": "episode",
-      "sourceUrl": "https://x.com/LoveBoundOFC/status/2114356881150079278",
-      "checkedAt": "2026-10-26T01:58:58.272Z",
+      "sourceUrl": "https://x.com/KongthupsPdc/status/2119729070518804880",
+      "checkedAt": "2026-11-10T11:56:00Z",
       "needsReview": false,
       "sourceProvider": "official"
     },
@@ -1434,10 +1551,10 @@
       "airsAt": "2026-11-09T13:00:00Z",
       "date": "2026-11-09",
       "kind": "episode",
-      "sourceUrl": "https://www.youtube.com/watch?v=eBf5wDAAHdg",
-      "sourceProvider": "official",
-      "checkedAt": "2026-11-02T02:06:53.183Z",
-      "needsReview": false
+      "sourceUrl": "https://x.com/Khomkhlang_STH/status/2119793732056908116",
+      "checkedAt": "2026-11-10T11:56:00Z",
+      "needsReview": false,
+      "sourceProvider": "official"
     },
     {
       "id": "built-in-love:ep:4",
@@ -1447,9 +1564,9 @@
       "date": "2026-11-11",
       "kind": "episode",
       "sourceUrl": "https://x.com/wabisabiTH/status/2102725466373464369",
-      "sourceProvider": "official",
       "checkedAt": "2026-11-02T02:06:53.183Z",
-      "needsReview": false
+      "needsReview": false,
+      "sourceProvider": "official"
     },
     {
       "id": "love-on-hire:ep:5",
@@ -1459,9 +1576,9 @@
       "date": "2026-11-12",
       "kind": "episode",
       "sourceUrl": "https://x.com/LoveOnHire",
-      "sourceProvider": "official",
       "checkedAt": "2026-11-02T02:06:53.183Z",
-      "needsReview": false
+      "needsReview": false,
+      "sourceProvider": "official"
     },
     {
       "id": "love-me-to-hurt-me:ep:2",
@@ -1471,9 +1588,9 @@
       "date": "2026-11-13",
       "kind": "episode",
       "sourceUrl": "https://x.com/TanYuyu_CH3/status/2114522401757376807",
-      "sourceProvider": "official",
       "checkedAt": "2026-11-02T02:06:53.183Z",
-      "needsReview": false
+      "needsReview": false,
+      "sourceProvider": "official"
     },
     {
       "id": "under-her-rules:ep:2",
@@ -1483,9 +1600,9 @@
       "date": "2026-11-14",
       "kind": "episode",
       "sourceUrl": "https://x.com/MGIBeyond/status/2103084608183296422",
-      "sourceProvider": "official",
       "checkedAt": "2026-11-02T02:06:53.183Z",
-      "needsReview": false
+      "needsReview": false,
+      "sourceProvider": "official"
     },
     {
       "id": "oxytoxin:ep:2",
@@ -1495,21 +1612,9 @@
       "date": "2026-11-14",
       "kind": "episode",
       "sourceUrl": "https://www.gmm-tv.com/contents/8j6dE/",
-      "sourceProvider": "official",
       "checkedAt": "2026-11-02T02:06:53.183Z",
-      "needsReview": false
-    },
-    {
-      "id": "third-person:ep:10",
-      "seriesId": "third-person",
-      "episode": 10,
-      "airsAt": "2026-11-14T15:25:00Z",
-      "date": "2026-11-14",
-      "kind": "episode",
-      "sourceUrl": "https://www.youtube.com/watch?v=c2YCbvzWrHQ",
-      "sourceProvider": "official",
-      "checkedAt": "2026-11-09T04:23:54.684Z",
-      "needsReview": false
+      "needsReview": false,
+      "sourceProvider": "official"
     },
     {
       "id": "love-bound:ep:2",
@@ -1518,10 +1623,10 @@
       "airsAt": "2026-11-15T15:30:00Z",
       "date": "2026-11-15",
       "kind": "episode",
-      "sourceUrl": "https://x.com/LoveBoundOFC/status/2114356881150079278",
-      "sourceProvider": "official",
-      "checkedAt": "2026-11-02T02:06:53.183Z",
-      "needsReview": false
+      "sourceUrl": "https://x.com/KongthupsPdc/status/2119729070518804880",
+      "checkedAt": "2026-11-10T11:56:00Z",
+      "needsReview": false,
+      "sourceProvider": "official"
     },
     {
       "id": "built-in-love:ep:5",
@@ -1531,9 +1636,9 @@
       "date": "2026-11-18",
       "kind": "episode",
       "sourceUrl": "https://x.com/wabisabiTH/status/2102725466373464369",
-      "sourceProvider": "official",
       "checkedAt": "2026-11-09T04:23:54.684Z",
-      "needsReview": false
+      "needsReview": false,
+      "sourceProvider": "official"
     },
     {
       "id": "love-on-hire:ep:6",
@@ -1543,9 +1648,9 @@
       "date": "2026-11-19",
       "kind": "episode",
       "sourceUrl": "https://x.com/LoveOnHire/status/2102020024772764038",
-      "sourceProvider": "official",
       "checkedAt": "2026-11-09T04:23:54.684Z",
-      "needsReview": false
+      "needsReview": false,
+      "sourceProvider": "official"
     },
     {
       "id": "love-me-to-hurt-me:ep:3",
@@ -1555,9 +1660,9 @@
       "date": "2026-11-20",
       "kind": "episode",
       "sourceUrl": "https://x.com/TanYuyu_CH3/status/2114522401757376807",
-      "sourceProvider": "official",
       "checkedAt": "2026-11-09T04:23:54.684Z",
-      "needsReview": false
+      "needsReview": false,
+      "sourceProvider": "official"
     },
     {
       "id": "under-her-rules:ep:3",
@@ -1567,9 +1672,9 @@
       "date": "2026-11-21",
       "kind": "episode",
       "sourceUrl": "https://x.com/MGIBeyond/status/2103084608183296422",
-      "sourceProvider": "official",
       "checkedAt": "2026-11-09T04:23:54.684Z",
-      "needsReview": false
+      "needsReview": false,
+      "sourceProvider": "official"
     },
     {
       "id": "oxytoxin:ep:3",
@@ -1579,8 +1684,19 @@
       "date": "2026-11-21",
       "kind": "episode",
       "sourceUrl": "https://www.gmm-tv.com/contents/8j6dE/",
-      "sourceProvider": "official",
       "checkedAt": "2026-11-09T04:23:54.684Z",
+      "needsReview": false,
+      "sourceProvider": "official"
+    },
+    {
+      "id": "third-person:ep:10",
+      "seriesId": "third-person",
+      "episode": 10,
+      "airsAt": "2026-11-21T15:25:00Z",
+      "date": "2026-11-21",
+      "kind": "episode",
+      "sourceUrl": "https://glspotlight.com/airing?week=next",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
       "needsReview": false
     },
     {
@@ -1590,21 +1706,94 @@
       "airsAt": "2026-11-22T15:30:00Z",
       "date": "2026-11-22",
       "kind": "episode",
-      "sourceUrl": "https://x.com/KongthupsPdc/status/2118307143250305204",
-      "sourceProvider": "official",
-      "checkedAt": "2026-11-09T04:23:54.684Z",
+      "sourceUrl": "https://x.com/KongthupsPdc/status/2119729070518804880",
+      "checkedAt": "2026-11-10T11:56:00Z",
+      "needsReview": false,
+      "sourceProvider": "official"
+    },
+    {
+      "id": "built-in-love:ep:6",
+      "seriesId": "built-in-love",
+      "episode": 6,
+      "airsAt": null,
+      "date": "2026-11-25",
+      "kind": "episode",
+      "sourceUrl": "https://www.tvmaze.com/episodes/3788528/built-in-love-1x06-episode-6",
+      "sourceProvider": "tvmaze",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
+      "needsReview": false
+    },
+    {
+      "id": "love-on-hire:ep:7",
+      "seriesId": "love-on-hire",
+      "episode": 7,
+      "airsAt": null,
+      "date": "2026-11-26",
+      "kind": "episode",
+      "sourceUrl": "https://www.tvmaze.com/episodes/3780798/love-on-hire-1x07-episode-7",
+      "sourceProvider": "tvmaze",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
+      "needsReview": false
+    },
+    {
+      "id": "love-me-to-hurt-me:ep:4",
+      "seriesId": "love-me-to-hurt-me",
+      "episode": 4,
+      "airsAt": "2026-11-27T13:30:00.000Z",
+      "date": "2026-11-27",
+      "kind": "episode",
+      "sourceUrl": "https://www.tvmaze.com/episodes/3808529/love-me-to-hurt-me-1x04-episode-4",
+      "sourceProvider": "tvmaze",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
+      "needsReview": false
+    },
+    {
+      "id": "under-her-rules:ep:4",
+      "seriesId": "under-her-rules",
+      "episode": 4,
+      "airsAt": null,
+      "date": "2026-11-28",
+      "kind": "episode",
+      "sourceUrl": "https://www.tvmaze.com/episodes/3807390/under-her-rules-1x04-episode-4",
+      "sourceProvider": "tvmaze",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
+      "needsReview": false
+    },
+    {
+      "id": "oxytoxin:ep:4",
+      "seriesId": "oxytoxin",
+      "episode": 4,
+      "airsAt": "2026-11-28T14:30:00.000Z",
+      "date": "2026-11-28",
+      "kind": "episode",
+      "sourceUrl": "https://www.tvmaze.com/episodes/3794393/oxytoxin-1x04-episode-4",
+      "sourceProvider": "tvmaze",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
       "needsReview": false
     },
     {
       "id": "my-boss-i-love-you:premiere",
       "seriesId": "my-boss-i-love-you",
       "episode": null,
-      "airsAt": null,
+      "airsAt": "2026-11-28T15:30:00Z",
       "date": "2026-11-28",
       "kind": "premiere",
-      "sourceUrl": "https://glspotlight.com/series/my-boss-i-love-you",
-      "checkedAt": "2026-10-05T03:28:10.096Z",
-      "needsReview": false
+      "sourceUrl": "https://www.youtube.com/watch?v=uXpZBnvfVj8",
+      "checkedAt": "2026-11-10T11:56:00Z",
+      "needsReview": false,
+      "sourceProvider": "official"
+    },
+    {
+      "id": "love-bound:ep:4",
+      "seriesId": "love-bound",
+      "episode": 4,
+      "airsAt": "2026-11-29T15:30:00Z",
+      "date": "2026-11-29",
+      "kind": "episode",
+      "sourceUrl": "https://x.com/KongthupsPdc/status/2119729070518804880",
+      "checkedAt": "2026-11-10T11:56:00Z",
+      "needsReview": false,
+      "sourceProvider": "official"
     },
     {
       "id": "buy-my-boss:premiere",
@@ -1614,7 +1803,283 @@
       "date": "2026-12-02",
       "kind": "premiere",
       "sourceUrl": "https://www.instagram.com/frt.entertainment/p/DeD1H3bnzwE/",
-      "checkedAt": "2026-10-12T02:02:09.853Z",
+      "checkedAt": "2026-11-10T11:56:00Z",
+      "needsReview": false,
+      "sourceProvider": "official"
+    },
+    {
+      "id": "built-in-love:ep:7",
+      "seriesId": "built-in-love",
+      "episode": 7,
+      "airsAt": null,
+      "date": "2026-12-02",
+      "kind": "episode",
+      "sourceUrl": "https://www.tvmaze.com/episodes/3788529/built-in-love-1x07-episode-7",
+      "sourceProvider": "tvmaze",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
+      "needsReview": false
+    },
+    {
+      "id": "love-on-hire:ep:8",
+      "seriesId": "love-on-hire",
+      "episode": 8,
+      "airsAt": null,
+      "date": "2026-12-03",
+      "kind": "episode",
+      "sourceUrl": "https://www.tvmaze.com/episodes/3780799/love-on-hire-1x08-episode-8",
+      "sourceProvider": "tvmaze",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
+      "needsReview": false
+    },
+    {
+      "id": "love-me-to-hurt-me:ep:5",
+      "seriesId": "love-me-to-hurt-me",
+      "episode": 5,
+      "airsAt": "2026-12-04T13:30:00.000Z",
+      "date": "2026-12-04",
+      "kind": "episode",
+      "sourceUrl": "https://www.tvmaze.com/episodes/3808530/love-me-to-hurt-me-1x05-episode-5",
+      "sourceProvider": "tvmaze",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
+      "needsReview": false
+    },
+    {
+      "id": "under-her-rules:ep:5",
+      "seriesId": "under-her-rules",
+      "episode": 5,
+      "airsAt": null,
+      "date": "2026-12-05",
+      "kind": "episode",
+      "sourceUrl": "https://www.tvmaze.com/episodes/3807391/under-her-rules-1x05-episode-5",
+      "sourceProvider": "tvmaze",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
+      "needsReview": false
+    },
+    {
+      "id": "oxytoxin:ep:5",
+      "seriesId": "oxytoxin",
+      "episode": 5,
+      "airsAt": "2026-12-05T14:30:00.000Z",
+      "date": "2026-12-05",
+      "kind": "episode",
+      "sourceUrl": "https://www.tvmaze.com/episodes/3794394/oxytoxin-1x05-episode-5",
+      "sourceProvider": "tvmaze",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
+      "needsReview": false
+    },
+    {
+      "id": "love-bound:ep:5",
+      "seriesId": "love-bound",
+      "episode": 5,
+      "airsAt": "2026-12-06T15:30:00Z",
+      "date": "2026-12-06",
+      "kind": "episode",
+      "sourceUrl": "https://x.com/KongthupsPdc/status/2119729070518804880",
+      "checkedAt": "2026-11-10T11:56:00Z",
+      "needsReview": false,
+      "sourceProvider": "official"
+    },
+    {
+      "id": "built-in-love:ep:8",
+      "seriesId": "built-in-love",
+      "episode": 8,
+      "airsAt": null,
+      "date": "2026-12-09",
+      "kind": "episode",
+      "sourceUrl": "https://www.tvmaze.com/episodes/3788531/built-in-love-1x08-episode-8",
+      "sourceProvider": "tvmaze",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
+      "needsReview": false
+    },
+    {
+      "id": "love-on-hire:ep:9",
+      "seriesId": "love-on-hire",
+      "episode": 9,
+      "airsAt": null,
+      "date": "2026-12-10",
+      "kind": "episode",
+      "sourceUrl": "https://www.tvmaze.com/episodes/3780800/love-on-hire-1x09-episode-9",
+      "sourceProvider": "tvmaze",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
+      "needsReview": false
+    },
+    {
+      "id": "love-me-to-hurt-me:ep:6",
+      "seriesId": "love-me-to-hurt-me",
+      "episode": 6,
+      "airsAt": "2026-12-11T13:30:00.000Z",
+      "date": "2026-12-11",
+      "kind": "episode",
+      "sourceUrl": "https://www.tvmaze.com/episodes/3808531/love-me-to-hurt-me-1x06-episode-6",
+      "sourceProvider": "tvmaze",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
+      "needsReview": false
+    },
+    {
+      "id": "under-her-rules:ep:6",
+      "seriesId": "under-her-rules",
+      "episode": 6,
+      "airsAt": null,
+      "date": "2026-12-12",
+      "kind": "episode",
+      "sourceUrl": "https://www.tvmaze.com/episodes/3807393/under-her-rules-1x06-episode-6",
+      "sourceProvider": "tvmaze",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
+      "needsReview": false
+    },
+    {
+      "id": "oxytoxin:ep:6",
+      "seriesId": "oxytoxin",
+      "episode": 6,
+      "airsAt": "2026-12-12T14:30:00.000Z",
+      "date": "2026-12-12",
+      "kind": "episode",
+      "sourceUrl": "https://www.tvmaze.com/episodes/3794395/oxytoxin-1x06-episode-6",
+      "sourceProvider": "tvmaze",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
+      "needsReview": false
+    },
+    {
+      "id": "love-bound:ep:6",
+      "seriesId": "love-bound",
+      "episode": 6,
+      "airsAt": "2026-12-13T15:30:00Z",
+      "date": "2026-12-13",
+      "kind": "episode",
+      "sourceUrl": "https://x.com/KongthupsPdc/status/2119729070518804880",
+      "checkedAt": "2026-11-10T11:56:00Z",
+      "needsReview": false,
+      "sourceProvider": "official"
+    },
+    {
+      "id": "built-in-love:ep:9",
+      "seriesId": "built-in-love",
+      "episode": 9,
+      "airsAt": null,
+      "date": "2026-12-16",
+      "kind": "episode",
+      "sourceUrl": "https://www.tvmaze.com/episodes/3805459/built-in-love-1x09-episode-9",
+      "sourceProvider": "tvmaze",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
+      "needsReview": false
+    },
+    {
+      "id": "love-on-hire:ep:10",
+      "seriesId": "love-on-hire",
+      "episode": 10,
+      "airsAt": null,
+      "date": "2026-12-17",
+      "kind": "episode",
+      "sourceUrl": "https://www.tvmaze.com/episodes/3780801/love-on-hire-1x10-episode-10",
+      "sourceProvider": "tvmaze",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
+      "needsReview": false
+    },
+    {
+      "id": "love-me-to-hurt-me:ep:7",
+      "seriesId": "love-me-to-hurt-me",
+      "episode": 7,
+      "airsAt": "2026-12-18T13:30:00.000Z",
+      "date": "2026-12-18",
+      "kind": "episode",
+      "sourceUrl": "https://www.tvmaze.com/episodes/3808532/love-me-to-hurt-me-1x07-episode-7",
+      "sourceProvider": "tvmaze",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
+      "needsReview": false
+    },
+    {
+      "id": "under-her-rules:ep:7",
+      "seriesId": "under-her-rules",
+      "episode": 7,
+      "airsAt": null,
+      "date": "2026-12-19",
+      "kind": "episode",
+      "sourceUrl": "https://www.tvmaze.com/episodes/3807394/under-her-rules-1x07-episode-7",
+      "sourceProvider": "tvmaze",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
+      "needsReview": false
+    },
+    {
+      "id": "oxytoxin:ep:7",
+      "seriesId": "oxytoxin",
+      "episode": 7,
+      "airsAt": "2026-12-19T14:30:00.000Z",
+      "date": "2026-12-19",
+      "kind": "episode",
+      "sourceUrl": "https://www.tvmaze.com/episodes/3794396/oxytoxin-1x07-episode-7",
+      "sourceProvider": "tvmaze",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
+      "needsReview": false
+    },
+    {
+      "id": "love-bound:ep:7",
+      "seriesId": "love-bound",
+      "episode": 7,
+      "airsAt": "2026-12-20T15:30:00Z",
+      "date": "2026-12-20",
+      "kind": "episode",
+      "sourceUrl": "https://x.com/KongthupsPdc/status/2119729070518804880",
+      "checkedAt": "2026-11-10T11:56:00Z",
+      "needsReview": false,
+      "sourceProvider": "official"
+    },
+    {
+      "id": "built-in-love:ep:10",
+      "seriesId": "built-in-love",
+      "episode": 10,
+      "airsAt": null,
+      "date": "2026-12-23",
+      "kind": "episode",
+      "sourceUrl": "https://www.tvmaze.com/episodes/3805460/built-in-love-1x10-episode-10",
+      "sourceProvider": "tvmaze",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
+      "needsReview": false
+    },
+    {
+      "id": "love-me-to-hurt-me:ep:8",
+      "seriesId": "love-me-to-hurt-me",
+      "episode": 8,
+      "airsAt": "2026-12-25T13:30:00.000Z",
+      "date": "2026-12-25",
+      "kind": "episode",
+      "sourceUrl": "https://www.tvmaze.com/episodes/3808533/love-me-to-hurt-me-1x08-episode-8",
+      "sourceProvider": "tvmaze",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
+      "needsReview": false
+    },
+    {
+      "id": "under-her-rules:ep:8",
+      "seriesId": "under-her-rules",
+      "episode": 8,
+      "airsAt": null,
+      "date": "2026-12-26",
+      "kind": "episode",
+      "sourceUrl": "https://www.tvmaze.com/episodes/3807395/under-her-rules-1x08-episode-8",
+      "sourceProvider": "tvmaze",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
+      "needsReview": false
+    },
+    {
+      "id": "oxytoxin:ep:8",
+      "seriesId": "oxytoxin",
+      "episode": 8,
+      "airsAt": "2026-12-26T14:30:00.000Z",
+      "date": "2026-12-26",
+      "kind": "episode",
+      "sourceUrl": "https://www.tvmaze.com/episodes/3794397/oxytoxin-1x08-episode-8",
+      "sourceProvider": "tvmaze",
+      "checkedAt": "2026-11-10T12:16:41.234Z",
+      "needsReview": false
+    },
+    {
+      "id": "love-bound:ep:8",
+      "seriesId": "love-bound",
+      "episode": 8,
+      "airsAt": "2026-12-27T15:30:00Z",
+      "date": "2026-12-27",
+      "kind": "episode",
+      "sourceUrl": "https://x.com/KongthupsPdc/status/2119729070518804880",
+      "checkedAt": "2026-11-10T11:56:00Z",
       "needsReview": false,
       "sourceProvider": "official"
     }

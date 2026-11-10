@@ -52,7 +52,7 @@ for (const original of cpProfiles) {
   })};
   const media = mediaForCp(cp.id);
   const timeline = timelineForCp(cp, media);
-  const ids = new Set([...cp.works.map(w=>w.id), ...media.map(m=>m.workId), ...timeline.map(t=>t.workId)].filter(Boolean));
+  const ids = new Set([...cp.works.map(w=>w.id), ...(cp.upcoming || []).map(w=>w.id), ...media.map(m=>m.workId), ...timeline.map(t=>t.workId)].filter(Boolean));
   const works = [...ids].map(id=>archive.get(id)).filter(Boolean);
   const child = childForCp(cp.id);
   const sources = new Set(['assets/glfans-logo-brush.webp','assets/repo-handdrawn-heart-pink.webp',cp.image, cp.portraitFrame, cp.portraitSignature, ...cp.works.map(w=>w.image), ...works.map(w=>w.image), ...(cp.upcoming || []).map(w=>w.image), ...media.map(m=>m.image), ...cp.events.map(e=>e.image), child?.image, child?.video.image].filter(Boolean));

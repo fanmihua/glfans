@@ -127,23 +127,25 @@ function CpContent({data}) {
         <section className="cp-works" id="cp-works" ref={works} tabIndex={-1} aria-labelledby="cp-works-title">
           <div className="cp-section-heading"><h2 id="cp-works-title">{copy.works}</h2><span>OUR WORKS</span></div>
           <div className="cp-work-grid">{[...cp.works, ...(cp.upcoming || []).map(work => ({ ...work, pending: true }))].map(work => {
-            const media = work.pending ? work : { ...archiveById.get(work.id), ...work };
-            const href = work.pending ? work.source : `#/archive/${work.year}/${work.id}`;
-            const linkProps = work.pending ? { target: '_blank', rel: 'noopener noreferrer' } : {};
+            const archive = archiveById.get(work.id);
+            const media = { ...archive, ...work };
+            const external = work.pending && !archive;
+            const href = external ? work.source : `#/archive/${archive?.year || work.year}/${work.id}`;
+            const linkProps = external ? { target: '_blank', rel: 'noopener noreferrer' } : {};
             const sourceLabel = work.sourceKind === 'announcement' ? copy.openAnnouncement : copy.openPreview;
             const title = localizedWorkTitle(work, locale);
-            const imageLabel = work.imageKind === 'poster' ? copy.officialPoster : copy.previewImage;
+            const imageLabel = (archive || work.imageKind === 'poster') ? copy.officialPoster : copy.previewImage;
             return <article className={`cp-work${media.image ? '' : ' cp-work--announcement'}`} key={work.id} data-work-id={work.id}>
-              {media.image && <a className="cp-work-poster" href={href} {...linkProps} aria-label={`${title} · ${work.pending ? sourceLabel : copy.viewWork}`} tabIndex={-1}><CpImage src={media.image} sizes="(max-width: 760px) 120px, 168px" alt={work.pending ? `${title} · ${imageLabel}` : title} loading="lazy" width={media.width} height={media.height} style={{ objectPosition: media.focus || '50% 32%', objectFit: work.imageFit || 'cover' }} /></a>}
+              {media.image && <a className="cp-work-poster" href={href} {...linkProps} aria-label={`${title} · ${external ? sourceLabel : copy.viewWork}`} tabIndex={-1}><CpImage src={media.image} sizes="(max-width: 760px) 120px, 168px" alt={work.pending ? `${title} · ${imageLabel}` : title} loading="lazy" width={media.width} height={media.height} style={{ objectPosition: media.focus || '50% 32%', objectFit: work.imageFit || 'cover' }} /></a>}
               <div className="cp-work-info"><a className="cp-work-title" href={href} {...linkProps}>{title}<ArrowUpRight size={22} /></a>
-                <p className="cp-work-meta">{work.year}<span>{work.pending ? copy[work.status || 'upcoming'] : copy[work.relationship] || (work.ensemble ? copy.ensemble : copy.pair)}</span></p>
+                <p className="cp-work-meta">{work.year || archive?.year}<span>{work.pending ? copy[work.status || 'upcoming'] : copy[work.relationship] || (work.ensemble ? copy.ensemble : copy.pair)}</span></p>
                 {work.cast?.length > 0 && <p className="cp-work-note">{work.cast.map(person => `${person.actor} · ${person.role}`).join(' / ')}</p>}
                 {work.pending && work.ensemble && <CpRelatedLinks seriesId={work.id} />}
                 {work.storyNote && <p className="cp-work-note">{work.storyNote[locale]}</p>}
                 {!work.cast && work.roles?.length > 0 && <p className="cp-work-note">{work.roles.join(' / ')}</p>}
                 {work.imageCaption && <p className="cp-work-note">{work.imageCaption[locale]}</p>}
                 {work.pending ? <p className="cp-work-note">{work.sourceKind === 'announcement' ? copy.officialAnnouncement : imageLabel} · {work.publisher}</p> : null}
-                <div className="cp-work-actions">{work.pending ? <External className="cp-work-action" href={work.source}>{sourceLabel}<ArrowUpRight size={16} /></External> : <>
+                <div className="cp-work-actions">{work.pending && archive && <a className="cp-work-action" href={href}>{copy.archive}<ArrowRight size={16} /></a>}{work.pending ? <External className="cp-work-action" href={work.source}>{sourceLabel}<ArrowUpRight size={16} /></External> : <>
                   <a className="cp-work-action" href={href}>{copy.archive}<ArrowRight size={16} /></a>
                   <button type="button" className="cp-calendar-link" aria-haspopup="dialog" onClick={event => openCalendar(event, [work], title)}><CalendarBlank size={18} />{copy.calendar}</button>
                 </>}</div>

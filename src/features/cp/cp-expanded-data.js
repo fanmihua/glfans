@@ -15,7 +15,7 @@ export const expandedPairDefinitions = [
   ['faymay', ['Fay','May'], ['my-marvellous-dream-is-you','somewhere-somehow']],
   ['andalookkaew', ['Anda','Lookkaew'], ['love-senior']],
   ['bminenear', ['B Mine','Near'], ['lucky-my-love','unlock-your-love']],
-  ['ormsinfolk', ['Ormsin','Folk'], ['apple-my-love','my-lady-s-bodyguard']],
+  ['ormsinfolk', ['Ormsin','Folk'], ['apple-my-love','my-lady-s-bodyguard','love-bound']],
   ['christinemae', ['Christine','Mae'], ['reverse-4-you']],
   ['graceoaey', ['Grace','Oaey'], ['mate']],
   ['enjoyjune', ['Enjoy','June'], ['denied-love']],

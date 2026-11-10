@@ -106,9 +106,9 @@ test('upcoming projects use real official previews or explicit announcements wit
   for (const cp of cpProfiles) for (const work of cp.upcoming || []) {
     assert.ok(work.publisher);
     if (work.sourceKind === 'announcement') {
-      assert.equal(work.image, undefined, work.id);
       assert.ok(['www.gmm-tv.com', 'x.com'].includes(new URL(work.source).hostname));
-      continue;
+      if (!work.image) continue;
+      assert.equal(work.imageKind, 'poster', work.id);
     }
     assert.ok(existsSync(new URL(`../public/${work.image}`, import.meta.url)), work.id);
     assert.equal(new URL(work.imageSource).hostname, work.imageKind === 'poster' ? 'pbs.twimg.com' : 'i.ytimg.com');

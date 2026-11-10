@@ -8,7 +8,7 @@ import { useMobileLayout } from "./hooks/useMobileLayout.js";
 import { SiteHeader } from "./SiteHeader.jsx";
 import { archiveYearList } from "./data/archive-dramas.js";
 import { useArchiveSelection } from "./features/archive/useArchiveSelection.js";
-import { formatArchiveDate, formatArchiveRange } from "./features/archive/archive-format.js";
+import { formatArchivePremiere, formatArchiveRange } from "./features/archive/archive-format.js";
 import "./archive-year-page.css";
 import { ArchiveSearch } from "./features/archive/ArchiveSearch.jsx";
 import { CpRelatedLinks } from './features/cp/CpRelatedLinks.jsx';
@@ -188,13 +188,13 @@ export function ArchiveYearPage({ year, eventId, onOpenCalendar }) {
   );
   const summary = hasArchiveEvents && (
     <aside className="archive-year-summary" aria-live="polite">
-      <time dateTime={selectedEvent.startDate}>{t(formatArchiveRange(selectedEvent))}</time>
+      <time dateTime={selectedEvent.startDate || undefined}>{t(formatArchiveRange(selectedEvent))}</time>
       <h2>{seriesName(selectedEvent, getLocale())}</h2>
       <small className="archive-year-original-title">{t(selectedEvent.titleEn)}</small>
       <dl className="archive-year-facts">
-        <div><dt>{t("播出")}</dt><dd>{t(selectedEvent.weekday)} · {t(selectedEvent.status)}</dd></div>
+        <div><dt>{t("播出")}</dt><dd>{selectedEvent.weekday && <>{t(selectedEvent.weekday)} · </>}{t(selectedEvent.status)}</dd></div>
         <div><dt>{t(selectedEvent.episodeUnit === 'part' ? '分段数' : '集数')}</dt><dd>{t(selectedEvent.factReview?.fields.includes('episodes') ? '待核实' : selectedEvent.episodeUnit === 'part' ? `${selectedEvent.parts} 个分段` : selectedEvent.episodes ? `${selectedEvent.episodes} 集` : "待公布")}</dd></div>
-        <div><dt>{t("平台")}</dt><dd>{t(selectedEvent.platforms.join(" / ") || selectedEvent.company || "待公布")}</dd></div>
+        <div><dt>{t("平台")}</dt><dd>{t(selectedEvent.platforms.join(" / ") || (selectedEvent.startDate && selectedEvent.company) || "待公布")}</dd></div>
       </dl>
       <div className="archive-year-cast">
         <span>{t("主演")}</span>
@@ -204,7 +204,8 @@ export function ArchiveYearPage({ year, eventId, onOpenCalendar }) {
       <p>{t(selectedEvent.summary)}</p>
       {selectedEvent.airingNote && <p>{t(selectedEvent.airingNote)}</p>}
       <CpRelatedLinks seriesId={selectedEvent.id} />
-      <button className="archive-series-calendar" type="button" aria-haspopup="dialog" onClick={event => onOpenCalendar(event, { ids: [selectedEvent.id], label: seriesName(selectedEvent, getLocale()) })}><CalendarBlank size={18} />{t('查看播出日历')}<ArrowRight size={16} /></button>
+      {selectedEvent.releaseWindowSource && <a className="archive-series-calendar" href={selectedEvent.releaseWindowSource} target="_blank" rel="noreferrer">{t('查看档期来源')}<ArrowRight size={16} /></a>}
+      {selectedEvent.startDate && <button className="archive-series-calendar" type="button" aria-haspopup="dialog" onClick={event => onOpenCalendar(event, { ids: [selectedEvent.id], label: seriesName(selectedEvent, getLocale()) })}><CalendarBlank size={18} />{t('查看播出日历')}<ArrowRight size={16} /></button>}
       <img src={withBase("assets/repo-handdrawn-heart-pink.webp")} alt="" aria-hidden="true" data-page-critical="true" />
     </aside>
   );
@@ -308,7 +309,7 @@ export function ArchiveYearPage({ year, eventId, onOpenCalendar }) {
                     filmDragRef.current.moved = false;
                   }}
                   aria-pressed={selectedEvent.id === event.id}
-                  aria-label={`${t(formatArchiveDate(event.startDate))} ${seriesName(event, getLocale())}`}
+                  aria-label={`${t(formatArchivePremiere(event))} ${seriesName(event, getLocale())}`}
                   data-event-id={event.id}
                   key={event.id}
                 >
@@ -324,7 +325,7 @@ export function ArchiveYearPage({ year, eventId, onOpenCalendar }) {
                     fetchPriority={selectedEvent.id === event.id ? "high" : "low"}
                   />
                   <span>
-                    <time>{t(formatArchiveDate(event.startDate))}</time>
+                    <time>{t(formatArchivePremiere(event))}</time>
                     <b>{seriesName(event, getLocale())}</b>
                   </span>
                 </button>

@@ -1,6 +1,6 @@
 {
   "policyVersion": "2026-09-02",
-  "generatedAt": "2026-09-30T08:55:52.548Z",
+  "generatedAt": "2026-11-10T12:05:37.048Z",
   "feedbackUrl": "https://github.com/fanmihua/glfans/issues/new?template=rights-feedback.yml",
   "statusDefinitions": {
     "source-audit-required": "公开前仍需核对原始来源、权利主体与使用边界；默认关闭下载。",
@@ -8,12 +8,12 @@
     "user-authorized-design": "用户已明确选择并授权用于本站的设计装饰；不自动开放下载或第三方复用。"
   },
   "summary": {
-    "total": 407,
+    "total": 409,
     "home": 7,
     "articleImages": 135,
     "memes": 124,
     "radioTracks": 12,
-    "cpImages": 128,
+    "cpImages": 130,
     "aboutImages": 1
   },
   "assets": [
@@ -6024,6 +6024,38 @@
       "useBasis": "user-selected-figma-brand-decoration",
       "publicDownload": false,
       "checkedAt": "2026-10-29"
+    },
+    {
+      "id": "cp-media:janjingjing:assets/cp/married-to-my-enemy.webp",
+      "path": "assets/cp/married-to-my-enemy.webp",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "janjingjing",
+        "title": "Married to My Enemy"
+      },
+      "sourceUrl": "https://x.com/iQIYI_Thailand/status/2118308858385113110",
+      "sourceImageUrl": "https://pbs.twimg.com/media/HWW8mf8bMAI1sVv.jpg?name=orig",
+      "rightsHolder": "iQIYI Thailand",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
+    },
+    {
+      "id": "cp-media:fayeatom:assets/cp/love-in-the-fast-lane.webp",
+      "path": "assets/cp/love-in-the-fast-lane.webp",
+      "category": "official-editorial-image",
+      "context": {
+        "kind": "cp",
+        "slug": "fayeatom",
+        "title": "Love in the Fast Lane"
+      },
+      "sourceUrl": "https://x.com/iQIYI_Thailand/status/2118317276843905195",
+      "sourceImageUrl": "https://pbs.twimg.com/media/HWXGVWKbEAAz40A.jpg?name=orig",
+      "rightsHolder": "iQIYI Thailand",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-reference-with-official-source",
+      "publicDownload": false
     }
   ]
 }
